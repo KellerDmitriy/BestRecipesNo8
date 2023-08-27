@@ -17,8 +17,8 @@ class OnboardingViewController: UIViewController {
     }()
     
     private lazy var getStartedButton: CustomButton = {
-        let button = CustomButton(customTitle: "Get Started")
-        button.addTarget(self, action: #selector(getStartedButtonPressed), for: .touchUpInside)
+        let getStartedButton = CustomButton(customTitle: "Get Started")
+        getStartedButton.addTarget(self, action: #selector(getStartedButtonPressed), for: .touchUpInside)
         return getStartedButton
     }()
     
