@@ -1,5 +1,5 @@
 //
-//  Colors.swift
+//  Colors + Extension.swift
 //  BestRecipesNo8
 //
 //  Created by Келлер Дмитрий on 27.08.2023.
