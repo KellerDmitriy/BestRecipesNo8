@@ -28,6 +28,8 @@
 		E116759B2A9BF55B00C6ED88 /* UIFont + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont + Extension.swift"; sourceTree = "<group>"; };
 		E116759D2A9BF56200C6ED88 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		E11675A12A9BF5E100C6ED88 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		E11675A72A9BFECA00C6ED88 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		E11675A82A9BFECA00C6ED88 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		E1C978E32A9B5A09003BDC4A /* BestRecipesNo8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BestRecipesNo8.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1C978E62A9B5A09003BDC4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1C978E82A9B5A09003BDC4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +81,8 @@
 		E116759F2A9BF58600C6ED88 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				E11675A82A9BFECA00C6ED88 /* Poppins-Regular.ttf */,
+				E11675A72A9BFECA00C6ED88 /* Poppins-SemiBold.ttf */,
 				E11675A12A9BF5E100C6ED88 /* Poppins-Bold.ttf */,
 			);
 			path = Fonts;
@@ -91,6 +95,45 @@
 				E1C978EF2A9B5A09003BDC4A /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		E11675A22A9BFC6B00C6ED88 /* HomeModule */ = {
+			isa = PBXGroup;
+			children = (
+				E11675A32A9BFC6B00C6ED88 /* Routers */,
+				E11675A42A9BFC6B00C6ED88 /* Presenters */,
+				E11675A52A9BFC6B00C6ED88 /* Bilders */,
+				E11675A62A9BFC6B00C6ED88 /* Views */,
+			);
+			path = HomeModule;
+			sourceTree = "<group>";
+		};
+		E11675A32A9BFC6B00C6ED88 /* Routers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Routers;
+			sourceTree = "<group>";
+		};
+		E11675A42A9BFC6B00C6ED88 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
+		E11675A52A9BFC6B00C6ED88 /* Bilders */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Bilders;
+			sourceTree = "<group>";
+		};
+		E11675A62A9BFC6B00C6ED88 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		E1C978DA2A9B5A09003BDC4A = {
@@ -142,49 +185,10 @@
 			path = OnboardingVController;
 			sourceTree = "<group>";
 		};
-		E1C978FC2A9B5CAF003BDC4A /* HomeModule */ = {
-			isa = PBXGroup;
-			children = (
-				E1C979032A9B7403003BDC4A /* Views */,
-				E1C979022A9B73F7003BDC4A /* Presenters */,
-				E1C979012A9B73EB003BDC4A /* Bilders */,
-				E1C979002A9B73DB003BDC4A /* Routers */,
-			);
-			path = HomeModule;
-			sourceTree = "<group>";
-		};
-		E1C979002A9B73DB003BDC4A /* Routers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Routers;
-			sourceTree = "<group>";
-		};
-		E1C979012A9B73EB003BDC4A /* Bilders */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Bilders;
-			sourceTree = "<group>";
-		};
-		E1C979022A9B73F7003BDC4A /* Presenters */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Presenters;
-			sourceTree = "<group>";
-		};
-		E1C979032A9B7403003BDC4A /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		E1C979042A9B7EC9003BDC4A /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				E1C978FC2A9B5CAF003BDC4A /* HomeModule */,
+				E11675A22A9BFC6B00C6ED88 /* HomeModule */,
 			);
 			path = Modules;
 			sourceTree = "<group>";

@@ -31,7 +31,7 @@ class CustomButton: UIButton {
 
     self.setTitleColor(.whiteColor, for: .normal)
     self.setTitle(customTitle, for: .normal)
-      self.titleLabel?.font = .regular16
+      self.titleLabel?.font = .poppinsRegular(size: 16)
 
 
     self.translatesAutoresizingMaskIntoConstraints = false
