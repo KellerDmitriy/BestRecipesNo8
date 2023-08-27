@@ -9,18 +9,18 @@
 /* Begin PBXBuildFile section */
 		E1C978E72A9B5A09003BDC4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C978E62A9B5A09003BDC4A /* AppDelegate.swift */; };
 		E1C978E92A9B5A09003BDC4A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C978E82A9B5A09003BDC4A /* SceneDelegate.swift */; };
-		E1C978EB2A9B5A09003BDC4A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C978EA2A9B5A09003BDC4A /* ViewController.swift */; };
-		E1C978EE2A9B5A09003BDC4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1C978EC2A9B5A09003BDC4A /* Main.storyboard */; };
+		E1C978EB2A9B5A09003BDC4A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C978EA2A9B5A09003BDC4A /* OnboardingViewController.swift */; };
 		E1C978F02A9B5A09003BDC4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1C978EF2A9B5A09003BDC4A /* Assets.xcassets */; };
 		E1C978F32A9B5A09003BDC4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1C978F12A9B5A09003BDC4A /* LaunchScreen.storyboard */; };
+		E1C978FF2A9B7274003BDC4A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E1C978FE2A9B7274003BDC4A /* SnapKit */; };
+		E1C979072A9B83CC003BDC4A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E1C979062A9B83CC003BDC4A /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E1C978E32A9B5A09003BDC4A /* BestRecipesNo8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BestRecipesNo8.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1C978E62A9B5A09003BDC4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1C978E82A9B5A09003BDC4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E1C978EA2A9B5A09003BDC4A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E1C978ED2A9B5A09003BDC4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E1C978EA2A9B5A09003BDC4A /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		E1C978EF2A9B5A09003BDC4A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1C978F22A9B5A09003BDC4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1C978F42A9B5A09003BDC4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -31,6 +31,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1C979072A9B83CC003BDC4A /* Kingfisher in Frameworks */,
+				E1C978FF2A9B7274003BDC4A /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,15 +58,78 @@
 		E1C978E52A9B5A09003BDC4A /* BestRecipesNo8 */ = {
 			isa = PBXGroup;
 			children = (
-				E1C978E62A9B5A09003BDC4A /* AppDelegate.swift */,
-				E1C978E82A9B5A09003BDC4A /* SceneDelegate.swift */,
-				E1C978EA2A9B5A09003BDC4A /* ViewController.swift */,
-				E1C978EC2A9B5A09003BDC4A /* Main.storyboard */,
+				E1C978FB2A9B5C67003BDC4A /* OnboardingVController */,
+				E1C979042A9B7EC9003BDC4A /* Modules */,
+				E1C978FA2A9B5AC2003BDC4A /* App */,
 				E1C978EF2A9B5A09003BDC4A /* Assets.xcassets */,
 				E1C978F12A9B5A09003BDC4A /* LaunchScreen.storyboard */,
 				E1C978F42A9B5A09003BDC4A /* Info.plist */,
 			);
 			path = BestRecipesNo8;
+			sourceTree = "<group>";
+		};
+		E1C978FA2A9B5AC2003BDC4A /* App */ = {
+			isa = PBXGroup;
+			children = (
+				E1C978E62A9B5A09003BDC4A /* AppDelegate.swift */,
+				E1C978E82A9B5A09003BDC4A /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		E1C978FB2A9B5C67003BDC4A /* OnboardingVController */ = {
+			isa = PBXGroup;
+			children = (
+				E1C978EA2A9B5A09003BDC4A /* OnboardingViewController.swift */,
+			);
+			path = OnboardingVController;
+			sourceTree = "<group>";
+		};
+		E1C978FC2A9B5CAF003BDC4A /* HomeModule */ = {
+			isa = PBXGroup;
+			children = (
+				E1C979032A9B7403003BDC4A /* Views */,
+				E1C979022A9B73F7003BDC4A /* Presenters */,
+				E1C979012A9B73EB003BDC4A /* Bilders */,
+				E1C979002A9B73DB003BDC4A /* Routers */,
+			);
+			path = HomeModule;
+			sourceTree = "<group>";
+		};
+		E1C979002A9B73DB003BDC4A /* Routers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Routers;
+			sourceTree = "<group>";
+		};
+		E1C979012A9B73EB003BDC4A /* Bilders */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Bilders;
+			sourceTree = "<group>";
+		};
+		E1C979022A9B73F7003BDC4A /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
+		E1C979032A9B7403003BDC4A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E1C979042A9B7EC9003BDC4A /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				E1C978FC2A9B5CAF003BDC4A /* HomeModule */,
+			);
+			path = Modules;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +148,10 @@
 			dependencies = (
 			);
 			name = BestRecipesNo8;
+			packageProductDependencies = (
+				E1C978FE2A9B7274003BDC4A /* SnapKit */,
+				E1C979062A9B83CC003BDC4A /* Kingfisher */,
+			);
 			productName = BestRecipesNo8;
 			productReference = E1C978E32A9B5A09003BDC4A /* BestRecipesNo8.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +180,10 @@
 				Base,
 			);
 			mainGroup = E1C978DA2A9B5A09003BDC4A;
+			packageReferences = (
+				E1C978FD2A9B7274003BDC4A /* XCRemoteSwiftPackageReference "SnapKit" */,
+				E1C979052A9B83CC003BDC4A /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = E1C978E42A9B5A09003BDC4A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,7 +200,6 @@
 			files = (
 				E1C978F32A9B5A09003BDC4A /* LaunchScreen.storyboard in Resources */,
 				E1C978F02A9B5A09003BDC4A /* Assets.xcassets in Resources */,
-				E1C978EE2A9B5A09003BDC4A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,7 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1C978EB2A9B5A09003BDC4A /* ViewController.swift in Sources */,
+				E1C978EB2A9B5A09003BDC4A /* OnboardingViewController.swift in Sources */,
 				E1C978E72A9B5A09003BDC4A /* AppDelegate.swift in Sources */,
 				E1C978E92A9B5A09003BDC4A /* SceneDelegate.swift in Sources */,
 			);
@@ -147,14 +219,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E1C978EC2A9B5A09003BDC4A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E1C978ED2A9B5A09003BDC4A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E1C978F12A9B5A09003BDC4A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -216,7 +280,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -270,7 +334,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -292,9 +356,8 @@
 				INFOPLIST_FILE = BestRecipesNo8/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,9 +365,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = keller.BestRecipesNo8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -320,9 +386,8 @@
 				INFOPLIST_FILE = BestRecipesNo8/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -330,9 +395,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = keller.BestRecipesNo8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -358,6 +426,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E1C978FD2A9B7274003BDC4A /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		E1C979052A9B83CC003BDC4A /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E1C978FE2A9B7274003BDC4A /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1C978FD2A9B7274003BDC4A /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		E1C979062A9B83CC003BDC4A /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1C979052A9B83CC003BDC4A /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E1C978DB2A9B5A09003BDC4A /* Project object */;
 }
