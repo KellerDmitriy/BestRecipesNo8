@@ -27,6 +27,9 @@
 		E11675B92A9C847F00C6ED88 /* StartViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11675B82A9C847F00C6ED88 /* StartViewOutput.swift */; };
 		E11675BB2A9C849400C6ED88 /* StartViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11675BA2A9C849400C6ED88 /* StartViewInput.swift */; };
 		E11675BE2A9C87B700C6ED88 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11675BD2A9C87B700C6ED88 /* SettingsManager.swift */; };
+		E1ABBEAB2A9DEDB50021E624 /* OnboardingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ABBEAA2A9DEDB50021E624 /* OnboardingConstants.swift */; };
+		E1ABBEAD2A9DEFF70021E624 /* UIImage + TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ABBEAC2A9DEFF70021E624 /* UIImage + TabBar.swift */; };
+		E1ABBEB02A9E09830021E624 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ABBEAF2A9E09830021E624 /* CustomPageControl.swift */; };
 		E1C978E72A9B5A09003BDC4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C978E62A9B5A09003BDC4A /* AppDelegate.swift */; };
 		E1C978E92A9B5A09003BDC4A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C978E82A9B5A09003BDC4A /* SceneDelegate.swift */; };
 		E1C978EB2A9B5A09003BDC4A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C978EA2A9B5A09003BDC4A /* OnboardingViewController.swift */; };
@@ -50,7 +53,6 @@
 		E116759B2A9BF55B00C6ED88 /* UIFont + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont + Extension.swift"; sourceTree = "<group>"; };
 		E116759D2A9BF56200C6ED88 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		E11675A12A9BF5E100C6ED88 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
-		E11675A72A9BFECA00C6ED88 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		E11675A82A9BFECA00C6ED88 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		E11675AE2A9C838300C6ED88 /* StartPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPresenter.swift; sourceTree = "<group>"; };
 		E11675B02A9C83E700C6ED88 /* StartRouterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRouterInput.swift; sourceTree = "<group>"; };
@@ -60,6 +62,9 @@
 		E11675B82A9C847F00C6ED88 /* StartViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewOutput.swift; sourceTree = "<group>"; };
 		E11675BA2A9C849400C6ED88 /* StartViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewInput.swift; sourceTree = "<group>"; };
 		E11675BD2A9C87B700C6ED88 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		E1ABBEAA2A9DEDB50021E624 /* OnboardingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingConstants.swift; sourceTree = "<group>"; };
+		E1ABBEAC2A9DEFF70021E624 /* UIImage + TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + TabBar.swift"; sourceTree = "<group>"; };
+		E1ABBEAF2A9E09830021E624 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		E1C978E32A9B5A09003BDC4A /* BestRecipesNo8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BestRecipesNo8.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1C978E62A9B5A09003BDC4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1C978E82A9B5A09003BDC4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -124,7 +129,7 @@
 			children = (
 				E11675992A9BF55300C6ED88 /* Colors + Extension.swift */,
 				E116759B2A9BF55B00C6ED88 /* UIFont + Extension.swift */,
-				E116759D2A9BF56200C6ED88 /* CustomButton.swift */,
+				E1ABBEAC2A9DEFF70021E624 /* UIImage + TabBar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -133,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				E11675A82A9BFECA00C6ED88 /* Poppins-Regular.ttf */,
-				E11675A72A9BFECA00C6ED88 /* Poppins-SemiBold.ttf */,
 				E11675A12A9BF5E100C6ED88 /* Poppins-Bold.ttf */,
 			);
 			path = Fonts;
@@ -142,6 +146,7 @@
 		E11675A02A9BF59B00C6ED88 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E1ABBEAE2A9E09570021E624 /* CustomUI */,
 				E116759F2A9BF58600C6ED88 /* Fonts */,
 				E1C978EF2A9B5A09003BDC4A /* Assets.xcassets */,
 			);
@@ -241,6 +246,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		E1ABBEAE2A9E09570021E624 /* CustomUI */ = {
+			isa = PBXGroup;
+			children = (
+				E116759D2A9BF56200C6ED88 /* CustomButton.swift */,
+			);
+			path = CustomUI;
+			sourceTree = "<group>";
+		};
 		E1C978DA2A9B5A09003BDC4A = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +302,8 @@
 			isa = PBXGroup;
 			children = (
 				E1C978EA2A9B5A09003BDC4A /* OnboardingViewController.swift */,
+				E1ABBEAA2A9DEDB50021E624 /* OnboardingConstants.swift */,
+				E1ABBEAF2A9E09830021E624 /* CustomPageControl.swift */,
 			);
 			path = OnboardingVController;
 			sourceTree = "<group>";
@@ -381,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				283A2D5F2A9D336400A70257 /* NetworkManager.swift in Sources */,
+				E1ABBEAD2A9DEFF70021E624 /* UIImage + TabBar.swift in Sources */,
 				E1C978EB2A9B5A09003BDC4A /* OnboardingViewController.swift in Sources */,
 				E116759A2A9BF55300C6ED88 /* Colors + Extension.swift in Sources */,
 				E11675B52A9C843800C6ED88 /* StartBuilder.swift in Sources */,
@@ -389,6 +405,7 @@
 				E116755E2A9BBA5000C6ED88 /* Router.swift in Sources */,
 				E11675B72A9C845E00C6ED88 /* StartView.swift in Sources */,
 				E11675B32A9C840500C6ED88 /* StartViewRouter.swift in Sources */,
+				E1ABBEAB2A9DEDB50021E624 /* OnboardingConstants.swift in Sources */,
 				E11675B12A9C83E700C6ED88 /* StartRouterInput.swift in Sources */,
 				E11675BB2A9C849400C6ED88 /* StartViewInput.swift in Sources */,
 				283A2D642A9D33A200A70257 /* Constants.swift in Sources */,
@@ -403,6 +420,7 @@
 				283A2D682A9D33C600A70257 /* SearchRecipe.swift in Sources */,
 				283A2D662A9D33B400A70257 /* RandomRecipe.swift in Sources */,
 				E11675AF2A9C838300C6ED88 /* StartPresenter.swift in Sources */,
+				E1ABBEB02A9E09830021E624 /* CustomPageControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
