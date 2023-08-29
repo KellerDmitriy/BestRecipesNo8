@@ -26,14 +26,12 @@ class CustomButton: UIButton {
     }
 
   private func setupButton() {
-    self.layer.cornerRadius = 10
+    self.layer.cornerRadius = 20
     self.backgroundColor = .primaryColor
 
     self.setTitleColor(.whiteColor, for: .normal)
     self.setTitle(customTitle, for: .normal)
       self.titleLabel?.font = .poppinsRegular(size: 16)
-
-
     self.translatesAutoresizingMaskIntoConstraints = false
     }
 }
