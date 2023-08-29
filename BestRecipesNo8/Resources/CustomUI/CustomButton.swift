@@ -13,7 +13,7 @@ class CustomButton: UIButton {
             setTitle(customTitle, for: .normal)
         }
     }
-
+    
     init(customTitle: String) {
         super.init(frame: .zero)
         self.customTitle = customTitle
