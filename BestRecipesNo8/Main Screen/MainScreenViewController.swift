@@ -28,12 +28,17 @@ final class MainScreenViewController: UIViewController {
         return searchField
     }()
     
-    private lazy var recipesCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .red
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        return collectionView
+    private lazy var recipesTableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
+        tableView.showsVerticalScrollIndicator = false
+        tableView.register(TrendingCollectionTableViewCell.self, forCellReuseIdentifier: TrendingCollectionTableViewCell.reuseIdentifier)
+        tableView.register(PopularCategoryTableViewCell.self, forCellReuseIdentifier: PopularCategoryTableViewCell.reuseIdentifier)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
     
     //MARK: - LifeCyle
@@ -41,7 +46,7 @@ final class MainScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setupLayout() 
+        setupLayout()
     }
     
     //MARK: - Methods
@@ -50,7 +55,7 @@ final class MainScreenViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(titleLabel)
         view.addSubview(recipeSearchField)
-        view.addSubview(recipesCollectionView)
+        view.addSubview(recipesTableView)
     }
     
     private func setupLayout() {
@@ -64,10 +69,59 @@ final class MainScreenViewController: UIViewController {
             recipeSearchField.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
             recipeSearchField.heightAnchor.constraint(equalToConstant: 44),
             
-            recipesCollectionView.topAnchor.constraint(equalTo: recipeSearchField.bottomAnchor, constant: 12),
-            recipesCollectionView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            recipesCollectionView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            recipesCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            recipesTableView.topAnchor.constraint(equalTo: recipeSearchField.bottomAnchor, constant: 12),
+            recipesTableView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            recipesTableView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            recipesTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+
         ])
     }
+}
+
+//MARK: UITableViewDelegate & UITableViewDataSource
+
+extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TrendingCollectionTableViewCell.reuseIdentifier, for: indexPath) as?  TrendingCollectionTableViewCell else { return UITableViewCell() }
+            return cell
+        } else if indexPath.section == 1 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PopularCategoryTableViewCell.reuseIdentifier, for: indexPath) as?  PopularCategoryTableViewCell else { return UITableViewCell() }
+            return cell
+        }
+        return UITableViewCell()
+        
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = TrendingNowView()
+        return headerView
+    }
+    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        3
+//    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0:
+            return 300
+        case 1:
+            return 300
+        case 2:
+            return 300
+        default:
+            return 300
+        }
+    }
+    
+    
 }
