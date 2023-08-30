@@ -27,6 +27,7 @@ final class TrendingNowView: UIView {
             config.imagePlacement = .trailing
             config.baseForegroundColor = .orange
         button.configuration = config
+        button.setTitleColor(.black, for: .normal)
         
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
