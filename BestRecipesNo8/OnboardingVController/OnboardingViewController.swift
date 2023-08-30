@@ -12,7 +12,7 @@ class OnboardingViewController: UIViewController {
     
     let defaults = UserDefaults.standard
     
-    //MARK: - UI
+    // MARK: - Properties
     
     lazy var nextButton: CustomButton = {
         let startButton = CustomButton(customTitle: "Get Started")
@@ -27,25 +27,28 @@ class OnboardingViewController: UIViewController {
         scrollView.delegate = self
         scrollView.contentSize = CGSize(
             width: Double(Int(view.bounds.width) * background.count),
-            height: 360
+            height: 400
         )
         return scrollView
     }()
     
     
     lazy var onboardingPageControl: UIPageControl = {
-        let page = UIPageControl()
-        page.numberOfPages = 3
-        page.currentPage = 0
-        page.backgroundStyle = .minimal
-
-        let selectedImage = UIImage(systemName: "RectangleSelect")?.withTintColor(page.currentPageIndicatorTintColor ?? .primaryColor, renderingMode: .alwaysTemplate)
-        let deselectedImage = UIImage(systemName: "Rectangle")?.withTintColor(page.pageIndicatorTintColor ?? .threeRDColor, renderingMode: .alwaysTemplate)
-        page.setIndicatorImage(selectedImage, forPage: page.currentPage)
-        page.setIndicatorImage(deselectedImage, forPage: page.currentPage + 1)
-        page.translatesAutoresizingMaskIntoConstraints = false
-        page.isUserInteractionEnabled = true
-        return page
+        let pageControl = UIPageControl()
+        pageControl.numberOfPages = background.count
+        //        pageControl.currentPageIndicatorTintColor = .primaryColor
+        //        pageControl.pageIndicatorTintColor = .neutralColor
+        
+        let selectedImage = UIImage(systemName: "RectangleSelect")
+        
+        let deselectedImage = UIImage(systemName: "Rectangle")
+        
+        pageControl.setIndicatorImage(selectedImage, forPage: pageControl.currentPage)
+        pageControl.setIndicatorImage(deselectedImage, forPage: pageControl.currentPage + 1)
+        pageControl.addTarget(self, action: #selector(pageControlDidChange), for: .valueChanged)
+        pageControl.allowsContinuousInteraction = true
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        return pageControl
     }()
     
     lazy var onboardingImageViewArray: [UIImageView] = {
@@ -81,20 +84,26 @@ class OnboardingViewController: UIViewController {
     private var background = [
         OnboardingConstants.Image.first.getImage,
         OnboardingConstants.Image.second.getImage,
-        OnboardingConstants.Image.third.getImage,
-        OnboardingConstants.Image.fourth.getImage
+        OnboardingConstants.Image.third.getImage
     ]
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setConstraints()
+        setupHierarchy()
         
         let tabBarC = self.tabBarController?.tabBar
         tabBarC?.isHidden = true
         navigationController?.navigationBar.isHidden = true
     }
     
-    //MARK: - Target Actions
+    //MARK: - Private Methods
+    private func onboardingScrollViewsAddSubviews() {
+        for i in 0..<onboardingImageViewArray.count {
+            onboardingScrollView.addSubview(onboardingImageViewArray[i])
+            onboardingImageViewArray[i].frame = CGRect(x: Int(view.bounds.width) * i, y: 0, width: Int(view.bounds.width), height: Int(view.bounds.height))
+        }
+    }
     
     @objc private func pageControlDidChange() {
         let offsetX = view.bounds.width * CGFloat(onboardingPageControl.currentPage)
@@ -114,22 +123,14 @@ class OnboardingViewController: UIViewController {
         //        navigationController?.pushViewController( Builder.getSignInModule(), animated: true)
     }
     
-    //MARK: - Layout
+    // MARK: - Hierarchy
     
-    private func setConstraints() {
+    private func setupHierarchy() {
         addSubViews()
         makeConstraints()
         onboardingScrollViewsAddSubviews()
     }
-    
-    private func onboardingScrollViewsAddSubviews() {
-        for i in 0..<onboardingImageViewArray.count {
-            onboardingScrollView.addSubview(onboardingImageViewArray[i])
-            onboardingImageViewArray[i].frame = CGRect(x: view.bounds.width * CGFloat(i), y: 0, width: view.bounds.width, height: view.bounds.height)
-        }
-    }
-    }
-
+}
 //MARK: - UIScrollViewDelegate
 
 extension OnboardingViewController: UIScrollViewDelegate {
@@ -138,7 +139,7 @@ extension OnboardingViewController: UIScrollViewDelegate {
         
         switch onboardingPageControl.currentPage {
         case 0:
-            nextButton.setTitle("Get Started", for: .normal)
+            nextButton.setTitle("Continue", for: .normal)
             nextButton.addTarget(self, action: #selector(nextPage), for: .touchUpInside)
             subtitle1.text = OnboardingConstants.Subtitle1.first.getTitle
             titleLabel.text = OnboardingConstants.Title.first.getTitle
@@ -149,12 +150,6 @@ extension OnboardingViewController: UIScrollViewDelegate {
             subtitle1.text = OnboardingConstants.Subtitle1.second.getTitle
             titleLabel.text = OnboardingConstants.Title.second.getTitle
             
-        case 2:
-            subtitle1.text = OnboardingConstants.Subtitle1.third.getTitle
-            titleLabel.text = OnboardingConstants.Title.third.getTitle
-            nextButton.setTitle("Continue", for: .normal)
-            nextButton.addTarget(self, action: #selector(nextPage), for: .touchUpInside)
-            
         default:
             subtitle1.text = OnboardingConstants.Subtitle1.first.getTitle
             titleLabel.text = OnboardingConstants.Title.first.getTitle
@@ -162,7 +157,7 @@ extension OnboardingViewController: UIScrollViewDelegate {
     }
 }
 
-//MARK: - UIScrollViewDelegate
+//MARK: - Layout
 extension OnboardingViewController {
     
     private func addSubViews() {
