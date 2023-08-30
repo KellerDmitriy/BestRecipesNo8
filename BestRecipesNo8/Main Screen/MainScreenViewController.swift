@@ -13,7 +13,8 @@ final class MainScreenViewController: UIViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 24)
+        //label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.font = UIFont(name: "Poppins-Bold", size: 24)
         label.numberOfLines = 2
         label.textAlignment = .left
         label.text = "Get amazing recipes \nfor cooking"
@@ -102,8 +103,16 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = TrendingNowView()
-        return headerView
+        switch section {
+        case 0:
+            return TrendingNowSectionView()
+        case 1:
+            return PopularCategorySectionView()
+        case 2:
+            return TrendingNowSectionView()
+        default:
+            return TrendingNowSectionView()
+        }
     }
     
 //    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

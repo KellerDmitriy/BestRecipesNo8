@@ -7,14 +7,15 @@
 
 import UIKit
 
-final class TrendingNowView: UIView {
+final class TrendingNowSectionView: UIView {
     
     //MARK: - UIElements:
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Trending now 🔥"
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+//        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont(name: "Poppins-Bold", size: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
