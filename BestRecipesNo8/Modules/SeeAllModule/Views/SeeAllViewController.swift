@@ -28,7 +28,7 @@ class SeeAllViewController: UIViewController {
     // MARK: - Private methods
     private func setupUI() {
         view.addSubview(collectionView)
-        collectionView.backgroundColor = .yellow
+        collectionView.backgroundColor = .white
         collectionView.dataSource = self
         
         NSLayoutConstraint.activate([

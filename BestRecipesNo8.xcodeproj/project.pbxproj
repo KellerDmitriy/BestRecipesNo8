@@ -18,6 +18,7 @@
 		28344DBE2A9E7988000D7554 /* SeeAllPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28344DBD2A9E7988000D7554 /* SeeAllPresenter.swift */; };
 		28344DC02A9E79C5000D7554 /* SeeAllRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28344DBF2A9E79C5000D7554 /* SeeAllRouterInput.swift */; };
 		28344DC22A9E79CF000D7554 /* SeeAllRouterOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28344DC12A9E79CF000D7554 /* SeeAllRouterOutput.swift */; };
+		28344DC42A9F72B4000D7554 /* UIImage + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28344DC32A9F72B4000D7554 /* UIImage + Extension.swift */; };
 		283A2D5B2A9D333000A70257 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283A2D5A2A9D333000A70257 /* Endpoint.swift */; };
 		283A2D5D2A9D334F00A70257 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283A2D5C2A9D334F00A70257 /* API.swift */; };
 		283A2D5F2A9D336400A70257 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283A2D5E2A9D336400A70257 /* NetworkManager.swift */; };
@@ -56,6 +57,7 @@
 		28344DBD2A9E7988000D7554 /* SeeAllPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllPresenter.swift; sourceTree = "<group>"; };
 		28344DBF2A9E79C5000D7554 /* SeeAllRouterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllRouterInput.swift; sourceTree = "<group>"; };
 		28344DC12A9E79CF000D7554 /* SeeAllRouterOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllRouterOutput.swift; sourceTree = "<group>"; };
+		28344DC32A9F72B4000D7554 /* UIImage + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Extension.swift"; sourceTree = "<group>"; };
 		283A2D5A2A9D333000A70257 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		283A2D5C2A9D334F00A70257 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		283A2D5E2A9D336400A70257 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				E11675992A9BF55300C6ED88 /* Colors + Extension.swift */,
 				E116759B2A9BF55B00C6ED88 /* UIFont + Extension.swift */,
 				28344DAD2A9E5519000D7554 /* UILabel + Extension.swift */,
+				28344DC32A9F72B4000D7554 /* UIImage + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				283A2D662A9D33B400A70257 /* RandomRecipe.swift in Sources */,
 				28344DBE2A9E7988000D7554 /* SeeAllPresenter.swift in Sources */,
 				28344DB12A9E555D000D7554 /* SeeAllCollectionViewCell.swift in Sources */,
+				28344DC42A9F72B4000D7554 /* UIImage + Extension.swift in Sources */,
 				28344DBA2A9E7907000D7554 /* SeeAllViewOutput.swift in Sources */,
 				E11675AF2A9C838300C6ED88 /* StartPresenter.swift in Sources */,
 			);

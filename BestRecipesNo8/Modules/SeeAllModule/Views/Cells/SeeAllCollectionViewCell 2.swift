@@ -152,15 +152,8 @@ class SeeAllCollectionViewCell: UICollectionViewCell {
     
     func configureCell() {
         let url = URL(string: "https://spoonacular.com/recipeImages/646941-556x370.jpg")
-        
-//        imageView.kf.indicatorType = .activity
-//        imageView.kf.setImage(with: url, options: [
-//            .scaleFactor(10)
-//        ])
-        ImageManager.shared.fetchImageData(from: url) { [weak self] data, response in
-            guard let image = UIImage(data: data) else { return }
-            self?.imageView.image = UIImage.cropImage(image: image)
-        }
+        imageView.kf.indicatorType = .activity
+        imageView.kf.setImage(with: url)
     }
     
 }
