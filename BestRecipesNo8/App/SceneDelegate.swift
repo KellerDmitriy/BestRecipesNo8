@@ -18,10 +18,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                self.window = window
                
         let startScreen = StartBuilder.createStartModule()
-               let navigationVC = UINavigationController(rootViewController: startScreen)
-               
-               window.rootViewController = navigationVC
-               window.makeKeyAndVisible()
+        let navigationVC = UINavigationController(rootViewController: startScreen)
+
+        window.rootViewController = navigationVC
+        window.makeKeyAndVisible()
                
     }
 
