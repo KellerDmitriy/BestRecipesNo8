@@ -12,17 +12,14 @@ enum OnboardingConstants {
         case first
         case second
         case third
-        case fourth
         
         var getImage: UIImage {
             switch self {
             case .first:
-                return UIImage(named: "1") ?? UIImage()
-            case .second:
                 return UIImage(named: "2") ?? UIImage()
-            case .third:
+            case .second:
                 return UIImage(named: "3") ?? UIImage()
-            case.fourth:
+            case .third:
                 return UIImage(named: "4") ?? UIImage()
             }
         }
@@ -33,7 +30,6 @@ enum OnboardingConstants {
         case second
         case third
         case fourth
-
         
         var getTitle: String {
             switch self {
