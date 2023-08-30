@@ -58,6 +58,17 @@ final class TrendingCell: UICollectionViewCell {
         return label
     }()
     
+    private lazy var addButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = .white
+        button.tintColor = .gray
+        button.layer.cornerRadius = 16
+        button.clipsToBounds = true
+        button.setImage(UIImage(named: "Inactive"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     //MARK: - LifeCycle:
     
     override init(frame: CGRect) {
@@ -78,6 +89,7 @@ final class TrendingCell: UICollectionViewCell {
         contentView.addSubview(menuButton)
         addSubview(creatorImageView)
         addSubview(creatorLabel)
+        imageView.addSubview(addButton)
     }
     
     private func setupLayout() {
@@ -96,7 +108,12 @@ final class TrendingCell: UICollectionViewCell {
             creatorImageView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             
             creatorLabel.centerYAnchor.constraint(equalTo: creatorImageView.centerYAnchor),
-            creatorLabel.leadingAnchor.constraint(equalTo: creatorImageView.trailingAnchor, constant: 10)
+            creatorLabel.leadingAnchor.constraint(equalTo: creatorImageView.trailingAnchor, constant: 10),
+            
+            addButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -8),
+            addButton.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 8),
+            addButton.heightAnchor.constraint(equalToConstant: 32),
+            addButton.widthAnchor.constraint(equalToConstant: 32)
         ])
     }
 }
