@@ -1,13 +1,13 @@
 //
-//  TrendingCollectionCell.swift
+//  RecentRecipeCell.swift
 //  BestRecipesNo8
 //
-//  Created by Aleksandr Garipov on 28.08.2023.
+//  Created by Aleksandr Garipov on 30.08.2023.
 //
 
 import UIKit
 
-final class TrendingCollectionCell: UICollectionViewCell {
+final class RecentRecipeCell: UICollectionViewCell {
     
     //MARK: - UI Elements
     
@@ -23,29 +23,14 @@ final class TrendingCollectionCell: UICollectionViewCell {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont(name: "Poppins-Bold", size: 14)
+        label.numberOfLines = 2
+        label.lineBreakMode = .byWordWrapping
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.1
         label.text = "How to sharwama at home"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
-    }()
-    
-    private lazy var menuButton: UIButton = {
-        let button = UIButton(type: .system)
-        let image = UIImage(named: "More")
-        button.setImage(image, for: .normal)
-        button.tintColor = .black
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private lazy var creatorImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "creator")
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = imageView.frame.height / 2
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
     }()
     
     private lazy var creatorLabel: UILabel = {
@@ -75,8 +60,6 @@ final class TrendingCollectionCell: UICollectionViewCell {
     private func setupUI() {
         addSubview(imageView)
         addSubview(titleLabel)
-        contentView.addSubview(menuButton)
-        addSubview(creatorImageView)
         addSubview(creatorLabel)
     }
     
@@ -85,18 +68,16 @@ final class TrendingCollectionCell: UICollectionViewCell {
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            imageView.widthAnchor.constraint(equalTo: widthAnchor),
+            imageView.heightAnchor.constraint(equalTo: widthAnchor),
             
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
             
-            menuButton.topAnchor.constraint(equalTo: titleLabel.topAnchor),
-            menuButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            
-            creatorImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
-            creatorImageView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            
-            creatorLabel.centerYAnchor.constraint(equalTo: creatorImageView.centerYAnchor),
-            creatorLabel.leadingAnchor.constraint(equalTo: creatorImageView.trailingAnchor, constant: 10)
+            creatorLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            creatorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4)
         ])
     }
 }
+

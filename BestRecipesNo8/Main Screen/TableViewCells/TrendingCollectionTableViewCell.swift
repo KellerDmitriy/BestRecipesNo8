@@ -37,7 +37,7 @@ final class TrendingCollectionTableViewCell: UITableViewCell {
     private func setupRecipesCollectionView() {
         recipesCollectionView.delegate = self
         recipesCollectionView.dataSource = self
-        recipesCollectionView.register(TrendingCollectionCell.self, forCellWithReuseIdentifier: TrendingCollectionCell.reuseIdentifier)
+        recipesCollectionView.register(TrendingCell.self, forCellWithReuseIdentifier: TrendingCell.reuseIdentifier)
         recipesCollectionView.register(PopularCategoryCell.self, forCellWithReuseIdentifier: PopularCategoryCell.reuseIdentifier)
     }
     
@@ -66,7 +66,7 @@ extension TrendingCollectionTableViewCell: UICollectionViewDelegateFlowLayout, U
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingCollectionCell.reuseIdentifier, for: indexPath) as? TrendingCollectionCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingCell.reuseIdentifier, for: indexPath) as? TrendingCell else { return UICollectionViewCell() }
             return cell
     }
     

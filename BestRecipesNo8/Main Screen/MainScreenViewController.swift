@@ -13,7 +13,6 @@ final class MainScreenViewController: UIViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        //label.font = UIFont.boldSystemFont(ofSize: 24)
         label.font = UIFont(name: "Poppins-Bold", size: 24)
         label.numberOfLines = 2
         label.textAlignment = .left
@@ -36,6 +35,7 @@ final class MainScreenViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.register(TrendingCollectionTableViewCell.self, forCellReuseIdentifier: TrendingCollectionTableViewCell.reuseIdentifier)
         tableView.register(PopularCategoryTableViewCell.self, forCellReuseIdentifier: PopularCategoryTableViewCell.reuseIdentifier)
+        tableView.register(RecentRecipeTableViewCell.self, forCellReuseIdentifier: RecentRecipeTableViewCell.reuseIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -91,14 +91,28 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: TrendingCollectionTableViewCell.reuseIdentifier, for: indexPath) as?  TrendingCollectionTableViewCell else { return UITableViewCell() }
+        switch indexPath.section {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TrendingCollectionTableViewCell.reuseIdentifier, for: indexPath) as? TrendingCollectionTableViewCell else {
+                return UITableViewCell()
+            }
             return cell
-        } else if indexPath.section == 1 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: PopularCategoryTableViewCell.reuseIdentifier, for: indexPath) as?  PopularCategoryTableViewCell else { return UITableViewCell() }
+            
+        case 1:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PopularCategoryTableViewCell.reuseIdentifier, for: indexPath) as? PopularCategoryTableViewCell else {
+                return UITableViewCell()
+            }
             return cell
+            
+        case 2:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentRecipeTableViewCell.reuseIdentifier, for: indexPath) as? RecentRecipeTableViewCell else {
+                return UITableViewCell()
+            }
+            return cell
+            
+        default:
+            return UITableViewCell()
         }
-        return UITableViewCell()
         
     }
     
@@ -109,24 +123,20 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
         case 1:
             return PopularCategorySectionView()
         case 2:
-            return TrendingNowSectionView()
+            return RecentRecipeSectionView()
         default:
             return TrendingNowSectionView()
         }
     }
     
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        3
-//    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return 300
+            return 298
         case 1:
-            return 300
+            return 355
         case 2:
-            return 300
+            return 258
         default:
             return 300
         }

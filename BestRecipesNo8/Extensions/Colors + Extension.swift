@@ -17,7 +17,7 @@ extension UIColor {
     }
     
     static var neutralColor: UIColor {
-        UIColor(red: 24, green: 24, blue: 24, alpha: 1)
+        UIColor(red: 241, green: 241, blue: 241, alpha: 1)
     }
     
     static var whiteColor: UIColor {

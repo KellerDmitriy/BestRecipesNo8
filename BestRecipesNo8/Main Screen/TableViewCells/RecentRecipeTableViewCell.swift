@@ -1,13 +1,13 @@
 //
-//  PopularCategoryTableViewCell.swift
+//  RecentRecipeTableViewCell.swift
 //  BestRecipesNo8
 //
-//  Created by Aleksandr Garipov on 29.08.2023.
+//  Created by Aleksandr Garipov on 30.08.2023.
 //
 
 import UIKit
 
-final class PopularCategoryTableViewCell: UITableViewCell {
+final class RecentRecipeTableViewCell: UITableViewCell {
     // MARK: - UI Elements
     private lazy var recipesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -37,8 +37,7 @@ final class PopularCategoryTableViewCell: UITableViewCell {
     private func setupRecipesCollectionView() {
         recipesCollectionView.delegate = self
         recipesCollectionView.dataSource = self
-        recipesCollectionView.register(TrendingCell.self, forCellWithReuseIdentifier: TrendingCell.reuseIdentifier)
-        recipesCollectionView.register(PopularCategoryCell.self, forCellWithReuseIdentifier: PopularCategoryCell.reuseIdentifier)
+        recipesCollectionView.register(RecentRecipeCell.self, forCellWithReuseIdentifier: RecentRecipeCell.reuseIdentifier)
     }
     
     private func setupUI() {
@@ -55,7 +54,7 @@ final class PopularCategoryTableViewCell: UITableViewCell {
     }
 }
 
-extension PopularCategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+extension RecentRecipeTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         5
     }
@@ -66,13 +65,14 @@ extension PopularCategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICo
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCategoryCell.reuseIdentifier, for: indexPath) as? PopularCategoryCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentRecipeCell.reuseIdentifier, for: indexPath) as? RecentRecipeCell else { return UICollectionViewCell() }
             return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth: CGFloat = 150
-        let cellHeight: CGFloat = 231
+        let cellWidth: CGFloat = 124
+        let cellHeight: CGFloat = 190
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }
+
