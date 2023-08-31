@@ -8,6 +8,9 @@
 import UIKit
 
 final class RecentRecipeTableViewCell: UITableViewCell {
+    
+    var recentRecipe: [RecipeInfo] = popularCategoryRecipesMock
+    
     // MARK: - UI Elements
     private lazy var recipesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -56,7 +59,7 @@ final class RecentRecipeTableViewCell: UITableViewCell {
 
 extension RecentRecipeTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        recentRecipe.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -65,8 +68,9 @@ extension RecentRecipeTableViewCell: UICollectionViewDelegateFlowLayout, UIColle
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentRecipeCell.reuseIdentifier, for: indexPath) as? RecentRecipeCell else { return UICollectionViewCell() }
-            return cell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentRecipeCell.reuseIdentifier, for: indexPath) as? RecentRecipeCell else { return UICollectionViewCell() }
+        cell.configureCell(at: recentRecipe[indexPath.row])
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

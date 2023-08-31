@@ -8,6 +8,11 @@
 import UIKit
 
 final class TrendingCollectionTableViewCell: UITableViewCell {
+    
+    // MARK: Properties:
+    
+    private var trendingNowRecipes: [RecipeInfo] = popularCategoryRecipesMock
+    
     // MARK: - UI Elements
     private lazy var recipesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -57,7 +62,7 @@ final class TrendingCollectionTableViewCell: UITableViewCell {
 
 extension TrendingCollectionTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        return trendingNowRecipes.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -67,6 +72,7 @@ extension TrendingCollectionTableViewCell: UICollectionViewDelegateFlowLayout, U
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingCell.reuseIdentifier, for: indexPath) as? TrendingCell else { return UICollectionViewCell() }
+        cell.configureCell(at: trendingNowRecipes[indexPath.row])
             return cell
     }
     

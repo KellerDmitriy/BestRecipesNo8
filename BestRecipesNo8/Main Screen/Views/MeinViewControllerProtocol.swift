@@ -7,4 +7,6 @@
 
 import Foundation
 
-protocol MainScreenViewControllerProtocol: class {}
+protocol MainScreenViewControllerProtocol: AnyObject {
+    func getRecipes()
+}

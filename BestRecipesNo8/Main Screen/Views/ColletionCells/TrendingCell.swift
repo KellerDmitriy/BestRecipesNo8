@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class TrendingCell: UICollectionViewCell {
     
     //MARK: - UI Elements
     
-    private lazy var imageView: UIImageView = {
+    private lazy var recipeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "Salad")
         imageView.contentMode = .scaleAspectFill
@@ -55,22 +56,37 @@ final class TrendingCell: UICollectionViewCell {
     //MARK: - Methods:
     
     private func setupUI() {
-        contentView.addSubview(imageView)
+        contentView.addSubview(recipeImageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(addButton)
     }
     
+    func configureCell(at recipeInfo: RecipeInfo) {
+        guard let id = recipeInfo.id,
+              let title = recipeInfo.title,
+              let image = recipeInfo.image else { return }
+        let cache = ImageCache.default
+        cache.diskStorage.config.expiration = .seconds(1)
+        let processor = RoundCornerImageProcessor(cornerRadius: 12, backgroundColor: .clear)
+        recipeImageView.kf.indicatorType = .activity
+        recipeImageView.kf.setImage(with: URL(string: image), placeholder: nil, options: [.processor(processor),
+                                                                                          .cacheSerializer(FormatIndicatedCacheSerializer.png)])
+        titleLabel.text = title
+    }
+    
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            recipeImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            recipeImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            recipeImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            recipeImageView.heightAnchor.constraint(equalToConstant: 180),
+            recipeImageView.widthAnchor.constraint(equalToConstant: 280),
             
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
+            titleLabel.topAnchor.constraint(equalTo: recipeImageView.bottomAnchor, constant: 5),
             
-            addButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -8),
-            addButton.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 8),
+            addButton.trailingAnchor.constraint(equalTo: recipeImageView.trailingAnchor, constant: -8),
+            addButton.topAnchor.constraint(equalTo: recipeImageView.topAnchor, constant: 8),
             addButton.heightAnchor.constraint(equalToConstant: 32),
             addButton.widthAnchor.constraint(equalToConstant: 32)
         ])

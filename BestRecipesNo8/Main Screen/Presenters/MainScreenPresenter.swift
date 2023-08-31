@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MainPresenterProtocol: AnyObject {
-    var view : MainScreenViewControllerProtocol { get set }
+    var view : MainScreenViewControllerProtocol? { get set }
     var dataService: DataServiceProtocol { get set }
     var trendingNowRecipes: [RecipeInfo] { get set }
     var popularCategoryRecipes: [RecipeInfo] { get set }
@@ -18,13 +18,9 @@ protocol MainPresenterProtocol: AnyObject {
     func getRecipesByCategory()
 }
 
-protocol DataServiceProtocol {
-    
-}
-
 final class MainPresenter: MainPresenterProtocol {
 
-    var view: MainScreenViewControllerProtocol
+    weak var view: MainScreenViewControllerProtocol?
     var dataService: DataServiceProtocol
     var trendingNowRecipes: [RecipeInfo] = []
     var popularCategoryRecipes: [RecipeInfo] = []
@@ -32,7 +28,7 @@ final class MainPresenter: MainPresenterProtocol {
     
     //MARK: LifeCycle
     
-    init(view: MainScreenViewControllerProtocol, dataService: DataServiceProtocol) {
+    required init(view: MainScreenViewControllerProtocol, dataService: DataServiceProtocol) {
         self.dataService = dataService
         self.view = view
     }

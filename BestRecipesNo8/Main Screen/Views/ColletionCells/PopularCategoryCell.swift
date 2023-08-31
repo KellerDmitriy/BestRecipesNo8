@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class PopularCategoryCell: UICollectionViewCell {
     
@@ -16,7 +17,7 @@ final class PopularCategoryCell: UICollectionViewCell {
         imageView.image = UIImage(named: "shawerma")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = imageView.frame.height / 2
+        imageView.layer.cornerRadius = 55
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -98,10 +99,27 @@ final class PopularCategoryCell: UICollectionViewCell {
         grayBackgroundView.addSubview(addButton)
     }
     
+    func configureCell(at recipeInfo: RecipeInfo) {
+        guard let id = recipeInfo.id,
+              let title = recipeInfo.title,
+              let image = recipeInfo.image,
+              let readyInMinutes =  recipeInfo.readyInMinutes else { return }
+        let cache = ImageCache.default
+        cache.diskStorage.config.expiration = .seconds(1)
+        let processor = RoundCornerImageProcessor(cornerRadius: 55, backgroundColor: .clear)
+        recipeImageView.kf.indicatorType = .activity
+        recipeImageView.kf.setImage(with: URL(string: image), placeholder: nil, options: [.processor(processor),
+                                                                                          .cacheSerializer(FormatIndicatedCacheSerializer.png)])
+        titleLabel.text = title
+        counterLabel.text = "\(readyInMinutes) Mins"
+    }
+    
     private func setupLayout() {
         NSLayoutConstraint.activate([
             recipeImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             recipeImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            recipeImageView.heightAnchor.constraint(equalToConstant: 110),
+            recipeImageView.widthAnchor.constraint(equalToConstant: 110),
             
             grayBackgroundView.heightAnchor.constraint(equalToConstant: 176),
             grayBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),

@@ -8,6 +8,11 @@
 import UIKit
 
 final class PopularCategoryTableViewCell: UITableViewCell {
+    
+    // MARK: - Properties
+    
+    private var popularCategoryRecipes: [RecipeInfo] = popularCategoryRecipesMock
+    
     // MARK: - UI Elements
     private lazy var recipesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -57,7 +62,7 @@ final class PopularCategoryTableViewCell: UITableViewCell {
 
 extension PopularCategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        popularCategoryRecipes.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -66,8 +71,9 @@ extension PopularCategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICo
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCategoryCell.reuseIdentifier, for: indexPath) as? PopularCategoryCell else { return UICollectionViewCell() }
-            return cell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCategoryCell.reuseIdentifier, for: indexPath) as? PopularCategoryCell else { return UICollectionViewCell() }
+        cell.configureCell(at: popularCategoryRecipes[indexPath.row])
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -76,3 +82,11 @@ extension PopularCategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICo
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }
+
+let RecipeInfoMockBorsch = RecipeInfo(id: 0, title: "Borsch", image: "https://otkritkis.com/wp-content/uploads/2021/12/kak-svarit-borshh-640x342-1.jpg", readyInMinutes: 25, spoonacularScore: nil, sourceName: nil, dichTypes: nil, extendedIngredients: nil)
+
+let RecipeInfoMockKasha = RecipeInfo(id: 0, title: "Kasha", image: "https://eda.ru/img/eda/c620x415/s1.eda.ru/StaticContent/Photos/160302171541/160308173944/p_O.jpg", readyInMinutes: 5, spoonacularScore: nil, sourceName: nil, dichTypes: nil, extendedIngredients: nil)
+
+let RecipeInfoMock = RecipeInfo(id: 0, title: "Shashlyk", image: "https://img1.russianfood.com/dycontent/images_upl/37/big_36405.jpg", readyInMinutes: 10, spoonacularScore: nil, sourceName: nil, dichTypes: nil, extendedIngredients: nil)
+
+let popularCategoryRecipesMock = [RecipeInfoMockBorsch, RecipeInfoMockKasha, RecipeInfoMock]

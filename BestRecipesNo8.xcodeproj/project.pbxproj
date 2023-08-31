@@ -58,6 +58,8 @@
 		E2130CD42A9F6DB400C3404E /* RecentRecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2130CD32A9F6DB400C3404E /* RecentRecipeTableViewCell.swift */; };
 		E2130CD92AA0B92B00C3404E /* MainScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2130CD82AA0B92B00C3404E /* MainScreenPresenter.swift */; };
 		E2130CDB2AA0B96900C3404E /* MeinViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2130CDA2AA0B96900C3404E /* MeinViewControllerProtocol.swift */; };
+		E2130CDE2AA0BE2D00C3404E /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2130CDD2AA0BE2D00C3404E /* Builder.swift */; };
+		E2130CE32AA0C17300C3404E /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2130CE22AA0C17300C3404E /* DataService.swift */; };
 		E223A8432A9CDAC2007E8C0E /* TrendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223A8422A9CDAC2007E8C0E /* TrendingCell.swift */; };
 		E223A8452A9DB990007E8C0E /* UIImage + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223A8442A9DB990007E8C0E /* UIImage + Ext.swift */; };
 		E223A8472A9E1747007E8C0E /* PopularCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223A8462A9E1747007E8C0E /* PopularCategoryCell.swift */; };
@@ -120,6 +122,8 @@
 		E2130CD32A9F6DB400C3404E /* RecentRecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRecipeTableViewCell.swift; sourceTree = "<group>"; };
 		E2130CD82AA0B92B00C3404E /* MainScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenPresenter.swift; sourceTree = "<group>"; };
 		E2130CDA2AA0B96900C3404E /* MeinViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeinViewControllerProtocol.swift; sourceTree = "<group>"; };
+		E2130CDD2AA0BE2D00C3404E /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
+		E2130CE22AA0C17300C3404E /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		E223A8422A9CDAC2007E8C0E /* TrendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCell.swift; sourceTree = "<group>"; };
 		E223A8442A9DB990007E8C0E /* UIImage + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Ext.swift"; sourceTree = "<group>"; };
 		E223A8462A9E1747007E8C0E /* PopularCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCategoryCell.swift; sourceTree = "<group>"; };
@@ -459,6 +463,14 @@
 			path = Presenters;
 			sourceTree = "<group>";
 		};
+		E2130CDC2AA0BE1900C3404E /* Buiders */ = {
+			isa = PBXGroup;
+			children = (
+				E2130CDD2AA0BE2D00C3404E /* Builder.swift */,
+			);
+			path = Buiders;
+			sourceTree = "<group>";
+		};
 		E223A84C2A9E284D007E8C0E /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,8 +504,10 @@
 		E29809952A9BA037002121A5 /* Main Screen */ = {
 			isa = PBXGroup;
 			children = (
+				E2130CDC2AA0BE1900C3404E /* Buiders */,
 				E2130CD72AA0B8F500C3404E /* Presenters */,
 				E2130CD62AA0B8DC00C3404E /* Views */,
+				E2130CE22AA0C17300C3404E /* DataService.swift */,
 			);
 			path = "Main Screen";
 			sourceTree = "<group>";
@@ -590,6 +604,7 @@
 				E298099A2A9BA977002121A5 /* ReuseIdentifierProtocol.swift in Sources */,
 				E223A8432A9CDAC2007E8C0E /* TrendingCell.swift in Sources */,
 				28344DC22A9E79CF000D7554 /* SeeAllRouterOutput.swift in Sources */,
+				E2130CE32AA0C17300C3404E /* DataService.swift in Sources */,
 				283A2D5F2A9D336400A70257 /* NetworkManager.swift in Sources */,
 				E2130CD22A9F6CBE00C3404E /* RecentRecipeCell.swift in Sources */,
 				E1ABBEAD2A9DEFF70021E624 /* UIImage + TabBar.swift in Sources */,
@@ -631,6 +646,7 @@
 				28344DBA2A9E7907000D7554 /* SeeAllViewOutput.swift in Sources */,
 				E2130CD92AA0B92B00C3404E /* MainScreenPresenter.swift in Sources */,
 				E11675AF2A9C838300C6ED88 /* StartPresenter.swift in Sources */,
+				E2130CDE2AA0BE2D00C3404E /* Builder.swift in Sources */,
 				E223A8472A9E1747007E8C0E /* PopularCategoryCell.swift in Sources */,
 				E1ABBEB02A9E09830021E624 /* CustomPageControl.swift in Sources */,
 			);

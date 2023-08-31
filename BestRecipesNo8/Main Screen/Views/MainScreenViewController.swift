@@ -8,6 +8,8 @@
 import UIKit
 
 final class MainScreenViewController: UIViewController {
+
+    var presenter: MainPresenterProtocol!
     
     //MARK: - UI Elementes:
     
@@ -48,6 +50,7 @@ final class MainScreenViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupLayout()
+        presenter.getNewRecipes()
     }
     
     //MARK: - Methods
@@ -141,6 +144,10 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
             return 300
         }
     }
-    
-    
+}
+
+extension MainScreenViewController: MainScreenViewControllerProtocol {
+    func getRecipes() {
+        
+    }
 }

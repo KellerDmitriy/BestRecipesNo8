@@ -4,7 +4,6 @@
 //
 //  Created by Aleksandr Garipov on 29.08.2023.
 //
-
 import UIKit
 
 final class TrendingNowSectionView: UIView {
