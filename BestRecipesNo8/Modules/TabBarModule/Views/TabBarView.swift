@@ -29,6 +29,7 @@ class TabBarView: UITabBarController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBar.barTintColor = .white
         view.backgroundColor = .white
 
         setupSubviews()
