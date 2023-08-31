@@ -8,6 +8,7 @@
 import UIKit
 
 class CustomButton: UIButton {
+    
     var customTitle: String? {
         didSet {
             setTitle(customTitle, for: .normal)
