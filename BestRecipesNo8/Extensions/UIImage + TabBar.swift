@@ -14,8 +14,8 @@ extension UIImage {
     static let bookmark = UIImage(named: "bookmark")
     static let bookmarkSelect = UIImage(named: "bookmarkSelect")
     
-    static let home = UIImage(named: "home")
-    static let homeSelect = UIImage(named: "homeSelect")
+    static let main = UIImage(named: "main")
+    static let mainSelect = UIImage(named: "mainSelect")
 
     static let notification = UIImage(named: "notification")
     static let notificationSelect = UIImage(named: "notificationSelect")
