@@ -11,6 +11,9 @@ enum Endpoint {
     case getRecipeInfo(id: Int)
     case getRandomRecipes
     case searchRecipes
+    case getPopularRecipes
+    case getRecipesForMealType(type: String)
+    case getRecipeInfoBulk(idRecipes: [String])
     
     var path: String {
         switch self {
@@ -20,6 +23,12 @@ enum Endpoint {
             return "/recipes/random"
         case .searchRecipes:
             return "/recipes/complexSearch"
+        case .getPopularRecipes:
+            return "/recipes/complexSearch"
+        case .getRecipesForMealType(type: _):
+            return "/recipes/complexSearch"
+        case .getRecipeInfoBulk(idRecipes: _):
+            return "/recipes/informationBulk"
         }
     }
     

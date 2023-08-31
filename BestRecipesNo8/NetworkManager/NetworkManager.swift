@@ -37,6 +37,7 @@ struct NetworkManager {
     }
     
     /// Make dictionary of parameters for URL request
+    /// - Returns: Parameters in [String: String]
     private func makeParameters(for endpoint: Endpoint, with query: String?) -> [String: String] {
         var parameters = [String: String]()
         parameters["apiKey"] = API.apiKey
@@ -45,9 +46,15 @@ struct NetworkManager {
         case .getRandomRecipes:
             parameters["number"] = "10"
         case .searchRecipes:
-            if query != nil {
-                parameters["query"] = query
-            }
+            if query != nil { parameters["query"] = query }
+            parameters["number"] = "10"
+        case .getPopularRecipes:
+            parameters["sort"] = "popularity"
+            parameters["number"] = "10"
+        case .getRecipesForMealType(type: let type):
+            parameters["type"] = type
+        case .getRecipeInfoBulk(idRecipes: let ids):
+            parameters["ids"] = ids.map { "\($0)" }.joined(separator: ",")
         default:
             break
         }
@@ -58,7 +65,7 @@ struct NetworkManager {
     /// Method for making task
     private func makeTask<T: Codable>(for url: URL, using session: URLSession = .shared, completion: @escaping(Result<T, NetworkError>) -> Void) {
         
-        let task = session.dataTask(with: url) { data, _, error in
+        session.dataTask(with: url) { data, _, error in
             
             if let error = error {
                 completion(.failure(.transportError(error)))
@@ -77,39 +84,59 @@ struct NetworkManager {
             } catch {
                 completion(.failure(.decodingError(error)))
             }
-        }
-        
-        task.resume()
+        }.resume()
     }
     
     // MARK: - Public methods
     
-    /// Get random recipes
-    /// - Returns: Several random recipes
+    /// Get random recipes.
+    /// - Returns: 10 random recipes
     func getRandomRecipes(completion: @escaping(Result<RandomRecipe, NetworkError>) -> Void) {
-        
         guard let url = createURL(for: .getRandomRecipes, with: nil) else { return }
-        
         makeTask(for: url, completion: completion)
-        
     }
     
-    /// Search recipes
-    /// - Parameters: If you need result with query you have to use it.
-    /// - Returns: Multiple recipes as requested
+    /// Search through thousands of recipes using advanced filtering and ranking.
+    /// - Parameters:
+    /// - query: The (natural language) recipe search query. If you need result with query you have to use it.
+    /// - Returns: 10 recipes as requested
     func getSearchRecipes(for query: String? = nil, completion: @escaping(Result<SearchResult, NetworkError>) -> Void) {
-        
         guard let url = createURL(for: .searchRecipes, with: query) else { return }
-        
         makeTask(for: url, completion: completion)
     }
     
     /// Get recipe information
+    /// - Parameters:
+    /// - id: The id of the recipe.
     /// - Returns: Information about a specific recipe
     func getRecipeInformation(for id: Int, completion: @escaping(Result<RecipeInfo, NetworkError>) -> Void) {
-        
         guard let url = createURL(for: .getRecipeInfo(id: id)) else { return }
-        
+        makeTask(for: url, completion: completion)
+    }
+    
+    /// Get popular recipes
+    /// - Returns: 10 popular recipes
+    func getPopularRecipes(completion: @escaping(Result<SearchResult, NetworkError>) -> Void) {
+        guard let url = createURL(for: .getPopularRecipes) else { return }
+        makeTask(for: url, completion: completion)
+    }
+    
+    /// Get recipes for meal type
+    /// - Parameters:
+    /// - mealType: The type of recipe.
+    /// - Returns: 10 recipes for meal type
+    func getRecipesWithMealType(for mealType: String, completion: @escaping(Result<SearchResult, NetworkError>) -> Void) {
+        let mealTypeWithUnderscore = mealType.replacingOccurrences(of: " ", with: "_")
+        guard let url = createURL(for: .getRecipesForMealType(type: mealTypeWithUnderscore)) else { return }
+        makeTask(for: url, completion: completion)
+    }
+    
+    /// Get recipe information bulk
+    /// - Parameters:
+    /// - ids: A comma-separated list of recipe ids.
+    /// - Returns: Get information about multiple recipes at once. This is equivalent to calling the Get Recipe Information endpoint multiple times, but faster.
+    func getRecipeInformationBulk(for ids: [String], completion: @escaping(Result<[RecipeInfo], NetworkError>) -> Void) {
+        guard let url = createURL(for: .getRecipeInfoBulk(idRecipes: ids)) else { return }
         makeTask(for: url, completion: completion)
     }
     
