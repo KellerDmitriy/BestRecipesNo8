@@ -29,35 +29,6 @@ final class TrendingCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var menuButton: UIButton = {
-        let button = UIButton(type: .system)
-        let image = UIImage(named: "More")
-        button.setImage(image, for: .normal)
-        button.tintColor = .black
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private lazy var creatorImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "creator")
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = imageView.frame.height / 2
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    private lazy var creatorLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = .gray
-        label.textAlignment = .left
-        label.text = "By Zeelicious foods"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     private lazy var addButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
@@ -84,12 +55,9 @@ final class TrendingCell: UICollectionViewCell {
     //MARK: - Methods:
     
     private func setupUI() {
-        addSubview(imageView)
-        addSubview(titleLabel)
-        contentView.addSubview(menuButton)
-        addSubview(creatorImageView)
-        addSubview(creatorLabel)
-        imageView.addSubview(addButton)
+        contentView.addSubview(imageView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(addButton)
     }
     
     private func setupLayout() {
@@ -100,15 +68,6 @@ final class TrendingCell: UICollectionViewCell {
             
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
-            
-            menuButton.topAnchor.constraint(equalTo: titleLabel.topAnchor),
-            menuButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            
-            creatorImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
-            creatorImageView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            
-            creatorLabel.centerYAnchor.constraint(equalTo: creatorImageView.centerYAnchor),
-            creatorLabel.leadingAnchor.constraint(equalTo: creatorImageView.trailingAnchor, constant: 10),
             
             addButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -8),
             addButton.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 8),

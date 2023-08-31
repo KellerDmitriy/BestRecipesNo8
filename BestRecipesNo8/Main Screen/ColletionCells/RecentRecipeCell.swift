@@ -33,16 +33,6 @@ final class RecentRecipeCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var creatorLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = .gray
-        label.textAlignment = .left
-        label.text = "By Zeelicious foods"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     //MARK: - LifeCycle:
     
     override init(frame: CGRect) {
@@ -60,7 +50,6 @@ final class RecentRecipeCell: UICollectionViewCell {
     private func setupUI() {
         addSubview(imageView)
         addSubview(titleLabel)
-        addSubview(creatorLabel)
     }
     
     private func setupLayout() {
@@ -75,8 +64,6 @@ final class RecentRecipeCell: UICollectionViewCell {
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
             
-            creatorLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            creatorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4)
         ])
     }
 }
