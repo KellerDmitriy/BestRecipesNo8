@@ -10,8 +10,6 @@
 		28344DAE2A9E5519000D7554 /* UILabel + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28344DAD2A9E5519000D7554 /* UILabel + Extension.swift */; };
 		28344DB12A9E555D000D7554 /* SeeAllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28344DB02A9E555D000D7554 /* SeeAllCollectionViewCell.swift */; };
 		28344DB32A9E5598000D7554 /* SeeAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28344DB22A9E5598000D7554 /* SeeAllViewController.swift */; };
-		28344DB42A9E74FD000D7554 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E11675A82A9BFECA00C6ED88 /* Poppins-Regular.ttf */; };
-		28344DB62A9E7502000D7554 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E11675A12A9BF5E100C6ED88 /* Poppins-Bold.ttf */; };
 		28344DB82A9E78F9000D7554 /* SeeAllViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28344DB72A9E78F9000D7554 /* SeeAllViewInput.swift */; };
 		28344DBA2A9E7907000D7554 /* SeeAllViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28344DB92A9E7907000D7554 /* SeeAllViewOutput.swift */; };
 		28344DBC2A9E7955000D7554 /* SeeAllBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28344DBB2A9E7955000D7554 /* SeeAllBuilder.swift */; };
@@ -44,6 +42,7 @@
 		E1ABBEB32A9E86760021E624 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E11675A82A9BFECA00C6ED88 /* Poppins-Regular.ttf */; };
 		E1ABBEB42A9E86790021E624 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E11675A12A9BF5E100C6ED88 /* Poppins-Bold.ttf */; };
 		E1ABBEB62A9FE2630021E624 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1ABBEB52A9FE2310021E624 /* Poppins-SemiBold.ttf */; };
+		E1ABBEB82AA059EE0021E624 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ABBEB72AA059EE0021E624 /* CustomButton.swift */; };
 		E1C978E72A9B5A09003BDC4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C978E62A9B5A09003BDC4A /* AppDelegate.swift */; };
 		E1C978E92A9B5A09003BDC4A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C978E82A9B5A09003BDC4A /* SceneDelegate.swift */; };
 		E1C978EB2A9B5A09003BDC4A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C978EA2A9B5A09003BDC4A /* OnboardingViewController.swift */; };
@@ -89,6 +88,7 @@
 		E1ABBEAC2A9DEFF70021E624 /* UIImage + TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + TabBar.swift"; sourceTree = "<group>"; };
 		E1ABBEAF2A9E09830021E624 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		E1ABBEB52A9FE2310021E624 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		E1ABBEB72AA059EE0021E624 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		E1C978E32A9B5A09003BDC4A /* BestRecipesNo8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BestRecipesNo8.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1C978E62A9B5A09003BDC4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1C978E82A9B5A09003BDC4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -331,7 +331,7 @@
 		E1ABBEAE2A9E09570021E624 /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
-				E116759D2A9BF56200C6ED88 /* CustomButton.swift */,
+				E1ABBEB72AA059EE0021E624 /* CustomButton.swift */,
 			);
 			path = CustomUI;
 			sourceTree = "<group>";
@@ -501,6 +501,7 @@
 				28344DB32A9E5598000D7554 /* SeeAllViewController.swift in Sources */,
 				283A2D612A9D338100A70257 /* ImageManager.swift in Sources */,
 				E1C978E92A9B5A09003BDC4A /* SceneDelegate.swift in Sources */,
+				E1ABBEB82AA059EE0021E624 /* CustomButton.swift in Sources */,
 				E11675BE2A9C87B700C6ED88 /* SettingsManager.swift in Sources */,
 				E116759C2A9BF55B00C6ED88 /* UIFont + Extension.swift in Sources */,
 				E116755B2A9BB9F800C6ED88 /* ModuleBuilder.swift in Sources */,
