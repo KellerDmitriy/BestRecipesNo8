@@ -135,9 +135,12 @@ struct NetworkManager {
     /// - Parameters:
     /// - ids: A comma-separated list of recipe ids.
     /// - Returns: Get information about multiple recipes at once. This is equivalent to calling the Get Recipe Information endpoint multiple times, but faster.
-    func getRecipeInformationBulk(for ids: [String], completion: @escaping(Result<[RecipeInfo], NetworkError>) -> Void) {
+    func getRecipeInformationBulk(for ids: [Int], completion: @escaping(Result<[RecipeInfo], NetworkError>) -> Void) {
         guard let url = createURL(for: .getRecipeInfoBulk(idRecipes: ids)) else { return }
+        print("url bulk: \(url)")
         makeTask(for: url, completion: completion)
     }
     
 }
+
+

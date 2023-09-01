@@ -51,7 +51,7 @@ struct ExtendedIngredient: Codable {
     let consistency: String?
     let name: String?
     let nameClean: String?
-    let amount: Int?
+    let amount: Double?
     let unit: String?
     let measures: Measures?
     
@@ -71,12 +71,12 @@ struct Step: Codable {
 }
 
 struct Measures: Codable {
-    let us: Measure?
-    let metric: Measure?
+    let us: Metric?
+    let metric: Metric?
 }
 
-struct Measure: Codable {
-    let amount: Int?
+struct Metric: Codable {
+    let amount: Double?
     let unitShort: String?
     let unitLong: String?
 }
