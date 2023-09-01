@@ -18,8 +18,8 @@ final class StartView: UIViewController {
         return imageViewBackground
     }()
     
-    private lazy var startButton: CustomButton = {
-        let startButton = CustomButton(customTitle: "Get Started")
+    private lazy var startButton: UIButton = {
+        let startButton = UIButton()
         startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         return startButton
     }()
