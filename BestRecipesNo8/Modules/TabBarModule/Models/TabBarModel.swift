@@ -13,7 +13,7 @@ struct TabBarModel {
     let tabBarSelectedImage: UIImage?
     
     static let views = [
-        TabBarModel(controller: ProfileBuilder.createProfileModule(), tabBarImage: UIImage.main, tabBarSelectedImage: UIImage.mainSelect),
+        TabBarModel(controller:  UIViewController(), tabBarImage: UIImage.main, tabBarSelectedImage: UIImage.mainSelect),
         TabBarModel(controller: UIViewController(), tabBarImage: UIImage.bookmark, tabBarSelectedImage: UIImage.bookmarkSelect),
         TabBarModel(controller: UIViewController(), tabBarImage: UIImage(), tabBarSelectedImage: UIImage()),
         TabBarModel(controller: UIViewController(), tabBarImage: UIImage.notification, tabBarSelectedImage: UIImage.notificationSelect),
