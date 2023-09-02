@@ -28,7 +28,6 @@ final class RecentRecipeTableViewCell: UITableViewCell {
         setupUI()
         setupLayout()
         setupRecipesCollectionView()
-        
     }
     
     required init?(coder: NSCoder) {

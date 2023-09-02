@@ -40,7 +40,7 @@ final class PopularCategoryTableViewCell: UITableViewCell {
         setupUI()
         setupLayout()
         setupCollectionsView()
-        
+        selectFirstCell()
     }
     
     required init?(coder: NSCoder) {
@@ -56,6 +56,11 @@ final class PopularCategoryTableViewCell: UITableViewCell {
         headerCollectionView.dataSource = self
         recipesCollectionView.register(PopularCategoryCell.self, forCellWithReuseIdentifier: PopularCategoryCell.reuseIdentifier)
         headerCollectionView.register(PopularCategoryHeaderCell.self, forCellWithReuseIdentifier: PopularCategoryHeaderCell.reuseIdentifier)
+    }
+    
+    private func selectFirstCell() {
+        let indexPath = IndexPath(item: 0, section: 0)
+        headerCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
     }
     
     private func setupUI() {
@@ -99,6 +104,7 @@ extension PopularCategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICo
         switch collectionView {
         case headerCollectionView:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCategoryHeaderCell.reuseIdentifier, for: indexPath) as? PopularCategoryHeaderCell else { return UICollectionViewCell()}
+            cell.isSelected ? cell.selectCell() : cell.deselectCell()
             cell.configureCell(header: Constants.mealTypes[indexPath.row])
             return cell
         case recipesCollectionView:
@@ -124,6 +130,21 @@ extension PopularCategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICo
             return CGSize(width: 0, height: 0)
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard collectionView == headerCollectionView else { return }
+        if let cell = collectionView.cellForItem(at: indexPath) as? PopularCategoryHeaderCell {
+            cell.selectCell()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        guard collectionView == headerCollectionView else { return }
+        if let cell = collectionView.cellForItem(at: indexPath) as? PopularCategoryHeaderCell {
+            cell.deselectCell()
+        }
+    }
+    
 }
 
 let RecipeInfoMockBorsch = RecipeInfo(id: 0, title: "Borsch", summary: nil, image: "https://otkritkis.com/wp-content/uploads/2021/12/kak-svarit-borshh-640x342-1.jpg", sourceUrl: nil, preparationMinutes: nil, cookingMinutes: nil, readyInMinutes: 25, servings: nil, aggregateLikes: nil, spoonacularScore: nil, creditsText: nil, sourceName: nil, dichTypes: nil, diets: nil, extendedIngredients: nil, analyzedInstructions: nil)

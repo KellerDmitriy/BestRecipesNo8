@@ -13,8 +13,9 @@ final class PopularCategoryHeaderCell: UICollectionViewCell {
     
     let headerLabel: UILabel = {
         let label = UILabel()
+        label.textColor = UIColor(named: "Primary")
         label.text = "Category"
-        label.font = UIFont(name: "Poppins-Regular", size: 8)
+        label.font = UIFont(name: "Poppins-Regular", size: 10)
         label.textAlignment = .center
         label.minimumScaleFactor = 0.1
         label.adjustsFontSizeToFitWidth = true
@@ -38,7 +39,6 @@ final class PopularCategoryHeaderCell: UICollectionViewCell {
     
     private func setupUI() {
         contentView.addSubview(headerLabel)
-        contentView.backgroundColor = UIColor(named: "Primary")
         contentView.layer.cornerRadius = 10
     }
     
@@ -49,9 +49,10 @@ final class PopularCategoryHeaderCell: UICollectionViewCell {
     func selectCell() {
         contentView.backgroundColor = UIColor(named: "Primary")
         headerLabel.textColor = .white
+        print("selected")
     }
     
-    func diselectCell() {
+    func deselectCell() {
         contentView.backgroundColor = .clear
         headerLabel.textColor = UIColor(named: "Primary")
     }
@@ -59,8 +60,8 @@ final class PopularCategoryHeaderCell: UICollectionViewCell {
     private func setupLayout() {
         NSLayoutConstraint.activate([
             headerLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            headerLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            headerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            headerLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 6),
+            headerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -6),
             headerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
