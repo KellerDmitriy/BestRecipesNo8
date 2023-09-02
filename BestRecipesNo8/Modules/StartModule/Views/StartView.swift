@@ -15,15 +15,40 @@ final class StartView: UIViewController {
     private lazy var backgroundView: UIImageView = {
         let imageViewBackground = UIImageView(frame: UIScreen.main.bounds)
         imageViewBackground.image = UIImage(named: "OnbordingImg1")
+        imageViewBackground.setGradientColor(topColor: .black, bottomColor: .clear)
         return imageViewBackground
     }()
     
     private lazy var startButton: UIButton = {
         let startButton = UIButton()
+        startButton.setTitle("Get Started", for: .normal)
+        startButton.backgroundColor = .primaryColor
+        startButton.layer.cornerRadius = 56/4
         startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         return startButton
     }()
     
+    private lazy var titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.text = "Best Recipes"
+        titleLabel.font = .poppinsBold(size: 56)
+        titleLabel.textColor = .whiteColor
+        titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 2
+        titleLabel.sizeToFit()
+        return titleLabel
+    }()
+    
+    private lazy var descriptionLabel: UILabel = {
+        let descriptionLabel = UILabel()
+        descriptionLabel.text = "Find best recipes for cooking"
+        descriptionLabel.font = .poppinsRegular(size: 16)
+        descriptionLabel.textColor = .whiteColor
+        descriptionLabel.textAlignment = .center
+        descriptionLabel.numberOfLines = 1
+        descriptionLabel.sizeToFit()
+        return descriptionLabel
+    }()
     // MARK: - Init
     
     init(presenter: StartViewOutput) {
@@ -51,6 +76,8 @@ final class StartView: UIViewController {
     private func setupHierarchy() {
         view.addSubview(backgroundView)
         view.addSubview(startButton)
+        view.addSubview(titleLabel)
+        view.addSubview(descriptionLabel)
     }
     
     // MARK: - Layout
@@ -58,6 +85,22 @@ final class StartView: UIViewController {
         backgroundView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().inset(207)
+            make.width.equalTo(320)
+            make.height.equalTo(170)
+        
+        }
+        
+        descriptionLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.width.equalTo(320)
+            make.height.equalTo(20)
+        }
+        
         
         startButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -72,5 +115,17 @@ extension StartView: StartViewInput{
     func startApp() {
         print("done")
 //        метод должен либо демонстрировать онбординг либо переходить на экран home
+    }
+}
+
+extension UIView {
+    func setGradientColor(topColor: UIColor, bottomColor: UIColor) {
+        let gradient = CAGradientLayer()
+        gradient.frame = bounds
+        gradient.colors = [topColor.cgColor, bottomColor.cgColor]
+        gradient.locations = [0.0, 1.0]
+        gradient.startPoint = CGPoint(x: 0.5, y: 1)
+        gradient.endPoint = CGPoint(x: 0.5, y: 0)
+        layer.insertSublayer(gradient, at: 0)
     }
 }

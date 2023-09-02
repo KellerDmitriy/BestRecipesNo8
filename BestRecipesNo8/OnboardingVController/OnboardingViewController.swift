@@ -55,7 +55,7 @@ class OnboardingViewController: UIViewController {
         var array: [UIImageView] = []
         for i in 0..<background.count {
             let imageView = UIImageView(image: background[i])
-            imageView.contentMode = .scaleToFill
+            imageView.contentMode = .scaleAspectFill
             array.append(imageView)
         }
         return array
