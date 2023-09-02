@@ -45,6 +45,8 @@ final class ProfileView: UIViewController {
         applyConstraints()
     }
     
+    // MARK: - Methods with Image
+    
     private func addTapedImageView() {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapRecognizer:)))
         profileImageView.isUserInteractionEnabled = true
@@ -65,23 +67,42 @@ final class ProfileView: UIViewController {
         }
     }
     
-    private func alertImageView() {
-        let alert = UIAlertController(title: nil, message: "Выберите способ загрузки фотографии", preferredStyle: .alert)
-        let cameraAction = UIAlertAction(title: "Камера", style: .default) { (action) in
-            self.chooseImage(source: .camera)
-        }
-        let photoLibAction = UIAlertAction(title: "Галерея", style: .default) { (action) in
-            self.chooseImage(source: .photoLibrary)
+    enum ImageLoad: String {
+        case camera = "Camera"
+        case photoLibrary = "Gallery"
+        case cancel = "Cancel"
+    }
+    
+    func setAlertAction(alert: UIAlertController, imageLoad: ImageLoad) {
+        let action: UIAlertAction
+        
+        switch imageLoad {
+        case .camera:
+            action = UIAlertAction(title: imageLoad.rawValue, style: .default) { _ in
+                self.chooseImage(source: .camera)
+            }
+        case .photoLibrary:
+            action = UIAlertAction(title: imageLoad.rawValue, style: .default) { _ in
+                self.chooseImage(source: .photoLibrary)
+            }
+        case .cancel:
+            action = UIAlertAction(title: imageLoad.rawValue, style: .cancel, handler: nil)
         }
         
-        let cancelAction = UIAlertAction(title: "Отменить", style: .cancel, handler: nil)
-        alert.addAction(cameraAction)
-        alert.addAction(photoLibAction)
-        alert.addAction(cancelAction)
+        action.setValue(UIColor.darkGray, forKey: "titleTextColor")
+        alert.addAction(action)
+    }
+    
+    private func alertImageView() {
+        let alert = UIAlertController(title: nil, message: "Choose a way to upload a photo", preferredStyle: .alert)
+        
+        setAlertAction(alert: alert, imageLoad: .camera)
+        setAlertAction(alert: alert, imageLoad: .photoLibrary)
+        setAlertAction(alert: alert, imageLoad: .cancel)
         self.present(alert, animated: true, completion: nil)
     }
     
-    // MARK: - Hierarchy
+    // MARK: - Subviews
     private func addSubviews() {
         scrollView.addSubview(contentView)
         view.addSubview(scrollView)
@@ -92,7 +113,7 @@ final class ProfileView: UIViewController {
         contentView.addSubview(collectionView)
     }
     
-    // MARK: - Layout
+    // MARK: - Constraints
     private func applyConstraints() {
         
         scrollView.snp.makeConstraints { make in
@@ -132,7 +153,6 @@ final class ProfileView: UIViewController {
     // MARK: - UICollectionViewCompositionalLayout
     
     private func createLayout() -> UICollectionViewLayout {
-        
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 0, bottom: 12, trailing: 0)
@@ -152,7 +172,7 @@ final class ProfileView: UIViewController {
 extension ProfileView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return recipes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -171,6 +191,7 @@ extension ProfileView: UICollectionViewDataSource {
     }
 }
 
+// MARK: - Protocols for load Image from gallery
 extension ProfileView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -187,6 +208,7 @@ extension ProfileView: ProfileViewInput {
     }
 }
 
+// MARK: - Extension for setup elements
 private extension ProfileView {
     
     var _scrollView: UIScrollView {
