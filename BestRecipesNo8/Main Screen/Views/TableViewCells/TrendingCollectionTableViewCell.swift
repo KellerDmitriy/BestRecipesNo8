@@ -52,7 +52,7 @@ final class TrendingCollectionTableViewCell: UITableViewCell {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            recipesCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            recipesCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             recipesCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             recipesCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             recipesCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -78,7 +78,7 @@ extension TrendingCollectionTableViewCell: UICollectionViewDelegateFlowLayout, U
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth: CGFloat = 280
-        let cellHeight: CGFloat = 254
+        let cellHeight: CGFloat = 210
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }

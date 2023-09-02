@@ -135,7 +135,7 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return 298
+            return 220
         case 1:
             return 355
         case 2:
