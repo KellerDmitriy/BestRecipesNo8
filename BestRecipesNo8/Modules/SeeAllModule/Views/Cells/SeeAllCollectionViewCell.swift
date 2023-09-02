@@ -81,6 +81,20 @@ class SeeAllCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    // Закладка
+    
+    private lazy var saveButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "bookmark"), for: .normal)
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 16
+        button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    var isSaveButtonTapped = false
+    
     // MARK: - Initial
     
     override init(frame: CGRect) {
@@ -144,6 +158,14 @@ class SeeAllCollectionViewCell: UICollectionViewCell {
             titleRecipe.bottomAnchor.constraint(equalTo: infoRecipe.topAnchor, constant: -8)
         ])
         
+        contentView.addSubview(saveButton)
+        NSLayoutConstraint.activate([
+            saveButton.widthAnchor.constraint(equalToConstant: 32),
+            saveButton.heightAnchor.constraint(equalToConstant: 32),
+            saveButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            saveButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+        ])
+        
     }
     
     // MARK: - Public methods
@@ -161,6 +183,11 @@ class SeeAllCollectionViewCell: UICollectionViewCell {
             guard let image = UIImage(data: data) else { return }
             self?.imageView.image = UIImage.cropImage(image: image)
         }
+    }
+    
+    @objc func saveButtonTapped() {
+        isSaveButtonTapped.toggle()
+        saveButton.setImage(UIImage(named: isSaveButtonTapped ? "bookmarkSelect" : "bookmark"), for: .normal)
     }
     
 }

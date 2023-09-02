@@ -83,10 +83,11 @@ extension PopularCategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICo
     }
 }
 
-let RecipeInfoMockBorsch = RecipeInfo(id: 0, title: "Borsch", image: "https://otkritkis.com/wp-content/uploads/2021/12/kak-svarit-borshh-640x342-1.jpg", readyInMinutes: 25, spoonacularScore: nil, sourceName: nil, dichTypes: nil, extendedIngredients: nil)
+let RecipeInfoMockBorsch = RecipeInfo(id: 0, title: "Borsch", summary: nil, image: "https://otkritkis.com/wp-content/uploads/2021/12/kak-svarit-borshh-640x342-1.jpg", sourceUrl: nil, preparationMinutes: nil, cookingMinutes: nil, readyInMinutes: 25, servings: nil, aggregateLikes: nil, spoonacularScore: nil, creditsText: nil, sourceName: nil, dichTypes: nil, diets: nil, extendedIngredients: nil, analyzedInstructions: nil)
 
-let RecipeInfoMockKasha = RecipeInfo(id: 0, title: "Kasha", image: "https://eda.ru/img/eda/c620x415/s1.eda.ru/StaticContent/Photos/160302171541/160308173944/p_O.jpg", readyInMinutes: 5, spoonacularScore: nil, sourceName: nil, dichTypes: nil, extendedIngredients: nil)
+let RecipeInfoMockKasha = RecipeInfo(id: 0, title: "Kasha", summary: nil, image: "https://eda.ru/img/eda/c620x415/s1.eda.ru/StaticContent/Photos/160302171541/160308173944/p_O.jpg", sourceUrl: nil, preparationMinutes: nil, cookingMinutes: nil, readyInMinutes: 2, servings: nil, aggregateLikes: nil, spoonacularScore: nil, creditsText: nil, sourceName: nil, dichTypes: nil, diets: nil, extendedIngredients: nil, analyzedInstructions: nil)
 
-let RecipeInfoMock = RecipeInfo(id: 0, title: "Shashlyk", image: "https://img1.russianfood.com/dycontent/images_upl/37/big_36405.jpg", readyInMinutes: 10, spoonacularScore: nil, sourceName: nil, dichTypes: nil, extendedIngredients: nil)
+let RecipeInfoMockSshaskyk = RecipeInfo(id: 0, title: "Shashlyk", summary: nil, image: "https://img1.russianfood.com/dycontent/images_upl/37/big_36405.jpg", sourceUrl: nil, preparationMinutes: nil, cookingMinutes: nil, readyInMinutes: 15, servings: nil, aggregateLikes: nil, spoonacularScore: nil, creditsText: nil, sourceName: nil, dichTypes: nil, diets: nil, extendedIngredients: nil, analyzedInstructions: nil)
 
-let popularCategoryRecipesMock = [RecipeInfoMockBorsch, RecipeInfoMockKasha, RecipeInfoMock]
+
+let popularCategoryRecipesMock = [RecipeInfoMockBorsch, RecipeInfoMockKasha, RecipeInfoMockSshaskyk]

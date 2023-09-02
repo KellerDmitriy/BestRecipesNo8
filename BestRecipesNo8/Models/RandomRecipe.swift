@@ -14,19 +14,69 @@ struct RandomRecipe: Codable {
 struct RecipeInfo: Codable {
     let id: Int?
     let title: String?
+    let summary: String?
     let image: String?
-    let readyInMinutes: Int?
-    let spoonacularScore: Double?
-    let sourceName: String?
+    let sourceUrl: String?
     
+    let preparationMinutes: Int?
+    let cookingMinutes: Int?
+    let readyInMinutes: Int?
+    let servings: Int?
+    
+    let aggregateLikes: Int?
+    let spoonacularScore: Double?
+    let creditsText: String?
+    let sourceName: String?
     let dichTypes: [String]?
+    let diets: [String]?
     
     let extendedIngredients: [ExtendedIngredient]?
+    
+    let analyzedInstructions: [AnalyzedInstruction]?
+    
+    var instuctionsLabel: String {
+        var result: String = ""
+        guard let instructions = analyzedInstructions?.first else { return "" }
+        instructions.steps?.forEach {
+            result.append(contentsOf: "\($0.number ?? 1). \($0.step ?? "").\n")
+        }
+        return result
+    }
 }
 
 struct ExtendedIngredient: Codable {
     let id: Int?
-    let name: String?
     let aisle: String?
     let image: String?
+    let consistency: String?
+    let name: String?
+    let nameClean: String?
+    let amount: Double?
+    let unit: String?
+    let measures: Measures?
+    
+    var imageURL: String {
+        "https://spoonacular.com/cdn/ingredients_100x100/\(image ?? "")"
+    }
+}
+
+struct AnalyzedInstruction: Codable {
+    let name: String?
+    let steps: [Step]?
+}
+
+struct Step: Codable {
+    let number: Int?
+    let step: String?
+}
+
+struct Measures: Codable {
+    let us: Metric?
+    let metric: Metric?
+}
+
+struct Metric: Codable {
+    let amount: Double?
+    let unitShort: String?
+    let unitLong: String?
 }

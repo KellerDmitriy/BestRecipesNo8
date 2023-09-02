@@ -5,7 +5,7 @@
 //  Created by Aleksandr Rybachev on 28.08.2023.
 //
 
-import Foundation
+import UIKit
 
 class ImageManager {
     
@@ -22,6 +22,8 @@ class ImageManager {
                 return
             }
             
+            guard url == response.url else { return }
+            
             DispatchQueue.main.async {
                 completion(data, response)
             }
@@ -32,6 +34,21 @@ class ImageManager {
         guard let url = url else { return nil }
         guard let imageData = try? Data(contentsOf: url) else { return nil }
         return imageData
+    }
+    
+    func saveDataToCache(with data: Data, and response: URLResponse) {
+        guard let url = response.url else { return }
+        let request = URLRequest(url: url)
+        let cachedResponse = CachedURLResponse(response: response, data: data)
+        URLCache.shared.storeCachedResponse(cachedResponse, for: request)
+    }
+    
+    func getCachedImage(from url: URL) -> UIImage? {
+        let request = URLRequest(url: url)
+        if let cachedResponse = URLCache.shared.cachedResponse(for: request) {
+            return UIImage(data: cachedResponse.data)
+        }
+        return nil
     }
 
 }
