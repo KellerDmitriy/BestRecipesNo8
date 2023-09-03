@@ -19,6 +19,7 @@ class NotificationViewController: UIViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         setupHierarchy()
         setupLayout()
     }

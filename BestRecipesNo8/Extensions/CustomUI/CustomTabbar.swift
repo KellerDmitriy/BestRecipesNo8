@@ -24,12 +24,13 @@ final class CustomTabBar: UITabBarController {
         setupSubviews()
         applyConstraints()
         assignTabBarModules()
-      
+        
     }
     
     // MARK: - Create Button Method
     @objc private func createButtonIsTapped(_ sender: UIButton) {
-        print("Create button is tapped")
+        let view = NotificationViewController()
+        self.navigationController?.pushViewController(view, animated: true)
         
     }
     
@@ -41,7 +42,7 @@ final class CustomTabBar: UITabBarController {
         let profileVC = ProfileBuilder.createProfileModule()
         
         mainVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "main")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "mainSelect")?.withRenderingMode(.alwaysOriginal))
-            
+        
         discoverVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "bookmark")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "bookmarkSelect")?.withRenderingMode(.alwaysOriginal))
         
         notificationVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "notification")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "notificationSelect")?.withRenderingMode(.alwaysOriginal))
@@ -87,5 +88,5 @@ private extension CustomTabBar {
         return button
     }
     
-   
+    
 }
