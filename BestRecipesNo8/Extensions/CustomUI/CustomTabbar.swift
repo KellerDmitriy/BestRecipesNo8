@@ -1,5 +1,5 @@
 //
-//  TabBarView.swift
+//  CustomTabBar.swift
 //  BestRecipesNo8
 //
 //  Created by Мявкo on 31.08.23.
@@ -7,52 +7,49 @@
 
 import UIKit
 
-class TabBarView: UITabBarController {
+final class CustomTabBar: UITabBarController {
     
-    private let presenter: TabBarPresenter
-    private let model = TabBarModel.views
     
     // MARK: - Views
     private lazy var backgroundImageView: UIImageView = _backgroundImageView
     private lazy var createButton: UIButton = _createButton
     
-    // MARK: - Init
-    init(presenter: TabBarPresenter) {
-        self.presenter = presenter
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.barTintColor = .white
         view.backgroundColor = .white
-
+        
         setupSubviews()
         applyConstraints()
         assignTabBarModules()
-    }
-    
-    // MARK: - For each TabBarItem setup a controller and images
-    private func assignTabBarModules() {
-        viewControllers = model.map { item in
-            let controller = item.controller
-            let image = item.tabBarImage?.withRenderingMode(.alwaysOriginal)
-            let selectedImage = item.tabBarSelectedImage?.withRenderingMode(.alwaysOriginal)
-            controller.tabBarItem = UITabBarItem(title: "", image: image, selectedImage: selectedImage)
-            return controller
-        }
+      
     }
     
     // MARK: - Create Button Method
     @objc private func createButtonIsTapped(_ sender: UIButton) {
         print("Create button is tapped")
+        
     }
     
+    // MARK: - TabBarItem setup a controller and images
+    private func assignTabBarModules() {
+        let mainVC = MainScreenBuilder.createMainScreenViewController()
+        let discoverVC = SavedRecipesBuilder.createSavedRecipesModule()
+        let notificationVC = NotificationViewController()
+        let profileVC = ProfileBuilder.createProfileModule()
+        
+        mainVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "main")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "mainSelect")?.withRenderingMode(.alwaysOriginal))
+            
+        discoverVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "bookmark")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "bookmarkSelect")?.withRenderingMode(.alwaysOriginal))
+        
+        notificationVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "notification")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "notificationSelect")?.withRenderingMode(.alwaysOriginal))
+        
+        profileVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "profile")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "profileSelect")?.withRenderingMode(.alwaysOriginal))
+        
+        setViewControllers([mainVC, discoverVC, notificationVC, profileVC], animated: true)
+    }
     // MARK: - Subviews
     private func setupSubviews() {
         tabBar.addSubview(backgroundImageView)
@@ -76,7 +73,7 @@ class TabBarView: UITabBarController {
 }
 
 // MARK: - Extension for setup elements
-private extension TabBarView {
+private extension CustomTabBar {
     
     var _backgroundImageView: UIImageView {
         let imageView = UIImageView()
@@ -89,4 +86,6 @@ private extension TabBarView {
         button.addTarget(self, action: #selector(createButtonIsTapped), for: .touchUpInside)
         return button
     }
+    
+   
 }
