@@ -19,9 +19,9 @@ extension UINavigationController {
         navigationBar.tintColor = .black
         navigationBar.topItem?.title = ""
 
-        let moreButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .plain, target: self, action: #selector(moreButtonTapped))
-        moreButton.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
-        topViewController?.navigationItem.rightBarButtonItem = moreButton
+//        let moreButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .plain, target: self, action: #selector(moreButtonTapped))
+//        moreButton.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
+//        topViewController?.navigationItem.rightBarButtonItem = moreButton
     }
     
     @objc private func moreButtonTapped() {}
