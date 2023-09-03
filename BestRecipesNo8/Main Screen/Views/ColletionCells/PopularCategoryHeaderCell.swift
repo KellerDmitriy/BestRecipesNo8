@@ -5,9 +5,16 @@
 //  Created by Aleksandr Garipov on 02.09.2023.
 //
 
+protocol PopularCategoryHeaderCellDelegate: AnyObject {
+    func getRecipesWithMealType(mealType: String)
+}
+
+
 import UIKit
 
 final class PopularCategoryHeaderCell: UICollectionViewCell {
+    
+    weak var delegate: PopularCategoryHeaderCellDelegate?
     
     //MARK: - UI Elements:
     
@@ -42,14 +49,15 @@ final class PopularCategoryHeaderCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 10
     }
     
-    func configureCell(header: String) {
+    func configureCell(header: String, delegate: PopularCategoryHeaderCellDelegate) {
         headerLabel.text = header
+        self.delegate = delegate
     }
     
     func selectCell() {
+        delegate?.getRecipesWithMealType(mealType: headerLabel.text ?? "")
         contentView.backgroundColor = UIColor(named: "Primary")
         headerLabel.textColor = .white
-        print("selected")
     }
     
     func deselectCell() {

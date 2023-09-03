@@ -11,4 +11,6 @@ protocol DataServiceProtocol {
     
 }
 
-final class DataService: DataServiceProtocol {}
+final class DataService: DataServiceProtocol {
+    
+}

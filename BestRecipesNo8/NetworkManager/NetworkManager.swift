@@ -80,7 +80,7 @@ struct NetworkManager {
             do {
                 let decodeData = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(decodeData))
-                print(decodeData)
+                //print(decodeData)
             } catch {
                 completion(.failure(.decodingError(error)))
             }

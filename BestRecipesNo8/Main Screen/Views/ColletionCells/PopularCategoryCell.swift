@@ -99,11 +99,12 @@ final class PopularCategoryCell: UICollectionViewCell {
         grayBackgroundView.addSubview(addButton)
     }
     
-    func configureCell(at recipeInfo: RecipeInfo) {
+    func configureCell(at recipeInfo: SearchRecipe) {
         guard let id = recipeInfo.id,
               let title = recipeInfo.title,
-              let image = recipeInfo.image,
-              let readyInMinutes =  recipeInfo.readyInMinutes else { return }
+              let image = recipeInfo.image
+//              let readyInMinutes =  recipeInfo.readyInMinutes
+        else { return }
         let cache = ImageCache.default
         cache.diskStorage.config.expiration = .seconds(1)
         let processor = RoundCornerImageProcessor(cornerRadius: 55, backgroundColor: .clear)
@@ -111,7 +112,7 @@ final class PopularCategoryCell: UICollectionViewCell {
         recipeImageView.kf.setImage(with: URL(string: image), placeholder: nil, options: [.processor(processor),
                                                                                           .cacheSerializer(FormatIndicatedCacheSerializer.png)])
         titleLabel.text = title
-        counterLabel.text = "\(readyInMinutes) Mins"
+       // counterLabel.text = "\(readyInMinutes) Mins"
     }
     
     private func setupLayout() {
