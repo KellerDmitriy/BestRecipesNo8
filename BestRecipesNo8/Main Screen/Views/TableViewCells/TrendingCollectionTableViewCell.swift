@@ -11,7 +11,7 @@ final class TrendingCollectionTableViewCell: UITableViewCell {
     
     // MARK: Properties:
     
-    private var trendingNowRecipes: [RecipeInfo] = popularCategoryRecipesMock
+    private var trendingNowRecipes: [SearchRecipe] = []
     
     // MARK: - UI Elements
     private lazy var recipesCollectionView: UICollectionView = {
@@ -42,12 +42,17 @@ final class TrendingCollectionTableViewCell: UITableViewCell {
     private func setupRecipesCollectionView() {
         recipesCollectionView.delegate = self
         recipesCollectionView.dataSource = self
-        recipesCollectionView.register(TrendingCell.self, forCellWithReuseIdentifier: TrendingCell.reuseIdentifier)
+        recipesCollectionView.register(TrendingCategoryCell.self, forCellWithReuseIdentifier: TrendingCategoryCell.reuseIdentifier)
         recipesCollectionView.register(PopularCategoryCell.self, forCellWithReuseIdentifier: PopularCategoryCell.reuseIdentifier)
     }
     
     private func setupUI() {
         contentView.addSubview(recipesCollectionView)
+    }
+    
+    func configureCell(recipes: [SearchRecipe]) {
+        self.trendingNowRecipes = recipes
+        recipesCollectionView.reloadData()
     }
     
     private func setupLayout() {
@@ -70,7 +75,7 @@ extension TrendingCollectionTableViewCell: UICollectionViewDelegateFlowLayout, U
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingCell.reuseIdentifier, for: indexPath) as? TrendingCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingCategoryCell.reuseIdentifier, for: indexPath) as? TrendingCategoryCell else { return UICollectionViewCell() }
         cell.configureCell(at: trendingNowRecipes[indexPath.row])
             return cell
     }

@@ -10,6 +10,7 @@ import UIKit
 final class MainScreenViewController: UIViewController {
 
     var presenter: MainPresenterProtocol!
+    var popularCategoryDelegate: PopularCategoryHeaderCellDelegate!
     
     //MARK: - UI Elementes:
     
@@ -51,6 +52,7 @@ final class MainScreenViewController: UIViewController {
         setupUI()
         setupLayout()
         presenter.getNewRecipes()
+        getRecipes()
     }
     
     //MARK: - Methods
@@ -99,18 +101,21 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TrendingCollectionTableViewCell.reuseIdentifier, for: indexPath) as? TrendingCollectionTableViewCell else {
                 return UITableViewCell()
             }
+            cell.configureCell(recipes: presenter.trendingNowRecipes)
             return cell
             
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PopularCategoryTableViewCell.reuseIdentifier, for: indexPath) as? PopularCategoryTableViewCell else {
                 return UITableViewCell()
             }
+            cell.configureCell(recipes: presenter.popularCategoryRecipes, presenter: popularCategoryDelegate)
             return cell
             
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentRecipeTableViewCell.reuseIdentifier, for: indexPath) as? RecentRecipeTableViewCell else {
                 return UITableViewCell()
             }
+            cell.configureCell(recipes: presenter.recentRecipe)
             return cell
             
         default:
@@ -147,7 +152,38 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension MainScreenViewController: MainScreenViewControllerProtocol {
+    func getPopularRecipes() {
+        DispatchQueue.main.async {
+            self.recipesTableView.reloadData()
+        }
+    }
+    
     func getRecipes() {
-        
+        presenter.networkManager.getPopularRecipes { result in
+            switch result {
+            case .success(let results):
+                if let recipes = results.results {
+                    self.presenter.trendingNowRecipes = recipes
+                    DispatchQueue.main.async {
+                        self.recipesTableView.reloadData()
+                    }
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        presenter.networkManager.getRandomRecipes { result in
+            switch result {
+            case .success(let results):
+                if let recipes = results.recipes {
+                    self.presenter.recentRecipe = recipes
+                    DispatchQueue.main.async {
+                        self.recipesTableView.reloadData()
+                    }
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }

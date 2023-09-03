@@ -11,7 +11,8 @@ final class PopularCategoryTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
-    private var popularCategoryRecipes: [RecipeInfo] = popularCategoryRecipesMock
+    private var popularCategoryRecipes: [SearchRecipe] = []
+    private var presenter: PopularCategoryHeaderCellDelegate?
     
     // MARK: - UI Elements
     
@@ -63,6 +64,12 @@ final class PopularCategoryTableViewCell: UITableViewCell {
         headerCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
     }
     
+    func configureCell(recipes: [SearchRecipe], presenter: PopularCategoryHeaderCellDelegate) {
+        self.popularCategoryRecipes = recipes
+        self.presenter = presenter
+        recipesCollectionView.reloadData()
+    }
+    
     private func setupUI() {
         contentView.addSubview(recipesCollectionView)
         contentView.addSubview(headerCollectionView)
@@ -104,8 +111,9 @@ extension PopularCategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICo
         switch collectionView {
         case headerCollectionView:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCategoryHeaderCell.reuseIdentifier, for: indexPath) as? PopularCategoryHeaderCell else { return UICollectionViewCell()}
+            guard let presenter = presenter else { return cell}
+            cell.configureCell(header: Constants.mealTypes[indexPath.row], delegate: presenter)
             cell.isSelected ? cell.selectCell() : cell.deselectCell()
-            cell.configureCell(header: Constants.mealTypes[indexPath.row])
             return cell
         case recipesCollectionView:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCategoryCell.reuseIdentifier, for: indexPath) as? PopularCategoryCell else { return UICollectionViewCell() }
@@ -144,14 +152,4 @@ extension PopularCategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICo
             cell.deselectCell()
         }
     }
-    
 }
-
-let RecipeInfoMockBorsch = RecipeInfo(id: 0, title: "Borsch", summary: nil, image: "https://otkritkis.com/wp-content/uploads/2021/12/kak-svarit-borshh-640x342-1.jpg", sourceUrl: nil, preparationMinutes: nil, cookingMinutes: nil, readyInMinutes: 25, servings: nil, aggregateLikes: nil, spoonacularScore: nil, creditsText: nil, sourceName: nil, dichTypes: nil, diets: nil, extendedIngredients: nil, analyzedInstructions: nil)
-
-let RecipeInfoMockKasha = RecipeInfo(id: 0, title: "Kasha", summary: nil, image: "https://eda.ru/img/eda/c620x415/s1.eda.ru/StaticContent/Photos/160302171541/160308173944/p_O.jpg", sourceUrl: nil, preparationMinutes: nil, cookingMinutes: nil, readyInMinutes: 2, servings: nil, aggregateLikes: nil, spoonacularScore: nil, creditsText: nil, sourceName: nil, dichTypes: nil, diets: nil, extendedIngredients: nil, analyzedInstructions: nil)
-
-let RecipeInfoMockSshaskyk = RecipeInfo(id: 0, title: "Shashlyk", summary: nil, image: "https://img1.russianfood.com/dycontent/images_upl/37/big_36405.jpg", sourceUrl: nil, preparationMinutes: nil, cookingMinutes: nil, readyInMinutes: 15, servings: nil, aggregateLikes: nil, spoonacularScore: nil, creditsText: nil, sourceName: nil, dichTypes: nil, diets: nil, extendedIngredients: nil, analyzedInstructions: nil)
-
-
-let popularCategoryRecipesMock = [RecipeInfoMockBorsch, RecipeInfoMockKasha, RecipeInfoMockSshaskyk]

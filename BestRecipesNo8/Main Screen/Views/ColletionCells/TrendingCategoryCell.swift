@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-final class TrendingCell: UICollectionViewCell {
+final class TrendingCategoryCell: UICollectionViewCell {
     
     //MARK: - UI Elements
     
@@ -25,6 +25,8 @@ final class TrendingCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Poppins-Bold", size: 16)
+//        label.minimumScaleFactor = 0.1
+//        label.adjustsFontSizeToFitWidth = true
         label.text = "How to sharwama at home"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -61,10 +63,10 @@ final class TrendingCell: UICollectionViewCell {
         contentView.addSubview(addButton)
     }
     
-    func configureCell(at recipeInfo: RecipeInfo) {
-        guard let id = recipeInfo.id,
-              let title = recipeInfo.title,
-              let image = recipeInfo.image else { return }
+    func configureCell(at searchRecipe: SearchRecipe) {
+        guard let id = searchRecipe.id,
+              let title = searchRecipe.title,
+              let image = searchRecipe.image else { return }
         let cache = ImageCache.default
         cache.diskStorage.config.expiration = .seconds(1)
         let processor = RoundCornerImageProcessor(cornerRadius: 12, backgroundColor: .clear)
@@ -83,6 +85,7 @@ final class TrendingCell: UICollectionViewCell {
             recipeImageView.widthAnchor.constraint(equalToConstant: 280),
             
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             titleLabel.topAnchor.constraint(equalTo: recipeImageView.bottomAnchor, constant: 5),
             
             addButton.trailingAnchor.constraint(equalTo: recipeImageView.trailingAnchor, constant: -8),
