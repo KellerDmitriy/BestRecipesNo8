@@ -9,7 +9,12 @@ import UIKit
 
 class SeeAllViewController: UIViewController {
     
+    
+    var category: String?
+    var isSorted: Bool?
+    
     // MARK: - Private Properties
+    private let presenter: SeeAllViewOutput
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
@@ -18,6 +23,16 @@ class SeeAllViewController: UIViewController {
         return collectionView
     }()
     
+    // MARK: - Init
+    
+    init(presenter: SeeAllViewOutput) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     // MARK: - Life View Cycle
     
     override func viewDidLoad() {
@@ -76,7 +91,9 @@ extension SeeAllViewController: UICollectionViewDataSource {
         cell.configureCell()
         return cell
     }
+   
+}
 
-    
+extension SeeAllViewController: SeeAllViewInput {
     
 }

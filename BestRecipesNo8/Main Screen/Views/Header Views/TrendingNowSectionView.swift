@@ -8,6 +8,8 @@ import UIKit
 
 final class TrendingNowSectionView: UIView {
     
+    let presenter: MainPresenterProtocol
+    
     //MARK: - UIElements:
     
     private lazy var titleLabel: UILabel = {
@@ -27,7 +29,7 @@ final class TrendingNowSectionView: UIView {
             config.baseForegroundColor = .orange
         button.configuration = config
         button.setTitleColor(.black, for: .normal)
-        
+        button.addTarget(self, action: #selector(seeAllButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -35,6 +37,7 @@ final class TrendingNowSectionView: UIView {
     //MARK: - LifeCycle:
     
     override init(frame: CGRect) {
+        self.presenter = MainPresenter(view: <#MainScreenViewControllerProtocol#>, dataService: <#DataServiceProtocol#>, router: <#MainRouterInput#>)
         super.init(frame: frame)
         setupUI()
         setupLayout()
@@ -45,6 +48,10 @@ final class TrendingNowSectionView: UIView {
     }
     
     //MARK: - Methods:
+    
+    @objc private func seeAllButtonTapped() {
+        presenter.seeAllButtonTapped()
+    }
     
     private func setupUI() {
         backgroundColor = .clear
@@ -64,3 +71,4 @@ final class TrendingNowSectionView: UIView {
         ])
     }
 }
+

@@ -8,5 +8,6 @@
 import Foundation
 
 protocol SeeAllViewOutput {
+    func fetchData(for category: String)
     
 }

@@ -15,7 +15,8 @@ final class MainScreenBuilder: Builder {
     static func createMainScreenViewController() -> UIViewController {
         let view = MainScreenViewController()
         let dataService = DataService()
-        let presenter = MainPresenter(view: view, dataService: dataService)
+        let router = MainViewRouter()
+        let presenter = MainPresenter(view: view, dataService: dataService, router: router)
         view.presenter = presenter
         view.popularCategoryDelegate = presenter
         return view

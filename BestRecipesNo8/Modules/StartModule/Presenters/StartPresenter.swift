@@ -13,7 +13,7 @@ final class StartPresenter {
     private let router: StartRouterInput
     private let settingsManager: SettingsManagerProtocol
 
-    init(router: StartRouterInput,settingsManager: SettingsManagerProtocol) {
+    init(router: StartRouterInput, settingsManager: SettingsManagerProtocol) {
         
         self.router = router
         self.settingsManager = settingsManager

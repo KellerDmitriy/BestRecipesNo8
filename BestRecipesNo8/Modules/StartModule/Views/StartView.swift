@@ -68,7 +68,7 @@ final class StartView: UIViewController {
     }
 }
 
-extension StartView: StartViewInput{
+extension StartView: StartViewInput {
     func startApp() {
         print("done")
 //        метод должен либо демонстрировать онбординг либо переходить на экран home
