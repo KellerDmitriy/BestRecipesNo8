@@ -24,6 +24,7 @@ class OnboardingViewController: UIViewController {
         let scrollView = UIScrollView()
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
+        scrollView.isScrollEnabled = false
         scrollView.delegate = self
         scrollView.contentSize = CGSize(
             width: Double(Int(view.bounds.width) * background.count),
@@ -33,20 +34,13 @@ class OnboardingViewController: UIViewController {
     }()
     
     
-    lazy var onboardingPageControl: UIPageControl = {
+    private lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
-        pageControl.numberOfPages = background.count
-        //        pageControl.currentPageIndicatorTintColor = .primaryColor
-        //        pageControl.pageIndicatorTintColor = .neutralColor
-        
-        let selectedImage = UIImage(systemName: "RectangleSelect")
-        
-        let deselectedImage = UIImage(systemName: "Rectangle")
-        
-        pageControl.setIndicatorImage(selectedImage, forPage: pageControl.currentPage)
-        pageControl.setIndicatorImage(deselectedImage, forPage: pageControl.currentPage + 1)
-        pageControl.addTarget(self, action: #selector(pageControlDidChange), for: .valueChanged)
-        pageControl.allowsContinuousInteraction = true
+        pageControl.numberOfPages = 3
+        pageControl.preferredIndicatorImage = UIImage(named: "RectangleSelect")
+        pageControl.pageIndicatorTintColor = .gray
+        pageControl.currentPageIndicatorTintColor = .primaryColor
+        pageControl.addTarget(self, action: #selector(nextPage), for: .valueChanged)
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         return pageControl
     }()
@@ -56,6 +50,7 @@ class OnboardingViewController: UIViewController {
         for i in 0..<background.count {
             let imageView = UIImageView(image: background[i])
             imageView.contentMode = .scaleAspectFill
+            imageView.setGradientColor(topColor: .clear, bottomColor: .black)
             array.append(imageView)
         }
         return array
@@ -97,21 +92,26 @@ class OnboardingViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        onboardingScrollViewsAddSubviews()
+    }
+    
     //MARK: - Private Methods
     private func onboardingScrollViewsAddSubviews() {
         for i in 0..<onboardingImageViewArray.count {
             onboardingScrollView.addSubview(onboardingImageViewArray[i])
-            onboardingImageViewArray[i].frame = CGRect(x: Int(view.bounds.width) * i, y: 0, width: Int(view.bounds.width), height: Int(view.bounds.height))
+            onboardingImageViewArray[i].frame = CGRect(x: view.bounds.width * CGFloat(i), y: 0, width: view.bounds.width, height: view.bounds.height)
         }
     }
     
     @objc private func pageControlDidChange() {
-        let offsetX = view.bounds.width * CGFloat(onboardingPageControl.currentPage)
+        let offsetX = view.bounds.width * CGFloat(pageControl.currentPage)
         onboardingScrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
     }
     
     @objc private func nextPage() {
-        let offsetX = view.bounds.width * CGFloat(onboardingPageControl.currentPage + 1)
+        let offsetX = view.bounds.width * CGFloat(pageControl.currentPage + 1)
         onboardingScrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
     }
     
@@ -128,16 +128,16 @@ class OnboardingViewController: UIViewController {
     private func setupHierarchy() {
         addSubViews()
         makeConstraints()
-        onboardingScrollViewsAddSubviews()
+//        onboardingScrollViewsAddSubviews()
     }
 }
 //MARK: - UIScrollViewDelegate
 
 extension OnboardingViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        onboardingPageControl.currentPage = Int(onboardingScrollView.contentOffset.x / view.bounds.width)
+        pageControl.currentPage = Int(onboardingScrollView.contentOffset.x / view.bounds.width)
         
-        switch onboardingPageControl.currentPage {
+        switch pageControl.currentPage {
         case 0:
             nextButton.setTitle("Continue", for: .normal)
             nextButton.addTarget(self, action: #selector(nextPage), for: .touchUpInside)
@@ -161,7 +161,7 @@ extension OnboardingViewController: UIScrollViewDelegate {
 extension OnboardingViewController {
     
     private func addSubViews() {
-        let views: [UIView] = [onboardingScrollView, nextButton, onboardingPageControl, titleLabel, subtitle1]
+        let views: [UIView] = [onboardingScrollView, nextButton, pageControl, titleLabel, subtitle1]
         views.forEach { self.view.addSubview($0) }
     }
     
@@ -170,7 +170,7 @@ extension OnboardingViewController {
             make.edges.equalToSuperview()
         }
         
-        onboardingPageControl.snp.makeConstraints { make in
+        pageControl.snp.makeConstraints { make in
             make.bottom.equalTo(nextButton.snp.top).offset(-34)
             make.centerX.equalToSuperview()
         }
@@ -183,7 +183,7 @@ extension OnboardingViewController {
         }
         
         subtitle1.snp.makeConstraints { make in
-            make.bottom.equalTo(onboardingPageControl.snp.top).offset(-173)
+            make.bottom.equalTo(pageControl.snp.top).offset(-173)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(40)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-52)
         }

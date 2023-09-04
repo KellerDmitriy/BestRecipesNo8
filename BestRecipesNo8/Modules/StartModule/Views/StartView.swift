@@ -15,7 +15,7 @@ final class StartView: UIViewController {
     private lazy var backgroundView: UIImageView = {
         let imageViewBackground = UIImageView(frame: UIScreen.main.bounds)
         imageViewBackground.image = UIImage(named: "OnbordingImg1")
-        imageViewBackground.setGradientColor(topColor: .black, bottomColor: .clear)
+        imageViewBackground.setGradientColor(topColor: .clear, bottomColor: .black)
         return imageViewBackground
     }()
     
@@ -124,8 +124,8 @@ extension UIView {
         gradient.frame = bounds
         gradient.colors = [topColor.cgColor, bottomColor.cgColor]
         gradient.locations = [0.0, 1.0]
-        gradient.startPoint = CGPoint(x: 0.5, y: 1)
-        gradient.endPoint = CGPoint(x: 0.5, y: 0)
+        gradient.startPoint = CGPoint(x: 0.5, y: 0)
+        gradient.endPoint = CGPoint(x: 0.5, y: 1)
         layer.insertSublayer(gradient, at: 0)
     }
 }
