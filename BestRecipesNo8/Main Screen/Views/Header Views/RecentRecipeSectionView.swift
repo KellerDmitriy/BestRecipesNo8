@@ -9,6 +9,7 @@ import UIKit
 
 final class RecentRecipeSectionView: UIView {
     
+    
     //MARK: - UIElements:
     
     private lazy var titleLabel: UILabel = {
@@ -19,7 +20,7 @@ final class RecentRecipeSectionView: UIView {
         return label
     }()
     
-    private lazy var seeAllButton: UIButton = {
+    lazy var seeAllButton: UIButton = {
         let button = UIButton(type: .system)
         var config = UIButton.Configuration.plain()
             config.title = "See all "
@@ -28,7 +29,6 @@ final class RecentRecipeSectionView: UIView {
             config.baseForegroundColor = .orange
         button.configuration = config
         button.setTitleColor(.black, for: .normal)
-        
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -41,11 +41,13 @@ final class RecentRecipeSectionView: UIView {
         setupLayout()
     }
     
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     //MARK: - Methods:
+
     
     private func setupUI() {
         backgroundColor = .clear

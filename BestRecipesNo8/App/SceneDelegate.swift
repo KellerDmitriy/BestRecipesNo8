@@ -17,8 +17,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.makeKeyAndVisible()
         
-        let viewController = CustomTabBar()
-        window?.rootViewController = UINavigationController(rootViewController: viewController)
+        let tabbarVC = CustomTabBar()
+        
+        let navigationVC = UINavigationController(rootViewController: tabbarVC)
+        navigationVC.setupNavigationBar()
+        
+        window?.rootViewController = navigationVC
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

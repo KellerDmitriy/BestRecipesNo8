@@ -15,12 +15,14 @@ protocol MainPresenterProtocol: AnyObject {
     var recentRecipe: [RecipeInfo] { get set }
     var networkManager: NetworkManager { get set }
     
+    func seeAllButtonTapped()
+    
     func getNewRecipes()
     func getRecipesByCategory()
 }
 
 final class MainPresenter: MainPresenterProtocol {
-
+    
     weak var view: MainScreenViewControllerProtocol?
     var dataService: DataServiceProtocol
     var trendingNowRecipes: [SearchRecipe] = []
@@ -28,11 +30,18 @@ final class MainPresenter: MainPresenterProtocol {
     var recentRecipe: [RecipeInfo] = []
     var networkManager = NetworkManager.shared
     
+    private let router: MainRouterInput
+    
     //MARK: LifeCycle
     
-    required init(view: MainScreenViewControllerProtocol, dataService: DataServiceProtocol) {
+    required init(view: MainScreenViewControllerProtocol, dataService: DataServiceProtocol, router: MainRouterInput) {
         self.dataService = dataService
         self.view = view
+        self.router = router
+    }
+    
+    func seeAllButtonTapped() {
+        self.router.routeToSeeAllScreen()
     }
     
     func getNewRecipes() {
@@ -59,3 +68,5 @@ extension MainPresenter: PopularCategoryHeaderCellDelegate {
         }
     }
 }
+
+

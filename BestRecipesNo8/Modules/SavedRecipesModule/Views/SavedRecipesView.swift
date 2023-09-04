@@ -37,7 +37,7 @@ final class SavedRecipesView: UIViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .white
         addSubviews()
         applyConstraints()
     }

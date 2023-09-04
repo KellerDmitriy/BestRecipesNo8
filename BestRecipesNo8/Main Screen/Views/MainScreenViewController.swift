@@ -55,6 +55,17 @@ final class MainScreenViewController: UIViewController {
         getRecipes()
     }
     
+    //MARK: - Methods for Header's Button
+    @objc private func seeAllButtonTapped() {
+       // print("seeAllButtonTap")
+    presenter.seeAllButtonTapped()
+    }
+    
+    @objc private func seeAllRecipeSectionButtonTapped() {
+       // print("seeAllRecipeSectionButtonTapped")
+    presenter.seeAllButtonTapped()
+    }
+    
     //MARK: - Methods
     
     private func setupUI() {
@@ -63,6 +74,8 @@ final class MainScreenViewController: UIViewController {
         view.addSubview(recipeSearchField)
         view.addSubview(recipesTableView)
     }
+
+    
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
@@ -127,11 +140,15 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 0:
-            return TrendingNowSectionView()
+            let trendingNowSectionView = TrendingNowSectionView()
+            trendingNowSectionView.seeAllButton.addTarget(self, action: #selector(seeAllButtonTapped), for: .touchUpInside)
+            return trendingNowSectionView
         case 1:
             return PopularCategorySectionView()
         case 2:
-            return RecentRecipeSectionView()
+            let recentRecipeSectionView = RecentRecipeSectionView()
+            recentRecipeSectionView.seeAllButton.addTarget(self, action: #selector(seeAllRecipeSectionButtonTapped), for: .touchUpInside)
+            return recentRecipeSectionView
         default:
             return TrendingNowSectionView()
         }
