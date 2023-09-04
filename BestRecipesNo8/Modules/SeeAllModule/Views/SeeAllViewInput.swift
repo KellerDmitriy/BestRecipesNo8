@@ -8,5 +8,5 @@
 import Foundation
 
 protocol SeeAllViewInput: AnyObject {
-    func updateData(with recipeInfoModel: [RecipeInfo])
+    func updateData(with : [RecipeInfo])
 }

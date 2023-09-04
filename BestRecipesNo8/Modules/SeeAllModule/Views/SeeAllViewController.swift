@@ -87,6 +87,7 @@ extension SeeAllViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         guard
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SeeAllCollectionViewCell.cellID, for: indexPath) as? SeeAllCollectionViewCell
         else {

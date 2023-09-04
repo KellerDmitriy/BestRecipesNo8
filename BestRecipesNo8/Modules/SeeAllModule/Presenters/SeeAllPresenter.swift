@@ -20,8 +20,15 @@ final class SeeAllPresenter {
 }
 
 extension SeeAllPresenter: SeeAllViewOutput {
+    func saveButtonTapped() {
+        //
+    }
+    
     func fetchData(for category: String) {
         //
+    }
+    func cellTapped() {
+        self.router.routeToRecipeDetailScreen()
     }
     
 

@@ -9,5 +9,6 @@ import Foundation
 
 protocol SeeAllViewOutput {
     func fetchData(for category: String)
-    
+    func cellTapped()
+    func saveButtonTapped()
 }

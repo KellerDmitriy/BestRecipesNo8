@@ -10,4 +10,10 @@ import UIKit
 
 final class SeeAllViewRouter: SeeAllRouterInput {
     weak var view: UIViewController?
+    
+    func routeToRecipeDetailScreen() {
+        let view = RecipeBuilder.createRecipeModule()
+        self.view?.navigationController?.pushViewController(view, animated: true)
+    }
 }
+
