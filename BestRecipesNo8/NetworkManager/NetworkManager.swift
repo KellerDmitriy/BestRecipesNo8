@@ -87,6 +87,32 @@ struct NetworkManager {
         }.resume()
     }
     
+    /// Method for making task
+    private func makeTask(for url: URL, using session: URLSession = .shared, completion: @escaping(Result<SearchResult, NetworkError>) -> Void) {
+        
+        session.dataTask(with: url) { data, _, error in
+            
+            if let error = error {
+                completion(.failure(.transportError(error)))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.noData))
+                return
+            }
+            
+            do {
+                let decodeData = try JSONDecoder().decode(SearchResult.self, from: data)
+                completion(.success(decodeData))
+            } catch {
+                completion(.failure(.decodingError(error)))
+            }
+        }.resume()
+    }
+    
+    
+    
     // MARK: - Public methods
     
     /// Get random recipes.
@@ -139,6 +165,51 @@ struct NetworkManager {
         guard let url = createURL(for: .getRecipeInfoBulk(idRecipes: ids)) else { return }
         print("url bulk: \(url)")
         makeTask(for: url, completion: completion)
+    }
+    
+}
+
+// MARK: NEW METHODS
+
+extension NetworkManager {
+    
+    /// Get popular recipes
+    /// - Returns: 10 popular recipes
+    func getTenPopularRecipes(completion: @escaping(Result<[RecipeInfo], NetworkError>) -> Void) {
+        guard let url = createURL(for: .getPopularRecipes) else { return }
+        
+        makeTask(for: url) { searchResult in
+            switch searchResult {
+            case .success(let data):
+                let ids = data.results?.compactMap { $0.id }
+                if let ids = ids {
+                    getRecipeInformationBulk(for: ids, completion: completion)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    /// Get recipes for meal type
+    /// - Parameters:
+    /// - mealType: The type of recipe.
+    /// - Returns: 10 recipes for meal type
+    func getTenRecipesWithMealType(for mealType: String, completion: @escaping(Result<[RecipeInfo], NetworkError>) -> Void) {
+        let mealTypeWithUnderscore = mealType.replacingOccurrences(of: " ", with: "_")
+        guard let url = createURL(for: .getRecipesForMealType(type: mealTypeWithUnderscore)) else { return }
+        
+        makeTask(for: url) { searchResult in
+            switch searchResult {
+            case .success(let data):
+                let ids = data.results?.compactMap { $0.id }
+                if let ids = ids {
+                    getRecipeInformationBulk(for: ids, completion: completion)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
 }
