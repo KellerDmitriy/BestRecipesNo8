@@ -8,5 +8,28 @@
 import Foundation
 
 final class SeeAllPresenter {
+    weak var view: SeeAllViewInput?
+    private let router: SeeAllRouterInput
+   // private let settingsManager: SettingsManagerProtocol
+
+    init(router: SeeAllRouterInput) {
+        
+        self.router = router 
+        //self.settingsManager = settingsManager
+    }
+}
+
+extension SeeAllPresenter: SeeAllViewOutput {
+    func saveButtonTapped() {
+        //
+    }
     
+    func fetchData(for category: String) {
+        //
+    }
+    func cellTapped() {
+        self.router.routeToRecipeDetailScreen()
+    }
+    
+
 }

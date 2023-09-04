@@ -8,6 +8,7 @@ import UIKit
 
 final class TrendingNowSectionView: UIView {
     
+    
     //MARK: - UIElements:
     
     private lazy var titleLabel: UILabel = {
@@ -18,7 +19,7 @@ final class TrendingNowSectionView: UIView {
         return label
     }()
     
-    private lazy var seeAllButton: UIButton = {
+    lazy var seeAllButton: UIButton = {
         let button = UIButton(type: .system)
         var config = UIButton.Configuration.plain()
             config.title = "See all "
@@ -27,7 +28,6 @@ final class TrendingNowSectionView: UIView {
             config.baseForegroundColor = .orange
         button.configuration = config
         button.setTitleColor(.black, for: .normal)
-        
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -64,3 +64,4 @@ final class TrendingNowSectionView: UIView {
         ])
     }
 }
+
