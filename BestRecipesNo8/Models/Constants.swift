@@ -12,7 +12,6 @@ struct Constants {
     // https://spoonacular.com/food-api/docs#Meal-Types
     // параметр для запроса = type
     static let mealTypes = ["main course",
-                            "side dish",
                             "dessert",
                             "appetizer",
                             "salad",

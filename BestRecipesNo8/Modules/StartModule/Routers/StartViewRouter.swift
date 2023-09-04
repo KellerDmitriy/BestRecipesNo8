@@ -12,8 +12,8 @@ final class StartViewRouter: StartRouterInput {
     weak var view: UIViewController?
     
     func routeToOnboardingScreen() {
-        let view = OnboardingViewController()
-        self.view?.navigationController?.pushViewController(view, animated: true)
+//        let view = OnboardingViewController()
+//        self.view?.navigationController?.pushViewController(view, animated: true)
     }
     
     

@@ -9,7 +9,7 @@ import UIKit
 
 final class RecentRecipeTableViewCell: UITableViewCell {
     
-    var recentRecipe: [RecipeInfo] = popularCategoryRecipesMock
+    var recentRecipe: [RecipeInfo] = []
     
     // MARK: - UI Elements
     private lazy var recipesCollectionView: UICollectionView = {
@@ -44,6 +44,11 @@ final class RecentRecipeTableViewCell: UITableViewCell {
     
     private func setupUI() {
         contentView.addSubview(recipesCollectionView)
+    }
+    
+    func configureCell(recipes: [RecipeInfo]) {
+        self.recentRecipe = recipes
+        recipesCollectionView.reloadData()
     }
     
     private func setupLayout() {
