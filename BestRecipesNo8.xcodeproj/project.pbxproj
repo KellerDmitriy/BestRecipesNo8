@@ -76,6 +76,7 @@
 		E1D803482AA53DBF008A8D7E /* SeeAllViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D803472AA53DBF008A8D7E /* SeeAllViewRouter.swift */; };
 		E1D8034B2AA54765008A8D7E /* MainRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D8034A2AA54765008A8D7E /* MainRouterInput.swift */; };
 		E1D8034D2AA5477F008A8D7E /* MainViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D8034C2AA5477F008A8D7E /* MainViewRouter.swift */; };
+		E1D8034F2AA5DE7E008A8D7E /* SeeAllModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D8034E2AA5DE7E008A8D7E /* SeeAllModel.swift */; };
 		E1E240C72AA3A8F1003803E5 /* CustomTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E240C62AA3A8F1003803E5 /* CustomTabbar.swift */; };
 		E1E240CA2AA3A956003803E5 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E240C92AA3A956003803E5 /* NotificationViewController.swift */; };
 		E2130CCB2A9F09C900C3404E /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E11675A12A9BF5E100C6ED88 /* Poppins-Bold.ttf */; };
@@ -171,6 +172,7 @@
 		E1D803472AA53DBF008A8D7E /* SeeAllViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllViewRouter.swift; sourceTree = "<group>"; };
 		E1D8034A2AA54765008A8D7E /* MainRouterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouterInput.swift; sourceTree = "<group>"; };
 		E1D8034C2AA5477F008A8D7E /* MainViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewRouter.swift; sourceTree = "<group>"; };
+		E1D8034E2AA5DE7E008A8D7E /* SeeAllModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllModel.swift; sourceTree = "<group>"; };
 		E1E240C62AA3A8F1003803E5 /* CustomTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabbar.swift; sourceTree = "<group>"; };
 		E1E240C92AA3A956003803E5 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		E2130CCD2A9F0AE700C3404E /* PopularCategorySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCategorySectionView.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				28344DAB2A9E54DE000D7554 /* Builders */,
 				28344DAA2A9E54D5000D7554 /* Presenters */,
 				28344DA92A9E54CC000D7554 /* Routers */,
+				E1D803502AA5DE82008A8D7E /* Models */,
 			);
 			path = SeeAllModule;
 			sourceTree = "<group>";
@@ -616,6 +619,14 @@
 			path = Routers;
 			sourceTree = "<group>";
 		};
+		E1D803502AA5DE82008A8D7E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E1D8034E2AA5DE7E008A8D7E /* SeeAllModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		E1E240C82AA3A939003803E5 /* NotificationVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -849,6 +860,7 @@
 				90D5FEAE2AA28332002A74B0 /* UIView + Extension.swift in Sources */,
 				28344DB12A9E555D000D7554 /* SeeAllCollectionViewCell.swift in Sources */,
 				E1D8034B2AA54765008A8D7E /* MainRouterInput.swift in Sources */,
+				E1D8034F2AA5DE7E008A8D7E /* SeeAllModel.swift in Sources */,
 				90733BD12AA31C7000D65897 /* SavedRecipesBuilder.swift in Sources */,
 				90D5FEAC2AA1FBFC002A74B0 /* RecipeCell.swift in Sources */,
 				28344DC42A9F72B4000D7554 /* UIImage + Extension.swift in Sources */,

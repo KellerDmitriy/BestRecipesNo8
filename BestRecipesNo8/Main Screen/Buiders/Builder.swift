@@ -17,6 +17,8 @@ final class MainScreenBuilder: Builder {
         let dataService = DataService()
         let router = MainViewRouter()
         let presenter = MainPresenter(view: view, dataService: dataService, router: router)
+        presenter.view = view
+        router.view = view
         view.presenter = presenter
         view.popularCategoryDelegate = presenter
         return view

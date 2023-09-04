@@ -9,7 +9,6 @@ import UIKit
 
 final class RecentRecipeSectionView: UIView {
     
-    let presenter: MainPresenterProtocol!
     
     //MARK: - UIElements:
     
@@ -21,7 +20,7 @@ final class RecentRecipeSectionView: UIView {
         return label
     }()
     
-    private lazy var seeAllButton: UIButton = {
+    lazy var seeAllButton: UIButton = {
         let button = UIButton(type: .system)
         var config = UIButton.Configuration.plain()
             config.title = "See all "
@@ -30,7 +29,6 @@ final class RecentRecipeSectionView: UIView {
             config.baseForegroundColor = .orange
         button.configuration = config
         button.setTitleColor(.black, for: .normal)
-        button.addTarget(self, action: #selector(seeAllButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -49,9 +47,7 @@ final class RecentRecipeSectionView: UIView {
     }
     
     //MARK: - Methods:
-    @objc private func seeAllButtonTapped() {
-        presenter.seeAllButtonTapped()
-    }
+
     
     private func setupUI() {
         backgroundColor = .clear

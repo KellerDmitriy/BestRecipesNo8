@@ -20,5 +20,9 @@ final class SeeAllPresenter {
 }
 
 extension SeeAllPresenter: SeeAllViewOutput {
+    func fetchData(for category: String) {
+        //
+    }
+    
 
 }
