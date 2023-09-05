@@ -12,14 +12,12 @@ final class StartViewRouter: StartRouterInput {
     weak var view: UIViewController?
     
     func routeToOnboardingScreen() {
-//        let view = OnboardingViewController()
-//        self.view?.navigationController?.pushViewController(view, animated: true)
+        let view = StartBuilder.showOnboardingPages()
+        self.view?.navigationController?.setViewControllers([view], animated: true)
     }
     
-    
-    //    func routeToHomeScreen() {
-    //  let view =
-//            view.navigationController?.popToRootViewController(animated: true)
-    //        }
-    //    }
+    func routeToHomeScreen() {
+        let tabbarVC = CustomTabBar()
+        self.view?.navigationController?.setViewControllers([tabbarVC], animated: true)
+    }
 }

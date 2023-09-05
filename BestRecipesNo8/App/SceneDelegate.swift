@@ -17,11 +17,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.makeKeyAndVisible()
         
-        let tabbarVC = CustomTabBar()
+        //todo проверяем, показывали ли уже Onboarding (UserDefaults)
+        //Если да, то в rootViewController надо определить CustomTabBar()
+                let tabbarVC = CustomTabBar()
+                let navigationVC = UINavigationController(rootViewController: tabbarVC)
+        //Если нет, то в rootViewController надо определить StartBuilder.createStartModule()
+//        let navigationVC = UINavigationController(rootViewController: StartBuilder.createStartModule())
         
-        let navigationVC = UINavigationController(rootViewController: tabbarVC)
         navigationVC.setupNavigationBar()
-        
         window?.rootViewController = navigationVC
     }
 
