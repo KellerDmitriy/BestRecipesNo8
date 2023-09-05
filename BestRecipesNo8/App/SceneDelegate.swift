@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let navigationVC = UINavigationController(rootViewController: StartBuilder.createStartModule())
         
         navigationVC.setupNavigationBar()
-        window?.rootViewController = OnboardingViewController()
+        window?.rootViewController = navigationVC
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
