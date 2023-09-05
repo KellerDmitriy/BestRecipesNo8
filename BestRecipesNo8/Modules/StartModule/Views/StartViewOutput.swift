@@ -9,4 +9,5 @@ import Foundation
 
 protocol StartViewOutput {
     func startButtonTapped()
+    func skipButtonTapped()
 }

@@ -19,4 +19,16 @@ final class StartBuilder {
         
         return view
     }
+    
+    static func showOnboardingPages() -> UIViewController {
+        let router = StartViewRouter()
+        let settingsManager = SettingsManager()
+        let presenter = StartPresenter(router: router, settingsManager: settingsManager)
+        let view = StartViewOnboardingPages(presenter: presenter)
+        
+        presenter.view = view
+        router.view = view
+        
+        return view
+    }
 }

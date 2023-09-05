@@ -7,7 +7,7 @@
 
 protocol StartRouterInput {
     func routeToOnboardingScreen()
-  //  func routeToHomeScreen()
+    func routeToHomeScreen()
 }
 
 
