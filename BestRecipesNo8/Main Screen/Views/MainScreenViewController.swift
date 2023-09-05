@@ -8,7 +8,7 @@
 import UIKit
 
 final class MainScreenViewController: UIViewController {
-
+    
     var presenter: MainPresenterProtocol!
     var popularCategoryDelegate: PopularCategoryHeaderCellDelegate!
     
@@ -57,13 +57,13 @@ final class MainScreenViewController: UIViewController {
     
     //MARK: - Methods for Header's Button
     @objc private func seeAllButtonTapped() {
-       // print("seeAllButtonTap")
-    presenter.seeAllButtonTapped()
+        // print("seeAllButtonTap")
+        presenter.seeAllButtonTapped()
     }
     
     @objc private func seeAllRecipeSectionButtonTapped() {
-       // print("seeAllRecipeSectionButtonTapped")
-    presenter.seeAllButtonTapped()
+        // print("seeAllRecipeSectionButtonTapped")
+        presenter.seeAllButtonTapped()
     }
     
     //MARK: - Methods
@@ -74,7 +74,7 @@ final class MainScreenViewController: UIViewController {
         view.addSubview(recipeSearchField)
         view.addSubview(recipesTableView)
     }
-
+    
     
     
     private func setupLayout() {
@@ -92,7 +92,7 @@ final class MainScreenViewController: UIViewController {
             recipesTableView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             recipesTableView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
             recipesTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-
+            
         ])
     }
 }
@@ -176,19 +176,34 @@ extension MainScreenViewController: MainScreenViewControllerProtocol {
     }
     
     func getRecipes() {
-        presenter.networkManager.getPopularRecipes { result in
+        //        presenter.networkManager.getPopularRecipes { result in
+        //            switch result {
+        //            case .success(let results):
+        //                if let recipes = results.results {
+        //                    self.presenter.trendingNowRecipes = recipes
+        //                    DispatchQueue.main.async {
+        //                        self.recipesTableView.reloadData()
+        //                    }
+        //                }
+        //            case .failure(let error):
+        //                print(error.localizedDescription)
+        //            }
+        //        }
+        
+        presenter.networkManager.getTenPopularRecipes { result in
             switch result {
             case .success(let results):
-                if let recipes = results.results {
+                let recipes = results 
                     self.presenter.trendingNowRecipes = recipes
                     DispatchQueue.main.async {
                         self.recipesTableView.reloadData()
-                    }
+                    
                 }
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
+        
         presenter.networkManager.getRandomRecipes { result in
             switch result {
             case .success(let results):
@@ -204,3 +219,4 @@ extension MainScreenViewController: MainScreenViewControllerProtocol {
         }
     }
 }
+

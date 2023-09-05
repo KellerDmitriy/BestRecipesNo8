@@ -10,8 +10,8 @@ import Foundation
 protocol MainPresenterProtocol: AnyObject {
     var view : MainScreenViewControllerProtocol? { get set }
     var dataService: DataServiceProtocol { get set }
-    var trendingNowRecipes: [SearchRecipe] { get set }
-    var popularCategoryRecipes: [SearchRecipe] { get set }
+    var trendingNowRecipes: [RecipeInfo] { get set }
+    var popularCategoryRecipes: [RecipeInfo] { get set }
     var recentRecipe: [RecipeInfo] { get set }
     var networkManager: NetworkManager { get set }
     
@@ -25,8 +25,8 @@ final class MainPresenter: MainPresenterProtocol {
     
     weak var view: MainScreenViewControllerProtocol?
     var dataService: DataServiceProtocol
-    var trendingNowRecipes: [SearchRecipe] = []
-    var popularCategoryRecipes: [SearchRecipe] = []
+    var trendingNowRecipes: [RecipeInfo] = []
+    var popularCategoryRecipes: [RecipeInfo] = []
     var recentRecipe: [RecipeInfo] = []
     var networkManager = NetworkManager.shared
     
@@ -54,11 +54,24 @@ final class MainPresenter: MainPresenterProtocol {
 }
 
 extension MainPresenter: PopularCategoryHeaderCellDelegate {
+//    func getRecipesWithMealType(mealType: String) {
+//        networkManager.getRecipesWithMealType(for: mealType) { result in
+//            switch result {
+//            case .success(let recipes):
+//                self.popularCategoryRecipes =  recipes.results ?? []
+//                guard let view = self.view else { return }
+//                print("Популярная категория: \(self.popularCategoryRecipes)")
+//                view.getPopularRecipes()
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
+//    }
     func getRecipesWithMealType(mealType: String) {
-        networkManager.getRecipesWithMealType(for: mealType) { result in
+        networkManager.getTenRecipesWithMealType(for: mealType) { result in
             switch result {
             case .success(let recipes):
-                self.popularCategoryRecipes =  recipes.results ?? []
+                self.popularCategoryRecipes =  recipes
                 guard let view = self.view else { return }
                 print("Популярная категория: \(self.popularCategoryRecipes)")
                 view.getPopularRecipes()
