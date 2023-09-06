@@ -99,7 +99,7 @@ final class PopularCategoryCell: UICollectionViewCell {
         grayBackgroundView.addSubview(addButton)
     }
     
-    func configureCell(at recipeInfo: SearchRecipe) {
+    func configureCell(at recipeInfo: RecipeInfo) {
         guard let id = recipeInfo.id,
               let title = recipeInfo.title,
               let image = recipeInfo.image

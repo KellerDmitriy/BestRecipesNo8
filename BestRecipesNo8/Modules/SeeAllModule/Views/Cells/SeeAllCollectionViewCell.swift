@@ -172,17 +172,27 @@ class SeeAllCollectionViewCell: UICollectionViewCell {
     
     #warning("ДОРАБОТАТЬ МЕТОД ПРИ ПОДКЛЮЧЕНИИ ДАННЫХ И ПЕРЕДАЧИ С ДРУГОГО ЭКРАНА")
     
-    func configureCell() {
-        let url = URL(string: "https://spoonacular.com/recipeImages/646941-556x370.jpg")
+    func configureCell(recipe: RecipeInfo) {
+        let image = recipe.image ?? ""
+        let title = recipe.title
+        
+        titleRecipe.text = title
+        
+        let cache = ImageCache.default
+        cache.diskStorage.config.expiration = .seconds(1)
+        let processor = RoundCornerImageProcessor(cornerRadius: 55, backgroundColor: .clear)
+        imageView.kf.indicatorType = .activity
+        imageView.kf.setImage(with: URL(string: image), placeholder: nil, options: [.processor(processor),
+                                                                                          .cacheSerializer(FormatIndicatedCacheSerializer.png)])
         
 //        imageView.kf.indicatorType = .activity
 //        imageView.kf.setImage(with: url, options: [
 //            .scaleFactor(10)
 //        ])
-        ImageManager.shared.fetchImageData(from: url) { [weak self] data, response in
-            guard let image = UIImage(data: data) else { return }
-            self?.imageView.image = UIImage.cropImage(image: image)
-        }
+//        ImageManager.shared.fetchImageData(from: url) { [weak self] data, response in
+//            guard let image = UIImage(data: data) else { return }
+//            self?.imageView.image = UIImage.cropImage(image: image)
+//        }
     }
     
     @objc func saveButtonTapped() {

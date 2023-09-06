@@ -63,7 +63,7 @@ final class TrendingCategoryCell: UICollectionViewCell {
         contentView.addSubview(addButton)
     }
     
-    func configureCell(at searchRecipe: SearchRecipe) {
+    func configureCell(at searchRecipe: RecipeInfo) {
         guard let id = searchRecipe.id,
               let title = searchRecipe.title,
               let image = searchRecipe.image else { return }

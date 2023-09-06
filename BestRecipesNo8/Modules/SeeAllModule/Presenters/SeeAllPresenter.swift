@@ -7,19 +7,30 @@
 
 import Foundation
 
-final class SeeAllPresenter {
+protocol SeeAllPresenterProtocol: AnyObject {
+    var trendingNowRecipes: [RecipeInfo] { get }
+}
+
+final class SeeAllPresenter: SeeAllPresenterProtocol {
+    
+    //MARK: - Properties
+    
+    var trendingNowRecipes: [RecipeInfo] = []
+    
     weak var view: SeeAllViewInput?
     private let router: SeeAllRouterInput
    // private let settingsManager: SettingsManagerProtocol
 
-    init(router: SeeAllRouterInput) {
+    init(router: SeeAllRouterInput, recipes: [RecipeInfo]) {
         
-        self.router = router 
+        self.router = router
+        self.trendingNowRecipes = recipes
         //self.settingsManager = settingsManager
     }
 }
 
 extension SeeAllPresenter: SeeAllViewOutput {
+    
     func saveButtonTapped() {
         //
     }
@@ -27,6 +38,7 @@ extension SeeAllPresenter: SeeAllViewOutput {
     func fetchData(for category: String) {
         //
     }
+    
     func cellTapped() {
         self.router.routeToRecipeDetailScreen()
     }

@@ -30,8 +30,9 @@ final class CustomTabBar: UITabBarController {
     
     // MARK: - Create Button Method
     @objc private func createButtonIsTapped(_ sender: UIButton) {
-        let view = SeeAllBuilder.createSeeAllModule()
-        self.navigationController?.pushViewController(view, animated: true)
+        print("createButtonIsTapped")
+        //let view = SeeAllBuilder.createSeeAllModule(
+       // self.navigationController?.pushViewController(view, animated: true)
         
     }
     

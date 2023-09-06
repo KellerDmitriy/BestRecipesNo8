@@ -11,7 +11,7 @@ final class TrendingCollectionTableViewCell: UITableViewCell {
     
     // MARK: Properties:
     
-    private var trendingNowRecipes: [SearchRecipe] = []
+    private var trendingNowRecipes: [RecipeInfo] = []
     
     // MARK: - UI Elements
     private lazy var recipesCollectionView: UICollectionView = {
@@ -50,7 +50,7 @@ final class TrendingCollectionTableViewCell: UITableViewCell {
         contentView.addSubview(recipesCollectionView)
     }
     
-    func configureCell(recipes: [SearchRecipe]) {
+    func configureCell(recipes: [RecipeInfo]) {
         self.trendingNowRecipes = recipes
         recipesCollectionView.reloadData()
     }
