@@ -176,20 +176,6 @@ extension MainScreenViewController: MainScreenViewControllerProtocol {
     }
     
     func getRecipes() {
-        //        presenter.networkManager.getPopularRecipes { result in
-        //            switch result {
-        //            case .success(let results):
-        //                if let recipes = results.results {
-        //                    self.presenter.trendingNowRecipes = recipes
-        //                    DispatchQueue.main.async {
-        //                        self.recipesTableView.reloadData()
-        //                    }
-        //                }
-        //            case .failure(let error):
-        //                print(error.localizedDescription)
-        //            }
-        //        }
-        
         presenter.networkManager.getTenPopularRecipes { result in
             switch result {
             case .success(let results):

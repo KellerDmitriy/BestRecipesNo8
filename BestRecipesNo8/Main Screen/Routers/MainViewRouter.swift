@@ -10,9 +10,8 @@ import UIKit
 final class MainViewRouter: MainRouterInput {
     
     weak var view: UIViewController?
-    
-    func routeToSeeAllScreen() {
-        let view = SeeAllBuilder.createSeeAllModule()
+    func routeToSeeAllScreen(recipes: [RecipeInfo]) {
+        let view = SeeAllBuilder.createSeeAllModule(recipes: recipes)
         self.view?.navigationController?.pushViewController(view, animated: true)
     }
 }

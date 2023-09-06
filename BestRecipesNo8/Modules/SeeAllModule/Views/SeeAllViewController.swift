@@ -14,10 +14,10 @@ class SeeAllViewController: UIViewController {
     var category: String?
     var isSorted: Bool?
     
-    var recipesInList: [RecipeInfo] = []
+//    var recipesInList: [RecipeInfo] = []
     
     // MARK: - Private Properties
-    private let presenter: SeeAllViewOutput
+    private let presenter: SeeAllPresenterProtocol
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
@@ -28,7 +28,7 @@ class SeeAllViewController: UIViewController {
     
     // MARK: - Init
     
-    init(presenter: SeeAllViewOutput) {
+    init(presenter: SeeAllPresenterProtocol) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
@@ -83,7 +83,7 @@ class SeeAllViewController: UIViewController {
 extension SeeAllViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        self.presenter.trendingNowRecipes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -93,7 +93,8 @@ extension SeeAllViewController: UICollectionViewDataSource {
         else {
             return UICollectionViewCell()
         }
-        cell.configureCell()
+        let recipe = self.presenter.trendingNowRecipes[indexPath.row]
+        cell.configureCell(recipe: recipe)
         return cell
     }
    

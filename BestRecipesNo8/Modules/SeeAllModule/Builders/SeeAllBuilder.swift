@@ -9,10 +9,9 @@
 import UIKit
 
 final class SeeAllBuilder {
-    static func createSeeAllModule() -> UIViewController {
+    static func createSeeAllModule(recipes: [RecipeInfo]) -> UIViewController {
         let router = SeeAllViewRouter()
-    
-        let presenter = SeeAllPresenter(router: router)
+        let presenter = SeeAllPresenter(router: router, recipes: recipes)
         let view = SeeAllViewController(presenter: presenter)
         
         presenter.view = view

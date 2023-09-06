@@ -41,7 +41,7 @@ final class MainPresenter: MainPresenterProtocol {
     }
     
     func seeAllButtonTapped() {
-        self.router.routeToSeeAllScreen()
+        self.router.routeToSeeAllScreen(recipes: trendingNowRecipes)
     }
     
     func getNewRecipes() {
