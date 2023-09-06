@@ -59,7 +59,6 @@ class OnboardingViewController: UIViewController {
         for i in 0..<background.count {
             let imageView = UIImageView(image: background[i])
             imageView.contentMode = .scaleAspectFill
-            imageView.setGradientColor(topColor: .clear, bottomColor: .black)
             array.append(imageView)
         }
         return array
@@ -86,9 +85,9 @@ class OnboardingViewController: UIViewController {
     }()
     
     private var background = [
-        UIImage(named: "2"),
-        UIImage(named: "3"),
-        UIImage(named: "4")
+        UIImage(named: "OnboardingPage1"),
+        UIImage(named: "OnboardingPage2"),
+        UIImage(named: "OnboardingPage3")
     ]
     
     // MARK: - Lifecycle
@@ -141,6 +140,7 @@ class OnboardingViewController: UIViewController {
 
 extension OnboardingViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.contentOffset.y = 0
         pageControl.currentPage = Int(onboardingScrollView.contentOffset.x / view.bounds.width)
         
         switch pageControl.currentPage {
