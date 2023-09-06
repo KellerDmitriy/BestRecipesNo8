@@ -75,9 +75,8 @@ final class StartViewController: UIViewController {
     
     // MARK: - Add Buttons Methods
     @objc private func startButtonTapped() {
-        print("Start Button Tapped")
         let vc = OnboardingViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        navigationController?.setViewControllers([vc], animated: true)
     }
     
     // MARK: - Hierarchy

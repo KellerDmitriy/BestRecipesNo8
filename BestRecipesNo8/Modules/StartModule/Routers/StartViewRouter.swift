@@ -18,6 +18,7 @@ final class StartViewRouter: StartRouterInput {
     
     func routeToHomeScreen() {
         let tabbarVC = CustomTabBar()
+        UserDefaults.standard.set(false, forKey: "showOnboarding")
         self.view?.navigationController?.setViewControllers([tabbarVC], animated: true)
     }
 }

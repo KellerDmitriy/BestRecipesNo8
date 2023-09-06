@@ -33,6 +33,7 @@ class OnboardingViewController: UIViewController {
         let scrollView = UIScrollView()
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
         scrollView.delegate = self
         scrollView.contentSize = CGSize(
             width: Double(Int(view.bounds.width) * background.count),
@@ -124,12 +125,9 @@ class OnboardingViewController: UIViewController {
     }
     
     @objc private func pushViewController() {
-        print("next Screen")
-        //        defaults.set("ok", forKey: "onbording")
-        //        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-        //            sceneDelegate.checkAuthentication()
-        //        }
-        //        navigationController?.pushViewController( Builder.getSignInModule(), animated: true)
+        let tabbarVC = CustomTabBar()
+        UserDefaults.standard.set(false, forKey: "showOnboarding")
+        navigationController?.setViewControllers([tabbarVC], animated: true)
     }
     
     // MARK: - Hierarchy
