@@ -24,4 +24,8 @@ extension StartPresenter: StartViewOutput {
     func startButtonTapped() {
         self.router.routeToOnboardingScreen()
     }
+    
+    func skipButtonTapped() {
+        self.router.routeToHomeScreen()
+    }
 }
