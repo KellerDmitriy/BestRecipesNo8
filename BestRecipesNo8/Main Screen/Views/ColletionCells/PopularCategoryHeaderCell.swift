@@ -5,8 +5,10 @@
 //  Created by Aleksandr Garipov on 02.09.2023.
 //
 
-protocol PopularCategoryHeaderCellDelegate: AnyObject {
+protocol PopularCategoryDelegate: AnyObject {
     func getRecipesWithMealType(mealType: String)
+    func updateSavedRecipes(recipe: RecipeInfo)
+    func isRecipeSaved(recipe: RecipeInfo) -> Bool
 }
 
 
@@ -14,7 +16,7 @@ import UIKit
 
 final class PopularCategoryHeaderCell: UICollectionViewCell {
     
-    weak var delegate: PopularCategoryHeaderCellDelegate?
+    weak var delegate: PopularCategoryDelegate?
     
     //MARK: - UI Elements:
     
@@ -49,7 +51,7 @@ final class PopularCategoryHeaderCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 10
     }
     
-    func configureCell(header: String, delegate: PopularCategoryHeaderCellDelegate) {
+    func configureCell(header: String, delegate: PopularCategoryDelegate) {
         headerLabel.text = header
         self.delegate = delegate
     }

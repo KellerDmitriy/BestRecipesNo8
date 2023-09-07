@@ -10,7 +10,7 @@ import UIKit
 final class MainScreenViewController: UIViewController {
     
     var presenter: MainPresenterProtocol!
-    var popularCategoryDelegate: PopularCategoryHeaderCellDelegate!
+    var popularCategoryDelegate: PopularCategoryDelegate!
     
     private var trendingCategoryCell: TrendingCategoryCell?
 
@@ -59,7 +59,6 @@ final class MainScreenViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupLayout()
-        presenter.getNewRecipes()
         getRecipes()
     }
     
@@ -122,7 +121,7 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TrendingCollectionTableViewCell.reuseIdentifier, for: indexPath) as? TrendingCollectionTableViewCell else {
                 return UITableViewCell()
             }
-            cell.configureCell(recipes: presenter.trendingNowRecipes)
+            cell.configureCell(recipes: presenter.trendingNowRecipes, presenter: popularCategoryDelegate)
             return cell
             
         case 1:
@@ -177,6 +176,10 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension MainScreenViewController: MainScreenViewControllerProtocol {
+    func updatePopularCategory() {
+        recipesTableView.reloadData()
+    }
+    
     func getPopularRecipes() {
         DispatchQueue.main.async {
             self.recipesTableView.reloadData()
