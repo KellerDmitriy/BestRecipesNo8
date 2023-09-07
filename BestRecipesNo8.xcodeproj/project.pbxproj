@@ -59,6 +59,8 @@
 		E116759A2A9BF55300C6ED88 /* Colors + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11675992A9BF55300C6ED88 /* Colors + Extension.swift */; };
 		E116759C2A9BF55B00C6ED88 /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E116759B2A9BF55B00C6ED88 /* UIFont + Extension.swift */; };
 		E11675BE2A9C87B700C6ED88 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11675BD2A9C87B700C6ED88 /* SettingsManager.swift */; };
+		E1A0265A2AA9E0880085289E /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A026592AA9E0880085289E /* SearchTableViewController.swift */; };
+		E1A0265D2AA9ED5D0085289E /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A0265C2AA9ED5D0085289E /* SearchViewCell.swift */; };
 		E1ABBEAD2A9DEFF70021E624 /* UIImage + TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ABBEAC2A9DEFF70021E624 /* UIImage + TabBar.swift */; };
 		E1ABBEB32A9E86760021E624 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E11675A82A9BFECA00C6ED88 /* Poppins-Regular.ttf */; };
 		E1ABBEB42A9E86790021E624 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E11675A12A9BF5E100C6ED88 /* Poppins-Bold.ttf */; };
@@ -152,6 +154,8 @@
 		E11675A12A9BF5E100C6ED88 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		E11675A82A9BFECA00C6ED88 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		E11675BD2A9C87B700C6ED88 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		E1A026592AA9E0880085289E /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
+		E1A0265C2AA9ED5D0085289E /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		E1ABBEAC2A9DEFF70021E624 /* UIImage + TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + TabBar.swift"; sourceTree = "<group>"; };
 		E1ABBEB52A9FE2310021E624 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		E1ABBEB72AA059EE0021E624 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -509,6 +513,23 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		E1A0265B2AA9ED3E0085289E /* SearchVC */ = {
+			isa = PBXGroup;
+			children = (
+				E1A026592AA9E0880085289E /* SearchTableViewController.swift */,
+				E1A0265E2AA9ED620085289E /* Cells */,
+			);
+			path = SearchVC;
+			sourceTree = "<group>";
+		};
+		E1A0265E2AA9ED620085289E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E1A0265C2AA9ED5D0085289E /* SearchViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		E1ABBEAE2A9E09570021E624 /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -564,6 +585,7 @@
 		E1C979042A9B7EC9003BDC4A /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E1A0265B2AA9ED3E0085289E /* SearchVC */,
 				84AF912F2AA7D8F1007F5854 /* StartVC */,
 				84AF912A2AA7D617007F5854 /* OnboardingVC */,
 				28344DA82A9E54A9000D7554 /* SeeAllModule */,
@@ -764,6 +786,7 @@
 				E223A8492A9E1E23007E8C0E /* UITableViewCell + Ext.swift in Sources */,
 				E223A8502A9E2A64007E8C0E /* TrendingNowSectionView.swift in Sources */,
 				E1E240CA2AA3A956003803E5 /* NotificationViewController.swift in Sources */,
+				E1A0265A2AA9E0880085289E /* SearchTableViewController.swift in Sources */,
 				E298099A2A9BA977002121A5 /* ReuseIdentifierProtocol.swift in Sources */,
 				E223A8432A9CDAC2007E8C0E /* TrendingCategoryCell.swift in Sources */,
 				E2130CE32AA0C17300C3404E /* DataService.swift in Sources */,
@@ -819,6 +842,7 @@
 				90D5FE7B2AA0B295002A74B0 /* RecipeRouterInput.swift in Sources */,
 				90733BD32AA31CB300D65897 /* SavedRecipeModel.swift in Sources */,
 				90D5FEAA2AA1FA3B002A74B0 /* ProfileViewInput.swift in Sources */,
+				E1A0265D2AA9ED5D0085289E /* SearchViewCell.swift in Sources */,
 				28344DBE2A9E7988000D7554 /* SeeAllPresenter.swift in Sources */,
 				90D5FE9E2AA1F9B0002A74B0 /* ProfileRouterInput.swift in Sources */,
 				90D5FEAE2AA28332002A74B0 /* UIView + Extension.swift in Sources */,

@@ -38,11 +38,19 @@ class SavedRecipeCell: UICollectionViewCell {
     }
     
     // MARK: - Method for setup data to elements in every cell
-    func updateRecipeData(image: UIImage?, rating: Double, title: String, time: String) {
-        recipeImageView.image = image
-        ratingLabel.text = String(rating)
-        titleRecipe.text = "How to make \(title) at home"
-        timeLabel.text = time
+    func updateRecipeData(image: String?, rating: Int?, title: String?, time: Int?) {
+        recipeImageView.image = UIImage(named: image ?? "Salad")
+        if let rating = rating {
+            ratingLabel.text = String(rating)
+        } else {
+            ratingLabel.text = "N/A"
+        }
+        titleRecipe.text = "How to make \(title ?? "") at home"
+        if let time = time {
+            timeLabel.text = String(time)
+        } else {
+            timeLabel.text = "N/A"
+        }
     }
     
     // MARK: - Subviews

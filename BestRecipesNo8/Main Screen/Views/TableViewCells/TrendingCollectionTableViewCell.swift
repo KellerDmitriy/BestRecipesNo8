@@ -76,6 +76,7 @@ extension TrendingCollectionTableViewCell: UICollectionViewDelegateFlowLayout, U
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingCategoryCell.reuseIdentifier, for: indexPath) as? TrendingCategoryCell else { return UICollectionViewCell() }
+
         cell.configureCell(at: trendingNowRecipes[indexPath.row])
             return cell
     }

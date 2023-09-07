@@ -12,6 +12,8 @@ final class MainScreenViewController: UIViewController {
     var presenter: MainPresenterProtocol!
     var popularCategoryDelegate: PopularCategoryHeaderCellDelegate!
     
+    private var trendingCategoryCell: TrendingCategoryCell?
+
     //MARK: - UI Elementes:
     
     private lazy var titleLabel: UILabel = {

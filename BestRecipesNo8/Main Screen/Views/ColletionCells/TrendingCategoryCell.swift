@@ -39,6 +39,7 @@ final class TrendingCategoryCell: UICollectionViewCell {
         button.layer.cornerRadius = 16
         button.clipsToBounds = true
         button.setImage(UIImage(named: "Inactive"), for: .normal)
+        button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -56,6 +57,10 @@ final class TrendingCategoryCell: UICollectionViewCell {
     }
     
     //MARK: - Methods:
+    
+    @objc func addButtonTapped () {
+        print("addButtonTapped")
+    }
     
     private func setupUI() {
         contentView.addSubview(recipeImageView)
