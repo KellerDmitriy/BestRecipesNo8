@@ -7,4 +7,9 @@
 
 import Foundation
 
-protocol SavedRecipesViewOutput {}
+protocol SavedRecipesViewOutput {
+    
+    var savedRecipes: [RecipeInfo] { get set }
+    var defaults: UserDefaults { get set }
+    func removeRecipe(at index: Int)
+}

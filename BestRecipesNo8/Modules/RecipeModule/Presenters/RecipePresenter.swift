@@ -11,14 +11,12 @@ final class RecipePresenter {
     
     weak var view: RecipeViewInput?
     private let router: RecipeRouterInput
-    private let settingsManager: SettingsManagerProtocol
     
     let recipe: RecipeModel
 
-    init(router: RecipeRouterInput,settingsManager: SettingsManagerProtocol) {
+    init(router: RecipeRouterInput) {
         
         self.router = router
-        self.settingsManager = settingsManager
         recipe = RecipeModel()
     }
     

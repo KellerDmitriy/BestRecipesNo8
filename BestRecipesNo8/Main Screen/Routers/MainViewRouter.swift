@@ -8,6 +8,11 @@
 import UIKit
 
 final class MainViewRouter: MainRouterInput {
+    func routeToSavedRecipesScreen() {
+        let view = SavedRecipesBuilder.createSavedRecipesModule()
+        self.view?.navigationController?.pushViewController(view, animated: true)
+    }
+    
     
     weak var view: UIViewController?
     func routeToSeeAllScreen(recipes: [RecipeInfo]) {
