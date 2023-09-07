@@ -8,13 +8,11 @@
 import Foundation
 
 protocol SettingsManagerProtocol {
-    func updateOnboarding()
+
 }
 
 class SettingsManager: SettingsManagerProtocol {
     let defaults = UserDefaults.standard
     
-    func updateOnboarding() {
-        // 
-    }
+
 }

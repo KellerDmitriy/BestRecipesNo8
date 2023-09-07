@@ -26,7 +26,13 @@ final class MainScreenViewController: UIViewController {
     
     private lazy var recipeSearchField: UISearchTextField = {
         let searchField = UISearchTextField()
-        searchField.placeholder = "Search recipes"
+        searchField.backgroundColor = .whiteColor
+        searchField.textColor = .black
+        searchField.layer.borderColor = UIColor.lightGray.cgColor
+        searchField.layer.borderWidth = 1.0
+        searchField.layer.cornerRadius = 10.0
+        searchField.attributedPlaceholder = NSAttributedString(string: "Search recipes", attributes: [.foregroundColor: UIColor.lightGray])
+        
         searchField.translatesAutoresizingMaskIntoConstraints = false
         return searchField
     }()
@@ -179,10 +185,10 @@ extension MainScreenViewController: MainScreenViewControllerProtocol {
         presenter.networkManager.getTenPopularRecipes { result in
             switch result {
             case .success(let results):
-                let recipes = results 
-                    self.presenter.trendingNowRecipes = recipes
-                    DispatchQueue.main.async {
-                        self.recipesTableView.reloadData()
+                let recipes = results
+                self.presenter.trendingNowRecipes = recipes
+                DispatchQueue.main.async {
+                    self.recipesTableView.reloadData()
                     
                 }
             case .failure(let error):
