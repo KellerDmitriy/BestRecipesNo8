@@ -12,7 +12,7 @@ final class PopularCategoryTableViewCell: UITableViewCell {
     // MARK: - Properties
     
     private var popularCategoryRecipes: [RecipeInfo] = []
-    private var presenter: PopularCategoryHeaderCellDelegate?
+    private var presenter: PopularCategoryDelegate!
     
     // MARK: - UI Elements
     
@@ -64,7 +64,7 @@ final class PopularCategoryTableViewCell: UITableViewCell {
         headerCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
     }
     
-    func configureCell(recipes: [RecipeInfo], presenter: PopularCategoryHeaderCellDelegate) {
+    func configureCell(recipes: [RecipeInfo], presenter: PopularCategoryDelegate) {
         self.popularCategoryRecipes = recipes
         self.presenter = presenter
         recipesCollectionView.reloadData()
@@ -117,7 +117,7 @@ extension PopularCategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICo
             return cell
         case recipesCollectionView:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCategoryCell.reuseIdentifier, for: indexPath) as? PopularCategoryCell else { return UICollectionViewCell() }
-            cell.configureCell(at: popularCategoryRecipes[indexPath.row])
+            cell.configureCell(at: popularCategoryRecipes[indexPath.row], delegate: self.presenter)
             return cell
         default:
             return UICollectionViewCell()

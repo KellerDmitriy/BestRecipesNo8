@@ -14,17 +14,14 @@ protocol MainPresenterProtocol: AnyObject {
     var popularCategoryRecipes: [RecipeInfo] { get set }
     var recentRecipe: [RecipeInfo] { get set }
     var networkManager: NetworkManager { get set }
+    var savedRecipesId: [Int] { get set }
     
+    func updateRecipeInSavedRecipes(recipe: RecipeInfo)
     func seeAllButtonTapped()
     func addButtonTapped()
-    
-    func getNewRecipes()
-    func getRecipesByCategory()
 }
 
 final class MainPresenter: MainPresenterProtocol {
-    
-    
     
     weak var view: MainScreenViewControllerProtocol?
     var dataService: DataServiceProtocol
@@ -32,6 +29,7 @@ final class MainPresenter: MainPresenterProtocol {
     var popularCategoryRecipes: [RecipeInfo] = []
     var recentRecipe: [RecipeInfo] = []
     var networkManager = NetworkManager.shared
+    var savedRecipesId: [Int] = []
     
     private let router: MainRouterInput
     
@@ -41,6 +39,7 @@ final class MainPresenter: MainPresenterProtocol {
         self.dataService = dataService
         self.view = view
         self.router = router
+        self.savedRecipesId = UserDefaults.standard.object(forKey: "savedRecipes") as! [Int]
     }
     
     func seeAllButtonTapped() {
@@ -52,29 +51,27 @@ final class MainPresenter: MainPresenterProtocol {
         print("addButtonTapped")
     }
     
-    func getNewRecipes() {
-        
+    func updateRecipeInSavedRecipes(recipe: RecipeInfo) {
+        let contains = savedRecipesId.contains(where:  {$0 == recipe.id} )
+        contains ? deleteRecipeInFavorites(recipe: recipe) :
+        saveRecipeInFavorites(recipe: recipe)
     }
     
-    func getRecipesByCategory() {
-        
+    func deleteRecipeInFavorites(recipe: RecipeInfo) {
+        savedRecipesId.removeAll { $0 == recipe.id }
+        UserDefaults.standard.set(savedRecipesId, forKey: "savedRecipes")
     }
+    
+    func saveRecipeInFavorites(recipe: RecipeInfo) {
+        guard let id = recipe.id else { return }
+        savedRecipesId.append(id)
+        UserDefaults.standard.set(savedRecipesId, forKey: "savedRecipes")
+    }
+    
 }
 
-extension MainPresenter: PopularCategoryHeaderCellDelegate {
-    //    func getRecipesWithMealType(mealType: String) {
-    //        networkManager.getRecipesWithMealType(for: mealType) { result in
-    //            switch result {
-    //            case .success(let recipes):
-    //                self.popularCategoryRecipes =  recipes.results ?? []
-    //                guard let view = self.view else { return }
-    //                print("Популярная категория: \(self.popularCategoryRecipes)")
-    //                view.getPopularRecipes()
-    //            case .failure(let error):
-    //                print(error.localizedDescription)
-    //            }
-    //        }
-    //    }
+extension MainPresenter: PopularCategoryDelegate {
+
     func getRecipesWithMealType(mealType: String) {
         networkManager.getTenRecipesWithMealType(for: mealType) { result in
             switch result {
@@ -87,6 +84,16 @@ extension MainPresenter: PopularCategoryHeaderCellDelegate {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func updateSavedRecipes(recipe: RecipeInfo) {
+        self.updateRecipeInSavedRecipes(recipe: recipe)
+        guard let view else { return }
+        view.updatePopularCategory()
+    }
+    
+    func isRecipeSaved(recipe: RecipeInfo) -> Bool {
+        savedRecipesId.contains(where:  {$0 == recipe.id} )
     }
 }
 

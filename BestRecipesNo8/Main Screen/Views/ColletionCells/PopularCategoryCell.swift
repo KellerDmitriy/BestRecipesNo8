@@ -10,6 +10,10 @@ import Kingfisher
 
 final class PopularCategoryCell: UICollectionViewCell {
     
+    weak var delegate: PopularCategoryDelegate?
+    private var recipe: RecipeInfo?
+    private var isSaved: Bool = false
+    
     //MARK: - UI Elements:
     
     private lazy var recipeImageView: UIImageView = {
@@ -69,6 +73,7 @@ final class PopularCategoryCell: UICollectionViewCell {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
         button.tintColor = .gray
+        button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         button.layer.cornerRadius = 12
         button.clipsToBounds = true
         button.setImage(UIImage(named: "Union"), for: .normal)
@@ -99,7 +104,7 @@ final class PopularCategoryCell: UICollectionViewCell {
         grayBackgroundView.addSubview(addButton)
     }
     
-    func configureCell(at recipeInfo: RecipeInfo) {
+    func configureCell(at recipeInfo: RecipeInfo, delegate: PopularCategoryDelegate) {
         guard let id = recipeInfo.id,
               let title = recipeInfo.title,
               let image = recipeInfo.image
@@ -113,6 +118,20 @@ final class PopularCategoryCell: UICollectionViewCell {
                                                                                           .cacheSerializer(FormatIndicatedCacheSerializer.png)])
         titleLabel.text = title
        // counterLabel.text = "\(readyInMinutes) Mins"
+        self.delegate = delegate
+        self.recipe = recipeInfo
+        self.isSaved = delegate.isRecipeSaved(recipe: recipeInfo)
+        setAddButtonColor()
+    }
+    
+    private func setAddButtonColor() {
+        addButton.tintColor = isSaved ? .red : .gray
+    }
+    
+    @objc
+    private func addButtonTapped() {
+        guard let recipe else { return }
+        delegate?.updateSavedRecipes(recipe: recipe)
     }
     
     private func setupLayout() {
