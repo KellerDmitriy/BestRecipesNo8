@@ -141,7 +141,7 @@ final class SearchViewCell: UITableViewCell {
     
 #warning("ДОРАБОТАТЬ МЕТОД ПРИ ПОДКЛЮЧЕНИИ ДАННЫХ И ПЕРЕДАЧИ С ДРУГОГО ЭКРАНА")
     
-    func configureCell(recipe: RecipeInfo) {
+    func configureCell(recipe: SearchRecipe) {
         let image = recipe.image ?? ""
         let title = recipe.title
         
