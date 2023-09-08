@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import SnapKit
 
 class SearchTableView: UIView {
 
     let searchTableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.register(SearchViewCell.self, forCellReuseIdentifier: "SearchViewCell")
+        table.register(SearchViewCell.self, forCellReuseIdentifier: SearchViewCell.cellID)
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         return table
@@ -23,7 +24,6 @@ class SearchTableView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
     }
     
     required init?(coder: NSCoder) {
@@ -39,18 +39,18 @@ class SearchTableView: UIView {
 //MARK: - UITableViewDelegate, UITableViewDataSource
 
 extension SearchTableView: UITableViewDelegate, UITableViewDataSource {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         recipesItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = searchTableView.dequeueReusableCell(withIdentifier: SearchViewCell.cellID, for: indexPath) as? SearchViewCell else { return UITableViewCell() }
-        cell.configureCell(recipe: recipesItems[indexPath.item])
+        cell.configure(
+            model: recipesItems[indexPath.item])
         cell.selectionStyle = .none
         return cell
     }
-    
 }
 
 //MARK: Setup
@@ -69,14 +69,13 @@ private extension SearchTableView {
     }
     
     func setConstraints() {
-        translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([
-            searchTableView.topAnchor.constraint(equalTo: topAnchor),
-            searchTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            searchTableView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            searchTableView.leadingAnchor.constraint(equalTo: leadingAnchor)
-        ])
+        searchTableView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.leading.equalToSuperview()
+        }
     }
 }
 

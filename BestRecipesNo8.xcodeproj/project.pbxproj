@@ -62,6 +62,7 @@
 		E1A0265A2AA9E0880085289E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A026592AA9E0880085289E /* SearchViewController.swift */; };
 		E1A0265D2AA9ED5D0085289E /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A0265C2AA9ED5D0085289E /* SearchViewCell.swift */; };
 		E1A026602AAB0CE00085289E /* SearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A0265F2AAB0CE00085289E /* SearchTableView.swift */; };
+		E1A026622AAB5D560085289E /* CustomAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A026612AAB5D560085289E /* CustomAddButton.swift */; };
 		E1ABBEAD2A9DEFF70021E624 /* UIImage + TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ABBEAC2A9DEFF70021E624 /* UIImage + TabBar.swift */; };
 		E1ABBEB32A9E86760021E624 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E11675A82A9BFECA00C6ED88 /* Poppins-Regular.ttf */; };
 		E1ABBEB42A9E86790021E624 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E11675A12A9BF5E100C6ED88 /* Poppins-Bold.ttf */; };
@@ -158,6 +159,7 @@
 		E1A026592AA9E0880085289E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		E1A0265C2AA9ED5D0085289E /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		E1A0265F2AAB0CE00085289E /* SearchTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableView.swift; sourceTree = "<group>"; };
+		E1A026612AAB5D560085289E /* CustomAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAddButton.swift; sourceTree = "<group>"; };
 		E1ABBEAC2A9DEFF70021E624 /* UIImage + TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + TabBar.swift"; sourceTree = "<group>"; };
 		E1ABBEB52A9FE2310021E624 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		E1ABBEB72AA059EE0021E624 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -539,6 +541,7 @@
 				E1E240C62AA3A8F1003803E5 /* CustomTabbar.swift */,
 				E1ABBEB72AA059EE0021E624 /* CustomButton.swift */,
 				90D5FE692AA0B26F002A74B0 /* CustomNavigationController.swift */,
+				E1A026612AAB5D560085289E /* CustomAddButton.swift */,
 			);
 			path = CustomUI;
 			sourceTree = "<group>";
@@ -827,6 +830,7 @@
 				283A2D612A9D338100A70257 /* ImageManager.swift in Sources */,
 				84AF91312AA7D948007F5854 /* StartViewController.swift in Sources */,
 				E1C978E92A9B5A09003BDC4A /* SceneDelegate.swift in Sources */,
+				E1A026622AAB5D560085289E /* CustomAddButton.swift in Sources */,
 				E1ABBEB82AA059EE0021E624 /* CustomButton.swift in Sources */,
 				90D5FE822AA0B295002A74B0 /* IngredientCell.swift in Sources */,
 				90D5FE7D2AA0B295002A74B0 /* RecipeModel.swift in Sources */,

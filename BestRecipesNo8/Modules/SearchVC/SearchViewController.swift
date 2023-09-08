@@ -11,13 +11,12 @@ import SnapKit
 final class SearchViewController: UIViewController {
     
     //MARK: Private properties
-    private let searchTableView = SearchTableView()
     private var timer: Timer?
     private let networkManager = NetworkManager.shared
-    private var recipesModels: SearchResult?
     private var searchedRecipes: [SearchRecipe] = []
   
     
+    private let searchTableView = SearchTableView()
     private var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.obscuresBackgroundDuringPresentation = false
@@ -29,14 +28,10 @@ final class SearchViewController: UIViewController {
         view.backgroundColor = .white
         title = "Get amazing recipes for cooking"
         setup()
+        searchTableView.searchTableView.reloadData()
+        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-        updateSearchTableView()
-        searchController.isActive = false
-        hideSearchTableView(isTableViewHidden: true)
-    }
     
     // MARK: - Private methods
     
@@ -81,6 +76,11 @@ private extension SearchViewController {
     func configureNavigationBar() {
         navigationController?.navigationBar.barTintColor = .systemBackground
         navigationController?.hidesBarsWhenKeyboardAppears = false
+    }
+    
+    func hideMainTableView(isTableViewHidden: Bool) {
+        searchTableView.isHidden = isTableViewHidden
+        //mainView.isHidden = !isTableViewHidden
     }
 }
 
@@ -133,7 +133,7 @@ private extension SearchViewController {
                     var models: [SearchRecipe] = []
                     recipes.forEach { recipe in
                         dispatchGroup.enter()
-                        self?.networkManager.getRecipeInformation(for: recipe.id) { result in
+                        self?.networkManager.getDetailedRecipe(with: recipe.id) { result in
                             defer { dispatchGroup.leave() }
                             switch result {
                             case .success(let data):
