@@ -130,7 +130,7 @@ struct NetworkManager {
         guard let url = createURL(for: .searchRecipes, with: query) else { return }
         makeTask(for: url, completion: completion)
     }
-    
+
     /// Get recipe information
     /// - Parameters:
     /// - id: The id of the recipe.
@@ -212,6 +212,24 @@ extension NetworkManager {
         }
     }
     
+    func searchRecipe (keyWord: String, completion: @escaping (Result<[SearchRecipe], Error>) -> Void){
+        let basicURL = "https://api.spoonacular.com/recipes/"
+        let searchRecipeURL = "\(basicURL)autocomplete?number=10&apiKey=\(API.apiKey)&query="
+        guard let url = URL(string: searchRecipeURL+keyWord) else {return}
+        print ("url for searched : \(url)")
+        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
+            
+            guard let data = data, error == nil else {return}
+            do {
+                let results = try JSONDecoder().decode([SearchRecipe].self, from: data)
+                completion(.success(results))
+            } catch {
+                completion(.failure(error))
+                print ("error in searchRecipes: \(error)")
+            }
+        }
+        task.resume()
+    }
 }
 
 
