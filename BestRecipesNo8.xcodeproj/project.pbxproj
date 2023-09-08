@@ -23,6 +23,17 @@
 		283A2D642A9D33A200A70257 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283A2D632A9D33A200A70257 /* Constants.swift */; };
 		283A2D662A9D33B400A70257 /* RandomRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283A2D652A9D33B400A70257 /* RandomRecipe.swift */; };
 		283A2D682A9D33C600A70257 /* SearchRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283A2D672A9D33C600A70257 /* SearchRecipe.swift */; };
+		904F573C2AA66EFA001FBEDC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904F573B2AA66EFA001FBEDC /* HomeView.swift */; };
+		904F573F2AA87034001FBEDC /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904F573E2AA87034001FBEDC /* ListItem.swift */; };
+		904F57422AA870A0001FBEDC /* ListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904F57412AA870A0001FBEDC /* ListSection.swift */; };
+		904F57442AA87B97001FBEDC /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904F57432AA87B97001FBEDC /* MockData.swift */; };
+		904F57472AA8CFAF001FBEDC /* TrendingCategoryPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904F57462AA8CFAF001FBEDC /* TrendingCategoryPreviewCell.swift */; };
+		904F57492AA8D3FD001FBEDC /* PopularCategoryPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904F57482AA8D3FD001FBEDC /* PopularCategoryPreviewCell.swift */; };
+		904F574B2AA8D409001FBEDC /* RecentCategoryPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904F574A2AA8D409001FBEDC /* RecentCategoryPreviewCell.swift */; };
+		904F574D2AA8D41A001FBEDC /* TeamMembersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904F574C2AA8D41A001FBEDC /* TeamMembersCell.swift */; };
+		904F574F2AA8DAC0001FBEDC /* HeaderSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904F574E2AA8DAC0001FBEDC /* HeaderSupplementaryView.swift */; };
+		904F57512AA9C79E001FBEDC /* PopularRecipesPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904F57502AA9C79E001FBEDC /* PopularRecipesPreviewCell.swift */; };
+		904F57532AAAF7B6001FBEDC /* PopularCategoryPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904F57522AAAF7B6001FBEDC /* PopularCategoryPreview.swift */; };
 		90733BCD2AA31C1200D65897 /* SavedRecipesViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90733BCC2AA31C1200D65897 /* SavedRecipesViewRouter.swift */; };
 		90733BCF2AA31C2500D65897 /* SavedRecipesRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90733BCE2AA31C2500D65897 /* SavedRecipesRouterInput.swift */; };
 		90733BD12AA31C7000D65897 /* SavedRecipesBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90733BD02AA31C7000D65897 /* SavedRecipesBuilder.swift */; };
@@ -119,6 +130,17 @@
 		283A2D632A9D33A200A70257 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		283A2D652A9D33B400A70257 /* RandomRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRecipe.swift; sourceTree = "<group>"; };
 		283A2D672A9D33C600A70257 /* SearchRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipe.swift; sourceTree = "<group>"; };
+		904F573B2AA66EFA001FBEDC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		904F573E2AA87034001FBEDC /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
+		904F57412AA870A0001FBEDC /* ListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSection.swift; sourceTree = "<group>"; };
+		904F57432AA87B97001FBEDC /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		904F57462AA8CFAF001FBEDC /* TrendingCategoryPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCategoryPreviewCell.swift; sourceTree = "<group>"; };
+		904F57482AA8D3FD001FBEDC /* PopularCategoryPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCategoryPreviewCell.swift; sourceTree = "<group>"; };
+		904F574A2AA8D409001FBEDC /* RecentCategoryPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentCategoryPreviewCell.swift; sourceTree = "<group>"; };
+		904F574C2AA8D41A001FBEDC /* TeamMembersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamMembersCell.swift; sourceTree = "<group>"; };
+		904F574E2AA8DAC0001FBEDC /* HeaderSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSupplementaryView.swift; sourceTree = "<group>"; };
+		904F57502AA9C79E001FBEDC /* PopularRecipesPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularRecipesPreviewCell.swift; sourceTree = "<group>"; };
+		904F57522AAAF7B6001FBEDC /* PopularCategoryPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCategoryPreview.swift; sourceTree = "<group>"; };
 		90733BCC2AA31C1200D65897 /* SavedRecipesViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipesViewRouter.swift; sourceTree = "<group>"; };
 		90733BCE2AA31C2500D65897 /* SavedRecipesRouterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipesRouterInput.swift; sourceTree = "<group>"; };
 		90733BD02AA31C7000D65897 /* SavedRecipesBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipesBuilder.swift; sourceTree = "<group>"; };
@@ -284,6 +306,48 @@
 				283A2D672A9D33C600A70257 /* SearchRecipe.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		904F57392AA66ECE001FBEDC /* HomeModule */ = {
+			isa = PBXGroup;
+			children = (
+				904F573D2AA87023001FBEDC /* Models */,
+				904F573A2AA66EE5001FBEDC /* Views */,
+			);
+			path = HomeModule;
+			sourceTree = "<group>";
+		};
+		904F573A2AA66EE5001FBEDC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				904F57452AA8CEE7001FBEDC /* Cells */,
+				904F573B2AA66EFA001FBEDC /* HomeView.swift */,
+				904F574E2AA8DAC0001FBEDC /* HeaderSupplementaryView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		904F573D2AA87023001FBEDC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				904F573E2AA87034001FBEDC /* ListItem.swift */,
+				904F57412AA870A0001FBEDC /* ListSection.swift */,
+				904F57522AAAF7B6001FBEDC /* PopularCategoryPreview.swift */,
+				904F57432AA87B97001FBEDC /* MockData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		904F57452AA8CEE7001FBEDC /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				904F57462AA8CFAF001FBEDC /* TrendingCategoryPreviewCell.swift */,
+				904F57482AA8D3FD001FBEDC /* PopularCategoryPreviewCell.swift */,
+				904F57502AA9C79E001FBEDC /* PopularRecipesPreviewCell.swift */,
+				904F574A2AA8D409001FBEDC /* RecentCategoryPreviewCell.swift */,
+				904F574C2AA8D41A001FBEDC /* TeamMembersCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		90733BC62AA31BCB00D65897 /* SavedRecipesModule */ = {
@@ -600,6 +664,7 @@
 		E1C979042A9B7EC9003BDC4A /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				904F57392AA66ECE001FBEDC /* HomeModule */,
 				E11675A92A9C831F00C6ED88 /* StartModule */,
 				28344DA82A9E54A9000D7554 /* SeeAllModule */,
 				90D5FE6B2AA0B295002A74B0 /* RecipeModule */,
@@ -794,7 +859,9 @@
 				E2130CCE2A9F0AE700C3404E /* PopularCategorySectionView.swift in Sources */,
 				E298099C2A9BA98A002121A5 /* UICollectionViewCell + Ext.swift in Sources */,
 				E223A8492A9E1E23007E8C0E /* UITableViewCell + Ext.swift in Sources */,
+				904F574F2AA8DAC0001FBEDC /* HeaderSupplementaryView.swift in Sources */,
 				E223A8502A9E2A64007E8C0E /* TrendingNowSectionView.swift in Sources */,
+				904F57472AA8CFAF001FBEDC /* TrendingCategoryPreviewCell.swift in Sources */,
 				E1E240CA2AA3A956003803E5 /* NotificationViewController.swift in Sources */,
 				E298099A2A9BA977002121A5 /* ReuseIdentifierProtocol.swift in Sources */,
 				E223A8432A9CDAC2007E8C0E /* TrendingCategoryCell.swift in Sources */,
@@ -821,6 +888,7 @@
 				E11675B12A9C83E700C6ED88 /* StartRouterInput.swift in Sources */,
 				90D5FE7F2AA0B295002A74B0 /* RecipeView.swift in Sources */,
 				90733BCD2AA31C1200D65897 /* SavedRecipesViewRouter.swift in Sources */,
+				904F57492AA8D3FD001FBEDC /* PopularCategoryPreviewCell.swift in Sources */,
 				90D5FE812AA0B295002A74B0 /* RecipeViewInput.swift in Sources */,
 				E1D803482AA53DBF008A8D7E /* SeeAllViewRouter.swift in Sources */,
 				28344DAE2A9E5519000D7554 /* UILabel + Extension.swift in Sources */,
@@ -829,10 +897,12 @@
 				90D5FEA82AA1FA2C002A74B0 /* ProfileViewOutput.swift in Sources */,
 				283A2D642A9D33A200A70257 /* Constants.swift in Sources */,
 				28344DB32A9E5598000D7554 /* SeeAllViewController.swift in Sources */,
+				904F573F2AA87034001FBEDC /* ListItem.swift in Sources */,
 				90D5FE6A2AA0B26F002A74B0 /* CustomNavigationController.swift in Sources */,
 				90D5FE7A2AA0B295002A74B0 /* RecipeViewRouter.swift in Sources */,
 				90D5FEA02AA1F9E7002A74B0 /* ProfileModel.swift in Sources */,
 				90D5FE7E2AA0B295002A74B0 /* RecipePresenter.swift in Sources */,
+				904F57512AA9C79E001FBEDC /* PopularRecipesPreviewCell.swift in Sources */,
 				90D5FEA42AA1FA0B002A74B0 /* ProfileBuilder.swift in Sources */,
 				90733BDB2AA31D1300D65897 /* SavedRecipesViewOutput.swift in Sources */,
 				283A2D612A9D338100A70257 /* ImageManager.swift in Sources */,
@@ -841,10 +911,12 @@
 				90D5FE822AA0B295002A74B0 /* IngredientCell.swift in Sources */,
 				90D5FE7D2AA0B295002A74B0 /* RecipeModel.swift in Sources */,
 				E11675BE2A9C87B700C6ED88 /* SettingsManager.swift in Sources */,
+				904F57442AA87B97001FBEDC /* MockData.swift in Sources */,
 				E116759C2A9BF55B00C6ED88 /* UIFont + Extension.swift in Sources */,
 				283A2D5B2A9D333000A70257 /* Endpoint.swift in Sources */,
 				90D5FE9C2AA1F99A002A74B0 /* ProfileViewRouter.swift in Sources */,
 				283A2D5D2A9D334F00A70257 /* API.swift in Sources */,
+				904F574D2AA8D41A001FBEDC /* TeamMembersCell.swift in Sources */,
 				90D5FEA62AA1FA1B002A74B0 /* ProfileView.swift in Sources */,
 				283A2D682A9D33C600A70257 /* SearchRecipe.swift in Sources */,
 				90733BD72AA31CF900D65897 /* SavedRecipesView.swift in Sources */,
@@ -862,16 +934,20 @@
 				E1D8034B2AA54765008A8D7E /* MainRouterInput.swift in Sources */,
 				E1D8034F2AA5DE7E008A8D7E /* SeeAllModel.swift in Sources */,
 				90733BD12AA31C7000D65897 /* SavedRecipesBuilder.swift in Sources */,
+				904F573C2AA66EFA001FBEDC /* HomeView.swift in Sources */,
+				904F57532AAAF7B6001FBEDC /* PopularCategoryPreview.swift in Sources */,
 				90D5FEAC2AA1FBFC002A74B0 /* RecipeCell.swift in Sources */,
 				28344DC42A9F72B4000D7554 /* UIImage + Extension.swift in Sources */,
 				28344DBA2A9E7907000D7554 /* SeeAllViewOutput.swift in Sources */,
 				E2130CD92AA0B92B00C3404E /* MainScreenPresenter.swift in Sources */,
 				90D5FE7C2AA0B295002A74B0 /* RecipeBuilder.swift in Sources */,
+				904F57422AA870A0001FBEDC /* ListSection.swift in Sources */,
 				90D5FE802AA0B295002A74B0 /* RecipeViewOutput.swift in Sources */,
 				90733BD52AA31CD300D65897 /* SavedRecipesPresenter.swift in Sources */,
 				E11675AF2A9C838300C6ED88 /* StartPresenter.swift in Sources */,
 				E2130CDE2AA0BE2D00C3404E /* Builder.swift in Sources */,
 				E223A8472A9E1747007E8C0E /* PopularCategoryCell.swift in Sources */,
+				904F574B2AA8D409001FBEDC /* RecentCategoryPreviewCell.swift in Sources */,
 				E1D8034D2AA5477F008A8D7E /* MainViewRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

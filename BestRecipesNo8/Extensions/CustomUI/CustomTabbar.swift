@@ -37,7 +37,7 @@ final class CustomTabBar: UITabBarController {
     
     // MARK: - TabBarItem setup a controller and images
     private func assignTabBarModules() {
-        let mainVC = MainScreenBuilder.createMainScreenViewController()
+        let mainVC = HomeView() //MainScreenBuilder.createMainScreenViewController()
         let discoverVC = SavedRecipesBuilder.createSavedRecipesModule()
         let notificationVC = NotificationViewController()
         let profileVC = ProfileBuilder.createProfileModule()
