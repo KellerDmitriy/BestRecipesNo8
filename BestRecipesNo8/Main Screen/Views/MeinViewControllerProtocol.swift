@@ -10,6 +10,7 @@ import Foundation
 protocol MainScreenViewControllerProtocol: AnyObject {
     func getRecipes()
     func getPopularRecipes()
+    func updatePopularCategory()
 }
 
 

@@ -10,6 +10,10 @@ import Kingfisher
 
 final class TrendingCategoryCell: UICollectionViewCell {
     
+    weak var delegate: PopularCategoryDelegate?
+    private var recipe: RecipeInfo?
+    private var isSaved: Bool = false
+    
     //MARK: - UI Elements
     
     private lazy var recipeImageView: UIImageView = {
@@ -39,6 +43,7 @@ final class TrendingCategoryCell: UICollectionViewCell {
         button.layer.cornerRadius = 16
         button.clipsToBounds = true
         button.setImage(UIImage(named: "Inactive"), for: .normal)
+        button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -63,10 +68,10 @@ final class TrendingCategoryCell: UICollectionViewCell {
         contentView.addSubview(addButton)
     }
     
-    func configureCell(at searchRecipe: RecipeInfo) {
-        guard let id = searchRecipe.id,
-              let title = searchRecipe.title,
-              let image = searchRecipe.image else { return }
+    func configureCell(at recipeInfo: RecipeInfo, delegate: PopularCategoryDelegate) {
+        guard let id = recipeInfo.id,
+              let title = recipeInfo.title,
+              let image = recipeInfo.image else { return }
         let cache = ImageCache.default
         cache.diskStorage.config.expiration = .seconds(1)
         let processor = RoundCornerImageProcessor(cornerRadius: 12, backgroundColor: .clear)
@@ -74,6 +79,22 @@ final class TrendingCategoryCell: UICollectionViewCell {
         recipeImageView.kf.setImage(with: URL(string: image), placeholder: nil, options: [.processor(processor),
                                                                                           .cacheSerializer(FormatIndicatedCacheSerializer.png)])
         titleLabel.text = title
+        
+        self.delegate = delegate
+        self.recipe = recipeInfo
+        self.isSaved = delegate.isRecipeSaved(recipe: recipeInfo)
+        setAddButtonColor()
+        
+    }
+    
+    private func setAddButtonColor() {
+        addButton.tintColor = isSaved ? .red : .gray
+    }
+    
+    @objc
+    private func addButtonTapped() {
+        guard let recipe else { return }
+        delegate?.updateSavedRecipes(recipe: recipe)
     }
     
     private func setupLayout() {

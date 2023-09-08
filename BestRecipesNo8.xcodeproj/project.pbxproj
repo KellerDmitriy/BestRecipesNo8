@@ -39,6 +39,8 @@
 		289606CF2AA8ED9F00383C32 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289606CE2AA8ED9F00383C32 /* DataManager.swift */; };
 		289606D12AA8EDB900383C32 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289606D02AA8EDB900383C32 /* StorageManager.swift */; };
 		289606D62AA8EEAB00383C32 /* CreateViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289606D52AA8EEAB00383C32 /* CreateViewPresenter.swift */; };
+		84AF912C2AA7D656007F5854 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF912B2AA7D656007F5854 /* OnboardingViewController.swift */; };
+		84AF91312AA7D948007F5854 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF91302AA7D948007F5854 /* StartViewController.swift */; };
 		90733BCD2AA31C1200D65897 /* SavedRecipesViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90733BCC2AA31C1200D65897 /* SavedRecipesViewRouter.swift */; };
 		90733BCF2AA31C2500D65897 /* SavedRecipesRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90733BCE2AA31C2500D65897 /* SavedRecipesRouterInput.swift */; };
 		90733BD12AA31C7000D65897 /* SavedRecipesBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90733BD02AA31C7000D65897 /* SavedRecipesBuilder.swift */; };
@@ -70,14 +72,9 @@
 		90D5FEAE2AA28332002A74B0 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D5FEAD2AA28332002A74B0 /* UIView + Extension.swift */; };
 		E116759A2A9BF55300C6ED88 /* Colors + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11675992A9BF55300C6ED88 /* Colors + Extension.swift */; };
 		E116759C2A9BF55B00C6ED88 /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E116759B2A9BF55B00C6ED88 /* UIFont + Extension.swift */; };
-		E11675AF2A9C838300C6ED88 /* StartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11675AE2A9C838300C6ED88 /* StartPresenter.swift */; };
-		E11675B12A9C83E700C6ED88 /* StartRouterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11675B02A9C83E700C6ED88 /* StartRouterInput.swift */; };
-		E11675B32A9C840500C6ED88 /* StartViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11675B22A9C840500C6ED88 /* StartViewRouter.swift */; };
-		E11675B52A9C843800C6ED88 /* StartBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11675B42A9C843800C6ED88 /* StartBuilder.swift */; };
-		E11675B72A9C845E00C6ED88 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11675B62A9C845E00C6ED88 /* StartView.swift */; };
-		E11675B92A9C847F00C6ED88 /* StartViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11675B82A9C847F00C6ED88 /* StartViewOutput.swift */; };
-		E11675BB2A9C849400C6ED88 /* StartViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11675BA2A9C849400C6ED88 /* StartViewInput.swift */; };
 		E11675BE2A9C87B700C6ED88 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11675BD2A9C87B700C6ED88 /* SettingsManager.swift */; };
+		E1A0265A2AA9E0880085289E /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A026592AA9E0880085289E /* SearchTableViewController.swift */; };
+		E1A0265D2AA9ED5D0085289E /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A0265C2AA9ED5D0085289E /* SearchViewCell.swift */; };
 		E1ABBEAD2A9DEFF70021E624 /* UIImage + TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ABBEAC2A9DEFF70021E624 /* UIImage + TabBar.swift */; };
 		E1ABBEB32A9E86760021E624 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E11675A82A9BFECA00C6ED88 /* Poppins-Regular.ttf */; };
 		E1ABBEB42A9E86790021E624 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E11675A12A9BF5E100C6ED88 /* Poppins-Bold.ttf */; };
@@ -116,8 +113,6 @@
 		E29809972A9BA068002121A5 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29809962A9BA068002121A5 /* MainScreenViewController.swift */; };
 		E298099A2A9BA977002121A5 /* ReuseIdentifierProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29809992A9BA977002121A5 /* ReuseIdentifierProtocol.swift */; };
 		E298099C2A9BA98A002121A5 /* UICollectionViewCell + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E298099B2A9BA98A002121A5 /* UICollectionViewCell + Ext.swift */; };
-		E7C864922AA79AC90096717E /* StartViewOnboardingPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C864912AA79AC90096717E /* StartViewOnboardingPages.swift */; };
-		E7C864942AA7C08A0096717E /* OnboardingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C864932AA7C08A0096717E /* OnboardingHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -151,6 +146,8 @@
 		289606CE2AA8ED9F00383C32 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		289606D02AA8EDB900383C32 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		289606D52AA8EEAB00383C32 /* CreateViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewPresenter.swift; sourceTree = "<group>"; };
+		84AF912B2AA7D656007F5854 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		84AF91302AA7D948007F5854 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		90733BCC2AA31C1200D65897 /* SavedRecipesViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipesViewRouter.swift; sourceTree = "<group>"; };
 		90733BCE2AA31C2500D65897 /* SavedRecipesRouterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipesRouterInput.swift; sourceTree = "<group>"; };
 		90733BD02AA31C7000D65897 /* SavedRecipesBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipesBuilder.swift; sourceTree = "<group>"; };
@@ -184,14 +181,9 @@
 		E116759B2A9BF55B00C6ED88 /* UIFont + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont + Extension.swift"; sourceTree = "<group>"; };
 		E11675A12A9BF5E100C6ED88 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		E11675A82A9BFECA00C6ED88 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
-		E11675AE2A9C838300C6ED88 /* StartPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPresenter.swift; sourceTree = "<group>"; };
-		E11675B02A9C83E700C6ED88 /* StartRouterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRouterInput.swift; sourceTree = "<group>"; };
-		E11675B22A9C840500C6ED88 /* StartViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewRouter.swift; sourceTree = "<group>"; };
-		E11675B42A9C843800C6ED88 /* StartBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartBuilder.swift; sourceTree = "<group>"; };
-		E11675B62A9C845E00C6ED88 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
-		E11675B82A9C847F00C6ED88 /* StartViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewOutput.swift; sourceTree = "<group>"; };
-		E11675BA2A9C849400C6ED88 /* StartViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewInput.swift; sourceTree = "<group>"; };
 		E11675BD2A9C87B700C6ED88 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		E1A026592AA9E0880085289E /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
+		E1A0265C2AA9ED5D0085289E /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		E1ABBEAC2A9DEFF70021E624 /* UIImage + TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + TabBar.swift"; sourceTree = "<group>"; };
 		E1ABBEB52A9FE2310021E624 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		E1ABBEB72AA059EE0021E624 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -226,8 +218,6 @@
 		E29809962A9BA068002121A5 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		E29809992A9BA977002121A5 /* ReuseIdentifierProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifierProtocol.swift; sourceTree = "<group>"; };
 		E298099B2A9BA98A002121A5 /* UICollectionViewCell + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell + Ext.swift"; sourceTree = "<group>"; };
-		E7C864912AA79AC90096717E /* StartViewOnboardingPages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewOnboardingPages.swift; sourceTree = "<group>"; };
-		E7C864932AA7C08A0096717E /* OnboardingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -393,6 +383,20 @@
 				283E0F8F2AA8EF7D009F6F1F /* CreateViewRouter.swift */,
 			);
 			path = Routers;
+		84AF912A2AA7D617007F5854 /* OnboardingVC */ = {
+			isa = PBXGroup;
+			children = (
+				84AF912B2AA7D656007F5854 /* OnboardingViewController.swift */,
+			);
+			path = OnboardingVC;
+			sourceTree = "<group>";
+		};
+		84AF912F2AA7D8F1007F5854 /* StartVC */ = {
+			isa = PBXGroup;
+			children = (
+				84AF91302AA7D948007F5854 /* StartViewController.swift */,
+			);
+			path = StartVC;
 			sourceTree = "<group>";
 		};
 		90733BC62AA31BCB00D65897 /* SavedRecipesModule */ = {
@@ -601,60 +605,29 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		E11675A92A9C831F00C6ED88 /* StartModule */ = {
-			isa = PBXGroup;
-			children = (
-				E7C864932AA7C08A0096717E /* OnboardingHelper.swift */,
-				E11675AD2A9C835C00C6ED88 /* Views */,
-				E11675AC2A9C835000C6ED88 /* Builders */,
-				E11675AB2A9C834500C6ED88 /* Presenters */,
-				E11675AA2A9C833800C6ED88 /* Routers */,
-			);
-			path = StartModule;
-			sourceTree = "<group>";
-		};
-		E11675AA2A9C833800C6ED88 /* Routers */ = {
-			isa = PBXGroup;
-			children = (
-				E11675B02A9C83E700C6ED88 /* StartRouterInput.swift */,
-				E11675B22A9C840500C6ED88 /* StartViewRouter.swift */,
-			);
-			path = Routers;
-			sourceTree = "<group>";
-		};
-		E11675AB2A9C834500C6ED88 /* Presenters */ = {
-			isa = PBXGroup;
-			children = (
-				E11675AE2A9C838300C6ED88 /* StartPresenter.swift */,
-			);
-			path = Presenters;
-			sourceTree = "<group>";
-		};
-		E11675AC2A9C835000C6ED88 /* Builders */ = {
-			isa = PBXGroup;
-			children = (
-				E11675B42A9C843800C6ED88 /* StartBuilder.swift */,
-			);
-			path = Builders;
-			sourceTree = "<group>";
-		};
-		E11675AD2A9C835C00C6ED88 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				E11675B62A9C845E00C6ED88 /* StartView.swift */,
-				E11675BA2A9C849400C6ED88 /* StartViewInput.swift */,
-				E11675B82A9C847F00C6ED88 /* StartViewOutput.swift */,
-				E7C864912AA79AC90096717E /* StartViewOnboardingPages.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		E11675BC2A9C879200C6ED88 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				E11675BD2A9C87B700C6ED88 /* SettingsManager.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		E1A0265B2AA9ED3E0085289E /* SearchVC */ = {
+			isa = PBXGroup;
+			children = (
+				E1A026592AA9E0880085289E /* SearchTableViewController.swift */,
+				E1A0265E2AA9ED620085289E /* Cells */,
+			);
+			path = SearchVC;
+			sourceTree = "<group>";
+		};
+		E1A0265E2AA9ED620085289E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E1A0265C2AA9ED5D0085289E /* SearchViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		E1ABBEAE2A9E09570021E624 /* CustomUI */ = {
@@ -715,7 +688,9 @@
 		E1C979042A9B7EC9003BDC4A /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				E11675A92A9C831F00C6ED88 /* StartModule */,
+				E1A0265B2AA9ED3E0085289E /* SearchVC */,
+				84AF912F2AA7D8F1007F5854 /* StartVC */,
+				84AF912A2AA7D617007F5854 /* OnboardingVC */,
 				28344DA82A9E54A9000D7554 /* SeeAllModule */,
 				90D5FE6B2AA0B295002A74B0 /* RecipeModule */,
 				E1E240C82AA3A939003803E5 /* NotificationVC */,
@@ -916,12 +891,13 @@
 				E223A8492A9E1E23007E8C0E /* UITableViewCell + Ext.swift in Sources */,
 				E223A8502A9E2A64007E8C0E /* TrendingNowSectionView.swift in Sources */,
 				E1E240CA2AA3A956003803E5 /* NotificationViewController.swift in Sources */,
+				E1A0265A2AA9E0880085289E /* SearchTableViewController.swift in Sources */,
 				E298099A2A9BA977002121A5 /* ReuseIdentifierProtocol.swift in Sources */,
 				E223A8432A9CDAC2007E8C0E /* TrendingCategoryCell.swift in Sources */,
 				E2130CE32AA0C17300C3404E /* DataService.swift in Sources */,
-				E7C864922AA79AC90096717E /* StartViewOnboardingPages.swift in Sources */,
 				283A2D5F2A9D336400A70257 /* NetworkManager.swift in Sources */,
 				E2130CD22A9F6CBE00C3404E /* RecentRecipeCell.swift in Sources */,
+				84AF912C2AA7D656007F5854 /* OnboardingViewController.swift in Sources */,
 				E1ABBEAD2A9DEFF70021E624 /* UIImage + TabBar.swift in Sources */,
 				E29809972A9BA068002121A5 /* MainScreenViewController.swift in Sources */,
 				E116759A2A9BF55300C6ED88 /* Colors + Extension.swift in Sources */,
@@ -929,7 +905,6 @@
 				289606CD2AA8ED7A00383C32 /* RecipeInfoRealm.swift in Sources */,
 				28344DBC2A9E7955000D7554 /* SeeAllBuilder.swift in Sources */,
 				90733BD92AA31D0400D65897 /* SavedRecipeCell.swift in Sources */,
-				E11675B52A9C843800C6ED88 /* StartBuilder.swift in Sources */,
 				90733BCF2AA31C2500D65897 /* SavedRecipesRouterInput.swift in Sources */,
 				E1C978E72A9B5A09003BDC4A /* AppDelegate.swift in Sources */,
 				289606C72AA8EC3400383C32 /* IngredientHeaderView.swift in Sources */,
@@ -937,12 +912,8 @@
 				E223A84B2A9E1E54007E8C0E /* TrendingCollectionTableViewCell.swift in Sources */,
 				E1E240C72AA3A8F1003803E5 /* CustomTabbar.swift in Sources */,
 				90733BDD2AA31D2700D65897 /* SavedRecipesViewInput.swift in Sources */,
-				E11675B92A9C847F00C6ED88 /* StartViewOutput.swift in Sources */,
 				E2130CD02A9F6C0700C3404E /* RecentRecipeSectionView.swift in Sources */,
 				90D5FEA22AA1F9F6002A74B0 /* ProfilePresenter.swift in Sources */,
-				E11675B72A9C845E00C6ED88 /* StartView.swift in Sources */,
-				E11675B32A9C840500C6ED88 /* StartViewRouter.swift in Sources */,
-				E11675B12A9C83E700C6ED88 /* StartRouterInput.swift in Sources */,
 				90D5FE7F2AA0B295002A74B0 /* RecipeView.swift in Sources */,
 				289606BC2AA8EAB000383C32 /* CreateViewController.swift in Sources */,
 				90733BCD2AA31C1200D65897 /* SavedRecipesViewRouter.swift in Sources */,
@@ -951,7 +922,6 @@
 				28344DAE2A9E5519000D7554 /* UILabel + Extension.swift in Sources */,
 				289606BE2AA8EB5600383C32 /* CreateTextField.swift in Sources */,
 				E2130CE52AA3488400C3404E /* PopularCategoryHeaderCell.swift in Sources */,
-				E11675BB2A9C849400C6ED88 /* StartViewInput.swift in Sources */,
 				90D5FEA82AA1FA2C002A74B0 /* ProfileViewOutput.swift in Sources */,
 				283A2D642A9D33A200A70257 /* Constants.swift in Sources */,
 				28344DB32A9E5598000D7554 /* SeeAllViewController.swift in Sources */,
@@ -964,9 +934,9 @@
 				90D5FEA42AA1FA0B002A74B0 /* ProfileBuilder.swift in Sources */,
 				90733BDB2AA31D1300D65897 /* SavedRecipesViewOutput.swift in Sources */,
 				283A2D612A9D338100A70257 /* ImageManager.swift in Sources */,
+				84AF91312AA7D948007F5854 /* StartViewController.swift in Sources */,
 				E1C978E92A9B5A09003BDC4A /* SceneDelegate.swift in Sources */,
 				E1ABBEB82AA059EE0021E624 /* CustomButton.swift in Sources */,
-				E7C864942AA7C08A0096717E /* OnboardingHelper.swift in Sources */,
 				90D5FE822AA0B295002A74B0 /* IngredientCell.swift in Sources */,
 				90D5FE7D2AA0B295002A74B0 /* RecipeModel.swift in Sources */,
 				289606C92AA8ECAC00383C32 /* AlertController + Extension.swift in Sources */,
@@ -989,6 +959,7 @@
 				90D5FE7B2AA0B295002A74B0 /* RecipeRouterInput.swift in Sources */,
 				90733BD32AA31CB300D65897 /* SavedRecipeModel.swift in Sources */,
 				90D5FEAA2AA1FA3B002A74B0 /* ProfileViewInput.swift in Sources */,
+				E1A0265D2AA9ED5D0085289E /* SearchViewCell.swift in Sources */,
 				28344DBE2A9E7988000D7554 /* SeeAllPresenter.swift in Sources */,
 				90D5FE9E2AA1F9B0002A74B0 /* ProfileRouterInput.swift in Sources */,
 				90D5FEAE2AA28332002A74B0 /* UIView + Extension.swift in Sources */,
@@ -1004,7 +975,6 @@
 				90D5FE7C2AA0B295002A74B0 /* RecipeBuilder.swift in Sources */,
 				90D5FE802AA0B295002A74B0 /* RecipeViewOutput.swift in Sources */,
 				90733BD52AA31CD300D65897 /* SavedRecipesPresenter.swift in Sources */,
-				E11675AF2A9C838300C6ED88 /* StartPresenter.swift in Sources */,
 				E2130CDE2AA0BE2D00C3404E /* Builder.swift in Sources */,
 				E223A8472A9E1747007E8C0E /* PopularCategoryCell.swift in Sources */,
 				E1D8034D2AA5477F008A8D7E /* MainViewRouter.swift in Sources */,

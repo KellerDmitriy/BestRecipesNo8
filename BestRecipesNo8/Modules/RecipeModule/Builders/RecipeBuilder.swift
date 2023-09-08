@@ -10,8 +10,7 @@ import UIKit
 final class RecipeBuilder {
     static func createRecipeModule() -> UIViewController {
         let router = RecipeViewRouter()
-        let settingsManager = SettingsManager()
-        let presenter = RecipePresenter(router: router, settingsManager: settingsManager)
+        let presenter = RecipePresenter(router: router)
         let view = RecipeView(presenter: presenter)
         
         presenter.view = view

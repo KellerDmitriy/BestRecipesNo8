@@ -18,14 +18,6 @@ class SeeAllViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
-    #warning("что за seeAllTableView???")
-    var seeAllTableView = UITableView()
-    
-    var category: String?
-    var isSorted: Bool?
-    
-//    var recipesInList: [RecipeInfo] = []
     
     // MARK: - Private Properties
     private let presenter: SeeAllPresenterProtocol
@@ -115,14 +107,9 @@ extension SeeAllViewController: UICollectionViewDataSource {
         let recipe = self.presenter.trendingNowRecipes[indexPath.row]
         cell.configureCell(recipe: recipe)
         return cell
-    }
-   
+    }   
 }
 
 extension SeeAllViewController: SeeAllViewInput {
-    
-    func updateData(with recipeInfoModel: [RecipeInfo]) {
-        
-    }
-    
+
 }

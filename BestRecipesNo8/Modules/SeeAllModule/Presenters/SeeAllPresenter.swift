@@ -19,13 +19,11 @@ final class SeeAllPresenter: SeeAllPresenterProtocol {
     
     weak var view: SeeAllViewInput?
     private let router: SeeAllRouterInput
-   // private let settingsManager: SettingsManagerProtocol
 
     init(router: SeeAllRouterInput, recipes: [RecipeInfo]) {
         
         self.router = router
         self.trendingNowRecipes = recipes
-        //self.settingsManager = settingsManager
     }
 }
 
