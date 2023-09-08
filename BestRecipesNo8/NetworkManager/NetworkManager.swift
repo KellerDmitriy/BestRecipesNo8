@@ -211,44 +211,6 @@ extension NetworkManager {
             }
         }
     }
-    
-    func searchRecipe (keyWord: String, completion: @escaping (Result<[SearchRecipe], Error>) -> Void){
-        let basicURL = "https://api.spoonacular.com/recipes/"
-        let searchRecipeURL = "\(basicURL)autocomplete?number=10&apiKey=\(API.apiKey)&query="
-        guard let url = URL(string: searchRecipeURL+keyWord) else {return}
-        print ("url for searched : \(url)")
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
-            
-            guard let data = data, error == nil else {return}
-            do {
-                let results = try JSONDecoder().decode([SearchRecipe].self, from: data)
-                completion(.success(results))
-            } catch {
-                completion(.failure(error))
-                print ("error in searchRecipes: \(error)")
-            }
-        }
-        task.resume()
-    }
-    
-    func getDetailedRecipe (with id: Int, completion: @escaping (Result<RecipeInfo, Error>) -> Void) {
-        let basicURL = "https://api.spoonacular.com/recipes/"
-        let exactURL = "\(basicURL)\(id)/information?apiKey=\(API.apiKey)"
-        guard let url = URL(string: exactURL+String(id)) else {return}
-        print (url)
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, responce, error in
-            guard let data = data, error == nil else {return}
-            do {
-                let results = try JSONDecoder().decode(RecipeInfo.self, from: data)
-                completion(.success(results))
-                
-            } catch {
-                completion(.failure(error))
-                print ("error in getDetailedRecipe")
-            }
-        }
-        task.resume()
-    }
 }
 
 

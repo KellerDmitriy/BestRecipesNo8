@@ -11,33 +11,34 @@ import SnapKit
 final class SearchViewController: UIViewController {
     
     //MARK: Private properties
-    private var timer: Timer?
-    private let networkManager = NetworkManager.shared
-    private var searchedRecipes: [SearchRecipe] = []
-  
-    
-    private let searchTableView = SearchTableView()
     private var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.obscuresBackgroundDuringPresentation = false
         return searchController
     }()
     
+    private var timer: Timer?
+    private let networkManager = NetworkManager.shared
+    private var searchedRecipes: [SearchRecipe] = []
+    
+    
+    private let searchTableView = SearchTableView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         title = "Get amazing recipes for cooking"
         setup()
-        searchTableView.searchTableView.reloadData()
-        
     }
     
     
     // MARK: - Private methods
     
     func updateSearchTableView() {
-        searchTableView.configure(models: searchedRecipes, navigationController: navigationController)
-        searchTableView.searchTableView.reloadData()
+        DispatchQueue.main.async {
+            self.searchTableView.configure(models: self.searchedRecipes, navigationController: self.navigationController)
+            self.searchTableView.searchTableView.reloadData()
+        }
     }
     
     func hideSearchTableView(isTableViewHidden: Bool) {
@@ -78,10 +79,6 @@ private extension SearchViewController {
         navigationController?.hidesBarsWhenKeyboardAppears = false
     }
     
-    func hideMainTableView(isTableViewHidden: Bool) {
-        searchTableView.isHidden = isTableViewHidden
-        //mainView.isHidden = !isTableViewHidden
-    }
 }
 
 //MARK: - UISearchBarDelegate
@@ -89,11 +86,11 @@ private extension SearchViewController {
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-      
+        
         updateSearchTableView()
         hideSearchTableView(isTableViewHidden: true)
     }
- 
+    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         hideSearchTableView(isTableViewHidden: false)
     }
@@ -124,36 +121,35 @@ extension SearchViewController: UISearchResultsUpdating {
 //MARK: - Search Recipes
 private extension SearchViewController {
     private func fetchSearchedRecipe(with searchText: String) {
+        let group = DispatchGroup()
+        
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { [weak self] timer in
-            self?.networkManager.searchRecipe(keyWord: searchText) { [weak self] result in
+            group.enter()
+            self?.networkManager.getSearchRecipes(for: searchText) { result in
+                defer {
+                    group.leave()
+                }
+                
                 switch result {
                 case .success(let recipes):
-                    let dispatchGroup = DispatchGroup()
                     var models: [SearchRecipe] = []
-                    recipes.forEach { recipe in
-                        dispatchGroup.enter()
-                        self?.networkManager.getDetailedRecipe(with: recipe.id) { result in
-                            defer { dispatchGroup.leave() }
-                            switch result {
-                            case .success(let data):
-                                guard let title = data.title, let image = data.image else { return }
-                                models.append(SearchRecipe(id: data.id ?? 0, title: title, image: image))
-                            case .failure(let error):
-                                print(error)
-                            }
-                        }
-                    }
-
-                    dispatchGroup.notify(queue: .main) {
-                        self?.searchedRecipes = models
-                        self?.updateSearchTableView()
-                        self?.hideSearchTableView(isTableViewHidden: false)
-                    }
+                    recipes.results?.forEach({ recipe in
+                        guard let id = recipe.id, let title = recipe.title, let image = recipe.image else { return }
+                        models.append(SearchRecipe(id: id, title: title, image: image))
+                    })
+                    self?.searchedRecipes = models
+                    print(models)
+                    self?.hideSearchTableView(isTableViewHidden: false)
+                    self?.updateSearchTableView()
                 case .failure(let error):
                     print(error)
                 }
             }
         })
+        
+        group.notify(queue: .main) {
+            // All requests have completed
+        }
     }
 }

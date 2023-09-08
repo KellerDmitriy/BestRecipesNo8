@@ -12,7 +12,7 @@ struct SearchResult: Codable {
 }
 
 struct SearchRecipe: Codable {
-    let id: Int
+    let id: Int?
     let title: String?
     let image: String?
 }

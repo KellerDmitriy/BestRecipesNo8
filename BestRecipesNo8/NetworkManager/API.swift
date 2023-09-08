@@ -12,7 +12,7 @@ struct API {
     static let host = "api.spoonacular.com"
     
 #warning("NEED YOUR APIKEY")
-    static let apiKey = "04864a53f7464c90820b2725af2c6ba0"
+    static let apiKey = "369e8c18e98a43df8e683ec2cecd29d3"
 }
 
 //"4ea5853dc94c40a296c7ac12e7fe5eb4"

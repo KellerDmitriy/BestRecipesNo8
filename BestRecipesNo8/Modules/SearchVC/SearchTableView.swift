@@ -13,7 +13,7 @@ class SearchTableView: UIView {
     let searchTableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.register(SearchViewCell.self, forCellReuseIdentifier: SearchViewCell.cellID)
+        table.register(SearchViewCell.self, forCellReuseIdentifier: "MainTableViewCell")
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         return table
@@ -24,6 +24,8 @@ class SearchTableView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupUI()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -41,11 +43,11 @@ class SearchTableView: UIView {
 extension SearchTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        recipesItems.count
+       recipesItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = searchTableView.dequeueReusableCell(withIdentifier: SearchViewCell.cellID, for: indexPath) as? SearchViewCell else { return UITableViewCell() }
+        guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "MainTableViewCell", for: indexPath) as? SearchViewCell else { return UITableViewCell() }
         cell.configure(
             model: recipesItems[indexPath.item])
         cell.selectionStyle = .none
@@ -57,11 +59,12 @@ extension SearchTableView: UITableViewDelegate, UITableViewDataSource {
 
 private extension SearchTableView {
     
-    func setup() {
-        addSubview(searchTableView)
+    func setupUI() {
+        self.addSubview(searchTableView)
         setDelegate()
         setConstraints()
     }
+    
     
     func setDelegate() {
         searchTableView.delegate = self
