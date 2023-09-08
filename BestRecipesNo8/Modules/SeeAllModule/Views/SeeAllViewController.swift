@@ -8,7 +8,18 @@
 import UIKit
 
 class SeeAllViewController: UIViewController {
+    
+    private lazy var seeAllTitle: UILabel = {
+        let label = UILabel()
+        label.text = "Trending Now"
+        label.font = UIFont.poppinsSemiBold(size: 24)
+        label.textAlignment = .left
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
+    #warning("что за seeAllTableView???")
     var seeAllTableView = UITableView()
     
     var category: String?
@@ -41,18 +52,26 @@ class SeeAllViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        seeAllTableView.reloadData()
         setupUI()
+        seeAllTableView.reloadData()
     }
     
     // MARK: - Private methods
     private func setupUI() {
+        view.addSubview(seeAllTitle)
+        NSLayoutConstraint.activate([
+            seeAllTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            seeAllTitle.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            seeAllTitle.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            seeAllTitle.heightAnchor.constraint(equalToConstant: 70)
+        ])
+        
         view.addSubview(collectionView)
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            collectionView.topAnchor.constraint(equalTo: seeAllTitle.bottomAnchor, constant: 0),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
@@ -101,9 +120,9 @@ extension SeeAllViewController: UICollectionViewDataSource {
 }
 
 extension SeeAllViewController: SeeAllViewInput {
+    
     func updateData(with recipeInfoModel: [RecipeInfo]) {
         
     }
-    
     
 }
