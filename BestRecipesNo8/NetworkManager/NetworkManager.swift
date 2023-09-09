@@ -130,7 +130,7 @@ struct NetworkManager {
         guard let url = createURL(for: .searchRecipes, with: query) else { return }
         makeTask(for: url, completion: completion)
     }
-    
+
     /// Get recipe information
     /// - Parameters:
     /// - id: The id of the recipe.
@@ -211,7 +211,6 @@ extension NetworkManager {
             }
         }
     }
-    
 }
 
 

@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //todo проверяем, показывали ли уже Onboarding (UserDefaults)
         //Если да, то в rootViewController надо определить CustomTabBar()
         //Если нет, то в rootViewController надо определить StartBuilder.createStartModule()
-        let tabbarVC = CustomTabBar()
+        let tabbarVC = SearchViewController()
         let navigationVC = isShowOnboarding() ? UINavigationController(rootViewController: StartViewController()) : UINavigationController(rootViewController: tabbarVC)
         
         navigationVC.setupNavigationBar()

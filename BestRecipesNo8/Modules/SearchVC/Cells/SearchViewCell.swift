@@ -13,147 +13,105 @@ final class SearchViewCell: UITableViewCell {
     
     static let cellID = String(describing: SearchViewCell.self)
     
-    // MARK: - Private properties
-    
-    // Изображение
-    private lazy var recipeImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    // Рейтинг
-    private lazy var ratingLabel: UILabel = {
-        let label = UILabel()
-        label.text = "5,0"
-        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private lazy var ratingImage: UIImageView = {
-        let smallFont = UIFont.systemFont(ofSize: 12)
-        let configuration = UIImage.SymbolConfiguration(font: smallFont)
-        let image = UIImage(systemName: "star.fill", withConfiguration: configuration)
-        let imageView = UIImageView(image: image)
-        imageView.tintColor = .black
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    private lazy var ratingView: UIView = {
-        let view = UIView()
+    private let recipeImageView: UIImageView = {
+        let view = UIImageView()
         view.layer.cornerRadius = 10
-        
-        let blurEffect = UIBlurEffect(style: .regular)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.frame = view.frame
-        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        blurView.layer.cornerRadius = 10
-        blurView.clipsToBounds = true
-        //        blurView.layer.shouldRasterize = true
-        view.addSubview(blurView)
-        
+        view.contentMode = .scaleAspectFill
+        view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    // Информация о рецепте
-    
-    private lazy var titleRecipe: UILabel = {
+    private let recipeNameLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 2
-        label.font = UIFont.poppinsBold(size: 16)
-        label.textColor = .white
-        label.text = "How to make yam & vegetable sauce at home"
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
+        label.font = .poppinsBold(size: 22)
+        label.numberOfLines = 0
         return label
     }()
     
-    private lazy var infoRecipe: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 2
-        label.font = UIFont.poppinsRegular(size: 12)
-        label.textColor = .white
-        label.text = "9 Ingredients | 25 min"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    lazy var addButton = CustomAddButton()
     
+    var isSaved = false {
+        didSet {
+            addButton.toggle(with: isSaved)
+        }
+    }
+    var addButtonClosure: (() -> ())?
     
-    // MARK: - Private methods
-    
-    private func setupUI() {
-        contentView.layer.cornerRadius = 10
-        contentView.backgroundColor = .lightGray
-        contentView.clipsToBounds = true
-        
-        contentView.addSubview(recipeImageView)
-        NSLayoutConstraint.activate([
-            recipeImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
-            recipeImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
-            recipeImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
-            recipeImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0)
-        ])
-        
-        // Рейтинг
-        ratingView.addSubview(ratingImage)
-        NSLayoutConstraint.activate([
-            ratingImage.widthAnchor.constraint(equalToConstant: 14),
-            ratingImage.heightAnchor.constraint(equalToConstant: 14),
-            ratingImage.centerYAnchor.constraint(equalTo: ratingView.centerYAnchor, constant: 0),
-            ratingImage.leadingAnchor.constraint(equalTo: ratingView.leadingAnchor, constant: 8)
-        ])
-        
-        ratingView.addSubview(ratingLabel)
-        NSLayoutConstraint.activate([
-            ratingLabel.centerYAnchor.constraint(equalTo: ratingView.centerYAnchor, constant: 0),
-            ratingLabel.trailingAnchor.constraint(equalTo: ratingView.trailingAnchor, constant: -8)
-        ])
-        
-        contentView.addSubview(ratingView)
-        NSLayoutConstraint.activate([
-            ratingView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            ratingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            ratingView.widthAnchor.constraint(equalToConstant: 58),
-            ratingView.heightAnchor.constraint(equalToConstant: 27)
-        ])
-        
-        contentView.addSubview(infoRecipe)
-        NSLayoutConstraint.activate([
-            infoRecipe.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-            infoRecipe.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            infoRecipe.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15)
-        ])
-        
-        contentView.addSubview(titleRecipe)
-        NSLayoutConstraint.activate([
-            titleRecipe.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            titleRecipe.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-            titleRecipe.bottomAnchor.constraint(equalTo: infoRecipe.topAnchor, constant: -8)
-        ])
-        
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupUI()
+        addButtonSetup()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     // MARK: - Public methods
-    
-#warning("ДОРАБОТАТЬ МЕТОД ПРИ ПОДКЛЮЧЕНИИ ДАННЫХ И ПЕРЕДАЧИ С ДРУГОГО ЭКРАНА")
-    
-    func configureCell(recipe: RecipeInfo) {
-        let image = recipe.image ?? ""
-        let title = recipe.title
-        
-        titleRecipe.text = title
-        
+    func configure(model: SearchRecipe) {
+        guard let image = model.image else { return }
         let cache = ImageCache.default
         cache.diskStorage.config.expiration = .seconds(1)
         let processor = RoundCornerImageProcessor(cornerRadius: 55, backgroundColor: .clear)
         recipeImageView.kf.indicatorType = .activity
-        recipeImageView.kf.setImage(with: URL(string: image), placeholder: nil, options: [.processor(processor),
-                                                                                          .cacheSerializer(FormatIndicatedCacheSerializer.png)])
-        
+        recipeImageView.kf.setImage(with: URL(string: image))
+    }
+}
+// MARK: - setupUI
+private extension SearchViewCell {
+    
+    func setupUI() {
+        setupView()
+        setConstraints()
     }
     
+    func setupView() {
+        clipsToBounds = true
+        contentView.addSubview(recipeImageView)
+        contentView.addSubview(recipeNameLabel)
+        contentView.addSubview(addButton)
+    }
+    
+    func setConstraints() {
+        recipeImageView.snp.makeConstraints { make in
+            make.top.equalTo(contentView.snp.top)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
+            make.height.equalTo(200)
+        }
+        
+        recipeNameLabel.snp.makeConstraints { make in
+            make.top.equalTo(recipeImageView.snp.bottom).offset(10)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-16)
+            make.trailing.equalTo(contentView.snp.trailing)
+        }
+        
+        addButton.snp.makeConstraints { make in
+            make.top.equalTo(recipeImageView.snp.top).offset(10)
+            make.trailing.equalTo(recipeImageView.snp.trailing).offset(-10)
+            make.height.equalTo(32)
+            make.width.equalTo(32)
+        }
+    }
+}
+//  MARK: - Save button setup
+
+extension SearchViewCell {
+    
+    private func addButtonSetup() {
+        addButton.addTarget(
+            self,
+            action: #selector(addButtonTapped),
+            for: .touchUpInside)
+    }
+    
+    @objc func addButtonTapped() {
+        addButtonClosure?()
+        isSaved.toggle()
+    }
 }
