@@ -16,6 +16,21 @@ class HomeView: UIViewController {
     
     private lazy var sections = MockData.shared.pageData
     
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.poppinsSemiBold(size: 24)
+        label.numberOfLines = 2
+        label.textAlignment = .left
+        label.text = "Get amazing recipes \nfor cooking"
+        return label
+    }()
+    
+    private lazy var recipeSearchField: UISearchTextField = {
+        let searchField = UISearchTextField()
+        searchField.placeholder = "Search recipes"
+        return searchField
+    }()
+    
     // MARK: - Init
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -35,11 +50,25 @@ class HomeView: UIViewController {
         selectFirstCell()
     }
     
+    //MARK: - Methods for Header's Button
+    @objc private func seeAllButtonTapped() {
+        print("seeAllButtonTap")
+        //presenter.seeAllButtonTapped()
+    }
+    
+    @objc private func seeAllRecipeSectionButtonTapped() {
+        print("seeAllRecipeSectionButtonTapped")
+        //presenter.seeAllButtonTapped()
+    }
+    
     // MARK: - Subviews
     private func addSubviews() {
         scrollView.addSubview(contentView)
         view.addSubview(scrollView)
         contentView.addSubview(collectionView)
+        
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(recipeSearchField)
     }
     
     // MARK: - Constraints
@@ -53,12 +82,23 @@ class HomeView: UIViewController {
             make.edges.width.equalToSuperview()
         }
         
-        collectionView.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        recipeSearchField.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.height.equalTo(44)
+        }
+        
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(recipeSearchField.snp.bottom).offset(20)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             make.bottom.equalTo(contentView.snp.bottom)
-            make.height.equalTo(UIScreen.main.bounds.height - 200)
+            make.height.equalTo(UIScreen.main.bounds.height - 350)
         }
     }
     
@@ -139,7 +179,6 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
@@ -151,6 +190,8 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegate {
             if sectionIndex == 1 {
                 header.isButtonHidden = true
             }
+
+            header.tag = indexPath.section
             
             return header
         default:
@@ -210,10 +251,10 @@ extension HomeView {
     
     private func createTrendingSection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                            heightDimension: .fractionalHeight(0.77)))
+                                                            heightDimension: .fractionalHeight(0.9)))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.8),
-                                                                         heightDimension: .fractionalHeight(0.55)),
+                                                                         heightDimension: .fractionalHeight(0.6)),
                                                        subitems: [item])
         
         let section = createLayoutSection(group: group,
@@ -221,13 +262,13 @@ extension HomeView {
                                           interGroupSpacing: 5,
                                           supplementaryItems: [supplementaryHeaderItem()],
                                           contentInsets: false)
-        section.contentInsets = NSDirectionalEdgeInsets(top: -20, leading: 10, bottom: -40, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 50, trailing: 0)
         return section
     }
     
     private func createPopularCategorySection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                            heightDimension: .fractionalHeight(0.25)))
+                                                            heightDimension: .fractionalHeight(0.35)))
         
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.21),
@@ -238,7 +279,7 @@ extension HomeView {
                                           interGroupSpacing: 0,
                                           supplementaryItems: [supplementaryHeaderItem()],
                                           contentInsets: false)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: -100, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 0)
         return section
     }
     
@@ -256,7 +297,7 @@ extension HomeView {
                                           interGroupSpacing: 13,
                                           supplementaryItems: [],
                                           contentInsets: false)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 10, trailing: 0)
         return section
     }
     
@@ -265,7 +306,7 @@ extension HomeView {
                                                             heightDimension: .fractionalHeight(0.9)))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.33),
-                                                                         heightDimension: .fractionalHeight(0.35)),
+                                                                         heightDimension: .fractionalHeight(0.45)),
                                                        subitems: [item])
         
         let section = createLayoutSection(group: group,
@@ -282,7 +323,7 @@ extension HomeView {
                                                             heightDimension: .fractionalHeight(1)))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.4),
-                                                                         heightDimension: .fractionalHeight(0.35)),
+                                                                         heightDimension: .fractionalHeight(0.45)),
                                                        subitems: [item])
         
         let section = createLayoutSection(group: group,

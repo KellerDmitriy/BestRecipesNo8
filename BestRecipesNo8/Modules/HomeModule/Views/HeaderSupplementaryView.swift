@@ -39,6 +39,7 @@ class HeaderSupplementaryView: UICollectionReusableView {
         button.setAttributedTitle(attributedTitle, for: .normal)
             
         button.configuration = config
+        button.addTarget(self, action: #selector(seeAllButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -54,6 +55,21 @@ class HeaderSupplementaryView: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    @objc private func seeAllButtonTapped() {
+        
+        let section = self.tag
+        switch section {
+           case 0:
+                print("see all tapped from Trending Now")
+            case 3:
+                print("see all tapped from Recent recipe")
+           default:
+               break
+           }
+        //presenter.seeAllButtonTapped()
+    }
+    
     
     func configureHeader(category: String) {
         headerLabel.text = category
