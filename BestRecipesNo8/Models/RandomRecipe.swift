@@ -34,16 +34,6 @@ struct RecipeInfo: Codable {
     
     let analyzedInstructions: [AnalyzedInstruction]?
     
-    var rating: String {
-        guard let likes = aggregateLikes else { return "❤️ 0"}
-        switch likes {
-        case 1000...:
-            return "❤️ \(likes / 1000)k"
-        default:
-            return "❤️ \(likes)"
-        }
-    }
-    
     var instuctionsLabel: String {
         var result: String = ""
         guard let instructions = analyzedInstructions?.first else { return "" }
