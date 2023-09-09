@@ -8,20 +8,24 @@
 import UIKit
 
 enum PopularCategoryPreview {
-    case salad([ListItem])
-    case breakfast([ListItem])
-    case appetizer([ListItem])
-    case noodle([ListItem])
-    case lunch([ListItem])
+    case salad
+    case breakfast
+    case appetizer
+    case noodle
+    case lunch
     
-    var popularRecipes: [ListItem] {
+    var popularRecipes: [RecipeItem] {
         switch self {
-        case .salad(let items),
-             .breakfast(let items),
-             .appetizer(let items),
-             .noodle(let items),
-             .lunch(let items):
-            return items
+        case .salad:
+            return saladRecipes
+        case .breakfast:
+            return breakfastRecipes
+        case .appetizer:
+            return appetizerRecipes
+        case .noodle:
+            return saladRecipes
+        case .lunch:
+            return saladRecipes
         }
     }
     
@@ -43,4 +47,22 @@ enum PopularCategoryPreview {
             return "Lunch"
         }
     }
+    
+    var saladRecipes: [RecipeItem] {[
+        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage1"), time: 1),
+        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage2"), time: 2),
+        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage1"), time: 3)
+    ]}
+
+    var breakfastRecipes: [RecipeItem] {[
+        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage2"), time: 4),
+        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage1"), time: 5),
+        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage2"), time: 6)
+    ]}
+    
+    var appetizerRecipes: [RecipeItem] {[
+        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage1"), time: 7),
+        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage2"), time: 8),
+        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage1"), time: 9)
+    ]}
 }

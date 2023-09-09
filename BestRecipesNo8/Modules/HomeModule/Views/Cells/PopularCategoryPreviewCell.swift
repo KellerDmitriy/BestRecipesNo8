@@ -36,9 +36,27 @@ class PopularCategoryPreviewCell: UICollectionViewCell {
         categoryTitle.text = title
     }
     
-    func selectCell() {
+    func categoryIsTapped(categoryIndex: Int) {
+        switch categoryIndex {
+        case 0:
+            MockData.shared.setPopularCategory(.salad)
+        case 1:
+            MockData.shared.setPopularCategory(.breakfast)
+        case 2:
+            MockData.shared.setPopularCategory(.appetizer)
+        case 3:
+            MockData.shared.setPopularCategory(.noodle)
+        case 4:
+            MockData.shared.setPopularCategory(.lunch)
+        default:
+            break
+        }
+    }
+    
+    func selectCell(_ index: Int) {
         contentView.backgroundColor = .darkRedColor
         categoryTitle.textColor = .white
+        categoryIsTapped(categoryIndex: index)
     }
     
     func deselectCell() {
@@ -57,12 +75,6 @@ class PopularCategoryPreviewCell: UICollectionViewCell {
             make.centerX.centerY.equalToSuperview()
         }
     }
-    
-    func changeButtonAppearance(for button: UIButton, selected: Bool) {
-        button.backgroundColor = selected ? UIColor.systemRed : UIColor.white
-        button.setTitleColor(selected ? UIColor.black : UIColor.primaryColor, for: .normal)
-    }
-
 }
 
 // MARK: - Extension for setup elements

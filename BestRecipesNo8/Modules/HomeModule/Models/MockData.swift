@@ -9,7 +9,7 @@ import UIKit
 
 struct MockData {
     
-    static let shared = MockData()
+    static var shared = MockData()
     
     private let trendingNow: ListSection = {
         .trendingNow([.init(title: "sharwama", image: UIImage(named: "trendingImage1"), rating: 4.5),
@@ -18,6 +18,8 @@ struct MockData {
         ])
     }()
     
+    // MARK: - Популярные категории
+
     private let popularCategories: ListSection = {
         .popularCategories([.init(title: "Salad", image: nil),
                             .init(title: "Breakfast", image: nil),
@@ -27,11 +29,12 @@ struct MockData {
         ])
     }()
     
-    private let popularRecipes: ListSection = {
-        .popularRecipe([.init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage1"), time: 5),
-                        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage2"), time: 10),
-                        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage1"), time: 25)
-        ])
+    mutating func setPopularCategory(_ category: PopularCategoryPreview) {
+        popularRecipes = .popularRecipe(category)
+    }
+    
+    private var popularRecipes: ListSection = {
+        .popularRecipe(.salad)
     }()
     
     private let recentRecipe: ListSection = {

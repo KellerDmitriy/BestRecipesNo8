@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct ListItem {
+struct RecipeItem {
     let title: String
     let image: UIImage?
     let rating: Double?

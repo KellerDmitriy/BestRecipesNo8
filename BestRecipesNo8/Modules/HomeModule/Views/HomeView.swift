@@ -50,17 +50,6 @@ class HomeView: UIViewController {
         selectFirstCell()
     }
     
-    //MARK: - Methods for Header's Button
-    @objc private func seeAllButtonTapped() {
-        print("seeAllButtonTap")
-        //presenter.seeAllButtonTapped()
-    }
-    
-    @objc private func seeAllRecipeSectionButtonTapped() {
-        print("seeAllRecipeSectionButtonTapped")
-        //presenter.seeAllButtonTapped()
-    }
-    
     // MARK: - Subviews
     private func addSubviews() {
         scrollView.addSubview(contentView)
@@ -141,7 +130,7 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegate {
             
             let currentCategory = category[indexPath.row]
             cell.updateCategoryData(title: currentCategory.title)
-            cell.isSelected ? cell.selectCell() : cell.deselectCell()
+            cell.isSelected ? cell.selectCell(indexPath.item) : cell.deselectCell()
             
             return cell
         case .popularRecipe(let recipe):
@@ -150,7 +139,7 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegate {
                 return UICollectionViewCell()
             }
             
-            let currentRecipe = recipe[indexPath.row]
+            let currentRecipe = recipe.popularRecipes[indexPath.row]
             cell.updateRecipeData(image: currentRecipe.image, title: currentRecipe.title, time: currentRecipe.time)
             
             return cell
@@ -161,7 +150,7 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegate {
             }
             
             let currentRecipe = recipe[indexPath.row]
-            cell.updateRecipeData(image: currentRecipe.image, rating: 4.8, title: currentRecipe.title, count: 10, minutes: 25)
+            cell.updateRecipeData(image: currentRecipe.image, title: currentRecipe.title)
             
             return cell
         case .teamMembers(let member):
@@ -199,17 +188,42 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegate {
         }
     }
     
+    func categoryIsTapped(categoryIndex: Int) {
+        print(categoryIndex)
+//        switch categoryIndex {
+//
+//        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? PopularCategoryPreviewCell {
-            cell.selectCell()
+            cell.selectCell(indexPath.item)
         }
+        
+//        if let cell = collectionView.cellForItem(at: indexPath) as? PopularRecipesPreviewCell {
+//            switch sections[indexPath.section] {
+//            case .popularRecipe(let recipe):
+//
+//                let popularRecipes = recipe.popularRecipes
+//                print(popularRecipes)
+//                for i in 0..<popularRecipes.count {
+//                    let currentRecipe = popularRecipes[i]
+//                    cell.updateRecipeData(image: currentRecipe.image, title: currentRecipe.title, time: currentRecipe.time)
+//                }
+//
+//            default: break
+//            }
+//        }
+//
+//        collectionView.reloadData()
+//        collectionView.reloadSections(IndexSet(integer: 2))
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? PopularCategoryPreviewCell {
             cell.deselectCell()
         }
+        collectionView.reloadData()
     }
 }
 
