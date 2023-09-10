@@ -6,21 +6,47 @@
 //
 
 import UIKit
+import RealmSwift
 
 struct CreatedRecipeModel {
     let recipeImage: UIImage?
     let rating: Double
     let recipeName: String
     let countIngredients: Int
-    let timeCooking: Int
+    let timeCooking: String
+    
+    init(recipeInfoRealm: RecipeInfoRealm) {
+        // Преобразуйте данные из RecipeInfoRealm в формат CreatedRecipeModel
+        if let image = UIImage(data: recipeInfoRealm.imageData) {
+            self.recipeImage = image
+        } else {
+            self.recipeImage = nil
+        }
+        self.rating = 5
+        self.recipeName = recipeInfoRealm.title
+        self.countIngredients = recipeInfoRealm.ingredients.count
+        self.timeCooking = recipeInfoRealm.cookTime
+    }
 }
 
 struct ProfileModel {
-    let profileImage: UIImage?
     
-    static let savedRecipes = [
-        CreatedRecipeModel(recipeImage: UIImage(named: "recipe1"), rating: 5.0, recipeName: "vegetable sauce", countIngredients: 9, timeCooking: 25),
-        CreatedRecipeModel(recipeImage: UIImage(named: "recipe2"), rating: 4.8, recipeName: "sharwama", countIngredients: 5, timeCooking: 40),
-        CreatedRecipeModel(recipeImage: UIImage(named: "recipe3"), rating: 4.5, recipeName: "chicken and vegetable wrap", countIngredients: 7, timeCooking: 30)
-    ]
+    static let shared = ProfileModel()
+    
+    private init() {}
+
+    func getData() -> [CreatedRecipeModel] {
+        let realm = try! Realm()
+        let recipes = realm.objects(RecipeInfoRealm.self)
+
+        // Преобразование Results<RecipeInfoRealm> в массив CreatedRecipeModel
+        var createdRecipes: [CreatedRecipeModel] = []
+
+        for recipeInfoRealm in recipes {
+            let createdRecipe = CreatedRecipeModel(recipeInfoRealm: recipeInfoRealm)
+            createdRecipes.append(createdRecipe)
+        }
+        
+        return createdRecipes
+    }
 }
