@@ -12,16 +12,15 @@ final class RecipePresenter {
     weak var view: RecipeViewInput?
     private let router: RecipeRouterInput
     
-    let recipe: RecipeModel
+    let recipe: RecipeInfo
 
-    init(router: RecipeRouterInput) {
-        
+    init(router: RecipeRouterInput, recipe: RecipeInfo) {
         self.router = router
-        recipe = RecipeModel()
+        self.recipe = recipe
     }
     
     var getTitleRecipe: String {
-        return "How to make \(recipe.recipeName)"
+        return "How to make \(recipe.title ?? "")"
     }
     
     var getRatingText: String {
@@ -29,11 +28,12 @@ final class RecipePresenter {
     }
     
     var getReviewsText: String {
-        return "(\(recipe.countReviews) Reviews)"
+//        return "(\(recipe.countReviews) Reviews)"
+        return "(Reviews)"
     }
     
     var countIngredients: Int {
-        return recipe.ingredients.count
+        return recipe.extendedIngredients?.count ?? 0
     }
     
     var getCountIngredientsText: String {
@@ -46,10 +46,15 @@ final class RecipePresenter {
     }
     
     func getIngredient(at index: Int) -> IngredientModel {
-        return recipe.ingredients[index]
+        guard let ingredients = recipe.extendedIngredients else { return IngredientModel(iconURL: "Empty", name: "Empty", count: "Empty") }
+        let ingredient = ingredients[index]
+        
+        return IngredientModel(iconURL: ingredient.imageURL,
+                               name: ingredient.name ?? "",
+                               count: "\(ingredient.amount ?? 0)")
     }
     
     func getInstructions() -> String {
-        return recipe.instructions
+        return recipe.instuctionsLabel
     }
 }

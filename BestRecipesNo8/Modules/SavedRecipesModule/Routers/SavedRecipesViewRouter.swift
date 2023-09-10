@@ -10,8 +10,9 @@ import UIKit
 final class SavedRecipesViewRouter: SavedRecipesRouterInput {
     
     weak var view: UIViewController?
-    func routeToRecipeDetailScreen() {
-        let view = RecipeBuilder.createRecipeModule()
+    
+    func routeToRecipeDetailScreen(recipe: RecipeInfo) {
+        let view = RecipeBuilder.createRecipeModule(recipe: recipe)
         self.view?.navigationController?.pushViewController(view, animated: true)
     }
 }

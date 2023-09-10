@@ -9,6 +9,7 @@ import Foundation
 
 protocol SeeAllPresenterProtocol: AnyObject {
     var trendingNowRecipes: [RecipeInfo] { get }
+    var router: SeeAllRouterInput { get }
 }
 
 final class SeeAllPresenter: SeeAllPresenterProtocol {
@@ -18,7 +19,7 @@ final class SeeAllPresenter: SeeAllPresenterProtocol {
     var trendingNowRecipes: [RecipeInfo] = []
     
     weak var view: SeeAllViewInput?
-    private let router: SeeAllRouterInput
+    var router: SeeAllRouterInput
 
     init(router: SeeAllRouterInput, recipes: [RecipeInfo]) {
         
@@ -27,19 +28,19 @@ final class SeeAllPresenter: SeeAllPresenterProtocol {
     }
 }
 
-extension SeeAllPresenter: SeeAllViewOutput {
-    
-    func saveButtonTapped() {
-        //
-    }
-    
-    func fetchData(for category: String) {
-        //
-    }
-    
-    func cellTapped() {
-        self.router.routeToRecipeDetailScreen()
-    }
-    
-
-}
+//extension SeeAllPresenter: SeeAllViewOutput {
+//
+//    func saveButtonTapped() {
+//        //
+//    }
+//
+//    func fetchData(for category: String) {
+//        //
+//    }
+//
+////    func cellTapped() {
+////        self.router.routeToRecipeDetailScreen(recipe: <#T##RecipeInfo#>)
+////    }
+//
+//
+//}

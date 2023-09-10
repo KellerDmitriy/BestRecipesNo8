@@ -104,6 +104,7 @@ extension MainPresenter: PopularCategoryDelegate {
     func sectCell(recipe: RecipeInfo) {
 #warning("CREATE Detail module here!")
         print(recipe)
+        router.routeToRecipeDetailScreen(recipe: recipe)
     }
     
 

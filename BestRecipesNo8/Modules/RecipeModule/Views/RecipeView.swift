@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class RecipeView: UIViewController {
     
@@ -58,10 +59,17 @@ final class RecipeView: UIViewController {
     // MARK: - Setup content of chosen page
     func setupRecipeContent() {
         titleRecipe.text = presenter.getTitleRecipe
-        dishImageView.image = UIImage(named: "dishImg")
+//        dishImageView.image = UIImage(named: "dishImg")
         ratingLabel.text = presenter.getRatingText
         reviewsLabel.text = presenter.getReviewsText
         instructionsTextView.attributedText = getInstructionsText()
+        let url = presenter.recipe.image
+        let cache = ImageCache.default
+        cache.diskStorage.config.expiration = .seconds(1)
+        let processor = RoundCornerImageProcessor(cornerRadius: 55, backgroundColor: .clear)
+        dishImageView.kf.indicatorType = .activity
+        dishImageView.kf.setImage(with: URL(string: url!), placeholder: nil, options: [.processor(processor),
+                                                                                       .cacheSerializer(FormatIndicatedCacheSerializer.png)])
     }
     
     // MARK: - Subviews
