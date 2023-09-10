@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class SavedRecipeCell: UICollectionViewCell {
     
@@ -39,7 +40,6 @@ class SavedRecipeCell: UICollectionViewCell {
     
     // MARK: - Method for setup data to elements in every cell
     func updateRecipeData(image: String?, rating: Int?, title: String?, time: Int?) {
-        recipeImageView.image = UIImage(named: image ?? "Salad")
         if let rating = rating {
             ratingLabel.text = String(rating)
         } else {
@@ -51,6 +51,13 @@ class SavedRecipeCell: UICollectionViewCell {
         } else {
             timeLabel.text = "N/A"
         }
+        guard let url = image else { return }
+        let cache = ImageCache.default
+        cache.diskStorage.config.expiration = .seconds(1)
+        let processor = RoundCornerImageProcessor(cornerRadius: 12, backgroundColor: .clear)
+        recipeImageView.kf.indicatorType = .activity
+        recipeImageView.kf.setImage(with: URL(string: url), placeholder: nil, options: [.processor(processor),
+                                                                                          .cacheSerializer(FormatIndicatedCacheSerializer.png)])
     }
     
     // MARK: - Subviews
