@@ -35,14 +35,15 @@ final class SavedRecipesPresenter: SavedRecipesViewOutput {
     }
     
     func updateRecipe() {
-        self.savedRecipesId = UserDefaults.standard.object(forKey: "savedRecipes") as! [Int]
-        NetworkManager.shared.getRecipeInformationBulk(for: savedRecipesId) { result in
-            switch result {
-            case .success(let recipes):
-                self.savedRecipes = recipes
-                self.view?.openSavedRecipes()
-            case .failure(let error):
-                print(error.localizedDescription)
+        if let savedRecipesId = UserDefaults.standard.object(forKey: "savedRecipes") as? [Int] {
+            NetworkManager.shared.getRecipeInformationBulk(for: savedRecipesId) { result in
+                switch result {
+                case .success(let recipes):
+                    self.savedRecipes = recipes
+                    self.view?.openSavedRecipes()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
             }
         }
     }
