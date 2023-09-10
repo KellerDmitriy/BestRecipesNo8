@@ -44,7 +44,7 @@ final class MainPresenter: MainPresenterProtocol {
         self.dataService = dataService
         self.view = view
         self.router = router
-        self.savedRecipesId = UserDefaults.standard.object(forKey: "savedRecipes") as! [Int]
+        self.savedRecipesId = UserDefaults.standard.object(forKey: "savedRecipes") as? [Int] ?? []
     }
     
     func seeAllButtonTapped() {

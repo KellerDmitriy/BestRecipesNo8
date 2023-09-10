@@ -8,6 +8,7 @@
 import Foundation
 
 extension RealmDataBase {
+    /*
     func createCompletion(with recipe: RecipeProtocol) -> (() -> ()) {
         let closure = {
             if RealmDataBase.shared.isItemSaved(withId: recipe.id) {
@@ -18,4 +19,5 @@ extension RealmDataBase {
         }
         return closure
     }
+     */
 }
