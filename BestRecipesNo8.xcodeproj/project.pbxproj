@@ -63,6 +63,9 @@
 		E1A0265D2AA9ED5D0085289E /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A0265C2AA9ED5D0085289E /* SearchViewCell.swift */; };
 		E1A026602AAB0CE00085289E /* SearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A0265F2AAB0CE00085289E /* SearchTableView.swift */; };
 		E1A026622AAB5D560085289E /* CustomAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A026612AAB5D560085289E /* CustomAddButton.swift */; };
+		E1A026672AAD14370085289E /* RealmRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A026662AAD14370085289E /* RealmRecipe.swift */; };
+		E1A026692AAD14490085289E /* RealmDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A026682AAD14490085289E /* RealmDataBase.swift */; };
+		E1A0266C2AAD14770085289E /* Ext + RealmDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A0266B2AAD14770085289E /* Ext + RealmDataBase.swift */; };
 		E1ABBEAD2A9DEFF70021E624 /* UIImage + TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ABBEAC2A9DEFF70021E624 /* UIImage + TabBar.swift */; };
 		E1ABBEB32A9E86760021E624 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E11675A82A9BFECA00C6ED88 /* Poppins-Regular.ttf */; };
 		E1ABBEB42A9E86790021E624 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E11675A12A9BF5E100C6ED88 /* Poppins-Bold.ttf */; };
@@ -160,6 +163,9 @@
 		E1A0265C2AA9ED5D0085289E /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		E1A0265F2AAB0CE00085289E /* SearchTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableView.swift; sourceTree = "<group>"; };
 		E1A026612AAB5D560085289E /* CustomAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAddButton.swift; sourceTree = "<group>"; };
+		E1A026662AAD14370085289E /* RealmRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRecipe.swift; sourceTree = "<group>"; };
+		E1A026682AAD14490085289E /* RealmDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataBase.swift; sourceTree = "<group>"; };
+		E1A0266B2AAD14770085289E /* Ext + RealmDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext + RealmDataBase.swift"; sourceTree = "<group>"; };
 		E1ABBEAC2A9DEFF70021E624 /* UIImage + TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + TabBar.swift"; sourceTree = "<group>"; };
 		E1ABBEB52A9FE2310021E624 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		E1ABBEB72AA059EE0021E624 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -535,6 +541,16 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		E1A026652AAD14190085289E /* RealmManager */ = {
+			isa = PBXGroup;
+			children = (
+				E1A026662AAD14370085289E /* RealmRecipe.swift */,
+				E1A026682AAD14490085289E /* RealmDataBase.swift */,
+				E1A0266B2AAD14770085289E /* Ext + RealmDataBase.swift */,
+			);
+			path = RealmManager;
+			sourceTree = "<group>";
+		};
 		E1ABBEAE2A9E09570021E624 /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -569,6 +585,7 @@
 				E1C979042A9B7EC9003BDC4A /* Modules */,
 				E11675BC2A9C879200C6ED88 /* Services */,
 				283A2D622A9D338F00A70257 /* Models */,
+				E1A026652AAD14190085289E /* RealmManager */,
 				283A2D592A9D330F00A70257 /* NetworkManager */,
 				E116755F2A9BBAEF00C6ED88 /* Extensions */,
 				E1C978FA2A9B5AC2003BDC4A /* App */,
@@ -787,6 +804,7 @@
 			files = (
 				E223A8452A9DB990007E8C0E /* UIImage + Ext.swift in Sources */,
 				E223A8522A9E3E98007E8C0E /* PopularCategoryTableViewCell.swift in Sources */,
+				E1A026692AAD14490085289E /* RealmDataBase.swift in Sources */,
 				E2130CCE2A9F0AE700C3404E /* PopularCategorySectionView.swift in Sources */,
 				E298099C2A9BA98A002121A5 /* UICollectionViewCell + Ext.swift in Sources */,
 				E223A8492A9E1E23007E8C0E /* UITableViewCell + Ext.swift in Sources */,
@@ -834,6 +852,7 @@
 				E1ABBEB82AA059EE0021E624 /* CustomButton.swift in Sources */,
 				90D5FE822AA0B295002A74B0 /* IngredientCell.swift in Sources */,
 				90D5FE7D2AA0B295002A74B0 /* RecipeModel.swift in Sources */,
+				E1A026672AAD14370085289E /* RealmRecipe.swift in Sources */,
 				E11675BE2A9C87B700C6ED88 /* SettingsManager.swift in Sources */,
 				E116759C2A9BF55B00C6ED88 /* UIFont + Extension.swift in Sources */,
 				283A2D5B2A9D333000A70257 /* Endpoint.swift in Sources */,
@@ -847,6 +866,7 @@
 				E2130CDB2AA0B96900C3404E /* MeinViewControllerProtocol.swift in Sources */,
 				283A2D662A9D33B400A70257 /* RandomRecipe.swift in Sources */,
 				90D5FE7B2AA0B295002A74B0 /* RecipeRouterInput.swift in Sources */,
+				E1A0266C2AAD14770085289E /* Ext + RealmDataBase.swift in Sources */,
 				90733BD32AA31CB300D65897 /* SavedRecipeModel.swift in Sources */,
 				90D5FEAA2AA1FA3B002A74B0 /* ProfileViewInput.swift in Sources */,
 				E1A0265D2AA9ED5D0085289E /* SearchViewCell.swift in Sources */,

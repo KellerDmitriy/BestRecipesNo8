@@ -49,7 +49,8 @@ extension SearchTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "MainTableViewCell", for: indexPath) as? SearchViewCell else { return UITableViewCell() }
         cell.configure(
-            model: recipesItems[indexPath.item])
+            model: recipesItems[indexPath.item],
+            addButtonClosure: RealmDataBase.shared.createCompletion(with: recipesItems[indexPath.item]))
         cell.selectionStyle = .none
         return cell
     }

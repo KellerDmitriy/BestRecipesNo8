@@ -7,12 +7,18 @@
 
 import Foundation
 
+protocol RecipeProtocol {
+    var id: Int { get }
+    var title: String? { get }
+    var image: String? { get }
+}
+
 struct SearchResult: Codable {
     let results: [SearchRecipe]?
 }
 
-struct SearchRecipe: Codable {
-    let id: Int?
+struct SearchRecipe: Codable, RecipeProtocol {
+    let id: Int
     let title: String?
     let image: String?
 }

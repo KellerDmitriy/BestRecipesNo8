@@ -9,12 +9,19 @@ import UIKit
 
 final class MainScreenViewController: UIViewController {
     
+    var timer: Timer?
     var presenter: MainPresenterProtocol!
     var popularCategoryDelegate: PopularCategoryDelegate!
     
     private var trendingCategoryCell: TrendingCategoryCell?
-
+    private let searchTableView = SearchTableView()
+    
     //MARK: - UI Elementes:
+    private let searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        return searchController
+    }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -26,17 +33,14 @@ final class MainScreenViewController: UIViewController {
         return label
     }()
     
-    private lazy var recipeSearchField: UISearchTextField = {
-        let searchField = UISearchTextField()
-        searchField.backgroundColor = .whiteColor
-        searchField.textColor = .black
-        searchField.layer.borderColor = UIColor.lightGray.cgColor
-        searchField.layer.borderWidth = 1.0
-        searchField.layer.cornerRadius = 10.0
-        searchField.attributedPlaceholder = NSAttributedString(string: "Search recipes", attributes: [.foregroundColor: UIColor.lightGray])
-        
-        searchField.translatesAutoresizingMaskIntoConstraints = false
-        return searchField
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = searchController.searchBar
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.placeholder = "Search for recipes"
+        searchBar.tintColor = .whiteColor
+        searchBar.searchBarStyle = .default
+        searchBar.barTintColor = .white
+        return searchBar
     }()
     
     private lazy var recipesTableView: UITableView = {
@@ -60,16 +64,24 @@ final class MainScreenViewController: UIViewController {
         setupUI()
         setupLayout()
         getRecipes()
+        setupUIForSearch()
+        view.backgroundColor = .white
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        //presenter.searchedRecipes = recipesModels
+        updateSearchTableView(with: presenter.searchedRecipes)
+        searchController.isActive = false
+        hideSearchTableView(isTableViewHidden: true)
+        recipesTableView.reloadData()
     }
     
     //MARK: - Methods for Header's Button
     @objc private func seeAllButtonTapped() {
-        // print("seeAllButtonTap")
         presenter.seeAllButtonTapped()
     }
     
     @objc private func seeAllRecipeSectionButtonTapped() {
-        // print("seeAllRecipeSectionButtonTapped")
         presenter.seeAllButtonTapped()
     }
     
@@ -78,11 +90,14 @@ final class MainScreenViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         view.addSubview(titleLabel)
-        view.addSubview(recipeSearchField)
+        view.addSubview(searchTableView)
         view.addSubview(recipesTableView)
+        view.addSubview(searchBar)
+        
+        // Create and configure the UISearchController
+        searchController.searchResultsUpdater = self
+        navigationItem.searchController = searchController
     }
-    
-    
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
@@ -90,12 +105,16 @@ final class MainScreenViewController: UIViewController {
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
-            recipeSearchField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            recipeSearchField.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            recipeSearchField.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            recipeSearchField.heightAnchor.constraint(equalToConstant: 44),
+            searchBar.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
-            recipesTableView.topAnchor.constraint(equalTo: recipeSearchField.bottomAnchor, constant: 12),
+            searchTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            searchTableView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            searchTableView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            searchTableView.heightAnchor.constraint(equalToConstant: 44),
+            
+            recipesTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 12),
             recipesTableView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             recipesTableView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
             recipesTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -175,7 +194,82 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - Methods for SearchBar
+extension MainScreenViewController {
+    
+    func setupUIForSearch() {
+        setDelegate()
+        configureNavigationBar()
+    }
+    
+    func setDelegate() {
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+    }
+    
+    func configureNavigationBar() {
+        navigationController?.navigationBar.barTintColor = .systemBackground
+        navigationController?.hidesBarsWhenKeyboardAppears = false
+    }
+    
+    private func updateUI(with recipes: [SearchRecipe]) {
+        DispatchQueue.main.async {
+            self.searchTableView.configure(models: recipes, navigationController: self.navigationController)
+            self.searchTableView.searchTableView.reloadData()
+        }
+    }
+    
+}
+// MARK: - UISearchBarDelegate
+
+extension MainScreenViewController: UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        presenter?.fetchSearchedRecipe(with: "")
+        hideSearchTableView(isTableViewHidden: true)
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        hideSearchTableView(isTableViewHidden: false)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard searchText.isEmpty else { return }
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { [weak self] timer in
+            self?.presenter?.fetchSearchedRecipe(with: searchText)
+        })
+    }
+    
+}
+
+// MARK: - UISearchResultsUpdating
+
+extension MainScreenViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard searchController.isActive else { return }
+        
+        guard searchController.isActive, let searchText = searchController.searchBar.text, !searchText.isEmpty else {
+            return
+        }
+        presenter?.fetchSearchedRecipe(with: searchText)
+    }
+}
+
+// MARK: - MainScreenViewControllerProtocol
 extension MainScreenViewController: MainScreenViewControllerProtocol {
+    // MARK: - MainScreenViewControllerProtocol
+    
+    func updateSearchTableView(with recipes: [SearchRecipe]) {
+        updateUI(with: recipes)
+    }
+    
+    func hideSearchTableView(isTableViewHidden: Bool) {
+        searchTableView.isHidden = isTableViewHidden
+        recipesTableView.isHidden = !isTableViewHidden
+    }
+    
     func updatePopularCategory() {
         recipesTableView.reloadData()
     }
