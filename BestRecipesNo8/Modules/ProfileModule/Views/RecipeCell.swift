@@ -34,7 +34,7 @@ class RecipeCell: UICollectionViewCell {
     }
     
     // MARK: - Method for setup data to elements in every cell
-    func updateRecipeData(image: UIImage?, rating: Double, title: String, count: Int, minutes: Int) {
+    func updateRecipeData(image: UIImage?, rating: Double, title: String, count: Int, minutes: String) {
         recipeImageView.image = image
         ratingLabel.text = String(rating)
         titleRecipe.text = "How to make yam\n& \(title) at home"

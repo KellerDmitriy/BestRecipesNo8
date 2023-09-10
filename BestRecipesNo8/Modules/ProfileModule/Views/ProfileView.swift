@@ -11,7 +11,7 @@ import SnapKit
 final class ProfileView: UIViewController {
     
     private let presenter: ProfilePresenter
-    private let recipes = ProfileModel.savedRecipes
+    private let recipes = ProfileModel.shared.getData()
     
     // MARK: - Views
     private lazy var scrollView: UIScrollView = _scrollView
