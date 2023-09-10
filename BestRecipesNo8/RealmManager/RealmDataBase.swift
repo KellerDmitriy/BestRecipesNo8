@@ -10,6 +10,8 @@ import Foundation
 
 class RealmDataBase {
     
+    /*
+    
     // MARK: - Properties
     
     static let shared = RealmDataBase()
@@ -82,4 +84,5 @@ class RealmDataBase {
         }
         
     }
+     */
 }

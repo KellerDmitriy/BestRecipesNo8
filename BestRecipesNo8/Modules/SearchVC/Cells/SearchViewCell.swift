@@ -61,7 +61,7 @@ final class SearchViewCell: UITableViewCell {
         let processor = RoundCornerImageProcessor(cornerRadius: 55, backgroundColor: .clear)
         recipeImageView.kf.indicatorType = .activity
         recipeImageView.kf.setImage(with: URL(string: image))
-        isSaved = RealmDataBase.shared.isItemSaved(withId: model.id)
+//        isSaved = RealmDataBase.shared.isItemSaved(withId: model.id)
         self.addButtonClosure = addButtonClosure
     }
 }
