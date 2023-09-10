@@ -140,9 +140,13 @@ extension PopularCategoryTableViewCell: UICollectionViewDelegateFlowLayout, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard collectionView == headerCollectionView else { return }
-        if let cell = collectionView.cellForItem(at: indexPath) as? PopularCategoryHeaderCell {
-            cell.selectCell()
+        if collectionView == headerCollectionView {
+            if let cell = collectionView.cellForItem(at: indexPath) as? PopularCategoryHeaderCell {
+                cell.selectCell()
+            }
+        } else if collectionView == recipesCollectionView {
+            let recipe = popularCategoryRecipes[indexPath.row]
+            presenter.sectCell(recipe: recipe)
         }
     }
     

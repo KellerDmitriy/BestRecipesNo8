@@ -101,6 +101,11 @@ final class MainPresenter: MainPresenterProtocol {
 
 
 extension MainPresenter: PopularCategoryDelegate {
+    func sectCell(recipe: RecipeInfo) {
+#warning("CREATE Detail module here!")
+        print(recipe)
+    }
+    
 
     func getRecipesWithMealType(mealType: String) {
         networkManager.getTenRecipesWithMealType(for: mealType) { result in

@@ -76,6 +76,11 @@ extension TrendingCollectionTableViewCell: UICollectionViewDelegateFlowLayout, U
         1
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let recipe = trendingNowRecipes[indexPath.row]
+        presenter.sectCell(recipe: recipe)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingCategoryCell.reuseIdentifier, for: indexPath) as? TrendingCategoryCell else { return UICollectionViewCell() }
 
