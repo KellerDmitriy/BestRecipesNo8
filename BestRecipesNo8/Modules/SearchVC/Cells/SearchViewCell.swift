@@ -52,13 +52,17 @@ final class SearchViewCell: UITableViewCell {
     
     
     // MARK: - Public methods
-    func configure(model: SearchRecipe) {
-        guard let image = model.image else { return }
+    func configure(model: SearchRecipe, addButtonClosure: @escaping () -> ()) {
+        
+        guard let title = model.title, let image = model.image else { return }
+        recipeNameLabel.text = title
         let cache = ImageCache.default
         cache.diskStorage.config.expiration = .seconds(1)
         let processor = RoundCornerImageProcessor(cornerRadius: 55, backgroundColor: .clear)
         recipeImageView.kf.indicatorType = .activity
         recipeImageView.kf.setImage(with: URL(string: image))
+        isSaved = RealmDataBase.shared.isItemSaved(withId: model.id)
+        self.addButtonClosure = addButtonClosure
     }
 }
 // MARK: - setupUI

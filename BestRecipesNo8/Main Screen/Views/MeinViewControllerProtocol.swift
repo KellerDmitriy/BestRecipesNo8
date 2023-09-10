@@ -11,6 +11,9 @@ protocol MainScreenViewControllerProtocol: AnyObject {
     func getRecipes()
     func getPopularRecipes()
     func updatePopularCategory()
+    func updateSearchTableView(with recipes: [SearchRecipe])
+    func hideSearchTableView(isTableViewHidden: Bool)
+    
 }
 
 
