@@ -9,6 +9,7 @@ protocol PopularCategoryDelegate: AnyObject {
     func getRecipesWithMealType(mealType: String)
     func updateSavedRecipes(recipe: RecipeInfo)
     func isRecipeSaved(recipe: RecipeInfo) -> Bool
+    func sectCell(recipe: RecipeInfo)
 }
 
 
