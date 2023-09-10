@@ -41,31 +41,24 @@ final class SavedRecipesView: UIViewController {
         view.backgroundColor = .white
         addSubviews()
         applyConstraints()
-      
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.updateRecipe()
     }
     
     // MARK: - Subviews
     private func addSubviews() {
-        scrollView.addSubview(contentView)
-        view.addSubview(scrollView)
-        
-        contentView.addSubview(savedRecipesTitle)
-        contentView.addSubview(collectionView)
+        view.addSubview(savedRecipesTitle)
+        view.addSubview(collectionView)
     }
     
     // MARK: - Constraints
     private func applyConstraints() {
-        
-        scrollView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
-        }
-        
-        contentView.snp.makeConstraints { make in
-            make.edges.width.equalToSuperview()
-        }
+
         
         savedRecipesTitle.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(0)
             make.leading.equalToSuperview().inset(22)
         }
         
@@ -73,8 +66,10 @@ final class SavedRecipesView: UIViewController {
             make.top.equalTo(savedRecipesTitle.snp.bottom).offset(20)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).inset(0)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(0)
-            make.bottom.equalTo(contentView.snp.bottom)
-            make.height.equalTo(heightOfCollectionView)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+
+           
+            //make.edges.equalTo(view.safeAreaLayoutGuide.snp.edges)
         }
     }
     
@@ -91,16 +86,23 @@ final class SavedRecipesView: UIViewController {
 
 // MARK: UICollectionViewDataSource
 
-extension SavedRecipesView: UICollectionViewDataSource {
+extension SavedRecipesView: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return recipes.count
+        
+        return presenter.savedRecipes.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth: CGFloat = 280
+        let cellHeight: CGFloat = 210
+        return CGSize(width: cellWidth, height: cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SavedRecipeCell.cellID, for: indexPath) as! SavedRecipeCell
         
-        let recipe = recipes[indexPath.row]
+        let recipe = presenter.savedRecipes[indexPath.row]
         cell.updateRecipeData(
             image: recipe.image,
             rating: recipe.aggregateLikes,
@@ -114,7 +116,9 @@ extension SavedRecipesView: UICollectionViewDataSource {
 
 extension SavedRecipesView: SavedRecipesViewInput {
     func openSavedRecipes() {
-        print("Saved recipes are opened")
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
     
     func removeRecipe(at index: Int) {
@@ -128,6 +132,7 @@ private extension SavedRecipesView {
     
     var _scrollView: UIScrollView {
         let scrollView = UIScrollView()
+        scrollView.backgroundColor = .yellow
         scrollView.alwaysBounceVertical = true
         scrollView.showsVerticalScrollIndicator = false
         return scrollView
@@ -149,10 +154,13 @@ private extension SavedRecipesView {
     
     var _collectionView: UICollectionView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: customCollectionViewLayout)
-        collectionView.backgroundColor = .white
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.register(SavedRecipeCell.self, forCellWithReuseIdentifier: SavedRecipeCell.cellID)
-        collectionView.isScrollEnabled = false
         return collectionView
     }
+}
+
+extension SavedRecipesView {
+    
 }

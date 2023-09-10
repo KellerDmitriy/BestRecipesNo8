@@ -13,11 +13,11 @@ final class SavedRecipesPresenter: SavedRecipesViewOutput {
     
     //MARK: - Properties
     weak var view: SavedRecipesViewInput?
-    
+    private var savedRecipesId: [Int] = []
+    internal var savedRecipes: [RecipeInfo] = []
     private let router: SavedRecipesRouterInput
     
     init(router: SavedRecipesRouterInput) {
-        
         self.router = router
     }
     
@@ -27,16 +27,23 @@ final class SavedRecipesPresenter: SavedRecipesViewOutput {
         set { newValue.set(savedRecipes, forKey: "savedRecipes") }
     }
     
-    var savedRecipes: [RecipeInfo] {
-        get { return defaults.array(forKey: "savedRecipes") as? [RecipeInfo] ?? [] }
-        set {
-            defaults.set(newValue, forKey: "savedRecipes")
-        }
-    }
     
     //MARK: - Methods
     func removeRecipe(at index: Int) {
         savedRecipes.remove(at: index)
         defaults.set(savedRecipes, forKey: "savedRecipes")
+    }
+    
+    func updateRecipe() {
+        self.savedRecipesId = UserDefaults.standard.object(forKey: "savedRecipes") as! [Int]
+        NetworkManager.shared.getRecipeInformationBulk(for: savedRecipesId) { result in
+            switch result {
+            case .success(let recipes):
+                self.savedRecipes = recipes
+                self.view?.openSavedRecipes()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }
