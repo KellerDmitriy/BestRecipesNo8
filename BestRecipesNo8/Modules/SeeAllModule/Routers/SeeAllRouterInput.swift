@@ -8,5 +8,5 @@
 import Foundation
 
 protocol SeeAllRouterInput {
-    func routeToRecipeDetailScreen()
+    func routeToRecipeDetailScreen(recipe: RecipeInfo)
 }

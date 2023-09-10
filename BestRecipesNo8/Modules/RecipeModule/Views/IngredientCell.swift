@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class IngredientCell: UITableViewCell {
     
@@ -92,9 +93,17 @@ class IngredientCell: UITableViewCell {
     
     // MARK: - Method for setup elements in every cell
     func updateCell(at index: Int, ingredient: IngredientModel) {
-        icon.image = ingredient.icon
+//        icon.image = ingredient.icon
         nameLabel.text = ingredient.name
         countLabel.text = ingredient.count
+        
+        let url = ingredient.iconURL
+        let cache = ImageCache.default
+        cache.diskStorage.config.expiration = .seconds(1)
+        let processor = RoundCornerImageProcessor(cornerRadius: 55, backgroundColor: .clear)
+        icon.kf.indicatorType = .activity
+        icon.kf.setImage(with: URL(string: url), placeholder: nil, options: [.processor(processor),
+                                                                                       .cacheSerializer(FormatIndicatedCacheSerializer.png)])
     }
 }
 

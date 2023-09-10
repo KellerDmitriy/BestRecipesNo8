@@ -42,6 +42,7 @@ class SeeAllViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
+        collectionView.delegate = self
         
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
@@ -89,6 +90,14 @@ extension SeeAllViewController: UICollectionViewDataSource {
         cell.configureCell(recipe: recipe)
         return cell
     }   
+}
+
+extension SeeAllViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let recipe = presenter.trendingNowRecipes[indexPath.row]
+        presenter.router.routeToRecipeDetailScreen(recipe: recipe)
+        
+    }
 }
 
 extension SeeAllViewController: SeeAllViewInput {

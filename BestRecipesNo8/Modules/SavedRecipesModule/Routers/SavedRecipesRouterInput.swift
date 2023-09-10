@@ -8,5 +8,5 @@
 import Foundation
 
 protocol SavedRecipesRouterInput {
-    func routeToRecipeDetailScreen()
+    func routeToRecipeDetailScreen(recipe: RecipeInfo)
 }

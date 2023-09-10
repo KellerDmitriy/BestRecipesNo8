@@ -17,8 +17,8 @@ final class MainViewRouter: MainRouterInput {
         self.view?.navigationController?.pushViewController(view, animated: true)
     }
     
-    func routeToRecipeDetailScreen() {
-        let view = RecipeBuilder.createRecipeModule()
+    func routeToRecipeDetailScreen(recipe: RecipeInfo) {
+        let view = RecipeBuilder.createRecipeModule(recipe: recipe)
         self.view?.navigationController?.pushViewController(view, animated: true)
     }
 }

@@ -7,6 +7,6 @@
 
 protocol MainRouterInput {
     func routeToSeeAllScreen(recipes: [RecipeInfo])
-    func routeToRecipeDetailScreen()
+    func routeToRecipeDetailScreen(recipe: RecipeInfo)
 
 }
