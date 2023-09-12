@@ -14,34 +14,10 @@ final class MainScreenViewController: UIViewController {
     var popularCategoryDelegate: PopularCategoryDelegate!
     
     private var trendingCategoryCell: TrendingCategoryCell?
-    private let searchTableView = SearchTableView()
+   
     
     //MARK: - UI Elementes:
-    private let searchController: UISearchController = {
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.obscuresBackgroundDuringPresentation = false
-        return searchController
-    }()
-    
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "Poppins-Bold", size: 24)
-        label.numberOfLines = 2
-        label.textAlignment = .left
-        label.text = "Get amazing recipes \nfor cooking"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private lazy var searchBar: UISearchBar = {
-        let searchBar = searchController.searchBar
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.placeholder = "Search for recipes"
-        searchBar.tintColor = .whiteColor
-        searchBar.searchBarStyle = .default
-        searchBar.barTintColor = .white
-        return searchBar
-    }()
+    private let searchController = UISearchController(searchResultsController: nil)
     
     private lazy var recipesTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -65,16 +41,18 @@ final class MainScreenViewController: UIViewController {
         setupLayout()
         getRecipes()
         setupUIForSearch()
+        setupSearchController()
         view.backgroundColor = .white
+
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        //presenter.searchedRecipes = recipesModels
-        updateSearchTableView(with: presenter.searchedRecipes)
-        searchController.isActive = false
-        hideSearchTableView(isTableViewHidden: true)
-        recipesTableView.reloadData()
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        //presenter.searchedRecipes = recipesModels
+//        updateSearchTableView(with: presenter.searchedRecipes)
+//        searchController.isActive = false
+//        hideSearchTableView(isTableViewHidden: true)
+//        recipesTableView.reloadData()
+//    }
     
     //MARK: - Methods for Header's Button
     @objc private func seeAllButtonTapped() {
@@ -89,79 +67,77 @@ final class MainScreenViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
-        view.addSubview(titleLabel)
-        view.addSubview(searchTableView)
         view.addSubview(recipesTableView)
-        view.addSubview(searchBar)
-        
-        // Create and configure the UISearchController
-        searchController.searchResultsUpdater = self
-        navigationItem.searchController = searchController
     }
     
     private func setupLayout() {
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            
-            searchBar.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            
-            searchTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            searchTableView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            searchTableView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            searchTableView.heightAnchor.constraint(equalToConstant: 44),
-            
-            recipesTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 12),
-            recipesTableView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            recipesTableView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            recipesTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            
-        ])
+        recipesTableView.snp.makeConstraints { (make) in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(80)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
     }
 }
 
 //MARK: UITableViewDelegate & UITableViewDataSource
 
 extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        if searchController.isActive {
+            return presenter.searchedRecipes.count
+        }  else {
+           return 1
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        3
+        if searchController.isActive {
+            return 1
+        }  else {
+            return 3
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: TrendingCollectionTableViewCell.reuseIdentifier, for: indexPath) as? TrendingCollectionTableViewCell else {
+        if searchController.isActive {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchViewCell.cellID, for: indexPath) as? SearchViewCell else {
                 return UITableViewCell()
             }
-            cell.configureCell(recipes: presenter.trendingNowRecipes, presenter: popularCategoryDelegate)
+            let searchRecipe = presenter.searchedRecipes[indexPath.row]
+            cell.configure(model: searchRecipe)
+            cell.selectionStyle = .none
             return cell
-            
-        case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: PopularCategoryTableViewCell.reuseIdentifier, for: indexPath) as? PopularCategoryTableViewCell else {
+        } else {
+            switch indexPath.section {
+            case 0:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: TrendingCollectionTableViewCell.reuseIdentifier, for: indexPath) as? TrendingCollectionTableViewCell else {
+                    return UITableViewCell()
+                }
+                cell.configureCell(recipes: presenter.trendingNowRecipes, presenter: popularCategoryDelegate)
+                return cell
+                
+            case 1:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: PopularCategoryTableViewCell.reuseIdentifier, for: indexPath) as? PopularCategoryTableViewCell else {
+                    return UITableViewCell()
+                }
+                cell.configureCell(recipes: presenter.popularCategoryRecipes, presenter: popularCategoryDelegate)
+                return cell
+                
+            case 2:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentRecipeTableViewCell.reuseIdentifier, for: indexPath) as? RecentRecipeTableViewCell else {
+                    return UITableViewCell()
+                }
+                cell.configureCell(recipes: presenter.recentRecipe)
+                return cell
+                
+            default:
                 return UITableViewCell()
             }
-            cell.configureCell(recipes: presenter.popularCategoryRecipes, presenter: popularCategoryDelegate)
-            return cell
-            
-        case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentRecipeTableViewCell.reuseIdentifier, for: indexPath) as? RecentRecipeTableViewCell else {
-                return UITableViewCell()
-            }
-            cell.configureCell(recipes: presenter.recentRecipe)
-            return cell
-            
-        default:
-            return UITableViewCell()
         }
-        
     }
+
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
@@ -212,13 +188,19 @@ extension MainScreenViewController {
         navigationController?.hidesBarsWhenKeyboardAppears = false
     }
     
-    private func updateUI(with recipes: [SearchRecipe]) {
-        DispatchQueue.main.async {
-            self.searchTableView.configure(models: recipes, navigationController: self.navigationController)
-            self.searchTableView.searchTableView.reloadData()
+    private func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search recipes"
+        searchController.searchBar.barTintColor = .black
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            textField.font = UIFont.poppinsSemiBold(size: 19)
+            textField.textColor = .neutralColor
         }
     }
-    
 }
 // MARK: - UISearchBarDelegate
 
@@ -226,11 +208,11 @@ extension MainScreenViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         presenter?.fetchSearchedRecipe(with: "")
-        hideSearchTableView(isTableViewHidden: true)
+
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        hideSearchTableView(isTableViewHidden: false)
+        searchBar.resignFirstResponder()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -259,16 +241,15 @@ extension MainScreenViewController: UISearchResultsUpdating {
 
 // MARK: - MainScreenViewControllerProtocol
 extension MainScreenViewController: MainScreenViewControllerProtocol {
+    func configureSearchResults(models: [SearchRecipe]) {
+        presenter.searchedRecipes = models
+        recipesTableView.reloadData()
+    }
+    
+
+    
     // MARK: - MainScreenViewControllerProtocol
-    
-    func updateSearchTableView(with recipes: [SearchRecipe]) {
-        updateUI(with: recipes)
-    }
-    
-    func hideSearchTableView(isTableViewHidden: Bool) {
-        searchTableView.isHidden = isTableViewHidden
-        recipesTableView.isHidden = !isTableViewHidden
-    }
+
     
     func updatePopularCategory() {
         recipesTableView.reloadData()
