@@ -87,8 +87,7 @@ final class MainPresenter: MainPresenterProtocol {
                        guard let title = recipe.title, let image = recipe.image else { return }
                        models.append(SearchRecipe(id: recipe.id, title: title, image: image))
                    })
-                   self?.view?.updateSearchTableView(with: models)
-                   self?.view?.hideSearchTableView(isTableViewHidden: false)
+                   self?.view?.configureSearchResults(models: models)
                case .failure(let error):
                    print(error)
                }

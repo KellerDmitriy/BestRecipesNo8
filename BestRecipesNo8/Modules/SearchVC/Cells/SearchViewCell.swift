@@ -52,7 +52,7 @@ final class SearchViewCell: UITableViewCell {
     
     
     // MARK: - Public methods
-    func configure(model: SearchRecipe, addButtonClosure: @escaping () -> ()) {
+    func configure(model: SearchRecipe) {
         
         guard let title = model.title, let image = model.image else { return }
         recipeNameLabel.text = title
@@ -62,7 +62,7 @@ final class SearchViewCell: UITableViewCell {
         recipeImageView.kf.indicatorType = .activity
         recipeImageView.kf.setImage(with: URL(string: image))
 //        isSaved = RealmDataBase.shared.isItemSaved(withId: model.id)
-        self.addButtonClosure = addButtonClosure
+       // self.addButtonClosure = addButtonClosure
     }
 }
 // MARK: - setupUI
