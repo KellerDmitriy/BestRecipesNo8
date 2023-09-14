@@ -36,6 +36,8 @@ class PopularCategoryPreviewCell: UICollectionViewCell {
         categoryTitle.text = title
     }
     
+    //MARK: - Update data of popular recipes and change color of selected cell
+    
     func categoryIsTapped(categoryIndex: Int) {
         switch categoryIndex {
         case 0:

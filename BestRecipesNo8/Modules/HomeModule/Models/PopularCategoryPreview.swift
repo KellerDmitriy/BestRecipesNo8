@@ -49,20 +49,20 @@ enum PopularCategoryPreview {
     }
     
     var saladRecipes: [RecipeItem] {[
-        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage1"), time: 1),
-        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage2"), time: 2),
-        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage1"), time: 3)
+        .init(title: "Salad 1", image: UIImage(named: "trendingImage2"), time: 1),
+        .init(title: "Salad 2", image: UIImage(named: "trendingImage1"), time: 2),
+        .init(title: "Salad 3", image: UIImage(named: "popularImage2"), time: 3)
     ]}
 
     var breakfastRecipes: [RecipeItem] {[
-        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage2"), time: 4),
-        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage1"), time: 5),
-        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage2"), time: 6)
+        .init(title: "Breakfast 1", image: UIImage(named: "popularImage1"), time: 4),
+        .init(title: "Breakfast 2", image: UIImage(named: "popularImage2"), time: 5),
+        .init(title: "Breakfast 3", image: UIImage(named: "popularImage1"), time: 6)
     ]}
     
     var appetizerRecipes: [RecipeItem] {[
-        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage1"), time: 7),
-        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage2"), time: 8),
-        .init(title: "Chicken and Vegetable wrap", image: UIImage(named: "popularImage1"), time: 9)
+        .init(title: "Appetizer 1", image: UIImage(named: "recentImage3"), time: 7),
+        .init(title: "Appetizer 2", image: UIImage(named: "recentImage2"), time: 8),
+        .init(title: "Appetizer 3", image: UIImage(named: "recentImage1"), time: 9)
     ]}
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ListSection {
+enum HomeSections {
     case trendingNow([RecipeItem])
     case popularCategories([RecipeItem])
     case popularRecipe(PopularCategoryPreview)

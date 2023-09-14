@@ -9,30 +9,21 @@ import UIKit
 
 class HomeView: UIViewController {
     
+    private let presenter: HomePresenter
+    
+    // MARK: - Views
     private lazy var scrollView: UIScrollView = _scrollView
     private lazy var contentView: UIView = _contentView
     
+    private lazy var titleLabel: UILabel = _titleLabel
+    private lazy var recipeSearchField: UISearchTextField = _recipeSearchField
     private lazy var collectionView: UICollectionView = _collectionView
     
     private lazy var sections = MockData.shared.pageData
     
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.poppinsSemiBold(size: 24)
-        label.numberOfLines = 2
-        label.textAlignment = .left
-        label.text = "Get amazing recipes \nfor cooking"
-        return label
-    }()
-    
-    private lazy var recipeSearchField: UISearchTextField = {
-        let searchField = UISearchTextField()
-        searchField.placeholder = "Search recipes"
-        return searchField
-    }()
-    
     // MARK: - Init
-    init() {
+    init(presenter: HomePresenter) {
+        self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -48,6 +39,132 @@ class HomeView: UIViewController {
         addSubviews()
         applyConstraints()
         selectFirstCell()
+    }
+    
+    // MARK: - Method to set category "Breakfast" selected
+    
+    private func selectFirstCell() {
+        let indexPath = IndexPath(item: 1, section: 1)
+        collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
+    }
+    
+    // MARK: - Appoint layout to each section
+    
+    private func createLayout() -> UICollectionViewCompositionalLayout {
+        UICollectionViewCompositionalLayout { [weak self] sectionIndex, _ in
+            guard let self = self else { return nil }
+            let section = self.sections[sectionIndex]
+            
+            switch section {
+                
+            case .trendingNow:
+                return self.createTrendingSection()
+            case .popularCategories:
+                return self.createPopularCategorySection()
+            case .popularRecipe:
+                return self.createPopularRecipeSection()
+            case .recentRecipe:
+                return self.createRecentSection()
+            case .teamMembers:
+                return self.createTeamSection()
+            }
+        }
+    }
+    
+    // MARK: - Creation layout of section
+    
+    private func createLayoutSection(group: NSCollectionLayoutGroup,
+                                     behavior: UICollectionLayoutSectionOrthogonalScrollingBehavior,
+                                     interGroupSpacing: CGFloat,
+                                     supplementaryItems: [NSCollectionLayoutBoundarySupplementaryItem],
+                                     contentInsets: Bool) -> NSCollectionLayoutSection {
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = behavior
+        section.interGroupSpacing = interGroupSpacing
+        section.boundarySupplementaryItems = supplementaryItems
+        section.supplementariesFollowContentInsets = contentInsets
+        return section
+    }
+    
+    // MARK: - Method to create item and group for sections
+    
+    private func createItemAndGroup(section: HomeSections) -> NSCollectionLayoutGroup {
+        let data = presenter.getDimensions(section: section)
+        
+        let item = NSCollectionLayoutItem(
+            layoutSize: .init(widthDimension: .fractionalWidth(data.itemWidth),
+                              heightDimension: .fractionalHeight(data.itemHeight)))
+        
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: .init(widthDimension: .fractionalWidth(data.groupWidth),
+                              heightDimension: .fractionalHeight(data.groupHeight)),
+            subitems: [item])
+        return group
+    }
+    
+    // MARK: - Create Sections for CollectionView
+    
+    private func createTrendingSection() -> NSCollectionLayoutSection {
+        let group = createItemAndGroup(section: sections[0])
+        let section = createLayoutSection(group: group,
+                                          behavior: .groupPaging,
+                                          interGroupSpacing: 5,
+                                          supplementaryItems: [supplementaryHeaderItem()],
+                                          contentInsets: false)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 50, trailing: 0)
+        return section
+    }
+    
+    private func createPopularCategorySection() -> NSCollectionLayoutSection {
+        let group = createItemAndGroup(section: sections[1])
+        let section = createLayoutSection(group: group,
+                                          behavior: .continuous,
+                                          interGroupSpacing: 0,
+                                          supplementaryItems: [supplementaryHeaderItem()],
+                                          contentInsets: false)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 0)
+        return section
+    }
+    
+    private func createPopularRecipeSection() -> NSCollectionLayoutSection {
+        let group = createItemAndGroup(section: sections[2])
+        let section = createLayoutSection(group: group,
+                                          behavior: .groupPaging,
+                                          interGroupSpacing: 13,
+                                          supplementaryItems: [],
+                                          contentInsets: false)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 10, trailing: 0)
+        return section
+    }
+    
+    private func createRecentSection() -> NSCollectionLayoutSection {
+        let group = createItemAndGroup(section: sections[3])
+        let section = createLayoutSection(group: group,
+                                          behavior: .groupPaging,
+                                          interGroupSpacing: 15,
+                                          supplementaryItems: [supplementaryHeaderItem()],
+                                          contentInsets: false)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 0)
+        return section
+    }
+    
+    private func createTeamSection() -> NSCollectionLayoutSection {
+        let group = createItemAndGroup(section: sections[4])
+        let section = createLayoutSection(group: group,
+                                          behavior: .groupPaging,
+                                          interGroupSpacing: 10,
+                                          supplementaryItems: [supplementaryHeaderItem()],
+                                          contentInsets: false)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 10, bottom: 0, trailing: 0)
+        return section
+    }
+    
+    // MARK: - Settings of header of each section
+    
+    private func supplementaryHeaderItem() -> NSCollectionLayoutBoundarySupplementaryItem {
+        .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(30)),
+              elementKind: UICollectionView.elementKindSectionHeader,
+              alignment: .top)
     }
     
     // MARK: - Subviews
@@ -90,16 +207,11 @@ class HomeView: UIViewController {
             make.height.equalTo(UIScreen.main.bounds.height - 350)
         }
     }
-    
-    private func selectFirstCell() {
-        let indexPath = IndexPath(item: 1, section: 1)
-        collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
-    }
 }
 
 // MARK: - UICollectionViewDataSource
 
-extension HomeView: UICollectionViewDataSource, UICollectionViewDelegate {
+extension HomeView: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return sections.count
@@ -111,7 +223,7 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        switch sections[indexPath.section] {
+        switch MockData.shared.pageData[indexPath.section] {
         case .trendingNow(let recipe):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrendingCategoryPreviewCell.cellID, for: indexPath) as? TrendingCategoryPreviewCell
             else {
@@ -179,7 +291,7 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegate {
             if sectionIndex == 1 {
                 header.isButtonHidden = true
             }
-
+            
             header.tag = indexPath.section
             
             return header
@@ -187,174 +299,42 @@ extension HomeView: UICollectionViewDataSource, UICollectionViewDelegate {
             return UICollectionReusableView()
         }
     }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension HomeView: UICollectionViewDelegate {
     
-    func categoryIsTapped(categoryIndex: Int) {
-        print(categoryIndex)
-//        switch categoryIndex {
-//
-//        }
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        if let cell = collectionView.cellForItem(at: indexPath) as? PopularCategoryPreviewCell {
+            cell.selectCell(indexPath.item)
+            return true
+        } else {
+            let controller = RecipeBuilder.createRecipeModule()
+            navigationController?.pushViewController(controller, animated: true)
+            return false
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? PopularCategoryPreviewCell {
             cell.selectCell(indexPath.item)
+            collectionView.reloadSections(IndexSet(integer: 2))
         }
-        
-//        if let cell = collectionView.cellForItem(at: indexPath) as? PopularRecipesPreviewCell {
-//            switch sections[indexPath.section] {
-//            case .popularRecipe(let recipe):
-//
-//                let popularRecipes = recipe.popularRecipes
-//                print(popularRecipes)
-//                for i in 0..<popularRecipes.count {
-//                    let currentRecipe = popularRecipes[i]
-//                    cell.updateRecipeData(image: currentRecipe.image, title: currentRecipe.title, time: currentRecipe.time)
-//                }
-//
-//            default: break
-//            }
-//        }
-//
-//        collectionView.reloadData()
-//        collectionView.reloadSections(IndexSet(integer: 2))
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? PopularCategoryPreviewCell {
             cell.deselectCell()
         }
-        collectionView.reloadData()
     }
 }
 
-extension HomeView {
-    
-    private func createLayout() -> UICollectionViewCompositionalLayout {
-        UICollectionViewCompositionalLayout { [weak self] sectionIndex, _ in
-            guard let self = self else { return nil }
-            let section = self.sections[sectionIndex]
-            
-            switch section {
-                
-            case .trendingNow:
-                return self.createTrendingSection()
-            case .popularCategories:
-                return self.createPopularCategorySection()
-            case .popularRecipe:
-                return self.createPopularRecipeSection()
-            case .recentRecipe:
-                return self.createRecentSection()
-            case .teamMembers:
-                return self.createTeamSection()
-            }
-        }
-    }
-    
-    private func createLayoutSection(group: NSCollectionLayoutGroup,
-                                     behavior: UICollectionLayoutSectionOrthogonalScrollingBehavior,
-                                     interGroupSpacing: CGFloat,
-                                     supplementaryItems: [NSCollectionLayoutBoundarySupplementaryItem],
-                                     contentInsets: Bool) -> NSCollectionLayoutSection {
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = behavior
-        section.interGroupSpacing = interGroupSpacing
-        section.boundarySupplementaryItems = supplementaryItems
-        section.supplementariesFollowContentInsets = contentInsets
-        return section
-    }
-    
-    private func createTrendingSection() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                            heightDimension: .fractionalHeight(0.9)))
-        
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.8),
-                                                                         heightDimension: .fractionalHeight(0.6)),
-                                                       subitems: [item])
-        
-        let section = createLayoutSection(group: group,
-                                          behavior: .groupPaging,
-                                          interGroupSpacing: 5,
-                                          supplementaryItems: [supplementaryHeaderItem()],
-                                          contentInsets: false)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 50, trailing: 0)
-        return section
-    }
-    
-    private func createPopularCategorySection() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                            heightDimension: .fractionalHeight(0.35)))
-        
-        
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.21),
-                                                                         heightDimension: .fractionalHeight(0.2)),
-                                                       subitems: [item])
-        let section = createLayoutSection(group: group,
-                                          behavior: .continuous,
-                                          interGroupSpacing: 0,
-                                          supplementaryItems: [supplementaryHeaderItem()],
-                                          contentInsets: false)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 0)
-        return section
-    }
-    
-    private func createPopularRecipeSection() -> NSCollectionLayoutSection {
-        
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                            heightDimension: .fractionalHeight(0.9)))
-        
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.4),
-                                                                         heightDimension: .fractionalHeight(0.4)),
-                                                       subitems: [item])
-        
-        let section = createLayoutSection(group: group,
-                                          behavior: .groupPaging,
-                                          interGroupSpacing: 13,
-                                          supplementaryItems: [],
-                                          contentInsets: false)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 10, trailing: 0)
-        return section
-    }
-    
-    private func createRecentSection() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                            heightDimension: .fractionalHeight(0.9)))
-        
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.33),
-                                                                         heightDimension: .fractionalHeight(0.45)),
-                                                       subitems: [item])
-        
-        let section = createLayoutSection(group: group,
-                                          behavior: .groupPaging,
-                                          interGroupSpacing: 15,
-                                          supplementaryItems: [supplementaryHeaderItem()],
-                                          contentInsets: false)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 0)
-        return section
-    }
-    
-    private func createTeamSection() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                            heightDimension: .fractionalHeight(1)))
-        
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.4),
-                                                                         heightDimension: .fractionalHeight(0.45)),
-                                                       subitems: [item])
-        
-        let section = createLayoutSection(group: group,
-                                          behavior: .groupPaging,
-                                          interGroupSpacing: 10,
-                                          supplementaryItems: [supplementaryHeaderItem()],
-                                          contentInsets: false)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 10, bottom: 0, trailing: 0)
-        return section
-    }
-    
-    private func supplementaryHeaderItem() -> NSCollectionLayoutBoundarySupplementaryItem {
-        .init(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                heightDimension: .estimated(30)),
-              elementKind: UICollectionView.elementKindSectionHeader,
-              alignment: .top)
-    }
+extension HomeView: HomeViewInput {
+    func openHome() {}
+}
+
+private extension HomeView {
     
     var _scrollView: UIScrollView {
         let scrollView = UIScrollView()
@@ -366,6 +346,21 @@ extension HomeView {
     var _contentView: UIView {
         let view = UIView()
         return view
+    }
+    
+    var _titleLabel: UILabel {
+        let label = UILabel()
+        label.font = UIFont.poppinsSemiBold(size: 24)
+        label.numberOfLines = 2
+        label.textAlignment = .left
+        label.text = "Get amazing recipes \nfor cooking"
+        return label
+    }
+    
+    var _recipeSearchField: UISearchTextField {
+        let searchField = UISearchTextField()
+        searchField.placeholder = "Search recipes"
+        return searchField
     }
     
     var _collectionView: UICollectionView {

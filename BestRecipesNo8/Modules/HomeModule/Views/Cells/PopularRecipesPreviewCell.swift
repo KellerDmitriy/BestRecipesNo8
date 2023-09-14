@@ -26,6 +26,7 @@ class PopularRecipesPreviewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
     
+        setupBookmark()
         addSubviews()
         applyConstraints()
     }
@@ -39,6 +40,18 @@ class PopularRecipesPreviewCell: UICollectionViewCell {
         recipeImageView.image = image
         titleRecipe.text = "\(title)"
         timeLabel.text = "\(Int(time ?? 0)) Mins"
+    }
+    
+    func setupBookmark() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(bookmarkIsTapped))
+        bookmarkView.addGestureRecognizer(tapGesture)
+    }
+    
+    private var bookmarkIsSelected = false
+    
+    @objc func bookmarkIsTapped() {
+        bookmarkIsSelected.toggle()
+        bookmarkImageView.image = bookmarkIsSelected ? UIImage.bookmarkSelect : UIImage.bookmark
     }
     
     // MARK: - Subviews
@@ -141,6 +154,7 @@ private extension PopularRecipesPreviewCell {
     var _bookmarkView: UIView {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
         view.backgroundColor = .white
+        view.isUserInteractionEnabled = true
         view.makeCircular()
         return view
     }

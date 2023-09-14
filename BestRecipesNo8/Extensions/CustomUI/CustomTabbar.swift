@@ -32,12 +32,11 @@ final class CustomTabBar: UITabBarController {
     @objc private func createButtonIsTapped(_ sender: UIButton) {
         let view = SeeAllBuilder.createSeeAllModule()
         self.navigationController?.pushViewController(view, animated: true)
-        
     }
     
     // MARK: - TabBarItem setup a controller and images
     private func assignTabBarModules() {
-        let mainVC = HomeView() //MainScreenBuilder.createMainScreenViewController()
+        let mainVC = MainScreenBuilder.createMainScreenViewController()
         let discoverVC = SavedRecipesBuilder.createSavedRecipesModule()
         let notificationVC = NotificationViewController()
         let profileVC = ProfileBuilder.createProfileModule()

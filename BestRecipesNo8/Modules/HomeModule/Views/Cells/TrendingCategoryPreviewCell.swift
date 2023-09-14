@@ -26,6 +26,7 @@ class TrendingCategoryPreviewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
     
+        setupBookmark()
         addSubviews()
         applyConstraints()
     }
@@ -39,6 +40,18 @@ class TrendingCategoryPreviewCell: UICollectionViewCell {
         recipeImageView.image = image
         titleRecipe.text = "How to make \(title) at home"
         ratingLabel.text = "\(rating ?? 0.0)"
+    }
+    
+    func setupBookmark() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(bookmarkIsTapped))
+        bookmarkView.addGestureRecognizer(tapGesture)
+    }
+    
+    private var bookmarkIsSelected = false
+    
+    @objc func bookmarkIsTapped() {
+        bookmarkIsSelected.toggle()
+        bookmarkImageView.image = bookmarkIsSelected ? UIImage.bookmarkSelect : UIImage.bookmark
     }
     
     // MARK: - Subviews
@@ -106,6 +119,7 @@ private extension TrendingCategoryPreviewCell {
     var _recipeImageView: UIImageView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.isUserInteractionEnabled = true
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10
         return imageView
@@ -153,6 +167,7 @@ private extension TrendingCategoryPreviewCell {
     var _bookmarkView: UIView {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
         view.backgroundColor = .white
+        view.isUserInteractionEnabled = true
         view.makeCircular()
         return view
     }
