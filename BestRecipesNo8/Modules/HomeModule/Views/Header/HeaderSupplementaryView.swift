@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol HeaderSupplementaryViewDelegate: AnyObject {
+    func didTapButton(inSection section: Int)
+}
+
 class HeaderSupplementaryView: UICollectionReusableView {
+    
+    weak var delegate: HeaderSupplementaryViewDelegate?
     
     private let headerLabel: UILabel = {
         let label = UILabel()
@@ -57,17 +63,7 @@ class HeaderSupplementaryView: UICollectionReusableView {
     }
     
     @objc private func seeAllButtonTapped() {
-        
-        let section = self.tag
-        switch section {
-           case 0:
-                print("see all tapped from Trending Now")
-            case 3:
-                print("see all tapped from Recent recipe")
-           default:
-               break
-           }
-        //presenter.seeAllButtonTapped()
+        delegate?.didTapButton(inSection: self.tag)
     }
     
     

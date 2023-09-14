@@ -292,11 +292,29 @@ extension HomeView: UICollectionViewDataSource {
                 header.isButtonHidden = true
             }
             
+            header.delegate = self
             header.tag = indexPath.section
             
             return header
         default:
             return UICollectionReusableView()
+        }
+    }
+}
+
+extension HomeView: HeaderSupplementaryViewDelegate {
+    func didTapButton(inSection section: Int) {
+        switch section {
+        case 0:
+            let controller = SeeAllBuilder.createSeeAllModule()
+            navigationController?.pushViewController(controller, animated: true)
+            print("see all tapped from Trending Now")
+        case 3:
+            let controller = SeeAllBuilder.createSeeAllModule()
+            navigationController?.pushViewController(controller, animated: true)
+            print("see all tapped from Recent recipe")
+        default:
+            break
         }
     }
 }
