@@ -13,8 +13,8 @@ final class MainScreenViewController: UIViewController {
     var presenter: MainPresenterProtocol!
     var popularCategoryDelegate: PopularCategoryDelegate!
     
-    private var trendingCategoryCell: TrendingCategoryCell?
-   
+    //private var trendingCategoryCell: TrendingCategoryCell?
+    
     
     //MARK: - UI Elementes:
     private let searchController = UISearchController(searchResultsController: nil)
@@ -27,6 +27,7 @@ final class MainScreenViewController: UIViewController {
         tableView.register(TrendingCollectionTableViewCell.self, forCellReuseIdentifier: TrendingCollectionTableViewCell.reuseIdentifier)
         tableView.register(PopularCategoryTableViewCell.self, forCellReuseIdentifier: PopularCategoryTableViewCell.reuseIdentifier)
         tableView.register(RecentRecipeTableViewCell.self, forCellReuseIdentifier: RecentRecipeTableViewCell.reuseIdentifier)
+        tableView.register(SearchViewCell.self, forCellReuseIdentifier: SearchViewCell.cellID)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -41,18 +42,17 @@ final class MainScreenViewController: UIViewController {
         setupLayout()
         getRecipes()
         setupUIForSearch()
-        setupSearchController()
+        
         view.backgroundColor = .white
-
+        title = "Get amazing recipes cooking"
+        
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        //presenter.searchedRecipes = recipesModels
-//        updateSearchTableView(with: presenter.searchedRecipes)
-//        searchController.isActive = false
-//        hideSearchTableView(isTableViewHidden: true)
-//        recipesTableView.reloadData()
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        
+        searchController.isActive = false
+        recipesTableView.reloadData()
+    }
     
     //MARK: - Methods for Header's Button
     @objc private func seeAllButtonTapped() {
@@ -66,16 +66,32 @@ final class MainScreenViewController: UIViewController {
     //MARK: - Methods
     
     private func setupUI() {
+        
         view.backgroundColor = .systemBackground
+        view.addSubview(searchController.searchBar)
         view.addSubview(recipesTableView)
+        
+        if let navigationBarAppearance = navigationController?.navigationBar.standardAppearance {
+            var titleAttributes = navigationBarAppearance.largeTitleTextAttributes
+            titleAttributes[.font] = UIFont(name: "Poppins-Bold", size: 24)
+            navigationController?.navigationBar.standardAppearance.largeTitleTextAttributes = titleAttributes
+            print( titleAttributes)
+        }
     }
     
     private func setupLayout() {
+        
         recipesTableView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(80)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        searchController.searchBar.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
+            make.height.equalTo(60)
         }
     }
 }
@@ -88,7 +104,7 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
         if searchController.isActive {
             return presenter.searchedRecipes.count
         }  else {
-           return 1
+            return 1
         }
     }
     
@@ -137,23 +153,26 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
-
+    
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch section {
-        case 0:
-            let trendingNowSectionView = TrendingNowSectionView()
-            trendingNowSectionView.seeAllButton.addTarget(self, action: #selector(seeAllButtonTapped), for: .touchUpInside)
-            return trendingNowSectionView
-        case 1:
-            return PopularCategorySectionView()
-        case 2:
-            let recentRecipeSectionView = RecentRecipeSectionView()
-            recentRecipeSectionView.seeAllButton.addTarget(self, action: #selector(seeAllRecipeSectionButtonTapped), for: .touchUpInside)
-            return recentRecipeSectionView
-        default:
-            return TrendingNowSectionView()
+        if !searchController.isActive {
+            switch section {
+            case 0:
+                let trendingNowSectionView = TrendingNowSectionView()
+                trendingNowSectionView.seeAllButton.addTarget(self, action: #selector(seeAllButtonTapped), for: .touchUpInside)
+                return trendingNowSectionView
+            case 1:
+                return PopularCategorySectionView()
+            case 2:
+                let recentRecipeSectionView = RecentRecipeSectionView()
+                recentRecipeSectionView.seeAllButton.addTarget(self, action: #selector(seeAllRecipeSectionButtonTapped), for: .touchUpInside)
+                return recentRecipeSectionView
+            default:
+                return TrendingNowSectionView()
+            }
         }
+        return nil
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -175,7 +194,8 @@ extension MainScreenViewController {
     
     func setupUIForSearch() {
         setDelegate()
-        configureNavigationBar()
+        setupNavigationBar()
+        setupSearchController()
     }
     
     func setDelegate() {
@@ -183,23 +203,44 @@ extension MainScreenViewController {
         searchController.searchBar.delegate = self
     }
     
-    func configureNavigationBar() {
-        navigationController?.navigationBar.barTintColor = .systemBackground
-        navigationController?.hidesBarsWhenKeyboardAppears = false
-    }
-    
     private func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
+        
         searchController.searchBar.placeholder = "Search recipes"
         searchController.searchBar.barTintColor = .black
         navigationItem.searchController = searchController
-        definesPresentationContext = true
-        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
-            textField.font = UIFont.poppinsSemiBold(size: 19)
-            textField.textColor = .neutralColor
+        
+        if let searchField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            if let paddingView = searchField.leftView as? UIView {
+                
+                searchField.layer.borderWidth = 1.5
+                searchField.layer.cornerRadius = 8
+                
+                searchField.layer.borderColor = UIColor.gray.cgColor
+                searchField.backgroundColor = UIColor.white
+                
+                paddingView.frame = CGRect(x: 0, y: 0, width: 32, height: searchField.frame.height)
+                searchField.leftViewMode = .always
+            }
+        } else {
+            print("searchField is nil")
+            
         }
+    }
+    
+    private func setupNavigationBar() {
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.backgroundColor = .white
+        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.neutralColor]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.neutralColor]
+        navigationController?.navigationBar.barTintColor = .systemBackground
+        navigationController?.hidesBarsWhenKeyboardAppears = false
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
 }
 // MARK: - UISearchBarDelegate
@@ -208,11 +249,11 @@ extension MainScreenViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         presenter?.fetchSearchedRecipe(with: "")
-
+        
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
+        searchController.isActive = true
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -243,13 +284,16 @@ extension MainScreenViewController: UISearchResultsUpdating {
 extension MainScreenViewController: MainScreenViewControllerProtocol {
     func configureSearchResults(models: [SearchRecipe]) {
         presenter.searchedRecipes = models
-        recipesTableView.reloadData()
+        DispatchQueue.main.async {
+            self.recipesTableView.reloadData()
+        }
+        
     }
     
-
+    
     
     // MARK: - MainScreenViewControllerProtocol
-
+    
     
     func updatePopularCategory() {
         recipesTableView.reloadData()

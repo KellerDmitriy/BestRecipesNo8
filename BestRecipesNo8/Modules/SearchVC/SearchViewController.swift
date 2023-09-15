@@ -21,33 +21,48 @@ final class SearchViewController: UIViewController {
     private let networkManager = NetworkManager.shared
     private var searchedRecipes: [SearchRecipe] = []
     
-    
-    private let searchTableView = SearchTableView()
+    let searchTableView: UITableView = {
+        let table = UITableView()
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.register(SearchViewCell.self, forCellReuseIdentifier: "MainTableViewCell")
+        table.separatorStyle = .none
+        table.showsVerticalScrollIndicator = false
+        return table
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         title = "Get amazing recipes for cooking"
-        setup()
+        setupUI()
+    //    navigationController?.setNavigationBarHidden(false, animated: true)
     }
-    
-    
-    // MARK: - Private methods
-    
-    func updateSearchTableView() {
-        DispatchQueue.main.async {
-            self.searchTableView.configure(models: self.searchedRecipes, navigationController: self.navigationController)
-            self.searchTableView.searchTableView.reloadData()
-        }
-    }
-    
 
 }
-//MARK: - Setup
 
-private extension SearchViewController {
+//MARK: - UITableViewDelegate, UITableViewDataSource
+
+extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func setup() {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        searchedRecipes.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "MainTableViewCell", for: indexPath) as? SearchViewCell else { return UITableViewCell() }
+        cell.configure(
+            model: searchedRecipes[indexPath.row])
+        cell.selectionStyle = .none
+        return cell
+    }
+}
+
+//MARK: Setup
+
+extension SearchViewController {
+    
+    func setupUI() {
+        view.addSubview(searchTableView)
         setDelegate()
         setupView()
         setConstraints()
@@ -76,8 +91,23 @@ private extension SearchViewController {
         navigationController?.navigationBar.barTintColor = .systemBackground
         navigationController?.hidesBarsWhenKeyboardAppears = false
     }
+
+
+    // MARK: - Private methods
     
+    func configure(models: [SearchRecipe]) {
+        searchedRecipes = models
+    }
+    
+    func updateSearchTableView() {
+        DispatchQueue.main.async {
+            self.configure(models: self.searchedRecipes)
+            self.searchTableView.reloadData()
+        }
+    }
 }
+
+
 
 //MARK: - UISearchBarDelegate
 

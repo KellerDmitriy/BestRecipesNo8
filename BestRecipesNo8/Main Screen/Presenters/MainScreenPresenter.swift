@@ -88,6 +88,7 @@ final class MainPresenter: MainPresenterProtocol {
                        models.append(SearchRecipe(id: recipe.id, title: title, image: image))
                    })
                    self?.view?.configureSearchResults(models: models)
+                   
                case .failure(let error):
                    print(error)
                }
