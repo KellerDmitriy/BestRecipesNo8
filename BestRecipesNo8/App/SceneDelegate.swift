@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //Если нет, то в rootViewController надо определить StartBuilder.createStartModule()
         let tabbarVC = CustomTabBar()
         let navigationVC = isShowOnboarding() ? UINavigationController(rootViewController: StartViewController()) : UINavigationController(rootViewController: tabbarVC)
-        
+        navigationVC.navigationBar.isHidden = true
         navigationVC.setupNavigationBar()
         window?.rootViewController = navigationVC
     }
@@ -36,6 +36,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         return showOnboarding
     }
+
+
 
 }
 

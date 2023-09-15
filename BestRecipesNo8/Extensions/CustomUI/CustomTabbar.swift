@@ -21,13 +21,19 @@ final class CustomTabBar: UITabBarController {
         super.viewDidLoad()
         tabBar.barTintColor = .white
         view.backgroundColor = .white
-        
+        self.title = ""
         setupSubviews()
         applyConstraints()
         assignTabBarModules()
         
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        for item in tabBar.items ?? [] {
+            item.title = ""
+        }
+    }
     // MARK: - Create Button Method
     @objc private func createButtonIsTapped(_ sender: UIButton) {
         let view = CreateVIewBuilder.createCreateModule()
@@ -36,10 +42,10 @@ final class CustomTabBar: UITabBarController {
     
     // MARK: - TabBarItem setup a controller and images
     private func assignTabBarModules() {
-        let mainVC = MainScreenBuilder.createMainScreenViewController()
-        let discoverVC = SavedRecipesBuilder.createSavedRecipesModule()
-        let notificationVC = NotificationViewController()
-        let profileVC = ProfileBuilder.createProfileModule()
+        let mainVC = UINavigationController(rootViewController: MainScreenBuilder.createMainScreenViewController())
+            let discoverVC = UINavigationController(rootViewController: SavedRecipesBuilder.createSavedRecipesModule())
+            let notificationVC = UINavigationController(rootViewController: SearchViewController())
+            let profileVC = UINavigationController(rootViewController: ProfileBuilder.createProfileModule())
         
         mainVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "main")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "mainSelect")?.withRenderingMode(.alwaysOriginal))
         

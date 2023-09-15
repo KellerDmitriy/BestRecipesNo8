@@ -13,6 +13,7 @@ protocol MainScreenViewControllerProtocol: AnyObject {
     func updatePopularCategory()
 
     func configureSearchResults(models: [SearchRecipe])
+    
 
     
 }

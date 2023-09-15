@@ -76,7 +76,6 @@
 		E11675BE2A9C87B700C6ED88 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11675BD2A9C87B700C6ED88 /* SettingsManager.swift */; };
 		E1A0265A2AA9E0880085289E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A026592AA9E0880085289E /* SearchViewController.swift */; };
 		E1A0265D2AA9ED5D0085289E /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A0265C2AA9ED5D0085289E /* SearchViewCell.swift */; };
-		E1A026602AAB0CE00085289E /* SearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A0265F2AAB0CE00085289E /* SearchTableView.swift */; };
 		E1A026622AAB5D560085289E /* CustomAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A026612AAB5D560085289E /* CustomAddButton.swift */; };
 		E1A026672AAD14370085289E /* RealmRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A026662AAD14370085289E /* RealmRecipe.swift */; };
 		E1A026692AAD14490085289E /* RealmDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A026682AAD14490085289E /* RealmDataBase.swift */; };
@@ -191,7 +190,6 @@
 		E11675BD2A9C87B700C6ED88 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		E1A026592AA9E0880085289E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		E1A0265C2AA9ED5D0085289E /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
-		E1A0265F2AAB0CE00085289E /* SearchTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableView.swift; sourceTree = "<group>"; };
 		E1A026612AAB5D560085289E /* CustomAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAddButton.swift; sourceTree = "<group>"; };
 		E1A026662AAD14370085289E /* RealmRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRecipe.swift; sourceTree = "<group>"; };
 		E1A026682AAD14490085289E /* RealmDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataBase.swift; sourceTree = "<group>"; };
@@ -400,17 +398,10 @@
 		84AF912A2AA7D617007F5854 /* OnboardingVC */ = {
 			isa = PBXGroup;
 			children = (
+				84AF91302AA7D948007F5854 /* StartViewController.swift */,
 				84AF912B2AA7D656007F5854 /* OnboardingViewController.swift */,
 			);
 			path = OnboardingVC;
-			sourceTree = "<group>";
-		};
-		84AF912F2AA7D8F1007F5854 /* StartVC */ = {
-			isa = PBXGroup;
-			children = (
-				84AF91302AA7D948007F5854 /* StartViewController.swift */,
-			);
-			path = StartVC;
 			sourceTree = "<group>";
 		};
 		90733BC62AA31BCB00D65897 /* SavedRecipesModule */ = {
@@ -632,7 +623,6 @@
 			children = (
 				E1A0265E2AA9ED620085289E /* Cells */,
 				E1A026592AA9E0880085289E /* SearchViewController.swift */,
-				E1A0265F2AAB0CE00085289E /* SearchTableView.swift */,
 			);
 			path = SearchVC;
 			sourceTree = "<group>";
@@ -717,7 +707,6 @@
 			isa = PBXGroup;
 			children = (
 				E1A0265B2AA9ED3E0085289E /* SearchVC */,
-				84AF912F2AA7D8F1007F5854 /* StartVC */,
 				84AF912A2AA7D617007F5854 /* OnboardingVC */,
 				28344DA82A9E54A9000D7554 /* SeeAllModule */,
 				90D5FE6B2AA0B295002A74B0 /* RecipeModule */,
@@ -1002,7 +991,6 @@
 				90733BD12AA31C7000D65897 /* SavedRecipesBuilder.swift in Sources */,
 				90D5FEAC2AA1FBFC002A74B0 /* RecipeCell.swift in Sources */,
 				28344DC42A9F72B4000D7554 /* UIImage + Extension.swift in Sources */,
-				E1A026602AAB0CE00085289E /* SearchTableView.swift in Sources */,
 				28183B8F2AADA2D5000E3EB9 /* CreateViewPresenter.swift in Sources */,
 				28344DBA2A9E7907000D7554 /* SeeAllViewOutput.swift in Sources */,
 				E2130CD92AA0B92B00C3404E /* MainScreenPresenter.swift in Sources */,
