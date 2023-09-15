@@ -12,6 +12,14 @@ extension UIColor {
         UIColor(red: 0.853, green: 0.229, blue: 0.227, alpha: 1)
     }
     
+    static var darkRedColor: UIColor {
+        UIColor(red: 226/255, green: 62/255, blue: 62/255, alpha: 1)
+    }
+    
+    static var primaryColor20: UIColor {
+        UIColor(red: 0.95, green: 0.7, blue: 0.7, alpha: 1)
+    }
+    
     static var threeRDColor: UIColor {
         UIColor(red: 0.974, green: 0.784, blue: 0.607, alpha: 1)
     }
