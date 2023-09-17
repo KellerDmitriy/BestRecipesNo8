@@ -9,10 +9,10 @@ import Foundation
 
 final class ProfilePresenter {
     
-    weak var view: ProfileViewInput?
-    private let router: ProfileRouterInput
+    weak var view: ProfileViewProtocol?
+    private let router: ProfileRouterProtocol
 
-    init(router: ProfileRouterInput) {
+    init(router: ProfileRouterProtocol) {
         self.router = router
 
     }

@@ -114,7 +114,7 @@ extension SavedRecipesView: UICollectionViewDataSource, UICollectionViewDelegate
     }
 }
 
-extension SavedRecipesView: SavedRecipesViewInput {
+extension SavedRecipesView: SavedRecipesViewProtocol {
     func openSavedRecipes() {
         DispatchQueue.main.async {
             self.collectionView.reloadData()

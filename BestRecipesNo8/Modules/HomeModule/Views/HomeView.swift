@@ -348,7 +348,7 @@ extension HomeView: UICollectionViewDelegate {
     }
 }
 
-extension HomeView: HomeViewInput {
+extension HomeView: HomeViewProtocol {
     func openHome() {}
 }
 

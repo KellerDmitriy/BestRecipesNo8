@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HomeViewRouter: HomeRouterInput {
+final class HomeViewRouter: HomeRouterProtocol {
     
     weak var view: UIViewController?
 }

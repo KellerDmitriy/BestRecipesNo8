@@ -7,11 +7,7 @@
 
 import Foundation
 
-protocol CreateViewPresenterProtocol: AnyObject {
-    
-}
-
-final class CreateViewPresenter: CreateViewPresenterProtocol {
+final class CreateViewPresenter: CreateRecipePresenterProtocol {
     
     weak var view: CreateViewProtocol?
     private let router: CreateViewRouter

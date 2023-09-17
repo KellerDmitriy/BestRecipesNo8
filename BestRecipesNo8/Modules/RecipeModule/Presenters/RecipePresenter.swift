@@ -7,15 +7,13 @@
 
 import Foundation
 
-final class RecipePresenter {
+final class RecipePresenter: RecipePresenterProtocol {
     
-    weak var view: RecipeViewInput?
-    private let router: RecipeRouterInput
+    weak var view: RecipeViewProtocol?
     
     let recipe: RecipeInfo
 
-    init(router: RecipeRouterInput, recipe: RecipeInfo) {
-        self.router = router
+    init(recipe: RecipeInfo) {
         self.recipe = recipe
     }
     

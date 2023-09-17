@@ -100,6 +100,6 @@ extension SeeAllViewController: UICollectionViewDelegate {
     }
 }
 
-extension SeeAllViewController: SeeAllViewInput {
+extension SeeAllViewController: SeeAllViewProtocol {
 
 }
