@@ -9,14 +9,11 @@ import Foundation
 
 final class HomePresenter {
     
-    weak var view: HomeViewInput?
-    private let router: HomeRouterInput
-    private let settingsManager: SettingsManagerProtocol
+    weak var view: HomeViewProtocol?
+    private let router: HomeRouterProtocol
 
-    init(router: HomeRouterInput,settingsManager: SettingsManagerProtocol) {
-        
+    init(router: HomeRouterProtocol) {
         self.router = router
-        self.settingsManager = settingsManager
     }
     
     func getDimensions(section: HomeSections) -> (itemWidth: CGFloat, itemHeight: CGFloat, groupWidth: CGFloat, groupHeight: CGFloat) {

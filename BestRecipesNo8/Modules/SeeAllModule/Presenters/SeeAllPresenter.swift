@@ -7,28 +7,31 @@
 
 import Foundation
 
-protocol SeeAllPresenterProtocol: AnyObject {
-    var trendingNowRecipes: [RecipeInfo] { get }
-    var router: SeeAllRouterInput { get }
-}
-
 final class SeeAllPresenter: SeeAllPresenterProtocol {
+    func cellTapped() {
+        //
+    }
+    
+    func saveButtonTapped() {
+        //
+    }
+    
     
     //MARK: - Properties
     
     var trendingNowRecipes: [RecipeInfo] = []
     
-    weak var view: SeeAllViewInput?
-    var router: SeeAllRouterInput
+    weak var view: SeeAllViewProtocol?
+    var router: SeeAllRouterProtocol
 
-    init(router: SeeAllRouterInput, recipes: [RecipeInfo]) {
+    init(router: SeeAllRouterProtocol, recipes: [RecipeInfo]) {
         
         self.router = router
         self.trendingNowRecipes = recipes
     }
 }
 
-//extension SeeAllPresenter: SeeAllViewOutput {
+//extension SeeAllPresenter: SeeAllPresenterProtocol {
 //
 //    func saveButtonTapped() {
 //        //

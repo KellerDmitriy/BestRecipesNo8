@@ -10,8 +10,7 @@ import UIKit
 final class HomeBuilder {
     static func createHomeModule() -> UIViewController {
         let router = HomeViewRouter()
-        let settingsManager = SettingsManager()
-        let presenter = HomePresenter(router: router, settingsManager: settingsManager)
+        let presenter = HomePresenter(router: router)
         let view = HomeView(presenter: presenter)
         
         presenter.view = view

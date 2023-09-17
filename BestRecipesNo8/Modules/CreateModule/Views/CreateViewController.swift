@@ -110,7 +110,7 @@ class CreateViewController: UIViewController {
     
     // MARK: - Variable Properties
     
-    private let presenter: CreateViewPresenterProtocol
+    private let presenter: CreateRecipePresenterProtocol
         
     private var activeTextField: UITextField? = nil
     private var rows = 1
@@ -120,7 +120,7 @@ class CreateViewController: UIViewController {
     
     // MARK: - Initial
     
-    init(presenter: CreateViewPresenterProtocol) {
+    init(presenter: CreateRecipePresenterProtocol) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }

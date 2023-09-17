@@ -7,12 +7,12 @@
 
 import Foundation
 
-final class SavedRecipesPresenter: SavedRecipesViewOutput {
+final class SavedRecipesPresenter: SavedRecipesPresenterProtocol {
 
     
     
     //MARK: - Properties
-    weak var view: SavedRecipesViewInput?
+    weak var view: SavedRecipesViewProtocol?
     private var savedRecipesId: [Int] = []
     internal var savedRecipes: [RecipeInfo] = []
     private let router: SavedRecipesRouterInput

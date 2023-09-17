@@ -21,7 +21,6 @@ final class CustomTabBar: UITabBarController {
         super.viewDidLoad()
         tabBar.barTintColor = .white
         view.backgroundColor = .white
-        self.title = ""
         setupSubviews()
         applyConstraints()
         assignTabBarModules()
@@ -36,7 +35,7 @@ final class CustomTabBar: UITabBarController {
     }
     // MARK: - Create Button Method
     @objc private func createButtonIsTapped(_ sender: UIButton) {
-        let view = CreateVIewBuilder.createCreateModule()
+        let view = CreateViewBuilder.createCreateModule()
         navigationController?.pushViewController(view, animated: true)
     }
     
@@ -44,7 +43,7 @@ final class CustomTabBar: UITabBarController {
     private func assignTabBarModules() {
         let mainVC = UINavigationController(rootViewController: MainScreenBuilder.createMainScreenViewController())
             let discoverVC = UINavigationController(rootViewController: SavedRecipesBuilder.createSavedRecipesModule())
-            let notificationVC = UINavigationController(rootViewController: SearchViewController())
+        let notificationVC = UINavigationController(rootViewController: HomeBuilder.createHomeModule())
             let profileVC = UINavigationController(rootViewController: ProfileBuilder.createProfileModule())
         
         mainVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "main")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "mainSelect")?.withRenderingMode(.alwaysOriginal))

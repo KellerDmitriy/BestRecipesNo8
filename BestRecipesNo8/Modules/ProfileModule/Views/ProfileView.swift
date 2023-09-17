@@ -202,7 +202,7 @@ extension ProfileView: UIImagePickerControllerDelegate, UINavigationControllerDe
     }
 }
 
-extension ProfileView: ProfileViewInput {
+extension ProfileView: ProfileViewProtocol {
     func openProfile() {
         print("profile is opened")
     }

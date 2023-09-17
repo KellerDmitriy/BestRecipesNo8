@@ -222,7 +222,7 @@ extension RecipeView: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension RecipeView: RecipeViewInput {
+extension RecipeView: RecipeViewProtocol {
     func openRecipe() {
         print("Recipe is opened")
     }

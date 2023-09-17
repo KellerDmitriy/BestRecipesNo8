@@ -12,7 +12,7 @@ final class CreateViewRouter {
     weak var view: CreateViewController?
     
     func routeToCreateViewController() {
-        let view = CreateVIewBuilder.createCreateModule()
+        let view = CreateViewBuilder.createCreateModule()
         view.navigationController?.pushViewController(view, animated: true)
     }
 

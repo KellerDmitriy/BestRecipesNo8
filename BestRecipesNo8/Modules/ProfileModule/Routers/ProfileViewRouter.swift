@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ProfileViewRouter: ProfileRouterInput {
+final class ProfileViewRouter: ProfileRouterProtocol {
     
     weak var view: UIViewController?
 }
