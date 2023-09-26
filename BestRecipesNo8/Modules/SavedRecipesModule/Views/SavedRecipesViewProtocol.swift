@@ -9,4 +9,6 @@ import Foundation
 
 protocol SavedRecipesViewProtocol: AnyObject {
     func openSavedRecipes()
+    func animateTableView()
+
 }

@@ -20,12 +20,6 @@ class StorageManager {
     
     // MARK: - Methods
     
-    //    func save(recipes: RecipesRealm) {
-    //        try! realm.write {
-    //            realm.add(recipes)
-    //        }
-    //    }
-    
     func saveData<T: Object>(object: T) {
         do {
             let realm = try Realm()

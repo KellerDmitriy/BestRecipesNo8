@@ -14,9 +14,9 @@ protocol Builder {
 final class MainScreenBuilder: Builder {
     static func createMainScreenViewController() -> UIViewController {
         let view = MainScreenViewController()
-        let dataService = DataService()
         let router = MainViewRouter()
-        let presenter = MainPresenter(view: view, dataService: dataService, router: router)
+        let realmStoredManager = RealmStorageManager.shared
+        let presenter = MainPresenter(view: view, realmStoredManager: realmStoredManager, router: router)
         presenter.view = view
         router.view = view
         view.presenter = presenter

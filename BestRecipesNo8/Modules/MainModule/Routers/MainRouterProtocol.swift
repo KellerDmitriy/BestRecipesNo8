@@ -12,3 +12,4 @@ protocol MainRouterProtocol {
     func routeToRecipeDetailScreen(recipe: RecipeInfo)
 
 }
+

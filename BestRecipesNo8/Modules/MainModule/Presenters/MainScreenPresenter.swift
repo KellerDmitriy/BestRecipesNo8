@@ -8,80 +8,84 @@
 import Foundation
 
 final class MainPresenter: MainPresenterProtocol {
- 
+    
+    
+
     weak var view: MainScreenViewControllerProtocol?
     
-    var dataService: DataServiceProtocol
+    var realmStoredManager = RealmStorageManager.shared
+    
     var trendingNowRecipes: [RecipeInfo] = []
     var popularCategoryRecipes: [RecipeInfo] = []
     var recentRecipe: [RecipeInfo] = []
     var networkManager = NetworkManager.shared
+    
     var savedRecipesId: [Int] = []
+    var savedRecipes: [RecipeRealmModel] = []
+    
     var searchedRecipes: [SearchRecipe] = []
     
     private let router: MainRouterProtocol
     
     //MARK: LifeCycle
     
-    required init(view: MainScreenViewControllerProtocol, dataService: DataServiceProtocol, router: MainRouterProtocol) {
-        self.dataService = dataService
+    required init(view: MainScreenViewControllerProtocol, realmStoredManager: RealmStorageManager, router: MainRouterProtocol) {
         self.view = view
         self.router = router
-        self.savedRecipesId = UserDefaults.standard.object(forKey: "savedRecipes") as? [Int] ?? []
+        self.savedRecipesId = Array(realmStoredManager.read().map { $0.id })
     }
     
     func seeAllButtonTapped() {
         self.router.routeToSeeAllScreen(recipes: trendingNowRecipes)
     }
     
-    func addButtonTapped() {
-        // обновить массив savedRecipe UD!
-        print("addButtonTapped")
+    func seeAllRecipeSectionButtonTapped() {
+        self.router.routeToSeeAllScreen(recipes: recentRecipe)
     }
     
     func updateRecipeInSavedRecipes(recipe: RecipeInfo) {
-        let contains = savedRecipesId.contains(where:  {$0 == recipe.id} )
-        contains ? deleteRecipeInFavorites(recipe: recipe) :
-        saveRecipeInFavorites(recipe: recipe)
+        if isRecipeSaved(recipe: recipe) {
+            realmStoredManager.deleteRecipeFromRealm(with: recipe.id)
+        } else {
+            let realmRecipe = RecipeRealmModel()
+            realmRecipe.id = recipe.id
+            realmRecipe.title = recipe.title ?? ""
+            realmRecipe.image = recipe.image ?? ""
+            realmStoredManager.save(savedRecipes)
+        }
     }
     
     func deleteRecipeInFavorites(recipe: RecipeInfo) {
-        savedRecipesId.removeAll { $0 == recipe.id }
-        UserDefaults.standard.set(savedRecipesId, forKey: "savedRecipes")
+        let id = recipe.id
+        savedRecipesId.removeAll { $0 == id }
+        
+        realmStoredManager.deleteRecipeFromRealm(with: id)
     }
     
     func saveRecipeInFavorites(recipe: RecipeInfo) {
-        guard let id = recipe.id else { return }
-        savedRecipesId.append(id)
-        UserDefaults.standard.set(savedRecipesId, forKey: "savedRecipes")
+        let id = recipe.id
+        let realmRecipe = RecipeRealmModel(value: ["id": id])
+        
+        realmStoredManager.save(savedRecipes)
     }
     
     func fetchSearchedRecipe(with searchText: String) {
-           let group = DispatchGroup()
-           group.enter()
-           networkManager.getSearchRecipes(for: searchText) { [weak self] result in
-               defer {
-                   group.leave()
-               }
-               switch result {
-               case .success(let recipes):
-                   var models: [SearchRecipe] = []
-                   recipes.results?.forEach({ recipe in
-                       guard let title = recipe.title, let image = recipe.image else { return }
-                       models.append(SearchRecipe(id: recipe.id, title: title, image: image))
-                   })
-                   self?.view?.configureSearchResults(models: models)
-                   
-               case .failure(let error):
-                   print(error)
-               }
-           }
-           
-           group.notify(queue: .main) {
-           }
-       }
-   }
-
+        networkManager.getSearchRecipes(for: searchText) { [weak self] result in
+            switch result {
+            case .success(let recipes):
+                var models: [SearchRecipe] = []
+                recipes.results?.forEach { recipe in
+                    guard let title = recipe.title, let image = recipe.image else { return }
+                    models.append(SearchRecipe(id: recipe.id, title: title, image: image))
+                }
+                self?.view?.configureSearchResults(models: models)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+}
 
 extension MainPresenter: PopularCategoryDelegate {
     func sectCell(recipe: RecipeInfo) {
@@ -90,7 +94,7 @@ extension MainPresenter: PopularCategoryDelegate {
         router.routeToRecipeDetailScreen(recipe: recipe)
     }
     
-
+    
     func getRecipesWithMealType(mealType: String) {
         networkManager.getTenRecipesWithMealType(for: mealType) { result in
             switch result {
@@ -112,10 +116,21 @@ extension MainPresenter: PopularCategoryDelegate {
     }
     
     func isRecipeSaved(recipe: RecipeInfo) -> Bool {
-        savedRecipesId.contains(where:  {$0 == recipe.id} )
+        return realmStoredManager.isItemSaved(withId: recipe.id )
+    }
+    
+    func getCreateCompletion(with recipe: RecipeInfo) -> (() -> ()) {
+        return realmStoredManager.createCompletion(with: recipe)
+    }
+    
+    func addButtonTapped(for recipe: RecipeInfo) {
+        if isRecipeSaved(recipe: recipe) {
+            deleteRecipeInFavorites(recipe: recipe)
+        } else {
+            saveRecipeInFavorites(recipe: recipe)
+        }
     }
 }
-
 
 
 

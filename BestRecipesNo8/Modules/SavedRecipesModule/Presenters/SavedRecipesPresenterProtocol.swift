@@ -8,9 +8,12 @@
 import Foundation
 
 protocol SavedRecipesPresenterProtocol {
+    var realmStorageManager: RealmStorageManager { get set }
+    var savedRecipes: [RecipeRealmModel] { get set }
     
-    var savedRecipes: [RecipeInfo] { get set }
-    
-    var defaults: UserDefaults { get set }
-    func removeRecipe(at index: Int)
+    func loadData()
+    func deleteRecipe(with index: Int)
+    func deleteAllBarButtonTapped()
+    func updateRecipe()
+
 }

@@ -13,7 +13,7 @@ extension UIImage {
     
     static let add = UIImage(named: "add")
     
-    static let bookmark = UIImage(named: "bookmark")
+    static let bookmark = UIImage(named: "Inactive")
     static let bookmarkSelect = UIImage(named: "bookmarkSelect")
     
     static let main = UIImage(named: "main")

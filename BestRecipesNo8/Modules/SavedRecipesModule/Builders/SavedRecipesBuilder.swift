@@ -10,7 +10,8 @@ import UIKit
 final class SavedRecipesBuilder {
     static func createSavedRecipesModule() -> UIViewController {
         let router = SavedRecipesViewRouter()
-        let presenter = SavedRecipesPresenter(router: router)
+        let realmStoredManager = RealmStorageManager.shared
+        let presenter = SavedRecipesPresenter(router: router, realmStorageManager: realmStoredManager)
         let view = SavedRecipesView(presenter: presenter)
         
         presenter.view = view

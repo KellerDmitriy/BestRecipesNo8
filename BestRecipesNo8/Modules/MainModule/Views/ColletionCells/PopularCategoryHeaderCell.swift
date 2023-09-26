@@ -10,6 +10,7 @@ protocol PopularCategoryDelegate: AnyObject {
     func updateSavedRecipes(recipe: RecipeInfo)
     func isRecipeSaved(recipe: RecipeInfo) -> Bool
     func sectCell(recipe: RecipeInfo)
+    func addButtonTapped(for recipe: RecipeInfo)
 }
 
 

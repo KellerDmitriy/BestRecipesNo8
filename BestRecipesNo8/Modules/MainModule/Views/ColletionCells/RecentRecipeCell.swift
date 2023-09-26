@@ -54,8 +54,8 @@ final class RecentRecipeCell: UICollectionViewCell {
     }
     
     func configureCell(at recipeInfo: RecipeInfo) {
-        guard let id = recipeInfo.id,
-              let title = recipeInfo.title,
+        let id = recipeInfo.id
+        guard let title = recipeInfo.title,
               let image = recipeInfo.image else { return }
         let cache = ImageCache.default
         cache.diskStorage.config.expiration = .seconds(1)

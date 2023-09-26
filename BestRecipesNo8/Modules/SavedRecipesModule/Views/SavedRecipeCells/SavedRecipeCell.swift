@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class SavedRecipeCell: UICollectionViewCell {
+class SavedRecipeCell: UITableViewCell {
     
     static let cellID = String(describing: SavedRecipeCell.self)
     
@@ -27,12 +27,6 @@ class SavedRecipeCell: UICollectionViewCell {
     private lazy var bookmarkImageView: UIImageView = _bookmarkImageView
     
     // MARK: - Init
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    
-        addSubviews()
-        applyConstraints()
-    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

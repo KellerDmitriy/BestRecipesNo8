@@ -8,30 +8,53 @@
 import Foundation
 
 final class SavedRecipesPresenter: SavedRecipesPresenterProtocol {
-
-    
-    
+ 
     //MARK: - Properties
     weak var view: SavedRecipesViewProtocol?
+    var savedRecipes: [RecipeRealmModel] = []
+    var realmStorageManager = RealmStorageManager.shared
     private var savedRecipesId: [Int] = []
-    internal var savedRecipes: [RecipeInfo] = []
     private let router: SavedRecipesRouterInput
     
-    init(router: SavedRecipesRouterInput) {
+    init(router: SavedRecipesRouterInput, realmStorageManager: RealmStorageManager) {
         self.router = router
+        
     }
     
-    //MARK: - UserDefaults
-    var defaults: UserDefaults {
-        get { return UserDefaults.standard }
-        set { newValue.set(savedRecipes, forKey: "savedRecipes") }
-    }
-    
+    //MARK: - Realm BD
+
+//    func saveRecipeButtonTapped(_ sender: UIBarButtonItem) {
+//        let imageRecipe = recipeDetailViewModel.recipeImage
+//        let titleRecipe = recipeDetailViewModel.recipeName
+//        switch sender.image {
+//        case UIImage(systemName: "bookmark"):
+//            sender.image = UIImage(systemName: "bookmark.fill")
+//            AlertKitAPI.present(title: "Saved to favorites", subtitle: nil, icon: .done, style: .iOS16AppleMusic, haptic: .success)
+//
+//            recipeDetailViewModel.saveToRealm(id: recipeDetailViewModel.id, image: imageRecipe, title: titleRecipe)
+//
+//        case UIImage(systemName: "bookmark.fill"):
+//            sender.image = UIImage(systemName: "bookmark")
+//            AlertKitAPI.present(title: "Deleted from saved", subtitle: nil, icon: .error, style: .iOS16AppleMusic, haptic: .success)
+//
+//            recipeDetailViewModel.deleteObjectFromRealm(id: recipeDetailViewModel.id)
+//        default: break
+//        }
+//    }
     
     //MARK: - Methods
-    func removeRecipe(at index: Int) {
-        savedRecipes.remove(at: index)
-        defaults.set(savedRecipes, forKey: "savedRecipes")
+    func loadData() {
+        realmStorageManager.read()
+        
+    }
+    
+
+    func deleteRecipe(with index: Int) {
+        //
+    }
+    
+    func deleteAllBarButtonTapped() {
+        realmStorageManager.deleteAll()
     }
     
     func updateRecipe() {
@@ -39,7 +62,7 @@ final class SavedRecipesPresenter: SavedRecipesPresenterProtocol {
             NetworkManager.shared.getRecipeInformationBulk(for: savedRecipesId) { result in
                 switch result {
                 case .success(let recipes):
-                    self.savedRecipes = recipes
+                  //  self.savedRecipes = recipes
                     self.view?.openSavedRecipes()
                 case .failure(let error):
                     print(error.localizedDescription)

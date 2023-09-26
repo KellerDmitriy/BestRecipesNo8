@@ -105,8 +105,8 @@ final class PopularCategoryCell: UICollectionViewCell {
     }
     
     func configureCell(at recipeInfo: RecipeInfo, delegate: PopularCategoryDelegate) {
-        guard let id = recipeInfo.id,
-              let title = recipeInfo.title,
+        let id = recipeInfo.id
+        guard let title = recipeInfo.title,
               let image = recipeInfo.image
 //              let readyInMinutes =  recipeInfo.readyInMinutes
         else { return }

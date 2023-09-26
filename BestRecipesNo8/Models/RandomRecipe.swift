@@ -11,8 +11,8 @@ struct RandomRecipe: Codable {
     let recipes: [RecipeInfo]?
 }
 
-struct RecipeInfo: Codable {
-    let id: Int?
+struct RecipeInfo: Codable, RecipeProtocol {
+    let id: Int
     let title: String?
     let summary: String?
     let image: String?

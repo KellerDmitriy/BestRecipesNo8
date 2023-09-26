@@ -12,9 +12,15 @@ final class TrendingCategoryCell: UICollectionViewCell {
     
     weak var delegate: PopularCategoryDelegate?
     private var recipe: RecipeInfo?
-    private var isSaved: Bool = false
-    
+    var isSaved = false {
+        didSet {
+            addButton.toggle(with: isSaved)
+        }
+    }
     //MARK: - UI Elements
+    
+    var addButton = CustomAddButton(isChecked: false)
+    var addButtonClosure: (() -> ())?
     
     private lazy var recipeImageView: UIImageView = {
         let imageView = UIImageView()
@@ -29,24 +35,11 @@ final class TrendingCategoryCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Poppins-Bold", size: 16)
-//        label.minimumScaleFactor = 0.1
-//        label.adjustsFontSizeToFitWidth = true
         label.text = "How to sharwama at home"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    private lazy var addButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = .white
-        button.tintColor = .gray
-        button.layer.cornerRadius = 16
-        button.clipsToBounds = true
-        button.setImage(UIImage(named: "Inactive"), for: .normal)
-        button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+
     
     //MARK: - LifeCycle:
     
@@ -54,12 +47,14 @@ final class TrendingCategoryCell: UICollectionViewCell {
         super.init(frame: frame)
         setupUI()
         setupLayout()
+        addButtonSetup()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+
     //MARK: - Methods:
     
     private func setupUI() {
@@ -68,9 +63,9 @@ final class TrendingCategoryCell: UICollectionViewCell {
         contentView.addSubview(addButton)
     }
     
-    func configureCell(at recipeInfo: RecipeInfo, delegate: PopularCategoryDelegate) {
-        guard let id = recipeInfo.id,
-              let title = recipeInfo.title,
+    func configureCell(at recipeInfo: RecipeInfo, delegate: PopularCategoryDelegate, addButtonClosure: @escaping () -> ()) {
+        let id = recipeInfo.id
+        guard let title = recipeInfo.title,
               let image = recipeInfo.image else { return }
         let cache = ImageCache.default
         cache.diskStorage.config.expiration = .seconds(1)
@@ -80,23 +75,31 @@ final class TrendingCategoryCell: UICollectionViewCell {
                                                                                           .cacheSerializer(FormatIndicatedCacheSerializer.png)])
         titleLabel.text = title
         
+        self.addButtonClosure = addButtonClosure
         self.delegate = delegate
         self.recipe = recipeInfo
         self.isSaved = delegate.isRecipeSaved(recipe: recipeInfo)
-        setAddButtonColor()
-        
     }
     
-    private func setAddButtonColor() {
-        addButton.tintColor = isSaved ? .red : .gray
+    
+//    @objc private func addButtonTapped() {
+//        guard let recipe else { return }
+//        delegate?.updateSavedRecipes(recipe: recipe)
+//    }
+    
+    private func addButtonSetup() {
+        addButton.addTarget(
+            self,
+            action: #selector(addButtonTapped),
+            for: .touchUpInside)
     }
     
-    @objc
-    private func addButtonTapped() {
-        guard let recipe else { return }
-        delegate?.updateSavedRecipes(recipe: recipe)
+    @objc func addButtonTapped() {
+        if let recipe = self.recipe {
+            delegate?.addButtonTapped(for: recipe)
+            isSaved.toggle()
+        }
     }
-    
     private func setupLayout() {
         NSLayoutConstraint.activate([
             recipeImageView.topAnchor.constraint(equalTo: contentView.topAnchor),

@@ -44,9 +44,8 @@ final class MainScreenViewController: UIViewController {
         setupUIForSearch()
         
         view.backgroundColor = .white
-        title = "Get amazing recipes cooking"
         navigationController?.navigationBar.isHidden = false
-        
+        navigationItem.title = "Get amazing recipes cooking"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,7 +60,7 @@ final class MainScreenViewController: UIViewController {
     }
     
     @objc private func seeAllRecipeSectionButtonTapped() {
-        presenter.seeAllButtonTapped()
+        presenter.seeAllRecipeSectionButtonTapped()
     }
     
     //MARK: - Methods
