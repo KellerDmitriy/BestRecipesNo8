@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SavedRecipesViewRouter: SavedRecipesRouterInput {
+final class SavedRecipesViewRouter: SavedRecipesRouterProtocol {
     
     weak var view: UIViewController?
     

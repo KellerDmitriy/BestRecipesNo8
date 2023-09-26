@@ -14,9 +14,9 @@ final class SavedRecipesPresenter: SavedRecipesPresenterProtocol {
     var savedRecipes: [RecipeRealmModel] = []
     var realmStorageManager = RealmStorageManager.shared
     private var savedRecipesId: [Int] = []
-    private let router: SavedRecipesRouterInput
+    private let router: SavedRecipesRouterProtocol
     
-    init(router: SavedRecipesRouterInput, realmStorageManager: RealmStorageManager) {
+    init(router: SavedRecipesRouterProtocol, realmStorageManager: RealmStorageManager) {
         self.router = router
         
     }
