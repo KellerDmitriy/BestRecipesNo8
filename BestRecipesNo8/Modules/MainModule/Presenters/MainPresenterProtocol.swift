@@ -8,12 +8,11 @@
 import Foundation
 
 protocol MainPresenterProtocol: AnyObject {
-    var view : MainScreenViewControllerProtocol? { get set }
     var trendingNowRecipes: [RecipeInfo] { get set }
     var popularCategoryRecipes: [RecipeInfo] { get set }
-    var recentRecipe: [RecipeInfo] { get set }
+    var randomRecipe: [RecipeInfo] { get set }
     var networkManager: NetworkManager { get set }
-    
+    var router: RouterProtocol? { get set }
     var realmStoredManager: RealmStorageManager { get set }
     var savedRecipesId: [Int] { get set }
     var savedRecipes: [RecipeRealmModel] { get set }
@@ -26,6 +25,6 @@ protocol MainPresenterProtocol: AnyObject {
     func fetchSearchedRecipe(with searchText: String)
     
     func seeAllButtonTapped()
-    func seeAllRecipeSectionButtonTapped()
+    func seeAllRandomSectionButtonTapped()
     func addButtonTapped(for recipe: RecipeInfo)
 }

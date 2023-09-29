@@ -11,7 +11,7 @@ import Kingfisher
 
 final class RecipeView: UIViewController {
     
-    private let presenter: RecipePresenter
+    var presenter: RecipeDetailPresenter!
     
     // MARK: - Views
     private lazy var scrollView: UIScrollView = _scrollView
@@ -32,18 +32,7 @@ final class RecipeView: UIViewController {
     private lazy var countIngredientsLabel: UILabel = _countIngredientsLabel
     private lazy var ingredientsTableView: UITableView = _ingredientsTableView
     
-    private let heightOfTableView: Int
-    
-    // MARK: - Init
-    init(presenter: RecipePresenter) {
-        self.presenter = presenter
-        heightOfTableView = Int(presenter.heightOfTableViewCell) * presenter.countIngredients
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private var heightOfTableView: Int?
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -54,6 +43,7 @@ final class RecipeView: UIViewController {
         setupSubviews()
         applyConstraints()
         setupRecipeContent()
+        heightOfTableView = Int(presenter.heightOfTableViewCell) * presenter.countIngredients
     }
     
     // MARK: - Setup content of chosen page
@@ -156,7 +146,7 @@ final class RecipeView: UIViewController {
             make.top.equalTo(ingredientsTitle.snp.bottom).offset(12)
             make.leading.trailing.equalToSuperview().inset(25)
             make.bottom.equalTo(contentView.snp.bottom)
-            make.height.equalTo(heightOfTableView)
+            make.height.equalTo(heightOfTableView ?? 0)
         }
     }
     

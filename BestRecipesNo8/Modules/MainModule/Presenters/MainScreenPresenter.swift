@@ -9,38 +9,38 @@ import Foundation
 
 final class MainPresenter: MainPresenterProtocol {
     
-    
-
     weak var view: MainScreenViewControllerProtocol?
     
+    var networkManager = NetworkManager.shared
     var realmStoredManager = RealmStorageManager.shared
     
     var trendingNowRecipes: [RecipeInfo] = []
     var popularCategoryRecipes: [RecipeInfo] = []
-    var recentRecipe: [RecipeInfo] = []
-    var networkManager = NetworkManager.shared
+    var randomRecipe: [RecipeInfo] = []
     
     var savedRecipesId: [Int] = []
     var savedRecipes: [RecipeRealmModel] = []
     
     var searchedRecipes: [SearchRecipe] = []
     
-    private let router: MainRouterProtocol
+    var router: RouterProtocol?
     
-    //MARK: LifeCycle
+    //MARK: LifeCycle 
     
-    required init(view: MainScreenViewControllerProtocol, realmStoredManager: RealmStorageManager, router: MainRouterProtocol) {
+    required init(view: MainScreenViewControllerProtocol, networkManager: NetworkManager, realmStoredManager: RealmStorageManager, router: RouterProtocol) {
+        
         self.view = view
+        self.networkManager = networkManager
         self.router = router
         self.savedRecipesId = Array(realmStoredManager.read().map { $0.id })
     }
     
     func seeAllButtonTapped() {
-        self.router.routeToSeeAllScreen(recipes: trendingNowRecipes)
+        self.router?.routeToSeeAllScreen(recipes: trendingNowRecipes)
     }
     
-    func seeAllRecipeSectionButtonTapped() {
-        self.router.routeToSeeAllScreen(recipes: recentRecipe)
+    func seeAllRandomSectionButtonTapped() {
+        self.router?.routeToSeeAllScreen(recipes: randomRecipe)
     }
     
     func updateRecipeInSavedRecipes(recipe: RecipeInfo) {
@@ -91,7 +91,7 @@ extension MainPresenter: PopularCategoryDelegate {
     func sectCell(recipe: RecipeInfo) {
 #warning("CREATE Detail module here!")
         print(recipe)
-        router.routeToRecipeDetailScreen(recipe: recipe)
+        router?.routeToRecipeDetailScreen(recipe: recipe)
     }
     
     

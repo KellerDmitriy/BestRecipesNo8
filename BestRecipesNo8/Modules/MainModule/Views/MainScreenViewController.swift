@@ -26,7 +26,7 @@ final class MainScreenViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.register(TrendingCollectionTableViewCell.self, forCellReuseIdentifier: TrendingCollectionTableViewCell.reuseIdentifier)
         tableView.register(PopularCategoryTableViewCell.self, forCellReuseIdentifier: PopularCategoryTableViewCell.reuseIdentifier)
-        tableView.register(RecentRecipeTableViewCell.self, forCellReuseIdentifier: RecentRecipeTableViewCell.reuseIdentifier)
+        tableView.register(RandomRecipeTableViewCell.self, forCellReuseIdentifier: RandomRecipeTableViewCell.reuseIdentifier)
         tableView.register(SearchViewCell.self, forCellReuseIdentifier: SearchViewCell.cellID)
         tableView.delegate = self
         tableView.dataSource = self
@@ -59,8 +59,8 @@ final class MainScreenViewController: UIViewController {
         presenter.seeAllButtonTapped()
     }
     
-    @objc private func seeAllRecipeSectionButtonTapped() {
-        presenter.seeAllRecipeSectionButtonTapped()
+    @objc private func seeAllRandomSectionButtonTapped() {
+        presenter.seeAllRandomSectionButtonTapped()
     }
     
     //MARK: - Methods
@@ -142,10 +142,10 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
                 return cell
                 
             case 2:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentRecipeTableViewCell.reuseIdentifier, for: indexPath) as? RecentRecipeTableViewCell else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: RandomRecipeTableViewCell.reuseIdentifier, for: indexPath) as? RandomRecipeTableViewCell else {
                     return UITableViewCell()
                 }
-                cell.configureCell(recipes: presenter.recentRecipe)
+                cell.configureCell(recipes: presenter.randomRecipe)
                 return cell
                 
             default:
@@ -165,9 +165,9 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
             case 1:
                 return PopularCategorySectionView()
             case 2:
-                let recentRecipeSectionView = RecentRecipeSectionView()
-                recentRecipeSectionView.seeAllButton.addTarget(self, action: #selector(seeAllRecipeSectionButtonTapped), for: .touchUpInside)
-                return recentRecipeSectionView
+                let randomRecipeSectionView = RandomRecipeSectionView()
+                randomRecipeSectionView.seeAllButton.addTarget(self, action: #selector(seeAllRandomSectionButtonTapped), for: .touchUpInside)
+                return randomRecipeSectionView
             default:
                 return TrendingNowSectionView()
             }
@@ -324,7 +324,7 @@ extension MainScreenViewController: MainScreenViewControllerProtocol {
             switch result {
             case .success(let results):
                 if let recipes = results.recipes {
-                    self.presenter.recentRecipe = recipes
+                    self.presenter.randomRecipe = recipes
                     DispatchQueue.main.async {
                         self.recipesTableView.reloadData()
                     }

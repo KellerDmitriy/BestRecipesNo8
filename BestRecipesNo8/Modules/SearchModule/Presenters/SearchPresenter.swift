@@ -9,16 +9,19 @@ import Foundation
 
 final class SearchPresenter: SearchPresenterProtocol {
     var view: SearchViewProtocol?
-    var route: SearchRouterProtocol?
-    var networkManager: NetworkManager?
+    var router: RouterProtocol?
+
+    var networkManager = NetworkManager.shared
+    var realmStorageManager = RealmStorageManager.shared
    
     var savedRecipesId: [Int] = []
     var searchedRecipes: [SearchRecipe] = []
-    
-    
-    init(view: SearchViewProtocol, route: SearchRouterProtocol) {
+
+    required init(view: SearchViewProtocol, networkManager: NetworkManager, realmStorageManager: RealmStorageManager, router: RouterProtocol) {
         self.view = view
-        self.route = route
+        self.networkManager = networkManager
+        self.realmStorageManager = realmStorageManager
+        self.router = router
     }
     
     func searchRecipes(with searchText: String) {
@@ -26,7 +29,7 @@ final class SearchPresenter: SearchPresenterProtocol {
             view?.updateSearchResults(with: [])
             return
         }
-        networkManager?.getSearchRecipes(for: searchText) { [weak self] result in
+        networkManager.getSearchRecipes(for: searchText) { [weak self] result in
             switch result {
             case .success(let recipes):
                 var models: [SearchRecipe] = []

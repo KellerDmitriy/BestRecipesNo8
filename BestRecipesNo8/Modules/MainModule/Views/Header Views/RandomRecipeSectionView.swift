@@ -1,5 +1,5 @@
 //
-//  RecentRecipeSectionView.swift
+//  RandomRecipeSectionView.swift
 //  BestRecipesNo8
 //
 //  Created by Aleksandr Garipov on 30.08.2023.
@@ -7,14 +7,14 @@
 
 import UIKit
 
-final class RecentRecipeSectionView: UIView {
+final class RandomRecipeSectionView: UIView {
     
     
     //MARK: - UIElements:
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Recent recipe"
+        label.text = "Random recipe"
         label.font = UIFont(name: "Poppins-Bold", size: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

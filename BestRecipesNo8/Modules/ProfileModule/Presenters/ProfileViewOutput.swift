@@ -7,4 +7,4 @@
 
 import Foundation
 
-protocol ProfileViewOutput {}
+protocol ProfilePresenterProtocol {}

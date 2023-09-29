@@ -10,7 +10,7 @@ import SnapKit
 
 final class ProfileView: UIViewController {
     
-    private let presenter: ProfilePresenter
+    var presenter: ProfilePresenter!
     private let recipes = ProfileModel.shared.getData()
     
     // MARK: - Views
@@ -23,18 +23,8 @@ final class ProfileView: UIViewController {
     private lazy var recipesTitle: UILabel = _recipesTitle
     private lazy var collectionView: UICollectionView = _collectionView
     
-    private let heightOfCollectionView: Int
+    private var heightOfCollectionView: Int!
     
-    // MARK: - Init
-    init(presenter: ProfilePresenter) {
-        self.presenter = presenter
-        heightOfCollectionView = 200 * recipes.count
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -43,6 +33,7 @@ final class ProfileView: UIViewController {
         addTapedImageView()
         addSubviews()
         applyConstraints()
+        heightOfCollectionView = 200 * recipes.count
     }
     
     // MARK: - Methods with Image

@@ -8,9 +8,17 @@
 import Foundation
 
 protocol SeeAllPresenterProtocol: AnyObject {
-    var trendingNowRecipes: [RecipeInfo] { get }
-    var router: SeeAllRouterProtocol { get }
-
+    var seeAllRecipes: [RecipeInfo] { get }
+    var router: RouterProtocol? { get set }
+    
+    init(
+        view: SeeAllViewProtocol,
+        networkManager: NetworkManager,
+        realmStoredManager: RealmStorageManager,
+        router: RouterProtocol,
+        recipes: [RecipeInfo]
+    )
+    
     func cellTapped()
     func saveButtonTapped()
 }

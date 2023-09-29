@@ -7,12 +7,11 @@
 
 import Foundation
 
-protocol SearchPresenterProtocol {
-    var networkManager: NetworkManager? { get set }
-    var view: SearchViewProtocol? { get set }
-    var route: SearchRouterProtocol? { get set }
+protocol SearchPresenterProtocol: AnyObject {
     var savedRecipesId: [Int] { get set }
     var searchedRecipes: [SearchRecipe] { get set}
+    
+    init(view: SearchViewProtocol, networkManager: NetworkManager, realmStorageManager: RealmStorageManager, router: RouterProtocol)
     
     func searchRecipes(with searchText: String)
 }

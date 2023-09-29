@@ -9,6 +9,8 @@ import UIKit
 
 class CreateViewController: UIViewController {
     
+    var presenter: CreateRecipePresenterProtocol!
+    
     // MARK: - Private Properties
     
     private lazy var savedRecipesTitle: UILabel = {
@@ -110,7 +112,7 @@ class CreateViewController: UIViewController {
     
     // MARK: - Variable Properties
     
-    private let presenter: CreateRecipePresenterProtocol
+   
         
     private var activeTextField: UITextField? = nil
     private var rows = 1
@@ -118,16 +120,6 @@ class CreateViewController: UIViewController {
     private var titleNewRecipe = ""
     private var ingredients: [String: String] = [:]
     
-    // MARK: - Initial
-    
-    init(presenter: CreateRecipePresenterProtocol) {
-        self.presenter = presenter
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     // MARK: - Life View Cycle
     

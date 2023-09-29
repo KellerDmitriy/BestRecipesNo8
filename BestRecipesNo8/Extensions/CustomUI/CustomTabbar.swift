@@ -9,12 +9,13 @@ import UIKit
 
 final class CustomTabBar: UITabBarController {
     
+    var router: RouterProtocol!
+    var assemblyBuilder: AssemblyBuilderProtocol!
     
     // MARK: - Views
     private lazy var backgroundShadowImageView: UIImageView = _backgroundShadowImageView
     private lazy var backgroundImageView: UIImageView = _backgroundImageView
     private lazy var createButton: UIButton = _createButton
-    
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -24,37 +25,30 @@ final class CustomTabBar: UITabBarController {
         setupSubviews()
         applyConstraints()
         assignTabBarModules()
-        
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        for item in tabBar.items ?? [] {
-            item.title = ""
-        }
-    }
+    
     // MARK: - Create Button Method
     @objc private func createButtonIsTapped(_ sender: UIButton) {
-        let view = CreateViewBuilder.createCreateModule()
+        guard let view = router.assemblyBuilder?.createCreateModule(router: router) else { return }
         navigationController?.pushViewController(view, animated: true)
     }
     
     // MARK: - TabBarItem setup a controller and images
     private func assignTabBarModules() {
-        let mainVC = UINavigationController(rootViewController: MainScreenBuilder.createMainScreenViewController())
-            let discoverVC = UINavigationController(rootViewController: SavedRecipesBuilder.createSavedRecipesModule())
-        let notificationVC = UINavigationController(rootViewController: HomeBuilder.createHomeModule())
-            let profileVC = UINavigationController(rootViewController: ProfileBuilder.createProfileModule())
+        let mainVC = assemblyBuilder.createMainModule(router: router)
+        let savedRecipesVC = assemblyBuilder.createSavedRecipesModule(router: router)
+        let homeVC = assemblyBuilder.createMainModule(router: router)
+        let profileVC = assemblyBuilder.createProfileModule(router: router)
         
         mainVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "main")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "mainSelect")?.withRenderingMode(.alwaysOriginal))
         
-        discoverVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "bookmark")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "bookmarkSelect")?.withRenderingMode(.alwaysOriginal))
+        savedRecipesVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "bookmark")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "bookmarkSelect")?.withRenderingMode(.alwaysOriginal))
         
-        notificationVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "notification")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "notificationSelect")?.withRenderingMode(.alwaysOriginal))
+        homeVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "bookmark")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "bookmarkSelect")?.withRenderingMode(.alwaysOriginal))
         
         profileVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "profile")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "profileSelect")?.withRenderingMode(.alwaysOriginal))
         
-        setViewControllers([mainVC, discoverVC, notificationVC, profileVC], animated: true)
+        setViewControllers([mainVC, savedRecipesVC, homeVC, profileVC], animated: true)
     }
     // MARK: - Subviews
     private func setupSubviews() {

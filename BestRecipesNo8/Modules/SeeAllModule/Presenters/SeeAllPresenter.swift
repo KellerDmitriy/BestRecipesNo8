@@ -8,6 +8,23 @@
 import Foundation
 
 final class SeeAllPresenter: SeeAllPresenterProtocol {
+
+    //MARK: - Properties
+    weak var view: SeeAllViewProtocol?
+    let networkManager: NetworkManager?
+    let realmStoredManager: RealmStorageManager?
+    var router: RouterProtocol?
+    var seeAllRecipes: [RecipeInfo]
+
+    required init(view:SeeAllViewProtocol, networkManager: NetworkManager, realmStoredManager: RealmStorageManager, router: RouterProtocol, recipes: [RecipeInfo]) {
+        self.networkManager = networkManager
+        self.realmStoredManager = realmStoredManager
+        self.router = router
+        self.seeAllRecipes = recipes
+    }
+}
+
+extension SeeAllPresenter {
     func cellTapped() {
         //
     }
@@ -15,35 +32,4 @@ final class SeeAllPresenter: SeeAllPresenterProtocol {
     func saveButtonTapped() {
         //
     }
-    
-    
-    //MARK: - Properties
-    
-    var trendingNowRecipes: [RecipeInfo] = []
-    
-    weak var view: SeeAllViewProtocol?
-    var router: SeeAllRouterProtocol
-
-    init(router: SeeAllRouterProtocol, recipes: [RecipeInfo]) {
-        
-        self.router = router
-        self.trendingNowRecipes = recipes
-    }
 }
-
-//extension SeeAllPresenter: SeeAllPresenterProtocol {
-//
-//    func saveButtonTapped() {
-//        //
-//    }
-//
-//    func fetchData(for category: String) {
-//        //
-//    }
-//
-////    func cellTapped() {
-////        self.router.routeToRecipeDetailScreen(recipe: <#T##RecipeInfo#>)
-////    }
-//
-//
-//}

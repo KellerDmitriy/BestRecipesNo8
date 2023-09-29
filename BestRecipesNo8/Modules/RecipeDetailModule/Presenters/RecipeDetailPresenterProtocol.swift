@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol RecipePresenterProtocol: AnyObject {
+protocol RecipeDetailPresenterProtocol: AnyObject {
     
 }

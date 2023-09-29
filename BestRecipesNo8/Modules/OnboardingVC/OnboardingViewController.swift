@@ -11,7 +11,7 @@ import SnapKit
 class OnboardingViewController: UIViewController {
     
     let defaults = UserDefaults.standard
-    
+    let router = RouterProtocol.self
     // MARK: - Properties
     
     lazy var nextButton: CustomButton = {
