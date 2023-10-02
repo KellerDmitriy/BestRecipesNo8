@@ -34,7 +34,7 @@ final class SearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = "Get amazing recipes for cooking"
+        navigationItem.title = "Get amazing recipes for cooking"
         setupUI()
     }
 }

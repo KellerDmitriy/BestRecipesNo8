@@ -8,14 +8,12 @@
 import UIKit
 
 protocol MainRouterProtocol {
-    var tabBarController: CustomTabBar? { get set }
     var navigationController: UINavigationController? { get set }
-    var assemblyBuilder: AssemblyBuilderProtocol? { get set }
+    var assemblyBuilder: AssemblyBuilderProtocol { get set }
 }
 
 protocol RouterProtocol: MainRouterProtocol {
-    func routeToInitialVC()
-    func popToRoot()
+    func popToRoot<T: UIViewController>(_ viewController: T, animated: Bool)
     func routeToMainScreen()
     func routeToSeeAllScreen(recipes: [RecipeInfo])
     func routeToRecipeDetailScreen(recipe: RecipeInfo)

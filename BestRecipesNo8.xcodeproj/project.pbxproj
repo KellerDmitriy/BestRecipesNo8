@@ -95,7 +95,7 @@
 		E1C979072A9B83CC003BDC4A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E1C979062A9B83CC003BDC4A /* Kingfisher */; };
 		E1D1FDDF2AB7B07D00396F84 /* CreateRecipePresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D1FDDE2AB7B07D00396F84 /* CreateRecipePresenterProtocol.swift */; };
 		E1D8034F2AA5DE7E008A8D7E /* SeeAllModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D8034E2AA5DE7E008A8D7E /* SeeAllModel.swift */; };
-		E1E240C72AA3A8F1003803E5 /* CustomTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E240C62AA3A8F1003803E5 /* CustomTabbar.swift */; };
+		E1E240C72AA3A8F1003803E5 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E240C62AA3A8F1003803E5 /* CustomTabBarController.swift */; };
 		E1ED06862ABB86A20046C466 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ED06852ABB86A20046C466 /* SearchVC.swift */; };
 		E1ED06942ABB88B90046C466 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ED06932ABB88B90046C466 /* SearchPresenter.swift */; };
 		E1ED06972ABB88DA0046C466 /* SearchPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ED06962ABB88DA0046C466 /* SearchPresenterProtocol.swift */; };
@@ -104,6 +104,7 @@
 		E1ED069F2AC5DC7C0046C466 /* AssemblyBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ED069E2AC5DC7C0046C466 /* AssemblyBuilder.swift */; };
 		E1ED06A12AC5DEDB0046C466 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ED06A02AC5DEDB0046C466 /* RouterProtocol.swift */; };
 		E1ED06A42AC5DF050046C466 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ED06A32AC5DF050046C466 /* Router.swift */; };
+		E1FA8C0E2ACB5C6C0003DA61 /* DependencyContainerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FA8C0D2ACB5C6C0003DA61 /* DependencyContainerManager.swift */; };
 		E2130CCB2A9F09C900C3404E /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E11675A12A9BF5E100C6ED88 /* Poppins-Bold.ttf */; };
 		E2130CCC2A9F09CC00C3404E /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E11675A82A9BFECA00C6ED88 /* Poppins-Regular.ttf */; };
 		E2130CCE2A9F0AE700C3404E /* PopularCategorySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2130CCD2A9F0AE700C3404E /* PopularCategorySectionView.swift */; };
@@ -120,7 +121,7 @@
 		E223A84B2A9E1E54007E8C0E /* TrendingCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223A84A2A9E1E54007E8C0E /* TrendingCollectionTableViewCell.swift */; };
 		E223A8502A9E2A64007E8C0E /* TrendingNowSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223A84F2A9E2A64007E8C0E /* TrendingNowSectionView.swift */; };
 		E223A8522A9E3E98007E8C0E /* PopularCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E223A8512A9E3E98007E8C0E /* PopularCategoryTableViewCell.swift */; };
-		E29809972A9BA068002121A5 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29809962A9BA068002121A5 /* MainScreenViewController.swift */; };
+		E29809972A9BA068002121A5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29809962A9BA068002121A5 /* MainViewController.swift */; };
 		E298099A2A9BA977002121A5 /* ReuseIdentifierProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29809992A9BA977002121A5 /* ReuseIdentifierProtocol.swift */; };
 		E298099C2A9BA98A002121A5 /* UICollectionViewCell + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E298099B2A9BA98A002121A5 /* UICollectionViewCell + Ext.swift */; };
 /* End PBXBuildFile section */
@@ -212,7 +213,7 @@
 		E1C978F42A9B5A09003BDC4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1D1FDDE2AB7B07D00396F84 /* CreateRecipePresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipePresenterProtocol.swift; sourceTree = "<group>"; };
 		E1D8034E2AA5DE7E008A8D7E /* SeeAllModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllModel.swift; sourceTree = "<group>"; };
-		E1E240C62AA3A8F1003803E5 /* CustomTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabbar.swift; sourceTree = "<group>"; };
+		E1E240C62AA3A8F1003803E5 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		E1ED06852ABB86A20046C466 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		E1ED06932ABB88B90046C466 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
 		E1ED06962ABB88DA0046C466 /* SearchPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenterProtocol.swift; sourceTree = "<group>"; };
@@ -221,6 +222,7 @@
 		E1ED069E2AC5DC7C0046C466 /* AssemblyBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyBuilder.swift; sourceTree = "<group>"; };
 		E1ED06A02AC5DEDB0046C466 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
 		E1ED06A32AC5DF050046C466 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		E1FA8C0D2ACB5C6C0003DA61 /* DependencyContainerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainerManager.swift; sourceTree = "<group>"; };
 		E2130CCD2A9F0AE700C3404E /* PopularCategorySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCategorySectionView.swift; sourceTree = "<group>"; };
 		E2130CCF2A9F6C0700C3404E /* RandomRecipeSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRecipeSectionView.swift; sourceTree = "<group>"; };
 		E2130CD12A9F6CBE00C3404E /* RecentRecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRecipeCell.swift; sourceTree = "<group>"; };
@@ -235,7 +237,7 @@
 		E223A84A2A9E1E54007E8C0E /* TrendingCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCollectionTableViewCell.swift; sourceTree = "<group>"; };
 		E223A84F2A9E2A64007E8C0E /* TrendingNowSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingNowSectionView.swift; sourceTree = "<group>"; };
 		E223A8512A9E3E98007E8C0E /* PopularCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCategoryTableViewCell.swift; sourceTree = "<group>"; };
-		E29809962A9BA068002121A5 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
+		E29809962A9BA068002121A5 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E29809992A9BA977002121A5 /* ReuseIdentifierProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifierProtocol.swift; sourceTree = "<group>"; };
 		E298099B2A9BA98A002121A5 /* UICollectionViewCell + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell + Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -583,7 +585,6 @@
 				E223A8442A9DB990007E8C0E /* UIImage + Ext.swift */,
 				28344DAD2A9E5519000D7554 /* UILabel + Extension.swift */,
 				28344DC32A9F72B4000D7554 /* UIImage + Extension.swift */,
-				E1ABBEAC2A9DEFF70021E624 /* UIImage + TabBar.swift */,
 				90D5FEAD2AA28332002A74B0 /* UIView + Extension.swift */,
 				28183B822AAD933A000E3EB9 /* AlertController + Extension.swift */,
 			);
@@ -620,7 +621,6 @@
 		E1ABBEAE2A9E09570021E624 /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
-				E1E240C62AA3A8F1003803E5 /* CustomTabbar.swift */,
 				E1ABBEB72AA059EE0021E624 /* CustomButton.swift */,
 				90D5FE692AA0B26F002A74B0 /* CustomNavigationController.swift */,
 				E1A026612AAB5D560085289E /* CustomAddButton.swift */,
@@ -650,12 +650,9 @@
 		E1C978E52A9B5A09003BDC4A /* BestRecipesNo8 */ = {
 			isa = PBXGroup;
 			children = (
-				E1ED069D2AC5DC520046C466 /* AssemblyBuilders */,
-				E1ED06A22AC5DEE10046C466 /* Routers */,
+				E1FA8C0C2ACB5C410003DA61 /* Managers */,
 				E1C979042A9B7EC9003BDC4A /* Modules */,
 				283A2D622A9D338F00A70257 /* Models */,
-				283A2D592A9D330F00A70257 /* NetworkManager */,
-				28183B7D2AAD92A2000E3EB9 /* StorageManager */,
 				E116755F2A9BBAEF00C6ED88 /* Extensions */,
 				E1C978FA2A9B5AC2003BDC4A /* App */,
 				E11675A02A9BF59B00C6ED88 /* Resources */,
@@ -677,14 +674,15 @@
 		E1C979042A9B7EC9003BDC4A /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E1FA8C0B2AC8CF650003DA61 /* TabBarVC */,
 				84AF912A2AA7D617007F5854 /* OnboardingVC */,
 				E29809952A9BA037002121A5 /* MainModule */,
 				9061073E2AB46EE100CB96BF /* HomeModule */,
 				E1ED06872ABB86A80046C466 /* SearchModule */,
 				28344DA82A9E54A9000D7554 /* SeeAllModule */,
 				90D5FE6B2AA0B295002A74B0 /* RecipeDetailModule */,
-				90D5FE952AA1F93B002A74B0 /* ProfileModule */,
 				90733BC62AA31BCB00D65897 /* SavedRecipesModule */,
+				90D5FE952AA1F93B002A74B0 /* ProfileModule */,
 				28183B842AADA261000E3EB9 /* CreateModule */,
 			);
 			path = Modules;
@@ -768,13 +766,34 @@
 			path = Routers;
 			sourceTree = "<group>";
 		};
+		E1FA8C0B2AC8CF650003DA61 /* TabBarVC */ = {
+			isa = PBXGroup;
+			children = (
+				E1E240C62AA3A8F1003803E5 /* CustomTabBarController.swift */,
+				E1ABBEAC2A9DEFF70021E624 /* UIImage + TabBar.swift */,
+			);
+			path = TabBarVC;
+			sourceTree = "<group>";
+		};
+		E1FA8C0C2ACB5C410003DA61 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				E1ED069D2AC5DC520046C466 /* AssemblyBuilders */,
+				E1ED06A22AC5DEE10046C466 /* Routers */,
+				283A2D592A9D330F00A70257 /* NetworkManager */,
+				28183B7D2AAD92A2000E3EB9 /* StorageManager */,
+				E1FA8C0D2ACB5C6C0003DA61 /* DependencyContainerManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		E2130CD62AA0B8DC00C3404E /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				E223A84E2A9E29DB007E8C0E /* Header Views */,
 				E223A84D2A9E286A007E8C0E /* ColletionCells */,
 				E223A84C2A9E284D007E8C0E /* TableViewCells */,
-				E29809962A9BA068002121A5 /* MainScreenViewController.swift */,
+				E29809962A9BA068002121A5 /* MainViewController.swift */,
 				E2130CDA2AA0B96900C3404E /* MainViewControllerProtocol.swift */,
 			);
 			path = Views;
@@ -936,7 +955,7 @@
 				9061075C2AB46EE100CB96BF /* MockData.swift in Sources */,
 				906107662AB46EE100CB96BF /* HomeViewProtocol.swift in Sources */,
 				E1ABBEAD2A9DEFF70021E624 /* UIImage + TabBar.swift in Sources */,
-				E29809972A9BA068002121A5 /* MainScreenViewController.swift in Sources */,
+				E29809972A9BA068002121A5 /* MainViewController.swift in Sources */,
 				28183B9C2AADA35A000E3EB9 /* IngredientTableViewCell.swift in Sources */,
 				E2130CD42A9F6DB400C3404E /* RandomRecipeTableViewCell.swift in Sources */,
 				E1D1FDDF2AB7B07D00396F84 /* CreateRecipePresenterProtocol.swift in Sources */,
@@ -946,7 +965,7 @@
 				E1C978E72A9B5A09003BDC4A /* AppDelegate.swift in Sources */,
 				E223A84B2A9E1E54007E8C0E /* TrendingCollectionTableViewCell.swift in Sources */,
 				9061075A2AB46EE100CB96BF /* PopularCategoryPreview.swift in Sources */,
-				E1E240C72AA3A8F1003803E5 /* CustomTabbar.swift in Sources */,
+				E1E240C72AA3A8F1003803E5 /* CustomTabBarController.swift in Sources */,
 				90733BDD2AA31D2700D65897 /* SavedRecipesViewProtocol.swift in Sources */,
 				E2130CD02A9F6C0700C3404E /* RandomRecipeSectionView.swift in Sources */,
 				90D5FEA22AA1F9F6002A74B0 /* ProfilePresenter.swift in Sources */,
@@ -954,6 +973,7 @@
 				90D5FE812AA0B295002A74B0 /* RecipeViewProtocol.swift in Sources */,
 				28344DAE2A9E5519000D7554 /* UILabel + Extension.swift in Sources */,
 				9061075D2AB46EE100CB96BF /* HomeSections.swift in Sources */,
+				E1FA8C0E2ACB5C6C0003DA61 /* DependencyContainerManager.swift in Sources */,
 				E2130CE52AA3488400C3404E /* PopularCategoryHeaderCell.swift in Sources */,
 				90D5FEA82AA1FA2C002A74B0 /* ProfileViewOutput.swift in Sources */,
 				283A2D642A9D33A200A70257 /* Constants.swift in Sources */,

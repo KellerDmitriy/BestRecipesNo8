@@ -44,5 +44,21 @@ final class SearchPresenter: SearchPresenterProtocol {
             }
         }
     }
+//    func fetchSearchedRecipe(with searchText: String) {
+//        networkManager.getSearchRecipes(for: searchText) { [weak self] result in
+//            switch result {
+//            case .success(let recipes):
+//                var models: [SearchRecipe] = []
+//                recipes.results?.forEach { recipe in
+//                    guard let title = recipe.title, let image = recipe.image else { return }
+//                    models.append(SearchRecipe(id: recipe.id, title: title, image: image))
+//                }
+//                self?.view?.configureSearchResults(models: models)
+//                
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+//    }
 }
 

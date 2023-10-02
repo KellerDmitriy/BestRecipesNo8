@@ -21,9 +21,7 @@ final class MainPresenter: MainPresenterProtocol {
     var savedRecipesId: [Int] = []
     var savedRecipes: [RecipeRealmModel] = []
     
-    var searchedRecipes: [SearchRecipe] = []
-    
-    var router: RouterProtocol?
+    var router: RouterProtocol
     
     //MARK: LifeCycle 
     
@@ -36,11 +34,11 @@ final class MainPresenter: MainPresenterProtocol {
     }
     
     func seeAllButtonTapped() {
-        self.router?.routeToSeeAllScreen(recipes: trendingNowRecipes)
+        self.router.routeToSeeAllScreen(recipes: trendingNowRecipes)
     }
     
     func seeAllRandomSectionButtonTapped() {
-        self.router?.routeToSeeAllScreen(recipes: randomRecipe)
+        self.router.routeToSeeAllScreen(recipes: randomRecipe)
     }
     
     func updateRecipeInSavedRecipes(recipe: RecipeInfo) {
@@ -58,32 +56,13 @@ final class MainPresenter: MainPresenterProtocol {
     func deleteRecipeInFavorites(recipe: RecipeInfo) {
         let id = recipe.id
         savedRecipesId.removeAll { $0 == id }
-        
         realmStoredManager.deleteRecipeFromRealm(with: id)
     }
     
     func saveRecipeInFavorites(recipe: RecipeInfo) {
         let id = recipe.id
         let realmRecipe = RecipeRealmModel(value: ["id": id])
-        
         realmStoredManager.save(savedRecipes)
-    }
-    
-    func fetchSearchedRecipe(with searchText: String) {
-        networkManager.getSearchRecipes(for: searchText) { [weak self] result in
-            switch result {
-            case .success(let recipes):
-                var models: [SearchRecipe] = []
-                recipes.results?.forEach { recipe in
-                    guard let title = recipe.title, let image = recipe.image else { return }
-                    models.append(SearchRecipe(id: recipe.id, title: title, image: image))
-                }
-                self?.view?.configureSearchResults(models: models)
-                
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
 }
 
@@ -91,9 +70,8 @@ extension MainPresenter: PopularCategoryDelegate {
     func sectCell(recipe: RecipeInfo) {
 #warning("CREATE Detail module here!")
         print(recipe)
-        router?.routeToRecipeDetailScreen(recipe: recipe)
+        router.routeToRecipeDetailScreen(recipe: recipe)
     }
-    
     
     func getRecipesWithMealType(mealType: String) {
         networkManager.getTenRecipesWithMealType(for: mealType) { result in
