@@ -10,17 +10,18 @@ import SnapKit
 
 final class SearchVC: UIViewController {
     
+    var presenter: SearchPresenter!
     //MARK: Private properties
+    private var timer: Timer?
+    private let networkManager = NetworkManager.shared
+
     private var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.obscuresBackgroundDuringPresentation = false
         return searchController
     }()
     
-    private var timer: Timer?
-    private let networkManager = NetworkManager.shared
-    private var searchedRecipes: [SearchRecipe] = []
-    
+
     let searchTableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +34,7 @@ final class SearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = "Get amazing recipes for cooking"
+        navigationItem.title = "Get amazing recipes for cooking"
         setupUI()
     }
 }
@@ -43,13 +44,13 @@ final class SearchVC: UIViewController {
 extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        searchedRecipes.count
+        presenter.searchedRecipes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "MainTableViewCell", for: indexPath) as? SearchViewCell else { return UITableViewCell() }
         cell.configure(
-            model: searchedRecipes[indexPath.row])
+            model: presenter.searchedRecipes[indexPath.row])
         cell.selectionStyle = .none
         return cell
     }
@@ -94,12 +95,12 @@ extension SearchVC {
     // MARK: - Private methods
     
     func configure(models: [SearchRecipe]) {
-        searchedRecipes = models
+        presenter.searchedRecipes = models
     }
     
     func updateSearchTableView() {
         DispatchQueue.main.async {
-            self.configure(models: self.searchedRecipes)
+            self.configure(models: self.presenter.searchedRecipes)
             self.searchTableView.reloadData()
         }
     }
@@ -125,7 +126,7 @@ extension SearchVC: UISearchBarDelegate {
         guard searchText.isEmpty else { return }
         
         searchController.isActive = false
-        searchedRecipes = []
+        presenter.searchedRecipes = []
         updateSearchTableView()
     }
 }
@@ -169,7 +170,7 @@ extension SearchVC: SearchViewProtocol {
                         guard let title = recipe.title, let image = recipe.image else { return }
                         models.append(SearchRecipe(id: recipe.id, title: title, image: image))
                     })
-                    self?.searchedRecipes = models
+                    self?.presenter.searchedRecipes = models
                     print(models)
                     
                     self?.updateSearchTableView()

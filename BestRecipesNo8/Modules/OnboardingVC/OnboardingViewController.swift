@@ -11,7 +11,7 @@ import SnapKit
 class OnboardingViewController: UIViewController {
     
     let defaults = UserDefaults.standard
-    
+    let router = RouterProtocol.self
     // MARK: - Properties
     
     lazy var nextButton: CustomButton = {
@@ -116,9 +116,13 @@ class OnboardingViewController: UIViewController {
     }
     
     @objc private func pushViewController() {
-        let tabbarVC = CustomTabBar()
+        let assemblyBuilder = AssemblyBuilder()
+        let navigationController = UINavigationController()
+        let router = Router(assemblyBuilder: assemblyBuilder, navigationController: navigationController)
+        let tabbarVC = CustomTabBarController(assemblyBuilder: assemblyBuilder, router: router)
         UserDefaults.standard.set(false, forKey: "showOnboarding")
-        navigationController?.setViewControllers([tabbarVC], animated: true)
+        navigationController.setViewControllers([tabbarVC], animated: true)
+        navigationController.navigationBar.isHidden = true
     }
     
     // MARK: - Hierarchy

@@ -9,28 +9,26 @@ import Foundation
 
 final class MainPresenter: MainPresenterProtocol {
     
-    
-
     weak var view: MainScreenViewControllerProtocol?
     
+    var networkManager = NetworkManager.shared
     var realmStoredManager = RealmStorageManager.shared
     
     var trendingNowRecipes: [RecipeInfo] = []
     var popularCategoryRecipes: [RecipeInfo] = []
-    var recentRecipe: [RecipeInfo] = []
-    var networkManager = NetworkManager.shared
+    var randomRecipe: [RecipeInfo] = []
     
     var savedRecipesId: [Int] = []
     var savedRecipes: [RecipeRealmModel] = []
     
-    var searchedRecipes: [SearchRecipe] = []
+    var router: RouterProtocol
     
-    private let router: MainRouterProtocol
+    //MARK: LifeCycle 
     
-    //MARK: LifeCycle
-    
-    required init(view: MainScreenViewControllerProtocol, realmStoredManager: RealmStorageManager, router: MainRouterProtocol) {
+    required init(view: MainScreenViewControllerProtocol, networkManager: NetworkManager, realmStoredManager: RealmStorageManager, router: RouterProtocol) {
+        
         self.view = view
+        self.networkManager = networkManager
         self.router = router
         self.savedRecipesId = Array(realmStoredManager.read().map { $0.id })
     }
@@ -39,8 +37,8 @@ final class MainPresenter: MainPresenterProtocol {
         self.router.routeToSeeAllScreen(recipes: trendingNowRecipes)
     }
     
-    func seeAllRecipeSectionButtonTapped() {
-        self.router.routeToSeeAllScreen(recipes: recentRecipe)
+    func seeAllRandomSectionButtonTapped() {
+        self.router.routeToSeeAllScreen(recipes: randomRecipe)
     }
     
     func updateRecipeInSavedRecipes(recipe: RecipeInfo) {
@@ -58,32 +56,13 @@ final class MainPresenter: MainPresenterProtocol {
     func deleteRecipeInFavorites(recipe: RecipeInfo) {
         let id = recipe.id
         savedRecipesId.removeAll { $0 == id }
-        
         realmStoredManager.deleteRecipeFromRealm(with: id)
     }
     
     func saveRecipeInFavorites(recipe: RecipeInfo) {
         let id = recipe.id
         let realmRecipe = RecipeRealmModel(value: ["id": id])
-        
         realmStoredManager.save(savedRecipes)
-    }
-    
-    func fetchSearchedRecipe(with searchText: String) {
-        networkManager.getSearchRecipes(for: searchText) { [weak self] result in
-            switch result {
-            case .success(let recipes):
-                var models: [SearchRecipe] = []
-                recipes.results?.forEach { recipe in
-                    guard let title = recipe.title, let image = recipe.image else { return }
-                    models.append(SearchRecipe(id: recipe.id, title: title, image: image))
-                }
-                self?.view?.configureSearchResults(models: models)
-                
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
 }
 
@@ -93,7 +72,6 @@ extension MainPresenter: PopularCategoryDelegate {
         print(recipe)
         router.routeToRecipeDetailScreen(recipe: recipe)
     }
-    
     
     func getRecipesWithMealType(mealType: String) {
         networkManager.getTenRecipesWithMealType(for: mealType) { result in

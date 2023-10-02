@@ -1,5 +1,5 @@
 //
-//  CustomTabBar.swift
+//  CustomTabBarController.swift
 //  BestRecipesNo8
 //
 //  Created by Мявкo on 31.08.23.
@@ -7,14 +7,25 @@
 
 import UIKit
 
-final class CustomTabBar: UITabBarController {
+final class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
     
+    let assemblyBuilder: AssemblyBuilderProtocol
+    let router: RouterProtocol
+
+    init(assemblyBuilder: AssemblyBuilderProtocol, router: RouterProtocol) {
+        self.assemblyBuilder = assemblyBuilder
+        self.router = router
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Views
     private lazy var backgroundShadowImageView: UIImageView = _backgroundShadowImageView
     private lazy var backgroundImageView: UIImageView = _backgroundImageView
     private lazy var createButton: UIButton = _createButton
-    
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -24,37 +35,30 @@ final class CustomTabBar: UITabBarController {
         setupSubviews()
         applyConstraints()
         assignTabBarModules()
-        
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        for item in tabBar.items ?? [] {
-            item.title = ""
-        }
-    }
+    
     // MARK: - Create Button Method
     @objc private func createButtonIsTapped(_ sender: UIButton) {
-        let view = CreateViewBuilder.createCreateModule()
+        let view = assemblyBuilder.createCreateModule(router: router)
         navigationController?.pushViewController(view, animated: true)
     }
     
     // MARK: - TabBarItem setup a controller and images
     private func assignTabBarModules() {
-        let mainVC = UINavigationController(rootViewController: MainScreenBuilder.createMainScreenViewController())
-            let discoverVC = UINavigationController(rootViewController: SavedRecipesBuilder.createSavedRecipesModule())
-        let notificationVC = UINavigationController(rootViewController: HomeBuilder.createHomeModule())
-            let profileVC = UINavigationController(rootViewController: ProfileBuilder.createProfileModule())
+        let mainVC = assemblyBuilder.createMainModule(router: router)
+        let SavedRecipe = assemblyBuilder.createSavedRecipesModule(router: router)
+        let notificationVC = assemblyBuilder.createSearchModule(router: router)
+        let profileVC = assemblyBuilder.createProfileModule(router: router)
         
-        mainVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "main")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "mainSelect")?.withRenderingMode(.alwaysOriginal))
+        mainVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "main")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "mainSelect")?.withRenderingMode(.alwaysOriginal))
         
-        discoverVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "bookmark")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "bookmarkSelect")?.withRenderingMode(.alwaysOriginal))
+        SavedRecipe.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "bookmark")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "bookmarkSelect")?.withRenderingMode(.alwaysOriginal))
         
-        notificationVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "notification")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "notificationSelect")?.withRenderingMode(.alwaysOriginal))
+        notificationVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "notification")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "notificationSelect")?.withRenderingMode(.alwaysOriginal))
         
-        profileVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "profile")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "profileSelect")?.withRenderingMode(.alwaysOriginal))
+        profileVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "profile")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "profileSelect")?.withRenderingMode(.alwaysOriginal))
         
-        setViewControllers([mainVC, discoverVC, notificationVC, profileVC], animated: true)
+        setViewControllers([mainVC, SavedRecipe, notificationVC, profileVC], animated: true)
     }
     // MARK: - Subviews
     private func setupSubviews() {
@@ -86,7 +90,7 @@ final class CustomTabBar: UITabBarController {
 }
 
 // MARK: - Extension for setup elements
-private extension CustomTabBar {
+private extension CustomTabBarController {
     
     var _backgroundShadowImageView: UIImageView {
         let imageView = UIImageView()
@@ -106,6 +110,4 @@ private extension CustomTabBar {
         button.addTarget(self, action: #selector(createButtonIsTapped), for: .touchUpInside)
         return button
     }
-    
-    
 }

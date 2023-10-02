@@ -10,23 +10,13 @@ import SnapKit
 
 final class SavedRecipesView: UIViewController {
     
-    private let presenter: SavedRecipesPresenterProtocol
-    private var savedRecipes: [RecipeRealmModel] = []
-    
+    var presenter: SavedRecipesPresenterProtocol!
+ 
     // MARK: - Views
     
     private lazy var savedRecipesTitle: UILabel = _savedRecipesTitle
     private lazy var tableView: UITableView = _tableView
     
-    // MARK: - Init
-    init(presenter: SavedRecipesPresenter) {
-        self.presenter = presenter
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -109,7 +99,7 @@ extension SavedRecipesView: SavedRecipesViewProtocol {
     
     func animateTableView() {
         tableView.reloadData()
-        if !savedRecipes.isEmpty{
+        if !presenter.savedRecipes.isEmpty{
             let cells = tableView.visibleCells
             let tableViewHeight = tableView.bounds.height
             var delay: Double = 0

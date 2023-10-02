@@ -1,5 +1,5 @@
 //
-//  RecipePresenter.swift
+//  RecipeDetailPresenter.swift
 //  BestRecipesNo8
 //
 //  Created by Мявкo on 28.08.23.
@@ -7,13 +7,14 @@
 
 import Foundation
 
-final class RecipePresenter: RecipePresenterProtocol {
+final class RecipeDetailPresenter: RecipeDetailPresenterProtocol {
     
     weak var view: RecipeViewProtocol?
     
     let recipe: RecipeInfo
 
-    init(recipe: RecipeInfo) {
+    init(view: RecipeViewProtocol, recipe: RecipeInfo) {
+        self.view = view
         self.recipe = recipe
     }
     

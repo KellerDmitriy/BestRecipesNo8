@@ -9,8 +9,9 @@ import UIKit
 
 class SeeAllViewController: UIViewController {
     
+    var presenter: SeeAllPresenterProtocol!
+    
     // MARK: - Private Properties
-    private let presenter: SeeAllPresenterProtocol
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
@@ -19,16 +20,6 @@ class SeeAllViewController: UIViewController {
         return collectionView
     }()
     
-    // MARK: - Init
-    
-    init(presenter: SeeAllPresenterProtocol) {
-        self.presenter = presenter
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     // MARK: - Life View Cycle
     
     override func viewDidLoad() {
@@ -76,7 +67,7 @@ class SeeAllViewController: UIViewController {
 extension SeeAllViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.presenter.trendingNowRecipes.count
+        self.presenter.seeAllRecipes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -86,7 +77,7 @@ extension SeeAllViewController: UICollectionViewDataSource {
         else {
             return UICollectionViewCell()
         }
-        let recipe = self.presenter.trendingNowRecipes[indexPath.row]
+        let recipe = self.presenter.seeAllRecipes[indexPath.row]
         cell.configureCell(recipe: recipe)
         return cell
     }   
@@ -94,8 +85,8 @@ extension SeeAllViewController: UICollectionViewDataSource {
 
 extension SeeAllViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let recipe = presenter.trendingNowRecipes[indexPath.row]
-        presenter.router.routeToRecipeDetailScreen(recipe: recipe)
+        let recipe = presenter.seeAllRecipes[indexPath.row]
+        presenter.router?.routeToRecipeDetailScreen(recipe: recipe)
         
     }
 }

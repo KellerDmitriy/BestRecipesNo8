@@ -15,12 +15,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.makeKeyAndVisible()
-        let tabbarVC = CustomTabBar()
-        let navigationVC = isShowOnboarding() ? UINavigationController(rootViewController: StartViewController()) : UINavigationController(rootViewController: tabbarVC)
-        navigationVC.setupNavigationBar()
         
+        let navigationVC = UINavigationController()
+        let assemblyBuilder = AssemblyBuilder()
+        let router = Router(assemblyBuilder: assemblyBuilder, navigationController: navigationVC)
+        let tabBarController = CustomTabBarController(assemblyBuilder: assemblyBuilder, router: router)
+        navigationVC.pushViewController(tabBarController, animated: true)
         window?.rootViewController = navigationVC
+        window?.makeKeyAndVisible()
     }
     
     func isShowOnboarding() -> Bool {

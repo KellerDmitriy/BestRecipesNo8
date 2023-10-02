@@ -1,5 +1,5 @@
 //
-//  RecentRecipeTableViewCell.swift
+//  RandomRecipeTableViewCell.swift
 //  BestRecipesNo8
 //
 //  Created by Aleksandr Garipov on 30.08.2023.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class RecentRecipeTableViewCell: UITableViewCell {
+final class RandomRecipeTableViewCell: UITableViewCell {
     
-    var recentRecipe: [RecipeInfo] = []
+    var randomRecipe: [RecipeInfo] = []
     
     // MARK: - UI Elements
     private lazy var recipesCollectionView: UICollectionView = {
@@ -47,7 +47,7 @@ final class RecentRecipeTableViewCell: UITableViewCell {
     }
     
     func configureCell(recipes: [RecipeInfo]) {
-        self.recentRecipe = recipes
+        self.randomRecipe = recipes
         recipesCollectionView.reloadData()
     }
     
@@ -61,9 +61,9 @@ final class RecentRecipeTableViewCell: UITableViewCell {
     }
 }
 
-extension RecentRecipeTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+extension RandomRecipeTableViewCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        recentRecipe.count
+        randomRecipe.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -73,7 +73,7 @@ extension RecentRecipeTableViewCell: UICollectionViewDelegateFlowLayout, UIColle
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentRecipeCell.reuseIdentifier, for: indexPath) as? RecentRecipeCell else { return UICollectionViewCell() }
-        cell.configureCell(at: recentRecipe[indexPath.row])
+        cell.configureCell(at: randomRecipe[indexPath.row])
         return cell
     }
     

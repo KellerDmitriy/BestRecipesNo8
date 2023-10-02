@@ -14,11 +14,13 @@ final class SavedRecipesPresenter: SavedRecipesPresenterProtocol {
     var savedRecipes: [RecipeRealmModel] = []
     var realmStorageManager = RealmStorageManager.shared
     private var savedRecipesId: [Int] = []
-    private let router: SavedRecipesRouterProtocol
+    private let router: RouterProtocol
     
-    init(router: SavedRecipesRouterProtocol, realmStorageManager: RealmStorageManager) {
+    init(view: SavedRecipesViewProtocol, router: RouterProtocol, realmStorageManager: RealmStorageManager) {
+        self.view = view
         self.router = router
-        
+        self.realmStorageManager = realmStorageManager
+  
     }
     
     //MARK: - Realm BD
