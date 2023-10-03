@@ -11,9 +11,9 @@ final class RecipeDetailPresenter: RecipeDetailPresenterProtocol {
     
     weak var view: RecipeViewProtocol?
     
-    let recipe: RecipeInfo
+    let recipe: RecipeProtocol
 
-    init(view: RecipeViewProtocol, recipe: RecipeInfo) {
+    init(view: RecipeViewProtocol, recipe: RecipeProtocol) {
         self.view = view
         self.recipe = recipe
     }
@@ -23,7 +23,7 @@ final class RecipeDetailPresenter: RecipeDetailPresenterProtocol {
     }
     
     var getRatingText: String {
-        return recipe.rating
+        return recipe.rating ?? ""
     }
     
     var getReviewsText: String {
@@ -54,6 +54,6 @@ final class RecipeDetailPresenter: RecipeDetailPresenterProtocol {
     }
     
     func getInstructions() -> String {
-        return recipe.instuctionsLabel
+        return recipe.instuctionsLabel ?? ""
     }
 }

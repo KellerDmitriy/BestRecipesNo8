@@ -15,8 +15,8 @@ protocol MainRouterProtocol {
 protocol RouterProtocol: MainRouterProtocol {
     func popToRoot<T: UIViewController>(_ viewController: T, animated: Bool)
     func routeToMainScreen()
-    func routeToSeeAllScreen(recipes: [RecipeInfo])
-    func routeToRecipeDetailScreen(recipe: RecipeInfo)
+    func routeToSeeAllScreen(recipes: [RecipeProtocol])
+    func routeToRecipeDetailScreen(recipe: RecipeProtocol)
     func routeToSavedRecipeScreen()
     func routeToProfileScreen()
 }

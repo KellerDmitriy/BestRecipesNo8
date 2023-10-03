@@ -29,7 +29,7 @@ class AssemblyBuilder: AssemblyBuilderProtocol {
         return view
     }
     
-    func createSeeAllModule(recipes: [RecipeInfo], router: RouterProtocol) -> UIViewController {
+    func createSeeAllModule(recipes: [RecipeProtocol], router: RouterProtocol) -> UIViewController {
         let view = SeeAllViewController()
         let networkManager = NetworkManager.shared
         let realmStoredManager = RealmStorageManager.shared
@@ -39,7 +39,7 @@ class AssemblyBuilder: AssemblyBuilderProtocol {
         return view
     }
     
-    func createRecipeDetailModule(recipe: RecipeInfo, router: RouterProtocol) -> UIViewController {
+    func createRecipeDetailModule(recipe: RecipeProtocol, router: RouterProtocol) -> UIViewController {
         let view = RecipeView()
         let presenter = RecipeDetailPresenter(view: view, recipe: recipe)
         view.presenter = presenter

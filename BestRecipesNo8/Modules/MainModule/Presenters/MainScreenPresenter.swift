@@ -39,6 +39,7 @@ final class MainPresenter: MainPresenterProtocol {
     
     func seeAllRandomSectionButtonTapped() {
         self.router.routeToSeeAllScreen(recipes: randomRecipe)
+        
     }
     
     func updateRecipeInSavedRecipes(recipe: RecipeInfo) {

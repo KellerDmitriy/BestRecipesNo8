@@ -11,6 +11,9 @@ protocol RecipeProtocol {
     var id: Int { get }
     var title: String? { get }
     var image: String? { get }
+    var rating: String? { get }
+    var extendedIngredients: [ExtendedIngredient]? { get }
+    var instuctionsLabel: String? { get }
 }
 
 struct SearchResult: Codable {
@@ -18,7 +21,12 @@ struct SearchResult: Codable {
 }
 
 struct SearchRecipe: Codable, RecipeProtocol {
+    
+
     let id: Int
     let title: String?
     let image: String?
+    var rating: String?
+    var extendedIngredients: [ExtendedIngredient]?
+    var instuctionsLabel: String?
 }

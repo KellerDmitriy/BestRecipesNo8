@@ -33,14 +33,14 @@ class Router: RouterProtocol {
         }
     }
     
-    func routeToSeeAllScreen(recipes: [RecipeInfo]) {
+    func routeToSeeAllScreen(recipes: [RecipeProtocol]) {
         if let navigationController = navigationController {
             let seeAllViewController = assemblyBuilder.createSeeAllModule(recipes: recipes, router: self)
             navigationController.pushViewController(seeAllViewController, animated: true)
         }
     }
     
-    func routeToRecipeDetailScreen(recipe: RecipeInfo) {
+    func routeToRecipeDetailScreen(recipe: RecipeProtocol) {
         if let navigationController = navigationController {
             let recipeDetailViewController = assemblyBuilder.createRecipeDetailModule(recipe: recipe, router: self)
             navigationController.pushViewController(recipeDetailViewController, animated: true)
