@@ -11,6 +11,7 @@ import SnapKit
 final class SearchVC: UIViewController {
     
     var presenter: SearchPresenter!
+    
     //MARK: Private properties
     private var timer: Timer?
     private let networkManager = NetworkManager.shared
@@ -53,6 +54,11 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
             model: presenter.searchedRecipes[indexPath.row])
         cell.selectionStyle = .none
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let recipe = presenter.searchedRecipes[indexPath.row]
+        presenter.router?.routeToRecipeDetailScreen(recipe: recipe)
     }
 }
 
@@ -105,8 +111,6 @@ extension SearchVC {
         }
     }
 }
-
-
 
 //MARK: - UISearchBarDelegate
 

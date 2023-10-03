@@ -10,8 +10,8 @@ import UIKit
 protocol AssemblyBuilderProtocol {
     func createMainModule(router: RouterProtocol) -> UIViewController
     func createSearchModule(router: RouterProtocol) -> UIViewController
-    func createSeeAllModule(recipes: [RecipeInfo], router: RouterProtocol) -> UIViewController
-    func createRecipeDetailModule(recipe: RecipeInfo, router: RouterProtocol) -> UIViewController
+    func createSeeAllModule(recipes: [RecipeProtocol], router: RouterProtocol) -> UIViewController
+    func createRecipeDetailModule(recipe: RecipeProtocol, router: RouterProtocol) -> UIViewController
     func createProfileModule(router: RouterProtocol) -> UIViewController
     func createSavedRecipesModule(router: RouterProtocol) -> UIViewController
     func createCreateModule(router: RouterProtocol) -> UIViewController

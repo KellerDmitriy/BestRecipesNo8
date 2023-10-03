@@ -14,9 +14,9 @@ final class SeeAllPresenter: SeeAllPresenterProtocol {
     let networkManager: NetworkManager?
     let realmStoredManager: RealmStorageManager?
     var router: RouterProtocol?
-    var seeAllRecipes: [RecipeInfo]
+    var seeAllRecipes: [RecipeProtocol]
 
-    required init(view:SeeAllViewProtocol, networkManager: NetworkManager, realmStoredManager: RealmStorageManager, router: RouterProtocol, recipes: [RecipeInfo]) {
+    required init(view:SeeAllViewProtocol, networkManager: NetworkManager, realmStoredManager: RealmStorageManager, router: RouterProtocol, recipes: [RecipeProtocol]) {
         self.networkManager = networkManager
         self.realmStoredManager = realmStoredManager
         self.router = router

@@ -15,7 +15,12 @@ final class MainViewController: UIViewController {
     private var trendingCategoryCell: TrendingCategoryCell?
     
     //MARK: - UI Elementes:
-    private let searchController = UISearchController(searchResultsController: nil)
+    private lazy var searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        
+        return searchController
+    }()
     
     private lazy var recipesTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -62,7 +67,8 @@ final class MainViewController: UIViewController {
     
     private func setupUI() {
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .whiteColor
+        navigationItem.searchController = searchController
         view.addSubview(searchController.searchBar)
         view.addSubview(recipesTableView)
         

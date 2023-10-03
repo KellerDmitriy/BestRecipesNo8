@@ -34,7 +34,7 @@ struct RecipeInfo: Codable, RecipeProtocol {
     
     let analyzedInstructions: [AnalyzedInstruction]?
     
-    var rating: String {
+    var rating: String? {
         guard let likes = aggregateLikes else { return "❤️ 0"}
         switch likes {
         case 1000...:
@@ -44,7 +44,7 @@ struct RecipeInfo: Codable, RecipeProtocol {
         }
     }
     
-    var instuctionsLabel: String {
+    var instuctionsLabel: String? {
         var result: String = ""
         guard let instructions = analyzedInstructions?.first else { return "" }
         instructions.steps?.forEach {
