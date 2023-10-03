@@ -26,6 +26,7 @@ final class SavedRecipesView: UIViewController {
         applyConstraints()
         deleteAllBarButtonTapped()
         
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
