@@ -43,6 +43,7 @@ final class ProfileView: UIViewController {
         addTapedImageView()
         addSubviews()
         applyConstraints()
+        navigationController?.setupNavigationBar()
     }
     
     // MARK: - Methods with Image

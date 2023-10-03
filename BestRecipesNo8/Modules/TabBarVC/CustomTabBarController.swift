@@ -40,15 +40,16 @@ final class CustomTabBarController: UITabBarController, UITabBarControllerDelega
     // MARK: - Create Button Method
     @objc private func createButtonIsTapped(_ sender: UIButton) {
         let view = assemblyBuilder.createCreateModule(router: router)
+        navigationController?.setupNavigationBar()
         navigationController?.pushViewController(view, animated: true)
     }
     
     // MARK: - TabBarItem setup a controller and images
     private func assignTabBarModules() {
-        let mainVC = assemblyBuilder.createMainModule(router: router)
-        let SavedRecipe = assemblyBuilder.createSavedRecipesModule(router: router)
-        let notificationVC = assemblyBuilder.createSearchModule(router: router)
-        let profileVC = assemblyBuilder.createProfileModule(router: router)
+        let mainVC = UINavigationController(rootViewController: assemblyBuilder.createMainModule(router: router))
+        let SavedRecipe = UINavigationController(rootViewController: assemblyBuilder.createSavedRecipesModule(router: router))
+        let notificationVC = UINavigationController(rootViewController: assemblyBuilder.createSearchModule(router: router))
+        let profileVC = UINavigationController(rootViewController: assemblyBuilder.createProfileModule(router: router))
         
         mainVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "main")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "mainSelect")?.withRenderingMode(.alwaysOriginal))
         
@@ -60,6 +61,15 @@ final class CustomTabBarController: UITabBarController, UITabBarControllerDelega
         
         setViewControllers([mainVC, SavedRecipe, notificationVC, profileVC], animated: true)
     }
+    
+    private func generateVC(viewController: UIViewController, title: String, image: UIImage?, selectedImage: UIImage?) -> UIViewController {
+        let vc = UINavigationController(rootViewController: viewController)
+        vc.tabBarItem.title = nil
+        vc.tabBarItem.image = image
+        vc.tabBarItem.selectedImage = selectedImage
+        return vc
+    }
+    
     // MARK: - Subviews
     private func setupSubviews() {
         tabBar.addSubview(backgroundImageView)

@@ -25,11 +25,13 @@ class SeeAllViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
         setupUI()
     }
     
     // MARK: - Private methods
     private func setupUI() {
+        navigationItem.title = "Trending now"
         view.addSubview(collectionView)
         collectionView.backgroundColor = .white
         collectionView.dataSource = self

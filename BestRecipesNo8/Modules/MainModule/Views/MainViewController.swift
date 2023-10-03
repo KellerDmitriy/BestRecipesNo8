@@ -15,7 +15,7 @@ final class MainViewController: UIViewController {
     private var trendingCategoryCell: TrendingCategoryCell?
     
     //MARK: - UI Elementes:
-   // private let searchController = UISearchController(searchResultsController: nil)
+    private let searchController = UISearchController(searchResultsController: nil)
     
     private lazy var recipesTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -45,8 +45,8 @@ final class MainViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-
         recipesTableView.reloadData()
+        searchController.isActive = false
     }
     
     //MARK: - Methods for Header's Button
@@ -63,12 +63,12 @@ final class MainViewController: UIViewController {
     private func setupUI() {
         
         view.backgroundColor = .systemBackground
-       // view.addSubview(searchController.searchBar)
+        view.addSubview(searchController.searchBar)
         view.addSubview(recipesTableView)
         
         if let navigationBarAppearance = navigationController?.navigationBar.standardAppearance {
             var titleAttributes = navigationBarAppearance.largeTitleTextAttributes
-            titleAttributes[.font] = UIFont(name: "Poppins-Bold", size: 24)
+            titleAttributes[.font] = UIFont(name: "Poppins-Bold", size: 38)
             titleAttributes[.font] = UIColor.black
             navigationController?.setupNavigationBar()
         }
@@ -77,17 +77,11 @@ final class MainViewController: UIViewController {
     private func setupLayout() {
         
         recipesTableView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(60)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
-//        searchController.searchBar.snp.makeConstraints { make in
-//            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(40)
-//            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
-//            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
-//            make.height.equalTo(40)
-//        }
     }
 }
 

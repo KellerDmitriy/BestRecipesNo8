@@ -17,10 +17,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         let navigationVC = UINavigationController()
+        navigationVC.setupNavigationBar()
         let assemblyBuilder = AssemblyBuilder()
         let router = Router(assemblyBuilder: assemblyBuilder, navigationController: navigationVC)
         let tabBarController = CustomTabBarController(assemblyBuilder: assemblyBuilder, router: router)
-        navigationVC.pushViewController(tabBarController, animated: true)
+        if isShowOnboarding() {
+            navigationVC.setViewControllers([StartViewController()], animated: false)
+        } else {
+            navigationVC.setViewControllers([tabBarController], animated: false)
+        }
         window?.rootViewController = navigationVC
         window?.makeKeyAndVisible()
     }
