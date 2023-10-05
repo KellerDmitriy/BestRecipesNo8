@@ -13,10 +13,10 @@ final class SearchPresenter: SearchPresenterProtocol {
     
     var networkManager = NetworkManager.shared
     var realmStorageManager = RealmStorageManager.shared
-   
+    
     var savedRecipesId: [Int] = []
     var searchedRecipes: [RecipeProtocol] = []
-
+    
     required init(view: SearchViewProtocol, networkManager: NetworkManager, realmStorageManager: RealmStorageManager, router: RouterProtocol) {
         self.view = view
         self.networkManager = networkManager
@@ -25,45 +25,59 @@ final class SearchPresenter: SearchPresenterProtocol {
     }
     
     func searchRecipes(with searchText: String) {
-        let group = DispatchGroup()
-        group.enter()
-        networkManager.getSearchRecipes(for: searchText) { [weak self] result in
-            defer {
-                group.leave()
-            }
-            switch result {
-            case .success(let recipes):
-                var models: [SearchRecipe] = []
-                recipes.results?.forEach({ recipe in
-                    guard let title = recipe.title, let image = recipe.image else { return }
-                    models.append(SearchRecipe(id: recipe.id, title: title, image: image))
-                })
-                self?.view?.updateSearchResults(with: models)
-                
-            case .failure(let error):
-                print(error)
-            }
+        guard !searchText.isEmpty else {
+            view?.updateSearchResults(with: [])
+            return
         }
         
-        group.notify(queue: .main) {
+        DispatchQueue.global().async {
+            self.networkManager.getSearchRecipes(for: searchText) { [weak self] result in
+                switch result {
+                case .success(let recipes):
+                    var models: [RecipeProtocol] = []
+                    let dispatchGroup = DispatchGroup()
+                    
+                    recipes.results?.forEach { recipe in
+                        dispatchGroup.enter()
+                        self?.networkManager.getRecipeInformation(for: recipe.id) { detailedResult in
+                            defer {
+                                dispatchGroup.leave()
+                            }
+                            
+                            switch detailedResult {
+                            case .success(let data):
+                                guard
+                                    let title = data.title,
+                                    let image = data.image,
+                                    let rating = data.rating,
+                                    let extendedIngredients = data.extendedIngredients,
+                                    let instuctionsLabel = data.instuctionsLabel
+                                else { return }
+                                
+                                let searchRecipe = SearchRecipe(
+                                    id: data.id,
+                                    title: title,
+                                    image: image,
+                                    rating: rating,
+                                    extendedIngredients: extendedIngredients,
+                                    instuctionsLabel: instuctionsLabel
+                                )
+                                
+                                models.append(searchRecipe)
+                            case .failure(let error):
+                                print(error)
+                            }
+                        }
+                    }
+                    
+                    dispatchGroup.notify(queue: .main) {
+                        self?.view?.updateSearchResults(with: models)
+                    }
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            }
         }
     }
 }
-//    func fetchSearchedRecipe(with searchText: String) {
-//        networkManager.getSearchRecipes(for: searchText) { [weak self] result in
-//            switch result {
-//            case .success(let recipes):
-//                var models: [SearchRecipe] = []
-//                recipes.results?.forEach { recipe in
-//                    guard let title = recipe.title, let image = recipe.image else { return }
-//                    models.append(SearchRecipe(id: recipe.id, title: title, image: image))
-//                }
-//                self?.view?.configureSearchResults(models: models)
-//                
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
-
-

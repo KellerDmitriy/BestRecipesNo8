@@ -47,6 +47,10 @@ final class MainViewController: UIViewController {
         searchVC = presenter.searchController.createSearchModule(router: presenter.router)
         view.backgroundColor = .white
         navigationItem.title = "Get amazing recipes cooking"
+        let navigationBarAppearance = navigationController?.navigationBar.standardAppearance
+        var titleAttributes = navigationBarAppearance?.largeTitleTextAttributes
+        titleAttributes?[.font] = UIFont(name: "Poppins-Bold", size: 38)
+        titleAttributes?[.font] = UIColor.black
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,18 +70,10 @@ final class MainViewController: UIViewController {
     //MARK: - Methods
     
     private func setupUI() {
-        
         view.backgroundColor = .whiteColor
         navigationItem.searchController = searchController
         view.addSubview(searchController.searchBar)
         view.addSubview(recipesTableView)
-        
-        if let navigationBarAppearance = navigationController?.navigationBar.standardAppearance {
-            var titleAttributes = navigationBarAppearance.largeTitleTextAttributes
-            titleAttributes[.font] = UIFont(name: "Poppins-Bold", size: 38)
-            titleAttributes[.font] = UIColor.black
-            navigationController?.setupNavigationBar()
-        }
     }
     
 

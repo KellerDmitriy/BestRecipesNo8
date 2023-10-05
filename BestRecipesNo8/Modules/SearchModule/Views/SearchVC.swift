@@ -68,7 +68,7 @@ extension SearchVC {
     
     func setConstraints() {
         searchTableView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
