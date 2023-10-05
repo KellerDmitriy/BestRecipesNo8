@@ -8,6 +8,7 @@
 import UIKit
 
 class Router: RouterProtocol {
+    
     var assemblyBuilder: AssemblyBuilderProtocol
     var navigationController: UINavigationController?
     
@@ -25,11 +26,11 @@ class Router: RouterProtocol {
             }
         }
     }
-    
-    func routeToMainScreen() {
+
+    func routeToSearchScreen() {
         if let navigationController = navigationController {
-            let mainViewController = assemblyBuilder.createMainModule(router: self)
-            navigationController.viewControllers = [mainViewController]
+            let searchController = assemblyBuilder.createSearchModule(router: self)
+            navigationController.pushViewController(searchController, animated: true)
         }
     }
     

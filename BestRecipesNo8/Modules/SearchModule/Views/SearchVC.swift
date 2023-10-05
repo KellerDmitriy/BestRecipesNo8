@@ -10,57 +10,38 @@ import SnapKit
 
 final class SearchVC: UIViewController {
     
-    var presenter: SearchPresenter!
+    var presenter: SearchPresenterProtocol!
     
     //MARK: Private properties
     private var timer: Timer?
-    private let networkManager = NetworkManager.shared
-
-    private var searchController: UISearchController = {
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.obscuresBackgroundDuringPresentation = false
-        return searchController
-    }()
     
+    private let searchController = UISearchController(searchResultsController: nil)
 
-    let searchTableView: UITableView = {
+    private lazy var searchTableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.register(SearchViewCell.self, forCellReuseIdentifier: "MainTableViewCell")
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
+        table.delegate = self
+        table.dataSource = self
+        table.register(SearchViewCell.self, forCellReuseIdentifier: SearchViewCell.cellID)
         return table
     }()
-    
+                            
+    //MARK: - LifeCyle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.title = "Get amazing recipes for cooking"
         setupUI()
     }
-}
-
-//MARK: - UITableViewDelegate, UITableViewDataSource
-
-extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.searchedRecipes.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "MainTableViewCell", for: indexPath) as? SearchViewCell else { return UITableViewCell() }
-        cell.configure(
-            model: presenter.searchedRecipes[indexPath.row])
-        cell.selectionStyle = .none
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let recipe = presenter.searchedRecipes[indexPath.row]
-        presenter.router?.routeToRecipeDetailScreen(recipe: recipe)
+    override func viewWillAppear(_ animated: Bool) {
+        searchController.isActive = false
+        searchTableView.reloadData()
     }
 }
+
 
 //MARK: Setup
 
@@ -77,6 +58,7 @@ extension SearchVC {
     func setDelegate() {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
+        
     }
     
     func setupView() {
@@ -86,29 +68,38 @@ extension SearchVC {
     
     func setConstraints() {
         searchTableView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
+    
     func configureNavigationBar() {
+        searchController.obscuresBackgroundDuringPresentation = false
         navigationController?.navigationBar.barTintColor = .systemBackground
         navigationController?.hidesBarsWhenKeyboardAppears = false
     }
-
-
-    // MARK: - Private methods
     
-    func configure(models: [SearchRecipe]) {
-        presenter.searchedRecipes = models
+}
+//MARK: - UITableViewDelegate, UITableViewDataSource
+
+extension SearchVC: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        presenter.searchedRecipes.count
     }
     
-    func updateSearchTableView() {
-        DispatchQueue.main.async {
-            self.configure(models: self.presenter.searchedRecipes)
-            self.searchTableView.reloadData()
-        }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = searchTableView.dequeueReusableCell(withIdentifier: SearchViewCell.cellID, for: indexPath) as? SearchViewCell else { return UITableViewCell() }
+        let searchRecipe = presenter.searchedRecipes[indexPath.row]
+        cell.configure(model: searchRecipe)
+        cell.selectionStyle = .none
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let recipe = presenter.searchedRecipes[indexPath.row]
+        presenter.router?.routeToRecipeDetailScreen(recipe: recipe)
     }
 }
 
@@ -117,21 +108,20 @@ extension SearchVC {
 extension SearchVC: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        
-        updateSearchTableView()
-
+        presenter?.searchRecipes(with: "")
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
- 
+        searchController.isActive = true
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard searchText.isEmpty else { return }
-        
-        searchController.isActive = false
-        presenter.searchedRecipes = []
-        updateSearchTableView()
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { [weak self] timer in
+            self?.presenter?.searchRecipes(with: searchText)
+            
+        })
     }
 }
 
@@ -145,47 +135,16 @@ extension SearchVC: UISearchResultsUpdating {
         guard searchController.isActive, let searchText = searchController.searchBar.text, !searchText.isEmpty else {
             return
         }
-        fetchSearchedRecipe(with: searchText)
+        presenter?.searchRecipes(with: searchText)
     }
 }
 
 //MARK: - Search Recipes
 extension SearchVC: SearchViewProtocol {
-    func updateSearchResults(with models: [SearchRecipe]) {
-        //
-    }
-    
-    
-    private func fetchSearchedRecipe(with searchText: String) {
-        let group = DispatchGroup()
-        
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { [weak self] timer in
-            group.enter()
-            self?.networkManager.getSearchRecipes(for: searchText) { result in
-                defer {
-                    group.leave()
-                }
-                
-                switch result {
-                case .success(let recipes):
-                    var models: [SearchRecipe] = []
-                    recipes.results?.forEach({ recipe in
-                        guard let title = recipe.title, let image = recipe.image else { return }
-                        models.append(SearchRecipe(id: recipe.id, title: title, image: image))
-                    })
-                    self?.presenter.searchedRecipes = models
-                    print(models)
-                    
-                    self?.updateSearchTableView()
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        })
-        
-        group.notify(queue: .main) {
-            // All requests have completed
+    func updateSearchResults(with models: [RecipeProtocol]) {
+        presenter.searchedRecipes = models
+        DispatchQueue.main.async {
+            self.searchTableView.reloadData()
         }
     }
 }

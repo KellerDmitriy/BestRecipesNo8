@@ -8,5 +8,16 @@
 import Foundation
 
 protocol RecipeDetailPresenterProtocol: AnyObject {
+    var recipe: RecipeProtocol { get }
+    var getTitleRecipe: String { get }
+    var getRatingText: String { get }
+    var getReviewsText: String { get }
+    var countIngredients: Int { get }
+    var getCountIngredientsText: String { get }
+    var heightOfTableViewCell: CGFloat { get }
+    
+    func getIngredient(at index: Int) -> IngredientModel 
+    func getInstructions() -> String
+    
     
 }

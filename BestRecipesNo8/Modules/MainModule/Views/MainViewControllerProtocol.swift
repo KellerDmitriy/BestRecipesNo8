@@ -12,9 +12,9 @@ protocol MainScreenViewControllerProtocol: AnyObject {
     func getPopularRecipes()
     func updatePopularCategory()
 
-    func configureSearchResults(models: [SearchRecipe])
-    
-
+    func configureNavigationBar() 
+    func configureSearchResults(models: [RecipeProtocol])
+    func hideMainTableView(isTableViewHidden: Bool)
     
 }
 

@@ -46,7 +46,7 @@ final class CustomTabBarController: UITabBarController, UITabBarControllerDelega
     
     // MARK: - TabBarItem setup a controller and images
     private func assignTabBarModules() {
-        let mainVC = UINavigationController(rootViewController: assemblyBuilder.createMainModule(router: router))
+        let mainVC = UINavigationController(rootViewController: assemblyBuilder.createMainModule(router: router, searchController: assemblyBuilder))
         let SavedRecipe = UINavigationController(rootViewController: assemblyBuilder.createSavedRecipesModule(router: router))
         let notificationVC = UINavigationController(rootViewController: assemblyBuilder.createSearchModule(router: router))
         let profileVC = UINavigationController(rootViewController: assemblyBuilder.createProfileModule(router: router))

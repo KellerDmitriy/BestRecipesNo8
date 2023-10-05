@@ -52,7 +52,7 @@ final class SearchViewCell: UITableViewCell {
     
     
     // MARK: - Public methods
-    func configure(model: SearchRecipe) {
+    func configure(model: RecipeProtocol) {
         guard let title = model.title, let image = model.image else { return }
         recipeNameLabel.text = title 
         let cache = ImageCache.default

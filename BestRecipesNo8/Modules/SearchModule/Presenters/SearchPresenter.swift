@@ -8,14 +8,14 @@
 import Foundation
 
 final class SearchPresenter: SearchPresenterProtocol {
-    var view: SearchViewProtocol?
+    weak var view: SearchViewProtocol?
     var router: RouterProtocol?
-
+    
     var networkManager = NetworkManager.shared
     var realmStorageManager = RealmStorageManager.shared
    
     var savedRecipesId: [Int] = []
-    var searchedRecipes: [SearchRecipe] = []
+    var searchedRecipes: [RecipeProtocol] = []
 
     required init(view: SearchViewProtocol, networkManager: NetworkManager, realmStorageManager: RealmStorageManager, router: RouterProtocol) {
         self.view = view
@@ -25,25 +25,30 @@ final class SearchPresenter: SearchPresenterProtocol {
     }
     
     func searchRecipes(with searchText: String) {
-        guard !searchText.isEmpty else {
-            view?.updateSearchResults(with: [])
-            return
-        }
+        let group = DispatchGroup()
+        group.enter()
         networkManager.getSearchRecipes(for: searchText) { [weak self] result in
+            defer {
+                group.leave()
+            }
             switch result {
             case .success(let recipes):
                 var models: [SearchRecipe] = []
-                recipes.results?.forEach { recipe in
+                recipes.results?.forEach({ recipe in
                     guard let title = recipe.title, let image = recipe.image else { return }
                     models.append(SearchRecipe(id: recipe.id, title: title, image: image))
-                }
+                })
                 self?.view?.updateSearchResults(with: models)
+                
             case .failure(let error):
                 print(error)
-                // Handle error as needed
             }
         }
+        
+        group.notify(queue: .main) {
+        }
     }
+}
 //    func fetchSearchedRecipe(with searchText: String) {
 //        networkManager.getSearchRecipes(for: searchText) { [weak self] result in
 //            switch result {
@@ -60,5 +65,5 @@ final class SearchPresenter: SearchPresenterProtocol {
 //            }
 //        }
 //    }
-}
+
 

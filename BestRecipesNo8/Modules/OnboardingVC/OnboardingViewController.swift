@@ -106,6 +106,7 @@ class OnboardingViewController: UIViewController {
     @objc private func pageControlDidChange() {
         let offsetX = view.bounds.width * CGFloat(pageControl.currentPage)
         onboardingScrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
+        
     }
     
     @objc private func nextPage() {

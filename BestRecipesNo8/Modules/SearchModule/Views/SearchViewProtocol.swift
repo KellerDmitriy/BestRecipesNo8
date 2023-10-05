@@ -7,5 +7,6 @@
 
 import Foundation
 protocol SearchViewProtocol: AnyObject {
-    func updateSearchResults(with models: [SearchRecipe])
+    func updateSearchResults(with: [RecipeProtocol])
+    
 }

@@ -8,7 +8,6 @@
 import Foundation
 
 final class MainPresenter: MainPresenterProtocol {
-    
     weak var view: MainScreenViewControllerProtocol?
     
     var networkManager = NetworkManager.shared
@@ -21,18 +20,24 @@ final class MainPresenter: MainPresenterProtocol {
     var savedRecipesId: [Int] = []
     var savedRecipes: [RecipeRealmModel] = []
     
+    var searchController: AssemblyBuilderProtocol
+    var searchedRecipes: [RecipeProtocol] = []
+    
     var router: RouterProtocol
     
-    //MARK: LifeCycle 
+    //MARK: LifeCycle
     
-    required init(view: MainScreenViewControllerProtocol, networkManager: NetworkManager, realmStoredManager: RealmStorageManager, router: RouterProtocol) {
+    required init(view: MainScreenViewControllerProtocol, networkManager: NetworkManager, realmStoredManager: RealmStorageManager, router: RouterProtocol, searchController: AssemblyBuilderProtocol) {
         
+        self.searchController = searchController
         self.view = view
         self.networkManager = networkManager
+        self.realmStoredManager = realmStoredManager
         self.router = router
         self.savedRecipesId = Array(realmStoredManager.read().map { $0.id })
     }
     
+    //MARK: SeeAll Methods
     func seeAllButtonTapped() {
         self.router.routeToSeeAllScreen(recipes: trendingNowRecipes)
     }
@@ -42,6 +47,25 @@ final class MainPresenter: MainPresenterProtocol {
         
     }
     
+    //MARK: Search Methods
+    func fetchSearchedRecipe(with searchText: String) {
+        networkManager.getSearchRecipes(for: searchText) { [weak self] result in
+            switch result {
+            case .success(let recipes):
+                var models: [SearchRecipe] = []
+                recipes.results?.forEach({ recipe in
+                    guard let title = recipe.title, let image = recipe.image else { return }
+                    models.append(SearchRecipe(id: recipe.id, title: title, image: image))
+                })
+                self?.view?.configureSearchResults(models: models)
+        
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    //MARK: DB CRUD Methods
     func updateRecipeInSavedRecipes(recipe: RecipeInfo) {
         if isRecipeSaved(recipe: recipe) {
             realmStoredManager.deleteRecipeFromRealm(with: recipe.id)
