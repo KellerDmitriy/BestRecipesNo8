@@ -8,7 +8,7 @@
 import UIKit
 
 protocol AssemblyBuilderProtocol {
-    func createMainModule(router: RouterProtocol) -> UIViewController
+    func createMainModule(router: RouterProtocol, searchController: AssemblyBuilderProtocol) -> UIViewController
     func createSearchModule(router: RouterProtocol) -> UIViewController
     func createSeeAllModule(recipes: [RecipeProtocol], router: RouterProtocol) -> UIViewController
     func createRecipeDetailModule(recipe: RecipeProtocol, router: RouterProtocol) -> UIViewController

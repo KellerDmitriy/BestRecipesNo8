@@ -1,5 +1,5 @@
 //
-//  RecipeView.swift
+//  RecipeDetailView.swift
 //  BestRecipesNo8
 //
 //  Created by Мявкo on 28.08.23.
@@ -9,9 +9,9 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-final class RecipeView: UIViewController {
+final class RecipeDetailView: UIViewController {
     
-    var presenter: RecipeDetailPresenter!
+    var presenter: RecipeDetailPresenterProtocol!
     
     // MARK: - Views
     private lazy var scrollView: UIScrollView = _scrollView
@@ -190,7 +190,7 @@ final class RecipeView: UIViewController {
 }
 
 // MARK: - UITableView Protocols
-extension RecipeView: UITableViewDelegate, UITableViewDataSource {
+extension RecipeDetailView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.countIngredients
@@ -211,14 +211,14 @@ extension RecipeView: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension RecipeView: RecipeViewProtocol {
+extension RecipeDetailView: RecipeDetailViewProtocol {
     func openRecipe() {
         print("Recipe is opened")
     }
 }
 
 // MARK: - Extension for setup elements
-private extension RecipeView {
+private extension RecipeDetailView {
     
     var _scrollView: UIScrollView {
         let scrollView = UIScrollView()

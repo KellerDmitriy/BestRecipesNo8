@@ -12,13 +12,14 @@ final class MainViewController: UIViewController {
     var presenter: MainPresenterProtocol!
     var popularCategoryDelegate: PopularCategoryDelegate!
     
+    private var timer: Timer?
     private var trendingCategoryCell: TrendingCategoryCell?
+    private var searchVC: UIViewController?
     
     //MARK: - UI Elementes:
     private lazy var searchController: UISearchController = {
-        let searchController = UISearchController(searchResultsController: nil)
+        let searchController = UISearchController(searchResultsController: searchVC)
         searchController.obscuresBackgroundDuringPresentation = false
-        
         return searchController
     }()
     
@@ -43,10 +44,13 @@ final class MainViewController: UIViewController {
         setupUI()
         setupLayout()
         getRecipes()
-        setupUIForSearch()
-        
+        searchVC = presenter.searchController.createSearchModule(router: presenter.router)
         view.backgroundColor = .white
         navigationItem.title = "Get amazing recipes cooking"
+        let navigationBarAppearance = navigationController?.navigationBar.standardAppearance
+        var titleAttributes = navigationBarAppearance?.largeTitleTextAttributes
+        titleAttributes?[.font] = UIFont(name: "Poppins-Bold", size: 38)
+        titleAttributes?[.font] = UIColor.black
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,24 +70,17 @@ final class MainViewController: UIViewController {
     //MARK: - Methods
     
     private func setupUI() {
-        
         view.backgroundColor = .whiteColor
         navigationItem.searchController = searchController
         view.addSubview(searchController.searchBar)
         view.addSubview(recipesTableView)
-        
-        if let navigationBarAppearance = navigationController?.navigationBar.standardAppearance {
-            var titleAttributes = navigationBarAppearance.largeTitleTextAttributes
-            titleAttributes[.font] = UIFont(name: "Poppins-Bold", size: 38)
-            titleAttributes[.font] = UIColor.black
-            navigationController?.setupNavigationBar()
-        }
     }
     
+
     private func setupLayout() {
         
         recipesTableView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
@@ -162,38 +159,84 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
-
-// MARK: - Methods for SearchBar
+// MARK: - UISearch
 extension MainViewController {
-    
-    func setupUIForSearch() {
-        setDelegate()
-    }
-    
     func setDelegate() {
-//        searchController.searchResultsUpdater = self
-//        searchController.searchBar.delegate = self
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
     }
-   
+    
+    private func setupNavigationBar() {
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.backgroundColor = .white
+        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.neutralColor]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.neutralColor]
+        navigationController?.navigationBar.barTintColor = .systemBackground
+        navigationController?.hidesBarsWhenKeyboardAppears = false
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+    }
 }
+
 // MARK: - UISearchBarDelegate
 
 extension MainViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        presenter?.fetchSearchedRecipe(with: "")
+        
+    }
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchController.isActive = true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard searchText.isEmpty else { return }
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { [weak self] timer in
+            self?.presenter?.fetchSearchedRecipe(with: searchText)
+        })
+    }
 }
 
 // MARK: - UISearchResultsUpdating
 
 extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        //
+        guard searchController.isActive else { return }
+        
+        guard searchController.isActive, let searchText = searchController.searchBar.text, !searchText.isEmpty else {
+            return
+        }
+        searchController.showsSearchResultsController = (searchVC != nil)
+        presenter?.fetchSearchedRecipe(with: searchText)
+        print(searchText)
     }
 }
 
 // MARK: - MainScreenViewControllerProtocol
 extension MainViewController: MainScreenViewControllerProtocol {
-    func configureSearchResults(models: [SearchRecipe]) {
+    func configureNavigationBar() {
+        navigationController?.navigationBar.barTintColor = .systemBackground
+        navigationController?.hidesBarsWhenKeyboardAppears = false
     }
+    
+    func configureSearchResults(models: [RecipeProtocol]) {
+        presenter.searchedRecipes = models
+        DispatchQueue.main.async {
+            self.recipesTableView.reloadData()
+        }
+    }
+    
+    func hideMainTableView(isTableViewHidden: Bool) {
+        //
+    }
+    
+
+    
+    
    
     // MARK: - MainScreenViewControllerProtocol
     func updatePopularCategory() {

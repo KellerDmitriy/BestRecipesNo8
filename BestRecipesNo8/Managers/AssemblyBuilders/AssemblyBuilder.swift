@@ -9,11 +9,11 @@ import UIKit
 
 class AssemblyBuilder: AssemblyBuilderProtocol {
     
-    func createMainModule(router: RouterProtocol) -> UIViewController {
+    func createMainModule(router: RouterProtocol, searchController: AssemblyBuilderProtocol) -> UIViewController {
         let view = MainViewController()
         let networkManager = NetworkManager.shared
         let realmStoredManager = RealmStorageManager.shared
-        let presenter = MainPresenter(view: view, networkManager: networkManager, realmStoredManager: realmStoredManager, router: router)
+        let presenter = MainPresenter(view: view, networkManager: networkManager, realmStoredManager: realmStoredManager, router: router, searchController: searchController)
         presenter.view = view
         view.presenter = presenter
         view.popularCategoryDelegate = presenter
@@ -40,7 +40,7 @@ class AssemblyBuilder: AssemblyBuilderProtocol {
     }
     
     func createRecipeDetailModule(recipe: RecipeProtocol, router: RouterProtocol) -> UIViewController {
-        let view = RecipeView()
+        let view = RecipeDetailView()
         let presenter = RecipeDetailPresenter(view: view, recipe: recipe)
         view.presenter = presenter
         return view

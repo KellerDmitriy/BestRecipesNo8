@@ -9,11 +9,11 @@ import Foundation
 
 final class RecipeDetailPresenter: RecipeDetailPresenterProtocol {
     
-    weak var view: RecipeViewProtocol?
+    weak var view: RecipeDetailViewProtocol?
     
     let recipe: RecipeProtocol
 
-    init(view: RecipeViewProtocol, recipe: RecipeProtocol) {
+    init(view: RecipeDetailViewProtocol, recipe: RecipeProtocol) {
         self.view = view
         self.recipe = recipe
     }
