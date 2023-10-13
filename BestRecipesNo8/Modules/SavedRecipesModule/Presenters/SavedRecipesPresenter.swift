@@ -6,21 +6,22 @@
 //
 
 import Foundation
+import RealmSwift
 
 final class SavedRecipesPresenter: SavedRecipesPresenterProtocol {
- 
+    
+    
     //MARK: - Properties
     weak var view: SavedRecipesViewProtocol?
-    var savedRecipes: [RecipeRealmModel] = []
     var realmStorageManager = RealmStorageManager.shared
-    private var savedRecipesId: [Int] = []
+    var savedRecipesId: Int = 0
+    var savedRecipes: RealmSwift.Results<RecipeRealmModel>?
     private let router: RouterProtocol
     
-    init(view: SavedRecipesViewProtocol, router: RouterProtocol, realmStorageManager: RealmStorageManager) {
+    required init(view: SavedRecipesViewProtocol, router: RouterProtocol, realmStorageManager: RealmStorageManager) {
         self.view = view
         self.router = router
         self.realmStorageManager = realmStorageManager
-  
     }
     
     //MARK: - Realm BD
@@ -45,31 +46,18 @@ final class SavedRecipesPresenter: SavedRecipesPresenterProtocol {
 //    }
     
     //MARK: - Methods
+    
     func loadData() {
-        realmStorageManager.read()
-        
+        realmStorageManager.read() { recipes in
+            self.savedRecipes = recipes
+        }
     }
     
-
-    func deleteRecipe(with index: Int) {
-        //
+    func deleteRecipe(with index: Int){
+        realmStorageManager.deleteRecipeFromRealm(with: savedRecipesId)
     }
     
     func deleteAllBarButtonTapped() {
         realmStorageManager.deleteAll()
-    }
-    
-    func updateRecipe() {
-        if let savedRecipesId = UserDefaults.standard.object(forKey: "savedRecipes") as? [Int] {
-            NetworkManager.shared.getRecipeInformationBulk(for: savedRecipesId) { result in
-                switch result {
-                case .success(let recipes):
-                  //  self.savedRecipes = recipes
-                    self.view?.openSavedRecipes()
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            }
-        }
     }
 }

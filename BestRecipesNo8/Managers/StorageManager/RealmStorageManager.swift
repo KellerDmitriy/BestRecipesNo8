@@ -11,8 +11,9 @@ import Foundation
 class RealmStorageManager {
     // MARK: - Properties
     static let shared = RealmStorageManager()
-    
+    let imageManager = ImageManager.shared
     let realm: Realm
+    var items: Results<RecipeRealmModel>!
     
     // MARK: - Initialization
     private init() {
@@ -31,17 +32,29 @@ class RealmStorageManager {
         }
     }
     
-    func save<T: RecipeProtocol>(recipe: T) {
+    func write<T: RecipeProtocol>(recipe: T) {
         let realmRecipe = RecipeRealmModel()
         realmRecipe.id = recipe.id
         if let title = recipe.title {
             realmRecipe.title = title
         }
-        if let image = recipe.image {
-            realmRecipe.image = image
+        if let rating = recipe.rating {
+            realmRecipe.rating = rating
         }
-        write {
-            realm.add(realmRecipe)
+        if let time = recipe.readyInMinutes {
+            realmRecipe.time = time
+        }
+        
+        if let image = recipe.image {
+            guard let imageURL = URL(string: image) else { return }
+            imageManager.fetchImageData(from: imageURL) { [weak self] imageData, error in
+                realmRecipe.imageData = imageData
+                DispatchQueue.main.async {
+                    self?.write {
+                        self?.realm.add(realmRecipe)
+                    }
+                }
+            }
         }
     }
     
@@ -50,9 +63,9 @@ class RealmStorageManager {
         return !itemsWithId.isEmpty
     }
     
-    func read() -> [RecipeRealmModel] {
-        let recipes = realm.objects(RecipeRealmModel.self)
-        return Array(recipes)
+    func read(completion: @escaping (Results<RecipeRealmModel>) -> ()) {
+        items = realm.objects(RecipeRealmModel.self)
+        completion(items)
     }
     
     

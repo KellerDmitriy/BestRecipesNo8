@@ -6,13 +6,16 @@
 //
 
 import UIKit
-import Kingfisher
 
 class SavedRecipeCell: UITableViewCell {
     
     static let cellID = String(describing: SavedRecipeCell.self)
     
+    var addButtonClosure: (() -> ())?
+    
     // MARK: - Views
+    lazy var addButton = CustomAddButton(isChecked: true)
+    
     private lazy var recipeImageView: UIImageView = _recipeImageView
     private lazy var titleRecipe: UILabel = _titleRecipe
     
@@ -28,14 +31,11 @@ class SavedRecipeCell: UITableViewCell {
     
     // MARK: - Init
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     // MARK: - Method for setup data to elements in every cell
-    func updateRecipeData(image: String?, rating: Int?, title: String?, time: Int?) {
+    func updateRecipeData(image: Data?, rating: String?, title: String?, time: Int?, addButtonAction: @escaping () -> ()) {
         if let rating = rating {
-            ratingLabel.text = String(rating)
+            ratingLabel.text = rating
         } else {
             ratingLabel.text = "N/A"
         }
@@ -45,13 +45,12 @@ class SavedRecipeCell: UITableViewCell {
         } else {
             timeLabel.text = "N/A"
         }
-        guard let url = image else { return }
-        let cache = ImageCache.default
-        cache.diskStorage.config.expiration = .seconds(1)
-        let processor = RoundCornerImageProcessor(cornerRadius: 12, backgroundColor: .clear)
-        recipeImageView.kf.indicatorType = .activity
-        recipeImageView.kf.setImage(with: URL(string: url), placeholder: nil, options: [.processor(processor),
-                                                                                          .cacheSerializer(FormatIndicatedCacheSerializer.png)])
+        if let image = image {
+            recipeImageView.image = UIImage(data: image)
+        } else {
+            recipeImageView.image = UIImage(systemName: "person")
+        }
+        addButtonClosure = addButtonAction
     }
     
     // MARK: - Subviews
@@ -68,6 +67,7 @@ class SavedRecipeCell: UITableViewCell {
         
         timeCreationView.addSubview(timeLabel)
         contentView.addSubview(timeCreationView)
+        contentView.addSubview(addButton)
     }
     
     // MARK: - Constraints
@@ -121,6 +121,13 @@ class SavedRecipeCell: UITableViewCell {
         bookmarkImageView.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
             make.width.height.equalTo(24)
+        }
+        
+        addButton.snp.makeConstraints { make in
+            make.top.equalTo(recipeImageView.snp.top).offset(10)
+            make.trailing.equalTo(recipeImageView.snp.trailing).offset(-10)
+            make.height.equalTo(32)
+            make.width.equalTo(32)
         }
     }
 }
@@ -208,5 +215,16 @@ private extension SavedRecipeCell {
         imageView.image = UIImage.bookmarkSelect
         imageView.contentMode = .scaleAspectFit
         return imageView
+    }
+    
+    private func addButtonSetup() {
+        addButton.addTarget(
+            self,
+            action: #selector(addButtonTapped),
+            for: .touchUpInside)
+    }
+    
+    @objc func addButtonTapped() {
+        addButtonClosure?()
     }
 }

@@ -9,56 +9,42 @@ import UIKit
 
 class Router: RouterProtocol {
     
-    var assemblyBuilder: AssemblyBuilderProtocol
-    var navigationController: UINavigationController?
     
-    init(assemblyBuilder: AssemblyBuilderProtocol, navigationController: UINavigationController?) {
+    var assemblyBuilder: AssemblyBuilderProtocol
+    let navigationController: UINavigationController
+    
+    init(assemblyBuilder: AssemblyBuilderProtocol, navigationController: UINavigationController) {
         self.assemblyBuilder = assemblyBuilder
         self.navigationController = navigationController
     }
     
-    func popToRoot<T: UIViewController>(_ viewController: T, animated: Bool) {
-        if let navigationController = navigationController {
-            if navigationController.viewControllers.contains(viewController) {
-                navigationController.setViewControllers([viewController], animated: animated)
-            } else {
-                print("ViewController not found in the navigation stack.")
-            }
-        }
-    }
-
-    func routeToSearchScreen() {
-        if let navigationController = navigationController {
-            let searchController = assemblyBuilder.createSearchModule(router: self)
-            navigationController.pushViewController(searchController, animated: true)
-        }
+    func routeToMainScreen() {
+        let mainViewController = assemblyBuilder.createMainModule(router: self)
+        navigationController.pushViewController(mainViewController, animated: true)
     }
     
-    func routeToSeeAllScreen(recipes: [RecipeProtocol]) {
-        if let navigationController = navigationController {
-            let seeAllViewController = assemblyBuilder.createSeeAllModule(recipes: recipes, router: self)
-            navigationController.pushViewController(seeAllViewController, animated: true)
-        }
+    func routeToSearchScreen() {
+        let searchController = assemblyBuilder.createSearchModule(router: self)
+        navigationController.pushViewController(searchController, animated: true)
+    }
+    
+    func routeToSeeAllScreen(recipes: [RecipeProtocol], sortion: Endpoint.Sortion) {
+        let seeAllViewController = assemblyBuilder.createSeeAllModule(recipes: recipes, router: self, sortion: sortion)
+        navigationController.pushViewController(seeAllViewController, animated: true)
     }
     
     func routeToRecipeDetailScreen(recipe: RecipeProtocol) {
-        if let navigationController = navigationController {
-            let recipeDetailViewController = assemblyBuilder.createRecipeDetailModule(recipe: recipe, router: self)
-            navigationController.pushViewController(recipeDetailViewController, animated: true)
-        }
+        let recipeDetailViewController = assemblyBuilder.createRecipeDetailModule(recipe: recipe)
+        navigationController.pushViewController(recipeDetailViewController, animated: true)
     }
     
-    func routeToSavedRecipeScreen() {
-        if let navigationController = navigationController {
-            let savedRecipeViewController = assemblyBuilder.createSavedRecipesModule(router: self)
-            navigationController.pushViewController(savedRecipeViewController, animated: true)
-        }
+    func routeToSavedRecipesScreen() {
+        let savedRecipeViewController = assemblyBuilder.createSavedRecipesModule( router: self)
+        navigationController.pushViewController(savedRecipeViewController, animated: true)
     }
     
     func routeToProfileScreen() {
-        if let navigationController = navigationController {
-            let routeToProfileViewController = assemblyBuilder.createProfileModule(router: self)
-            navigationController.pushViewController(routeToProfileViewController, animated: true)
-        }
+        let routeToProfileViewController = assemblyBuilder.createProfileModule(router: self)
+        navigationController.pushViewController(routeToProfileViewController, animated: true)
     }
 }

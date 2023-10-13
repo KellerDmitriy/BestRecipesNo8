@@ -9,11 +9,16 @@ import UIKit
 
 class AssemblyBuilder: AssemblyBuilderProtocol {
     
-    func createMainModule(router: RouterProtocol, searchController: AssemblyBuilderProtocol) -> UIViewController {
+    func createTabBar(router: RouterProtocol) -> CustomTabBarController {
+        let tabBar = CustomTabBarController(assemblyBuilder: self, router: router)
+        return tabBar
+    }
+    
+    func createMainModule(router: RouterProtocol) -> UIViewController {
         let view = MainViewController()
         let networkManager = NetworkManager.shared
         let realmStoredManager = RealmStorageManager.shared
-        let presenter = MainPresenter(view: view, networkManager: networkManager, realmStoredManager: realmStoredManager, router: router, searchController: searchController)
+        let presenter = MainPresenter(view: view, networkManager: networkManager, realmStoredManager: realmStoredManager, router: router)
         presenter.view = view
         view.presenter = presenter
         view.popularCategoryDelegate = presenter
@@ -29,17 +34,17 @@ class AssemblyBuilder: AssemblyBuilderProtocol {
         return view
     }
     
-    func createSeeAllModule(recipes: [RecipeProtocol], router: RouterProtocol) -> UIViewController {
+    func createSeeAllModule(recipes: [RecipeProtocol], router: RouterProtocol, sortion: Endpoint.Sortion) -> UIViewController {
         let view = SeeAllViewController()
         let networkManager = NetworkManager.shared
         let realmStoredManager = RealmStorageManager.shared
 
-        let presenter = SeeAllPresenter( view: view, networkManager: networkManager, realmStoredManager: realmStoredManager, router: router, recipes: recipes)
+        let presenter = SeeAllPresenter( view: view, networkManager: networkManager, realmStoredManager: realmStoredManager, router: router, recipes: recipes, sortion: sortion)
         view.presenter = presenter
         return view
     }
     
-    func createRecipeDetailModule(recipe: RecipeProtocol, router: RouterProtocol) -> UIViewController {
+    func createRecipeDetailModule(recipe: RecipeProtocol) -> UIViewController {
         let view = RecipeDetailView()
         let presenter = RecipeDetailPresenter(view: view, recipe: recipe)
         view.presenter = presenter

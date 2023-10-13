@@ -8,15 +8,15 @@
 import UIKit
 
 protocol MainRouterProtocol {
-    var navigationController: UINavigationController? { get set }
+    var navigationController: UINavigationController { get }
     var assemblyBuilder: AssemblyBuilderProtocol { get set }
 }
 
 protocol RouterProtocol: MainRouterProtocol {
-    func popToRoot<T: UIViewController>(_ viewController: T, animated: Bool)
+    func routeToMainScreen()
     func routeToSearchScreen()
-    func routeToSeeAllScreen(recipes: [RecipeProtocol])
+    func routeToSeeAllScreen(recipes: [RecipeProtocol], sortion: Endpoint.Sortion)
     func routeToRecipeDetailScreen(recipe: RecipeProtocol)
-    func routeToSavedRecipeScreen()
+    func routeToSavedRecipesScreen()
     func routeToProfileScreen()
 }

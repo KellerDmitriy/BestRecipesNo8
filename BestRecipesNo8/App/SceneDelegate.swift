@@ -18,9 +18,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let navigationVC = UINavigationController()
         navigationVC.setupNavigationBar()
+        
         let assemblyBuilder = AssemblyBuilder()
         let router = Router(assemblyBuilder: assemblyBuilder, navigationController: navigationVC)
-        let tabBarController = CustomTabBarController(assemblyBuilder: assemblyBuilder, router: router)
+        let tabBarController: CustomTabBarController = assemblyBuilder.createTabBar(router: router)
         if isShowOnboarding() {
             navigationVC.setViewControllers([StartViewController()], animated: false)
         } else {

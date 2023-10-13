@@ -20,32 +20,33 @@ final class MainPresenter: MainPresenterProtocol {
     var savedRecipesId: [Int] = []
     var savedRecipes: [RecipeRealmModel] = []
     
-    var searchController: AssemblyBuilderProtocol
+//    var searchController: AssemblyBuilderProtocol
     var searchedRecipes: [RecipeProtocol] = []
     
     var router: RouterProtocol
     
     //MARK: LifeCycle
     
-    required init(view: MainScreenViewControllerProtocol, networkManager: NetworkManager, realmStoredManager: RealmStorageManager, router: RouterProtocol, searchController: AssemblyBuilderProtocol) {
+    required init(view: MainScreenViewControllerProtocol, networkManager: NetworkManager, realmStoredManager: RealmStorageManager, router: RouterProtocol) {
         
-        self.searchController = searchController
+       // self.searchController = searchController
         self.view = view
         self.networkManager = networkManager
         self.realmStoredManager = realmStoredManager
         self.router = router
-        self.savedRecipesId = Array(realmStoredManager.read().map { $0.id })
+       // self.savedRecipesId = Array(realmStoredManager.read(completion: ).map { $0.id })
     }
     
     //MARK: SeeAll Methods
-    func seeAllButtonTapped() {
-        self.router.routeToSeeAllScreen(recipes: trendingNowRecipes)
+    func seeAllButtonTapped(with sortion: Endpoint.Sortion) {
+        switch sortion {
+        case .trendingNow:
+            router.routeToSeeAllScreen(recipes: trendingNowRecipes, sortion: sortion)
+        case .random:
+            router.routeToSeeAllScreen(recipes: randomRecipe, sortion: sortion)
+        }
     }
     
-    func seeAllRandomSectionButtonTapped() {
-        self.router.routeToSeeAllScreen(recipes: randomRecipe)
-        
-    }
     
     //MARK: Search Methods
     func fetchSearchedRecipe(with searchText: String) {
@@ -54,8 +55,8 @@ final class MainPresenter: MainPresenterProtocol {
             case .success(let recipes):
                 var models: [SearchRecipe] = []
                 recipes.results?.forEach({ recipe in
-                    guard let title = recipe.title, let image = recipe.image else { return }
-                    models.append(SearchRecipe(id: recipe.id, title: title, image: image))
+                    guard let title = recipe.title, let image = recipe.image, let readyInMinutes = recipe.readyInMinutes  else { return }
+                    models.append(SearchRecipe(id: recipe.id, title: title, image: image, readyInMinutes: readyInMinutes))
                 })
                 self?.view?.configureSearchResults(models: models)
         
@@ -73,7 +74,7 @@ final class MainPresenter: MainPresenterProtocol {
             let realmRecipe = RecipeRealmModel()
             realmRecipe.id = recipe.id
             realmRecipe.title = recipe.title ?? ""
-            realmRecipe.image = recipe.image ?? ""
+           // realmRecipe.imageData = recipe.image
             realmStoredManager.save(savedRecipes)
         }
     }
@@ -93,9 +94,8 @@ final class MainPresenter: MainPresenterProtocol {
 
 extension MainPresenter: PopularCategoryDelegate {
     func sectCell(recipe: RecipeInfo) {
-#warning("CREATE Detail module here!")
-        print(recipe)
         router.routeToRecipeDetailScreen(recipe: recipe)
+        print(recipe)
     }
     
     func getRecipesWithMealType(mealType: String) {

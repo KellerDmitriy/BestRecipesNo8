@@ -36,6 +36,20 @@ final class CustomTabBarController: UITabBarController, UITabBarControllerDelega
         applyConstraints()
         assignTabBarModules()
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        if !UserDefaults().bool(forKey: "showOnboarding") {
+            let onboarding = StartViewController()
+            onboarding.modalPresentationStyle = .automatic
+            onboarding.modalTransitionStyle = .coverVertical
+            self.present(onboarding, animated: true)
+        }
+    }
+    
+    //MARK: - Public methods
+    func navigationControllers(_ controllers: UIViewController...) {
+        self.viewControllers = controllers
+    }
     
     // MARK: - Create Button Method
     @objc private func createButtonIsTapped(_ sender: UIButton) {
@@ -46,7 +60,7 @@ final class CustomTabBarController: UITabBarController, UITabBarControllerDelega
     
     // MARK: - TabBarItem setup a controller and images
     private func assignTabBarModules() {
-        let mainVC = UINavigationController(rootViewController: assemblyBuilder.createMainModule(router: router, searchController: assemblyBuilder))
+        let mainVC = UINavigationController(rootViewController: assemblyBuilder.createMainModule(router: router))
         let SavedRecipe = UINavigationController(rootViewController: assemblyBuilder.createSavedRecipesModule(router: router))
         let notificationVC = UINavigationController(rootViewController: assemblyBuilder.createSearchModule(router: router))
         let profileVC = UINavigationController(rootViewController: assemblyBuilder.createProfileModule(router: router))

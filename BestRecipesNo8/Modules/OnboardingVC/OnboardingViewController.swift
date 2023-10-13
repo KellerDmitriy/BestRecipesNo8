@@ -115,12 +115,8 @@ class OnboardingViewController: UIViewController {
     }
     
     @objc private func pushViewController() {
+        dismiss(animated: true)
         UserDefaults.standard.set(false, forKey: "showOnboarding")
-        navigationController?.setupNavigationBar()
-        let assemblyBuilder = AssemblyBuilder()
-        let router = Router(assemblyBuilder: assemblyBuilder, navigationController: navigationController)
-        let tabBarController = CustomTabBarController(assemblyBuilder: assemblyBuilder, router: router)
-        navigationController?.setViewControllers([tabBarController], animated: false)
     }
     
     // MARK: - Hierarchy

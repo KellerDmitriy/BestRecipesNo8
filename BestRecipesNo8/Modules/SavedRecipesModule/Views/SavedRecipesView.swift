@@ -25,17 +25,19 @@ final class SavedRecipesView: UIViewController {
         addSubviews()
         applyConstraints()
         deleteAllBarButtonTapped()
-        
-        
+        animateTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        presenter.updateRecipe()
+        presenter.loadData()
+        tableView.reloadData()
+        animateTableView()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        animateTableView()
+        
     }
     
     // MARK: - Subviews
@@ -65,19 +67,14 @@ final class SavedRecipesView: UIViewController {
 
 extension SavedRecipesView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.savedRecipes.count
+        return presenter.savedRecipes?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SavedRecipeCell.cellID, for: indexPath) as! SavedRecipeCell
         
-        let recipe = presenter.savedRecipes[indexPath.row]
-        cell.updateRecipeData(
-            image: recipe.image,
-            rating: recipe.rating,
-            title: recipe.title,
-            time: recipe.time
-        )
+        let recipe = presenter.savedRecipes?[indexPath.row]
+        cell.updateRecipeData(image: recipe?.imageData, rating: recipe?.rating, title: recipe?.title, time: recipe?.time, addButtonAction: removeRecipeClosure(at: recipe?.id ?? 0))
         return cell
     }
 }
@@ -100,7 +97,7 @@ extension SavedRecipesView: SavedRecipesViewProtocol {
     
     func animateTableView() {
         tableView.reloadData()
-        if !presenter.savedRecipes.isEmpty{
+        if ((presenter.savedRecipes?.isEmpty) == nil){
             let cells = tableView.visibleCells
             let tableViewHeight = tableView.bounds.height
             var delay: Double = 0
@@ -122,14 +119,19 @@ extension SavedRecipesView: SavedRecipesViewProtocol {
     }
     
     func openSavedRecipes() {
+        presenter.loadData()
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.animateTableView()
         }
     }
     
-    func removeRecipe(at index: Int) {
-        presenter.deleteRecipe(with: index)
-        // Update the UI to reflect the updated savedRecipes array
+    func removeRecipeClosure(at index: Int) -> (() -> ()) {
+        return{
+           self.presenter.deleteRecipe(with: index)
+            self.tableView.reloadData()
+            self.animateTableView()
+        }
     }
 }
 

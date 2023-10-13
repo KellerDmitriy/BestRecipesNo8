@@ -83,23 +83,22 @@ class SeeAllCollectionViewCell: UICollectionViewCell {
     
     // Закладка
     
-    private lazy var saveButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "bookmark"), for: .normal)
-        button.backgroundColor = .white
-        button.layer.cornerRadius = 16
-        button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    lazy var addButton = CustomAddButton()
     
-    var isSaveButtonTapped = false
+    var isSaved = false {
+        didSet {
+            addButton.toggle(with: isSaved)
+        }
+    }
+    
+    var addButtonClosure: (() -> ())?
     
     // MARK: - Initial
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        addButtonSetup()
     }
     
     required init?(coder: NSCoder) {
@@ -158,46 +157,49 @@ class SeeAllCollectionViewCell: UICollectionViewCell {
             titleRecipe.bottomAnchor.constraint(equalTo: infoRecipe.topAnchor, constant: -8)
         ])
         
-        contentView.addSubview(saveButton)
+        contentView.addSubview(addButton)
         NSLayoutConstraint.activate([
-            saveButton.widthAnchor.constraint(equalToConstant: 32),
-            saveButton.heightAnchor.constraint(equalToConstant: 32),
-            saveButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            saveButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+            addButton.widthAnchor.constraint(equalToConstant: 32),
+            addButton.heightAnchor.constraint(equalToConstant: 32),
+            addButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            addButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
         
     }
     
     // MARK: - Public methods
     
-    #warning("ДОРАБОТАТЬ МЕТОД ПРИ ПОДКЛЮЧЕНИИ ДАННЫХ И ПЕРЕДАЧИ С ДРУГОГО ЭКРАНА")
-    
-    func configureCell(recipe: RecipeProtocol) {
+    func configureCell(recipe: RecipeProtocol, addButtonClosure: @escaping () -> ()) {
         let image = recipe.image ?? ""
         let title = recipe.title
         
         titleRecipe.text = title
-        
+        ratingLabel.text = recipe.rating
+        infoRecipe.text = String("\(recipe.readyInMinutes)")
         let cache = ImageCache.default
         cache.diskStorage.config.expiration = .seconds(1)
         let processor = RoundCornerImageProcessor(cornerRadius: 55, backgroundColor: .clear)
         imageView.kf.indicatorType = .activity
         imageView.kf.setImage(with: URL(string: image), placeholder: nil, options: [.processor(processor),
                                                                                           .cacheSerializer(FormatIndicatedCacheSerializer.png)])
-        
-//        imageView.kf.indicatorType = .activity
-//        imageView.kf.setImage(with: url, options: [
-//            .scaleFactor(10)
-//        ])
-//        ImageManager.shared.fetchImageData(from: url) { [weak self] data, response in
-//            guard let image = UIImage(data: data) else { return }
-//            self?.imageView.image = UIImage.cropImage(image: image)
-//        }
+        isSaved = RealmStorageManager.shared.isItemSaved(withId: recipe.id)
+        self.addButtonClosure = addButtonClosure
+    }
+}
+
+//  MARK: - Save button setup
+
+extension SeeAllCollectionViewCell {
+    
+    private func addButtonSetup() {
+        addButton.addTarget(
+            self,
+            action: #selector(addButtonTapped),
+            for: .touchUpInside)
     }
     
-    @objc func saveButtonTapped() {
-        isSaveButtonTapped.toggle()
-        saveButton.setImage(UIImage(named: isSaveButtonTapped ? "bookmarkSelect" : "bookmark"), for: .normal)
+    @objc func addButtonTapped() {
+        addButtonClosure?()
+        isSaved.toggle()
     }
-    
 }
