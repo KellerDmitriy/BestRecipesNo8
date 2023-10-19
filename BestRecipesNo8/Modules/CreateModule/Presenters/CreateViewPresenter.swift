@@ -10,9 +10,9 @@ import Foundation
 final class CreateViewPresenter: CreateRecipePresenterProtocol {
     
     weak var view: CreateViewProtocol?
-    private let router: RouterProtocol
+    private let router: CreateRouterProtocol
     
-    init(view: CreateViewProtocol, router: RouterProtocol) {
+    init(view: CreateViewProtocol, router: CreateRouterProtocol) {
         self.view = view
         self.router = router
     }

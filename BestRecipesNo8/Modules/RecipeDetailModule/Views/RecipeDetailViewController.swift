@@ -1,5 +1,5 @@
 //
-//  RecipeDetailView.swift
+//  RecipeView.swift
 //  BestRecipesNo8
 //
 //  Created by Мявкo on 28.08.23.
@@ -9,9 +9,9 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-final class RecipeDetailView: UIViewController {
+final class RecipeDetailViewController: UIViewController {
     
-    var presenter: RecipeDetailPresenterProtocol!
+    var presenter: RecipeDetailPresenter!
     
     // MARK: - Views
     private lazy var scrollView: UIScrollView = _scrollView
@@ -32,17 +32,19 @@ final class RecipeDetailView: UIViewController {
     private lazy var countIngredientsLabel: UILabel = _countIngredientsLabel
     private lazy var ingredientsTableView: UITableView = _ingredientsTableView
     
-    private var heightOfTableView: Int?
+    private var heightOfTableView: Int = 0
+    
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        heightOfTableView = Int(presenter.heightOfTableViewCell) * presenter.countIngredients
         
         setupSubviews()
         applyConstraints()
         setupRecipeContent()
-        heightOfTableView = Int(presenter.heightOfTableViewCell) * presenter.countIngredients
+        
+       // navigationController?.setupNavigationBar()
     }
     
     // MARK: - Setup content of chosen page
@@ -80,6 +82,7 @@ final class RecipeDetailView: UIViewController {
         contentView.addSubview(ingredientsTitle)
         contentView.addSubview(countIngredientsLabel)
         contentView.addSubview(ingredientsTableView)
+        view.backgroundColor = .white
     }
     
     // MARK: - Constraints
@@ -145,7 +148,7 @@ final class RecipeDetailView: UIViewController {
             make.top.equalTo(ingredientsTitle.snp.bottom).offset(12)
             make.leading.trailing.equalToSuperview().inset(25)
             make.bottom.equalTo(contentView.snp.bottom)
-            make.height.equalTo(heightOfTableView ?? 0)
+            make.height.equalTo(heightOfTableView)
         }
     }
     
@@ -190,7 +193,7 @@ final class RecipeDetailView: UIViewController {
 }
 
 // MARK: - UITableView Protocols
-extension RecipeDetailView: UITableViewDelegate, UITableViewDataSource {
+extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.countIngredients
@@ -211,14 +214,14 @@ extension RecipeDetailView: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension RecipeDetailView: RecipeDetailViewProtocol {
+extension RecipeDetailViewController: RecipeDetailViewProtocol {
     func openRecipe() {
         print("Recipe is opened")
     }
 }
 
 // MARK: - Extension for setup elements
-private extension RecipeDetailView {
+private extension RecipeDetailViewController {
     
     var _scrollView: UIScrollView {
         let scrollView = UIScrollView()

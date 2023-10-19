@@ -14,10 +14,9 @@ extension RealmStorageManager {
             if RealmStorageManager.shared.isItemSaved(withId: recipe.id) {
                 RealmStorageManager.shared.deleteRecipeFromRealm(with: recipe.id)
             } else {
-                RealmStorageManager.shared.save(recipe: recipe)
+                RealmStorageManager.shared.write(recipe: recipe)
             }
         }
         return closure
     }
-     
 }

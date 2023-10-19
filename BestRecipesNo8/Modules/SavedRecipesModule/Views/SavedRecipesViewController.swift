@@ -1,5 +1,5 @@
 //
-//  SavedRecipesView.swift
+//  SavedRecipesViewController.swift
 //  BestRecipesNo8
 //
 //  Created by Мявкo on 2.09.23.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class SavedRecipesView: UIViewController {
+final class SavedRecipesViewController: UIViewController {
     
     var presenter: SavedRecipesPresenterProtocol!
  
@@ -25,17 +25,19 @@ final class SavedRecipesView: UIViewController {
         addSubviews()
         applyConstraints()
         deleteAllBarButtonTapped()
-        
-        
+        animateTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        presenter.updateRecipe()
+        presenter.loadData()
+        tableView.reloadData()
+        animateTableView()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        animateTableView()
+        
     }
     
     // MARK: - Subviews
@@ -63,26 +65,21 @@ final class SavedRecipesView: UIViewController {
 
 // MARK: UICollectionViewDataSource
 
-extension SavedRecipesView: UITableViewDataSource, UITableViewDelegate {
+extension SavedRecipesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.savedRecipes.count
+        return presenter.savedRecipes?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SavedRecipeCell.cellID, for: indexPath) as! SavedRecipeCell
         
-        let recipe = presenter.savedRecipes[indexPath.row]
-        cell.updateRecipeData(
-            image: recipe.image,
-            rating: recipe.rating,
-            title: recipe.title,
-            time: recipe.time
-        )
+        let recipe = presenter.savedRecipes?[indexPath.row]
+        cell.updateRecipeData(image: recipe?.imageData, rating: recipe?.rating, title: recipe?.title, time: recipe?.time, addButtonAction: removeRecipeClosure(at: recipe?.id ?? 0))
         return cell
     }
 }
 
-extension SavedRecipesView: SavedRecipesViewProtocol {
+extension SavedRecipesViewController: SavedRecipesViewProtocol {
     func deleteAllBarButtonTapped() {
         let deleteAllItems = UIBarButtonItem(
             title: "Remove All",
@@ -100,7 +97,7 @@ extension SavedRecipesView: SavedRecipesViewProtocol {
     
     func animateTableView() {
         tableView.reloadData()
-        if !presenter.savedRecipes.isEmpty{
+        if ((presenter.savedRecipes?.isEmpty) == nil){
             let cells = tableView.visibleCells
             let tableViewHeight = tableView.bounds.height
             var delay: Double = 0
@@ -122,19 +119,24 @@ extension SavedRecipesView: SavedRecipesViewProtocol {
     }
     
     func openSavedRecipes() {
+        presenter.loadData()
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.animateTableView()
         }
     }
     
-    func removeRecipe(at index: Int) {
-        presenter.deleteRecipe(with: index)
-        // Update the UI to reflect the updated savedRecipes array
+    func removeRecipeClosure(at index: Int) -> (() -> ()) {
+        return{
+           self.presenter.deleteRecipe(with: index)
+            self.tableView.reloadData()
+            self.animateTableView()
+        }
     }
 }
 
 // MARK: - Extension for setup elements
-private extension SavedRecipesView {
+private extension SavedRecipesViewController {
     
     var _savedRecipesTitle: UILabel {
         let label = UILabel()

@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class ProfileView: UIViewController {
+final class ProfileViewController: UIViewController {
     
     var presenter: ProfilePresenter!
     private let recipes = ProfileModel.shared.getData()
@@ -170,7 +170,7 @@ final class ProfileView: UIViewController {
 
 // MARK: UICollectionViewDataSource
 
-extension ProfileView: UICollectionViewDataSource {
+extension ProfileViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return recipes.count
@@ -193,7 +193,7 @@ extension ProfileView: UICollectionViewDataSource {
 }
 
 // MARK: - Protocols for load Image from gallery
-extension ProfileView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         profileImageView.image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
@@ -203,14 +203,14 @@ extension ProfileView: UIImagePickerControllerDelegate, UINavigationControllerDe
     }
 }
 
-extension ProfileView: ProfileViewProtocol {
+extension ProfileViewController: ProfileViewProtocol {
     func openProfile() {
         print("profile is opened")
     }
 }
 
 // MARK: - Extension for setup elements
-private extension ProfileView {
+private extension ProfileViewController {
     
     var _scrollView: UIScrollView {
         let scrollView = UIScrollView()

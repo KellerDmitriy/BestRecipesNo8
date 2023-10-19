@@ -391,6 +391,7 @@ extension CreateViewController {
                                                  imageData: imageData,
                                                  ingredients: ingredients)
             StorageManager.shared.save(recipe: recipeForRealm)
+            showAlert(title: "Done!", message: "Saved your recipe.)")
             navigationController?.popViewController(animated: true)
         } else {
             showAlert(title: "Warning!", message: "Not all data entered.")

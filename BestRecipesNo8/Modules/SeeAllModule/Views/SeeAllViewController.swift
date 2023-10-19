@@ -25,13 +25,14 @@ class SeeAllViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        navigationItem.title = presenter.sortOrder.title
+        //navigationController?.setupNavigationBar()
         setupUI()
     }
     
     // MARK: - Private methods
     private func setupUI() {
-        navigationItem.title = "Trending now"
+        
         view.addSubview(collectionView)
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
@@ -80,7 +81,7 @@ extension SeeAllViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         let recipe = self.presenter.seeAllRecipes[indexPath.row]
-        cell.configureCell(recipe: recipe)
+        cell.configureCell(recipe: recipe, addButtonClosure: presenter.realmStoredManager.createCompletion(with: recipe))
         return cell
     }   
 }
@@ -88,7 +89,7 @@ extension SeeAllViewController: UICollectionViewDataSource {
 extension SeeAllViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let recipe = presenter.seeAllRecipes[indexPath.row]
-        presenter.router?.routeToRecipeDetailScreen(recipe: recipe)
+        presenter.router.routeToDetailRecipeScreen(recipe: recipe)
         
     }
 }

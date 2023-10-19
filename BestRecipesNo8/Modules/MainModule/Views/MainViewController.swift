@@ -44,7 +44,7 @@ final class MainViewController: UIViewController {
         setupUI()
         setupLayout()
         getRecipes()
-        searchVC = presenter.searchController.createSearchModule(router: presenter.router)
+     //   searchVC = presenter.searchController.createSearchModule(router: presenter.router)
         view.backgroundColor = .white
         navigationItem.title = "Get amazing recipes cooking"
         let navigationBarAppearance = navigationController?.navigationBar.standardAppearance
@@ -60,11 +60,11 @@ final class MainViewController: UIViewController {
     
     //MARK: - Methods for Header's Button
     @objc private func seeAllButtonTapped() {
-        presenter.seeAllButtonTapped()
+        presenter.seeAllButtonTapped(with: .trendingNow)
     }
     
     @objc private func seeAllRandomSectionButtonTapped() {
-        presenter.seeAllRandomSectionButtonTapped()
+        presenter.seeAllButtonTapped(with: .random)
     }
     
     //MARK: - Methods
@@ -250,7 +250,7 @@ extension MainViewController: MainScreenViewControllerProtocol {
     }
     
     func getRecipes() {
-        presenter.networkManager.getTenPopularRecipes { result in
+        presenter.networkManager.getTenPopularRecipes(sortedBy: .trendingNow) { result in
             switch result {
             case .success(let results):
                 let recipes = results

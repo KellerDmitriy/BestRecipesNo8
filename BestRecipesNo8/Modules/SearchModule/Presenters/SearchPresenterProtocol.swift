@@ -11,7 +11,7 @@ protocol SearchPresenterProtocol: AnyObject {
     
     var savedRecipesId: [Int] { get set }
     var searchedRecipes: [RecipeProtocol] { get set}
-    var router: RouterProtocol? { get set }
+    var router: SearchRouterProtocol { get set }
     var realmStorageManager: RealmStorageManager { get set }
     var networkManager: NetworkManager { get set }
     

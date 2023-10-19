@@ -8,27 +8,36 @@
 import Foundation
 
 final class SeeAllPresenter: SeeAllPresenterProtocol {
+    
+    var view: SeeAllViewProtocol
+    var networkManager: NetworkManager
+    var realmStoredManager: RealmStorageManager
+    var router: MainRouterProtocol
+    
+    let sortOrder: Endpoint.SortOrder
 
     //MARK: - Properties
-    weak var view: SeeAllViewProtocol?
-    let networkManager: NetworkManager?
-    let realmStoredManager: RealmStorageManager?
-    var router: RouterProtocol?
     var seeAllRecipes: [RecipeProtocol]
 
-    required init(view:SeeAllViewProtocol, networkManager: NetworkManager, realmStoredManager: RealmStorageManager, router: RouterProtocol, recipes: [RecipeProtocol]) {
+    required init(
+        view: SeeAllViewProtocol,
+        networkManager: NetworkManager,
+        realmStoredManager: RealmStorageManager,
+        router: MainRouterProtocol,
+        recipes: [RecipeProtocol],
+        sortOrder: Endpoint.SortOrder
+    ) {
+        self.view = view
         self.networkManager = networkManager
         self.realmStoredManager = realmStoredManager
         self.router = router
         self.seeAllRecipes = recipes
+        self.sortOrder = sortOrder
     }
 }
 
 extension SeeAllPresenter {
-    func cellTapped() {
-        //
-    }
-    
+
     func saveButtonTapped() {
         //
     }

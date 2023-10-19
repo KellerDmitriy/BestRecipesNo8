@@ -6,14 +6,14 @@
 //
 
 import Foundation
+import RealmSwift
 
 protocol SavedRecipesPresenterProtocol {
     var realmStorageManager: RealmStorageManager { get set }
-    var savedRecipes: [RecipeRealmModel] { get set }
+    var savedRecipes: Results<RecipeRealmModel>? { get set }
+    var savedRecipesId: Int { get set }
     
     func loadData()
     func deleteRecipe(with index: Int)
     func deleteAllBarButtonTapped()
-    func updateRecipe()
-
 }

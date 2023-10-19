@@ -31,5 +31,20 @@ enum Endpoint {
             return "/recipes/informationBulk"
         }
     }
-    
+}
+
+extension Endpoint {
+    enum SortOrder: String {
+        case trendingNow
+        case random
+        
+        var title: String {
+            switch self {
+            case .trendingNow:
+                return "Trending now 🔥"
+            case .random:
+                return "Random recipe"
+            }
+        }
+    }
 }

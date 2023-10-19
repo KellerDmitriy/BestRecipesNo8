@@ -9,7 +9,7 @@ import Foundation
 
 final class SearchPresenter: SearchPresenterProtocol {
     weak var view: SearchViewProtocol?
-    var router: RouterProtocol?
+    var router: SearchRouterProtocol
     
     var networkManager = NetworkManager.shared
     var realmStorageManager = RealmStorageManager.shared
@@ -17,7 +17,7 @@ final class SearchPresenter: SearchPresenterProtocol {
     var savedRecipesId: [Int] = []
     var searchedRecipes: [RecipeProtocol] = []
     
-    required init(view: SearchViewProtocol, networkManager: NetworkManager, realmStorageManager: RealmStorageManager, router: RouterProtocol) {
+    required init(view: SearchViewProtocol, networkManager: NetworkManager, realmStorageManager: RealmStorageManager, router: SearchRouterProtocol) {
         self.view = view
         self.networkManager = networkManager
         self.realmStorageManager = realmStorageManager
@@ -50,6 +50,7 @@ final class SearchPresenter: SearchPresenterProtocol {
                                     let title = data.title,
                                     let image = data.image,
                                     let rating = data.rating,
+                                    let readyInMinutes = data.readyInMinutes,
                                     let extendedIngredients = data.extendedIngredients,
                                     let instuctionsLabel = data.instuctionsLabel
                                 else { return }
@@ -59,6 +60,7 @@ final class SearchPresenter: SearchPresenterProtocol {
                                     title: title,
                                     image: image,
                                     rating: rating,
+                                    readyInMinutes: readyInMinutes,
                                     extendedIngredients: extendedIngredients,
                                     instuctionsLabel: instuctionsLabel
                                 )
@@ -81,3 +83,14 @@ final class SearchPresenter: SearchPresenterProtocol {
         }
     }
 }
+#warning("проверить метод для доп свойств по ингридиентам")
+//func updateRecipe() {
+//    if let savedRecipesId = UserDefaults.standard.object(forKey: "savedRecipes") as? [Int] {
+//        NetworkManager.shared.getRecipeInformationBulk(for: savedRecipesId) { result in
+//            switch result {
+//            case .success(let recipes):
+//              //  self.savedRecipes = recipes
+//                self.view?.openSavedRecipes()
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }

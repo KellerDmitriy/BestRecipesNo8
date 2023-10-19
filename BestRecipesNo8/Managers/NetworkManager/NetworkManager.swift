@@ -117,7 +117,7 @@ struct NetworkManager {
     
     /// Get random recipes.
     /// - Returns: 10 random recipes
-    func getRandomRecipes(completion: @escaping(Result<RandomRecipe, NetworkError>) -> Void) {
+    func getRandomRecipes(completion: @escaping(Result<RecipeResults, NetworkError>) -> Void) {
         guard let url = createURL(for: .getRandomRecipes, with: nil) else { return }
         makeTask(for: url, completion: completion)
     }
@@ -175,7 +175,7 @@ extension NetworkManager {
     
     /// Get popular recipes
     /// - Returns: 10 popular recipes
-    func getTenPopularRecipes(completion: @escaping(Result<[RecipeInfo], NetworkError>) -> Void) {
+    func getTenPopularRecipes(sortedBy sortOrder: Endpoint.SortOrder, completion: @escaping(Result<[RecipeInfo], NetworkError>) -> Void) {
         guard let url = createURL(for: .getPopularRecipes) else { return }
         
         makeTask(for: url) { searchResult in

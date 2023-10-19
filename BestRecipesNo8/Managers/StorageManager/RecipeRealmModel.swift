@@ -9,11 +9,24 @@ import RealmSwift
 import Foundation
 
 class RecipeRealmModel: Object {
-    @Persisted var id: Int
-    @Persisted var title: String
-    @Persisted var image: String
-    @Persisted var rating: Int?
-    @Persisted var time: Int?
+    @Persisted(primaryKey: true) var id: Int = 0
+    @Persisted var title: String = ""
+    @Persisted var imageData: Data = Data()
+    @Persisted var rating: String = ""
+    @Persisted var time: Int = 0
+    let ingredients = List<Ingredients>()
+    @Persisted var instuctionsLabel: String = ""
+    @Persisted var timeSaving = Date()
+}
+
+class Ingredients: Object {
+    @Persisted(primaryKey: true) var id: Int = 0
+    @Persisted var aisle: String = ""
+    @Persisted var imageIngredientData: Data = Data()
+    @Persisted var consistency: String = ""
+    @Persisted var name: String = ""
+    @Persisted var amount: Double = 0.0
+    @Persisted var unit: String = ""
 }
 
 class RecipeInfoRealm: Object {

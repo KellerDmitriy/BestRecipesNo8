@@ -93,7 +93,7 @@ class IngredientCell: UITableViewCell {
     
     // MARK: - Method for setup elements in every cell
     func updateCell(at index: Int, ingredient: IngredientModel) {
-//        icon.image = ingredient.icon
+        // icon.image = ingredient.
         nameLabel.text = ingredient.name
         countLabel.text = ingredient.count
         
