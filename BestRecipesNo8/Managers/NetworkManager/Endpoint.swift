@@ -34,7 +34,7 @@ enum Endpoint {
 }
 
 extension Endpoint {
-    enum Sortion: String {
+    enum SortOrder: String {
         case trendingNow
         case random
         

@@ -17,27 +17,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         let navigationVC = UINavigationController()
-        navigationVC.setupNavigationBar()
-        
         let assemblyBuilder = AssemblyBuilder()
-        let router = Router(assemblyBuilder: assemblyBuilder, navigationController: navigationVC)
-        let tabBarController: CustomTabBarController = assemblyBuilder.createTabBar(router: router)
-        if isShowOnboarding() {
-            navigationVC.setViewControllers([StartViewController()], animated: false)
-        } else {
-            navigationVC.setViewControllers([tabBarController], animated: false)
-        }
-        window?.rootViewController = navigationVC
-        window?.makeKeyAndVisible()
-    }
-    
-    func isShowOnboarding() -> Bool {
-        var showOnboarding = true
+        let tabBar: CustomTabBarController = assemblyBuilder.createTabBar()
         
-        if let showOnboardingUDValue = UserDefaults.standard.object(forKey: "showOnboarding") {
-            showOnboarding = showOnboardingUDValue as! Bool
-        }
-        return showOnboarding
+        let mainRouter: MainRouterProtocol = assemblyBuilder.createMainRouter()
+        let savedRecipesRouter: SavedRecipesRouterProtocol = assemblyBuilder.createSavedRecipesRouter()
+        let createRecipeRouter: CreateRouterProtocol = assemblyBuilder.createCreateRouter()
+        let searchRouter: SearchRouterProtocol = assemblyBuilder.createSearchRouter()
+        let profileRouter: ProfileRouterProtocol = assemblyBuilder.createProfileRouter()
+        
+        tabBar.navigationControllers(
+            mainRouter.navigationController,
+            savedRecipesRouter.navigationController,
+            createRecipeRouter.navigationController,
+            searchRouter.navigationController,
+            profileRouter.navigationController)
+        
+        window?.rootViewController = tabBar
+        window?.makeKeyAndVisible()
+       
     }
 }
 

@@ -9,7 +9,7 @@ import Foundation
 
 final class SearchPresenter: SearchPresenterProtocol {
     weak var view: SearchViewProtocol?
-    var router: RouterProtocol?
+    var router: SearchRouterProtocol
     
     var networkManager = NetworkManager.shared
     var realmStorageManager = RealmStorageManager.shared
@@ -17,7 +17,7 @@ final class SearchPresenter: SearchPresenterProtocol {
     var savedRecipesId: [Int] = []
     var searchedRecipes: [RecipeProtocol] = []
     
-    required init(view: SearchViewProtocol, networkManager: NetworkManager, realmStorageManager: RealmStorageManager, router: RouterProtocol) {
+    required init(view: SearchViewProtocol, networkManager: NetworkManager, realmStorageManager: RealmStorageManager, router: SearchRouterProtocol) {
         self.view = view
         self.networkManager = networkManager
         self.realmStorageManager = realmStorageManager

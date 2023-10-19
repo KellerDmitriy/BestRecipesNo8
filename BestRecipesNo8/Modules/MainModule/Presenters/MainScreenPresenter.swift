@@ -23,11 +23,11 @@ final class MainPresenter: MainPresenterProtocol {
 //    var searchController: AssemblyBuilderProtocol
     var searchedRecipes: [RecipeProtocol] = []
     
-    var router: RouterProtocol
+    var router: MainRouterProtocol
     
     //MARK: LifeCycle
     
-    required init(view: MainScreenViewControllerProtocol, networkManager: NetworkManager, realmStoredManager: RealmStorageManager, router: RouterProtocol) {
+    required init(view: MainScreenViewControllerProtocol, networkManager: NetworkManager, realmStoredManager: RealmStorageManager, router: MainRouterProtocol) {
         
        // self.searchController = searchController
         self.view = view
@@ -38,12 +38,12 @@ final class MainPresenter: MainPresenterProtocol {
     }
     
     //MARK: SeeAll Methods
-    func seeAllButtonTapped(with sortion: Endpoint.Sortion) {
+    func seeAllButtonTapped(with sortion: Endpoint.SortOrder) {
         switch sortion {
         case .trendingNow:
-            router.routeToSeeAllScreen(recipes: trendingNowRecipes, sortion: sortion)
+            router.routeToSeeAllScreen(recipes: trendingNowRecipes, sortOrder: sortion)
         case .random:
-            router.routeToSeeAllScreen(recipes: randomRecipe, sortion: sortion)
+            router.routeToSeeAllScreen(recipes: randomRecipe, sortOrder: sortion)
         }
     }
     
@@ -94,7 +94,7 @@ final class MainPresenter: MainPresenterProtocol {
 
 extension MainPresenter: PopularCategoryDelegate {
     func sectCell(recipe: RecipeInfo) {
-        router.routeToRecipeDetailScreen(recipe: recipe)
+        router.routeToDetailRecipeScreen(recipe: recipe)
         print(recipe)
     }
     

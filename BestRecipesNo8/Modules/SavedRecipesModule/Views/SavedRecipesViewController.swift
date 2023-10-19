@@ -1,5 +1,5 @@
 //
-//  SavedRecipesView.swift
+//  SavedRecipesViewController.swift
 //  BestRecipesNo8
 //
 //  Created by Мявкo on 2.09.23.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class SavedRecipesView: UIViewController {
+final class SavedRecipesViewController: UIViewController {
     
     var presenter: SavedRecipesPresenterProtocol!
  
@@ -65,7 +65,7 @@ final class SavedRecipesView: UIViewController {
 
 // MARK: UICollectionViewDataSource
 
-extension SavedRecipesView: UITableViewDataSource, UITableViewDelegate {
+extension SavedRecipesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.savedRecipes?.count ?? 0
     }
@@ -79,7 +79,7 @@ extension SavedRecipesView: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension SavedRecipesView: SavedRecipesViewProtocol {
+extension SavedRecipesViewController: SavedRecipesViewProtocol {
     func deleteAllBarButtonTapped() {
         let deleteAllItems = UIBarButtonItem(
             title: "Remove All",
@@ -136,7 +136,7 @@ extension SavedRecipesView: SavedRecipesViewProtocol {
 }
 
 // MARK: - Extension for setup elements
-private extension SavedRecipesView {
+private extension SavedRecipesViewController {
     
     var _savedRecipesTitle: UILabel {
         let label = UILabel()

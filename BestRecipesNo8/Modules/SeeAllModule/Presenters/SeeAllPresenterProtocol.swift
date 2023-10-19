@@ -9,14 +9,13 @@ import Foundation
 
 protocol SeeAllPresenterProtocol: AnyObject {
     var view: SeeAllViewProtocol { get set }
-    var sortion: Endpoint.Sortion { get }
+    var sortOrder: Endpoint.SortOrder { get }
  
     var seeAllRecipes: [RecipeProtocol] { get set }
 
     var networkManager: NetworkManager { get set }
     var realmStoredManager: RealmStorageManager { get set }
-    var router: RouterProtocol { get set }
+    var router: MainRouterProtocol { get set }
     
     func saveButtonTapped()
-    
 }

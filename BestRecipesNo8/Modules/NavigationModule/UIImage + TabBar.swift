@@ -9,11 +9,11 @@ import UIKit
 
 extension UIImage {
     static let background = UIImage(named: "background")
-    static let  backgroundShadow = UIImage(named: "ShadowBackground")
+    static let backgroundShadow = UIImage(named: "ShadowBackground")
     
     static let add = UIImage(named: "add")
     
-    static let bookmark = UIImage(named: "Inactive")
+    static let bookmark = UIImage(named: "bookmark")
     static let bookmarkSelect = UIImage(named: "bookmarkSelect")
     
     static let main = UIImage(named: "main")

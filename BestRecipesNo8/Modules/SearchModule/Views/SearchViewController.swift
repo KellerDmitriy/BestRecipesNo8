@@ -1,5 +1,5 @@
 //
-//  SearchVC.swift
+//  SearchViewController.swift
 //  BestRecipesNo8
 //
 //  Created by Келлер Дмитрий on 20.09.2023.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class SearchVC: UIViewController {
+final class SearchViewController: UIViewController {
     
     var presenter: SearchPresenterProtocol!
     
@@ -45,7 +45,7 @@ final class SearchVC: UIViewController {
 
 //MARK: Setup
 
-extension SearchVC {
+extension SearchViewController {
     
     func setupUI() {
         view.addSubview(searchTableView)
@@ -84,7 +84,7 @@ extension SearchVC {
 }
 //MARK: - UITableViewDelegate, UITableViewDataSource
 
-extension SearchVC: UITableViewDelegate, UITableViewDataSource {
+extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         presenter.searchedRecipes.count
     }
@@ -99,13 +99,13 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let recipe = presenter.searchedRecipes[indexPath.row]
-        presenter.router?.routeToRecipeDetailScreen(recipe: recipe)
+        presenter.router.routeToDetailRecipeScreen(recipe: recipe)
     }
 }
 
 //MARK: - UISearchBarDelegate
 
-extension SearchVC: UISearchBarDelegate {
+extension SearchViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         presenter?.searchRecipes(with: "")
@@ -127,7 +127,7 @@ extension SearchVC: UISearchBarDelegate {
 
 //MARK: - UISearchResultsUpdating
 
-extension SearchVC: UISearchResultsUpdating {
+extension SearchViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         guard searchController.isActive else { return }
@@ -140,7 +140,7 @@ extension SearchVC: UISearchResultsUpdating {
 }
 
 //MARK: - Search Recipes
-extension SearchVC: SearchViewProtocol {
+extension SearchViewController: SearchViewProtocol {
     func updateSearchResults(with models: [RecipeProtocol]) {
         presenter.searchedRecipes = models
         DispatchQueue.main.async {

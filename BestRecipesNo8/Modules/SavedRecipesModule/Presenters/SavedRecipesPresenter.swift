@@ -16,9 +16,9 @@ final class SavedRecipesPresenter: SavedRecipesPresenterProtocol {
     var realmStorageManager = RealmStorageManager.shared
     var savedRecipesId: Int = 0
     var savedRecipes: RealmSwift.Results<RecipeRealmModel>?
-    private let router: RouterProtocol
+    private let router: SavedRecipesRouterProtocol
     
-    required init(view: SavedRecipesViewProtocol, router: RouterProtocol, realmStorageManager: RealmStorageManager) {
+    required init(view: SavedRecipesViewProtocol, router: SavedRecipesRouterProtocol, realmStorageManager: RealmStorageManager) {
         self.view = view
         self.router = router
         self.realmStorageManager = realmStorageManager

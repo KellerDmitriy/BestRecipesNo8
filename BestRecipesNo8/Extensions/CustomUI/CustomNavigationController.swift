@@ -17,8 +17,7 @@ extension UINavigationController {
         navigationBar.backIndicatorImage = backButtonImage?.withAlignmentRectInsets(alignInsets)
         navigationBar.backIndicatorTransitionMaskImage = backButtonImage
         navigationBar.tintColor = .black
-        navigationBar.topItem?.title = ""
-
+      
     }
 }
 

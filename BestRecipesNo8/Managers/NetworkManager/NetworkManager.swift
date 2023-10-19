@@ -175,7 +175,7 @@ extension NetworkManager {
     
     /// Get popular recipes
     /// - Returns: 10 popular recipes
-    func getTenPopularRecipes(sortedBy sortion: Endpoint.Sortion, completion: @escaping(Result<[RecipeInfo], NetworkError>) -> Void) {
+    func getTenPopularRecipes(sortedBy sortOrder: Endpoint.SortOrder, completion: @escaping(Result<[RecipeInfo], NetworkError>) -> Void) {
         guard let url = createURL(for: .getPopularRecipes) else { return }
         
         makeTask(for: url) { searchResult in

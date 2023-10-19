@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-final class RecipeDetailView: UIViewController {
+final class RecipeDetailViewController: UIViewController {
     
     var presenter: RecipeDetailPresenter!
     
@@ -193,7 +193,7 @@ final class RecipeDetailView: UIViewController {
 }
 
 // MARK: - UITableView Protocols
-extension RecipeDetailView: UITableViewDelegate, UITableViewDataSource {
+extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.countIngredients
@@ -214,14 +214,14 @@ extension RecipeDetailView: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension RecipeDetailView: RecipeDetailViewProtocol {
+extension RecipeDetailViewController: RecipeDetailViewProtocol {
     func openRecipe() {
         print("Recipe is opened")
     }
 }
 
 // MARK: - Extension for setup elements
-private extension RecipeDetailView {
+private extension RecipeDetailViewController {
     
     var _scrollView: UIScrollView {
         let scrollView = UIScrollView()

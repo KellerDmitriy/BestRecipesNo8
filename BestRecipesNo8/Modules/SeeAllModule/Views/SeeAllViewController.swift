@@ -25,7 +25,7 @@ class SeeAllViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.title = presenter.sortion.title
+        navigationItem.title = presenter.sortOrder.title
         //navigationController?.setupNavigationBar()
         setupUI()
     }
@@ -89,7 +89,7 @@ extension SeeAllViewController: UICollectionViewDataSource {
 extension SeeAllViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let recipe = presenter.seeAllRecipes[indexPath.row]
-        presenter.router.routeToRecipeDetailScreen(recipe: recipe)
+        presenter.router.routeToDetailRecipeScreen(recipe: recipe)
         
     }
 }

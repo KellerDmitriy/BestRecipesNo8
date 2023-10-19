@@ -12,20 +12,27 @@ final class SeeAllPresenter: SeeAllPresenterProtocol {
     var view: SeeAllViewProtocol
     var networkManager: NetworkManager
     var realmStoredManager: RealmStorageManager
-    var router: RouterProtocol
+    var router: MainRouterProtocol
     
-    let sortion: Endpoint.Sortion
+    let sortOrder: Endpoint.SortOrder
 
     //MARK: - Properties
     var seeAllRecipes: [RecipeProtocol]
 
-    required init(view: SeeAllViewProtocol, networkManager: NetworkManager, realmStoredManager: RealmStorageManager, router: RouterProtocol, recipes: [RecipeProtocol], sortion: Endpoint.Sortion ) {
+    required init(
+        view: SeeAllViewProtocol,
+        networkManager: NetworkManager,
+        realmStoredManager: RealmStorageManager,
+        router: MainRouterProtocol,
+        recipes: [RecipeProtocol],
+        sortOrder: Endpoint.SortOrder
+    ) {
         self.view = view
         self.networkManager = networkManager
         self.realmStoredManager = realmStoredManager
         self.router = router
         self.seeAllRecipes = recipes
-        self.sortion = sortion
+        self.sortOrder = sortOrder
     }
 }
 
