@@ -71,12 +71,18 @@ final class StartViewController: UIViewController {
         super.viewDidLoad()
         setupHierarchy()
         setupLayout()
+        let navigationController = UINavigationController()
+        navigationController.popToRootViewController(animated: true)
     }
     
     // MARK: - Add Buttons Methods
     @objc private func startButtonTapped() {
         let vc = OnboardingViewController()
-        navigationController?.setViewControllers([vc], animated: true)
+       
+        if navigationController != nil {
+            print( "click")
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     // MARK: - Hierarchy
