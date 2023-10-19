@@ -32,15 +32,10 @@ class AssemblyBuilder: AssemblyBuilderProtocol {
         let networkManager = NetworkManager.shared
         let realmStoredManager = RealmStorageManager.shared
         let presenter = MainPresenter(
-            
             view: viewController,
-            
             networkManager: networkManager,
-            
             realmStoredManager: realmStoredManager,
-            
             router: router
-        
         )
         presenter.view = viewController
         viewController.presenter = presenter

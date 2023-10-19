@@ -9,8 +9,6 @@ import UIKit
 import SnapKit
 
 class OnboardingViewController: UIViewController {
-    
-    let defaults = UserDefaults.standard
 
     // MARK: - Properties
     
@@ -86,7 +84,6 @@ class OnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupHierarchy()
-        
         navigationController?.navigationBar.isHidden = true
     }
     
@@ -116,7 +113,7 @@ class OnboardingViewController: UIViewController {
     
     @objc private func pushViewController() {
         dismiss(animated: true)
-        UserDefaults.standard.set(false, forKey: "showOnboarding")
+        UserDefaults().setValue(true, forKey: "showOnboarding")
     }
     
     // MARK: - Hierarchy

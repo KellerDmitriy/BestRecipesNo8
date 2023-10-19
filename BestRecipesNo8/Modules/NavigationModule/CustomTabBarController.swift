@@ -25,10 +25,11 @@ final class CustomTabBarController: UITabBarController, UITabBarControllerDelega
 
     override func viewDidAppear(_ animated: Bool) {
         if !UserDefaults().bool(forKey: "showOnboarding") {
-            let onboarding = StartViewController()
-            onboarding.modalPresentationStyle = .automatic
-            onboarding.modalTransitionStyle = .coverVertical
-            self.present(onboarding, animated: true)
+            let startViewController = StartViewController()
+            let navigationController = UINavigationController(rootViewController: startViewController)
+            startViewController.modalPresentationStyle = .automatic
+            startViewController.modalTransitionStyle = .coverVertical
+            self.present(navigationController, animated: true)
         }
     }
     
