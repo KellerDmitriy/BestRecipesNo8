@@ -29,6 +29,10 @@ class SeeAllViewController: UIViewController {
         setupUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        collectionView.reloadData()
+    }
+    
     // MARK: - Private methods
     private func setupUI() {
         

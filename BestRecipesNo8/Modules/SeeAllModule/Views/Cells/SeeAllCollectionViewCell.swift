@@ -201,5 +201,6 @@ extension SeeAllCollectionViewCell {
     @objc func addButtonTapped() {
         addButtonClosure?()
         isSaved.toggle()
+        
     }
 }

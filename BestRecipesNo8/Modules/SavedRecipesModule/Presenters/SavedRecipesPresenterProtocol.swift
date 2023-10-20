@@ -11,7 +11,6 @@ import RealmSwift
 protocol SavedRecipesPresenterProtocol {
     var realmStorageManager: RealmStorageManager { get set }
     var savedRecipes: Results<RecipeRealmModel> { get set }
-    var savedRecipesId: Int { get set }
     
     var router: SavedRecipesRouterProtocol { get set }
     
