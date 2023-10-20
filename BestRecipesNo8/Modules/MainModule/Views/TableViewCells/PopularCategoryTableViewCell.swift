@@ -11,7 +11,7 @@ final class PopularCategoryTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
-    private var popularCategoryRecipes: [RecipeInfo] = []
+    private var popularCategoryRecipes: [RecipeProtocol] = []
     private var presenter: PopularCategoryDelegate!
     
     // MARK: - UI Elements
@@ -64,7 +64,7 @@ final class PopularCategoryTableViewCell: UITableViewCell {
         headerCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
     }
     
-    func configureCell(recipes: [RecipeInfo], presenter: PopularCategoryDelegate) {
+    func configureCell(recipes: [RecipeProtocol], presenter: PopularCategoryDelegate) {
         self.popularCategoryRecipes = recipes
         self.presenter = presenter
         recipesCollectionView.reloadData()

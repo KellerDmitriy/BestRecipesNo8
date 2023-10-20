@@ -9,9 +9,9 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-final class RecipeDetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
     
-    var presenter: RecipeDetailPresenter!
+    var presenter: DetailPresenter!
     
     // MARK: - Views
     private lazy var scrollView: UIScrollView = _scrollView
@@ -193,7 +193,7 @@ final class RecipeDetailViewController: UIViewController {
 }
 
 // MARK: - UITableView Protocols
-extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource {
+extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.countIngredients
@@ -214,14 +214,14 @@ extension RecipeDetailViewController: UITableViewDelegate, UITableViewDataSource
     }
 }
 
-extension RecipeDetailViewController: RecipeDetailViewProtocol {
+extension DetailViewController: DetailViewProtocol {
     func openRecipe() {
         print("Recipe is opened")
     }
 }
 
 // MARK: - Extension for setup elements
-private extension RecipeDetailViewController {
+private extension DetailViewController {
     
     var _scrollView: UIScrollView {
         let scrollView = UIScrollView()

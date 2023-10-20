@@ -8,9 +8,9 @@
 import Foundation
 
 protocol MainPresenterProtocol: AnyObject {
-    var trendingNowRecipes: [RecipeInfo] { get set }
-    var popularCategoryRecipes: [RecipeInfo] { get set }
-    var randomRecipe: [RecipeInfo] { get set }
+    var trendingNowRecipes: [RecipeProtocol] { get set }
+    var popularCategoryRecipes: [RecipeProtocol] { get set }
+    var randomRecipe: [RecipeProtocol] { get set }
     
     var networkManager: NetworkManager { get set }
     var realmStoredManager: RealmStorageManager { get set }
@@ -19,12 +19,12 @@ protocol MainPresenterProtocol: AnyObject {
    // var searchController: AssemblyBuilderProtocol { get set }
     var savedRecipes: [RecipeRealmModel] { get set }
     var savedRecipesId: [Int] { get set }
-    func isRecipeSaved(recipe: RecipeInfo) -> Bool
-    func updateRecipeInSavedRecipes(recipe: RecipeInfo)
-    func getCreateCompletion(with recipe: RecipeInfo) -> (() -> ())
-    func addButtonTapped(for recipe: RecipeInfo)
+    func isRecipeSaved(recipe: RecipeProtocol) -> Bool
+    func updateRecipeInSavedRecipes(recipe: RecipeProtocol)
+    func getCreateCompletion(with recipe: RecipeProtocol) -> (() -> ())
+    func addButtonTapped(for recipe: RecipeProtocol)
     
-    func seeAllButtonTapped(with sortion: Endpoint.SortOrder)
+    func seeAllButtonTapped(with sortOrder: Endpoint.SortOrder)
     
     var searchedRecipes: [RecipeProtocol] { get set }
     func fetchSearchedRecipe(with searchText: String)

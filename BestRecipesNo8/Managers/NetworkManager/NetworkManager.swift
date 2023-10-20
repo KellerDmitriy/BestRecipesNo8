@@ -88,7 +88,7 @@ struct NetworkManager {
     }
     
     /// Method for making task
-    private func makeTask(for url: URL, using session: URLSession = .shared, completion: @escaping(Result<SearchResult, NetworkError>) -> Void) {
+    private func makeTask(for url: URL, using session: URLSession = .shared, completion: @escaping(Result<RecipeResults, NetworkError>) -> Void) {
         
         session.dataTask(with: url) { data, _, error in
             
@@ -103,7 +103,7 @@ struct NetworkManager {
             }
             
             do {
-                let decodeData = try JSONDecoder().decode(SearchResult.self, from: data)
+                let decodeData = try JSONDecoder().decode(RecipeResults.self, from: data)
                 completion(.success(decodeData))
             } catch {
                 completion(.failure(.decodingError(error)))
@@ -126,7 +126,7 @@ struct NetworkManager {
     /// - Parameters:
     /// - query: The (natural language) recipe search query. If you need result with query you have to use it.
     /// - Returns: 10 recipes as requested
-    func getSearchRecipes(for query: String? = nil, completion: @escaping(Result<SearchResult, NetworkError>) -> Void) {
+    func getSearchRecipes(for query: String? = nil, completion: @escaping(Result<RecipeResults, NetworkError>) -> Void) {
         guard let url = createURL(for: .searchRecipes, with: query) else { return }
         makeTask(for: url, completion: completion)
     }
@@ -142,7 +142,7 @@ struct NetworkManager {
     
     /// Get popular recipes
     /// - Returns: 10 popular recipes
-    func getPopularRecipes(completion: @escaping(Result<SearchResult, NetworkError>) -> Void) {
+    func getPopularRecipes(completion: @escaping(Result<RecipeResults, NetworkError>) -> Void) {
         guard let url = createURL(for: .getPopularRecipes) else { return }
         makeTask(for: url, completion: completion)
     }
@@ -151,7 +151,7 @@ struct NetworkManager {
     /// - Parameters:
     /// - mealType: The type of recipe.
     /// - Returns: 10 recipes for meal type
-    func getRecipesWithMealType(for mealType: String, completion: @escaping(Result<SearchResult, NetworkError>) -> Void) {
+    func getRecipesWithMealType(for mealType: String, completion: @escaping(Result<RecipeResults, NetworkError>) -> Void) {
         let mealTypeWithUnderscore = mealType.replacingOccurrences(of: " ", with: "_")
         guard let url = createURL(for: .getRecipesForMealType(type: mealTypeWithUnderscore)) else { return }
         makeTask(for: url, completion: completion)
@@ -178,8 +178,8 @@ extension NetworkManager {
     func getTenPopularRecipes(sortedBy sortOrder: Endpoint.SortOrder, completion: @escaping(Result<[RecipeInfo], NetworkError>) -> Void) {
         guard let url = createURL(for: .getPopularRecipes) else { return }
         
-        makeTask(for: url) { searchResult in
-            switch searchResult {
+        makeTask(for: url) { recipeResult in
+            switch recipeResult {
             case .success(let data):
                 let ids = data.results?.compactMap { $0.id }
                 if let ids = ids {
@@ -199,8 +199,8 @@ extension NetworkManager {
         let mealTypeWithUnderscore = mealType.replacingOccurrences(of: " ", with: "_")
         guard let url = createURL(for: .getRecipesForMealType(type: mealTypeWithUnderscore)) else { return }
         
-        makeTask(for: url) { searchResult in
-            switch searchResult {
+        makeTask(for: url) { recipeResult in
+            switch recipeResult {
             case .success(let data):
                 let ids = data.results?.compactMap { $0.id }
                 if let ids = ids {

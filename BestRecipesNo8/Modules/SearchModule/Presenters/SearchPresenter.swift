@@ -43,7 +43,6 @@ final class SearchPresenter: SearchPresenterProtocol {
                             defer {
                                 dispatchGroup.leave()
                             }
-                            
                             switch detailedResult {
                             case .success(let data):
                                 guard
@@ -71,11 +70,9 @@ final class SearchPresenter: SearchPresenterProtocol {
                             }
                         }
                     }
-                    
                     dispatchGroup.notify(queue: .main) {
                         self?.view?.updateSearchResults(with: models)
                     }
-                    
                 case .failure(let error):
                     print(error)
                 }

@@ -25,8 +25,8 @@ final class MainRouter: MainRouterProtocol {
         navigationController.viewControllers = [viewController]
     }
     
-    func routeToDetailRecipeScreen(recipe: RecipeProtocol) {
-        let recipeDetailViewController = assemblyBuilder.createRecipeDetailModule(
+    func routeToDetailScreen(recipe: RecipeProtocol) {
+        let recipeDetailViewController = assemblyBuilder.createDetailModule(
             recipe: recipe
         )
         navigationController.pushViewController(recipeDetailViewController, animated: true)
@@ -59,8 +59,8 @@ final class SearchRouter: SearchRouterProtocol {
         navigationController.viewControllers = [viewController]
     }
     
-    func routeToDetailRecipeScreen(recipe: RecipeProtocol) {
-        let recipeDetailViewController = assemblyBuilder.createRecipeDetailModule(
+    func routeToDetailScreen(recipe: RecipeProtocol) {
+        let recipeDetailViewController = assemblyBuilder.createDetailModule(
             recipe: recipe
         )
         navigationController.pushViewController(recipeDetailViewController, animated: true)
@@ -89,8 +89,8 @@ final class SavedRecipeRouter: SavedRecipesRouterProtocol {
         navigationController.viewControllers = [viewController]
     }
     
-    func routeToDetailRecipeScreen(recipe: RecipeProtocol) {
-        let detailViewController = assemblyBuilder.createRecipeDetailModule(recipe: recipe)
+    func routeToDetailScreen(recipe: RecipeProtocol) {
+        let detailViewController = assemblyBuilder.createDetailModule(recipe: recipe)
         navigationController.pushViewController(detailViewController, animated: true)
     }
 }

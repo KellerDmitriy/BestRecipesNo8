@@ -26,7 +26,6 @@ class SeeAllViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.title = presenter.sortOrder.title
-        //navigationController?.setupNavigationBar()
         setupUI()
     }
     
@@ -81,7 +80,9 @@ extension SeeAllViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         let recipe = self.presenter.seeAllRecipes[indexPath.row]
-        cell.configureCell(recipe: recipe, addButtonClosure: presenter.realmStoredManager.createCompletion(with: recipe))
+        cell.configureCell(
+            recipe: recipe,
+            addButtonClosure: presenter.realmStoredManager.createCompletion(with: recipe))
         return cell
     }   
 }
@@ -89,7 +90,7 @@ extension SeeAllViewController: UICollectionViewDataSource {
 extension SeeAllViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let recipe = presenter.seeAllRecipes[indexPath.row]
-        presenter.router.routeToDetailRecipeScreen(recipe: recipe)
+        presenter.router.routeToDetailScreen(recipe: recipe)
         
     }
 }

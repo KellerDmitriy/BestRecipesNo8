@@ -11,7 +11,7 @@ final class TrendingCollectionTableViewCell: UITableViewCell {
     
     // MARK: Properties:
     
-    private var trendingNowRecipes: [RecipeInfo] = []
+    private var trendingNowRecipes: [RecipeProtocol] = []
     private var presenter: PopularCategoryDelegate!
     
     // MARK: - UI Elements
@@ -51,7 +51,7 @@ final class TrendingCollectionTableViewCell: UITableViewCell {
         contentView.addSubview(recipesCollectionView)
     }
     
-    func configureCell(recipes: [RecipeInfo], presenter: PopularCategoryDelegate) {
+    func configureCell(recipes: [RecipeProtocol], presenter: PopularCategoryDelegate) {
         self.trendingNowRecipes = recipes
         self.presenter = presenter
         recipesCollectionView.reloadData()

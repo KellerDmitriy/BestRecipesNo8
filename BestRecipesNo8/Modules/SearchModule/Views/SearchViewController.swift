@@ -92,14 +92,17 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = searchTableView.dequeueReusableCell(withIdentifier: SearchViewCell.cellID, for: indexPath) as? SearchViewCell else { return UITableViewCell() }
         let searchRecipe = presenter.searchedRecipes[indexPath.row]
-        cell.configure(model: searchRecipe)
+        cell.configure(
+            model: searchRecipe,
+            addButtonClosure: presenter.realmStorageManager.createCompletion(with: searchRecipe
+        ))
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let recipe = presenter.searchedRecipes[indexPath.row]
-        presenter.router.routeToDetailRecipeScreen(recipe: recipe)
+        presenter.router.routeToDetailScreen(recipe: recipe)
     }
 }
 

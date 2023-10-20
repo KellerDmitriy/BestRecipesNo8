@@ -11,7 +11,7 @@ import Kingfisher
 final class TrendingCategoryCell: UICollectionViewCell {
     
     weak var delegate: PopularCategoryDelegate?
-    private var recipe: RecipeInfo?
+    private var recipe: RecipeProtocol?
     var isSaved = false {
         didSet {
             addButton.toggle(with: isSaved)
@@ -63,7 +63,7 @@ final class TrendingCategoryCell: UICollectionViewCell {
         contentView.addSubview(addButton)
     }
     
-    func configureCell(at recipeInfo: RecipeInfo, delegate: PopularCategoryDelegate, addButtonClosure: @escaping () -> ()) {
+    func configureCell(at recipeInfo: RecipeProtocol, delegate: PopularCategoryDelegate, addButtonClosure: @escaping () -> ()) {
         let id = recipeInfo.id
         guard let title = recipeInfo.title,
               let image = recipeInfo.image else { return }

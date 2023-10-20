@@ -33,6 +33,10 @@ final class CustomTabBarController: UITabBarController, UITabBarControllerDelega
         }
     }
     
+    // MARK: - Hit test
+//    func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+//    }
+
     //MARK: - Public methods
     func navigationControllers(_ controllers: UIViewController...) {
         self.viewControllers = controllers

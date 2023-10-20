@@ -38,7 +38,7 @@ final class CustomAddButton: UIButton {
     }
     
     func toggle(with isChecked: Bool) {
-        bookmarkImageView.image = isChecked ? .bookmark : .bookmarkSelect
+        bookmarkImageView.image = isChecked ? UIImage(named: "deleteRecipe") : UIImage(named: "savedRecipe")
     }
     
     required init?(coder: NSCoder) {

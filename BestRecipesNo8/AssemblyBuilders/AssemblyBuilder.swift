@@ -139,9 +139,9 @@ class AssemblyBuilder: AssemblyBuilderProtocol {
     }
     
     //MARK: - RecipeDetail module
-    func createRecipeDetailModule(recipe: RecipeProtocol) -> RecipeDetailViewController {
-        let viewController = RecipeDetailViewController()
-        let presenter = RecipeDetailPresenter(
+    func createDetailModule(recipe: RecipeProtocol) -> DetailViewController {
+        let viewController = DetailViewController()
+        let presenter = DetailPresenter(
             view: viewController,
             recipe: recipe
         )
@@ -154,7 +154,7 @@ class AssemblyBuilder: AssemblyBuilderProtocol {
         let navigationController = UINavigationController()
         navigationController.tabBarItem = .init(title: nil, image: .add, tag: 2)
         navigationController.tabBarItem.selectedImage = .add
-        navigationController.tabBarItem.imageInsets = UIEdgeInsets(top: -20, left: 0, bottom: 30, right: 0)
+        navigationController.tabBarItem.imageInsets = UIEdgeInsets(top: -25, left: 0, bottom: 25, right: 0)
         let router = CreateRouter(
             navigationController: navigationController,
             assemblyBuilder: self

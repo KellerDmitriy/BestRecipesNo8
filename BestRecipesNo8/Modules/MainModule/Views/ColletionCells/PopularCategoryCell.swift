@@ -11,7 +11,7 @@ import Kingfisher
 final class PopularCategoryCell: UICollectionViewCell {
     
     weak var delegate: PopularCategoryDelegate?
-    private var recipe: RecipeInfo?
+    private var recipe: RecipeProtocol?
     private var isSaved: Bool = false
     
     //MARK: - UI Elements:
@@ -104,7 +104,7 @@ final class PopularCategoryCell: UICollectionViewCell {
         grayBackgroundView.addSubview(addButton)
     }
     
-    func configureCell(at recipeInfo: RecipeInfo, delegate: PopularCategoryDelegate) {
+    func configureCell(at recipeInfo: RecipeProtocol, delegate: PopularCategoryDelegate) {
         let id = recipeInfo.id
         guard let title = recipeInfo.title,
               let image = recipeInfo.image
