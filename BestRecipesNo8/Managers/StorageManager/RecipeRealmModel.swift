@@ -14,7 +14,7 @@ class RecipeRealmModel: Object {
     @Persisted var imageData: Data = Data()
     @Persisted var rating: String = ""
     @Persisted var time: Int = 0
-    let ingredients = List<Ingredients>()
+    @Persisted var ingredients = List<Ingredients>()
     @Persisted var instuctionsLabel: String = ""
     @Persisted var timeSaving = Date()
 }

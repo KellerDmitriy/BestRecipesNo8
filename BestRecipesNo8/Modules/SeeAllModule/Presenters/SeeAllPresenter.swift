@@ -39,6 +39,23 @@ final class SeeAllPresenter: SeeAllPresenterProtocol {
 extension SeeAllPresenter {
 
     func saveButtonTapped() {
-        //
+//        func saveRecipeButtonTapped(_ sender: UIBarButtonItem) {
+//            let imageRecipe = recipeDetailViewModel.recipeImage
+//            let titleRecipe = recipeDetailViewModel.recipeName
+//            switch sender.image {
+//            case UIImage(systemName: "bookmark"):
+//                sender.image = UIImage(systemName: "bookmark.fill")
+//                AlertKitAPI.present(title: "Saved to favorites", subtitle: nil, icon: .done, style: .iOS16AppleMusic, haptic: .success)
+//
+//                recipeDetailViewModel.saveToRealm(id: recipeDetailViewModel.id, image: imageRecipe, title: titleRecipe)
+//
+//            case UIImage(systemName: "bookmark.fill"):
+//                sender.image = UIImage(systemName: "bookmark")
+//                AlertKitAPI.present(title: "Deleted from saved", subtitle: nil, icon: .error, style: .iOS16AppleMusic, haptic: .success)
+//
+//                recipeDetailViewModel.deleteObjectFromRealm(id: recipeDetailViewModel.id)
+//            default: break
+//            }
+//        }
     }
 }

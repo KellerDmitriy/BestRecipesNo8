@@ -10,13 +10,12 @@ import RealmSwift
 
 final class SavedRecipesPresenter: SavedRecipesPresenterProtocol {
     
-    
     //MARK: - Properties
     weak var view: SavedRecipesViewProtocol?
     var realmStorageManager = RealmStorageManager.shared
-    var savedRecipesId: Int = 0
-    var savedRecipes: RealmSwift.Results<RecipeRealmModel>?
-    private let router: SavedRecipesRouterProtocol
+    
+    var savedRecipes: Results<RecipeRealmModel> = RealmStorageManager.shared.realm.objects(RecipeRealmModel.self)
+    var router: SavedRecipesRouterProtocol
     
     required init(view: SavedRecipesViewProtocol, router: SavedRecipesRouterProtocol, realmStorageManager: RealmStorageManager) {
         self.view = view
@@ -24,28 +23,7 @@ final class SavedRecipesPresenter: SavedRecipesPresenterProtocol {
         self.realmStorageManager = realmStorageManager
     }
     
-    //MARK: - Realm BD
-
-//    func saveRecipeButtonTapped(_ sender: UIBarButtonItem) {
-//        let imageRecipe = recipeDetailViewModel.recipeImage
-//        let titleRecipe = recipeDetailViewModel.recipeName
-//        switch sender.image {
-//        case UIImage(systemName: "bookmark"):
-//            sender.image = UIImage(systemName: "bookmark.fill")
-//            AlertKitAPI.present(title: "Saved to favorites", subtitle: nil, icon: .done, style: .iOS16AppleMusic, haptic: .success)
-//
-//            recipeDetailViewModel.saveToRealm(id: recipeDetailViewModel.id, image: imageRecipe, title: titleRecipe)
-//
-//        case UIImage(systemName: "bookmark.fill"):
-//            sender.image = UIImage(systemName: "bookmark")
-//            AlertKitAPI.present(title: "Deleted from saved", subtitle: nil, icon: .error, style: .iOS16AppleMusic, haptic: .success)
-//
-//            recipeDetailViewModel.deleteObjectFromRealm(id: recipeDetailViewModel.id)
-//        default: break
-//        }
-//    }
-    
-    //MARK: - Methods
+    //MARK: - Realm BD Methods
     
     func loadData() {
         realmStorageManager.read() { recipes in
@@ -53,8 +31,8 @@ final class SavedRecipesPresenter: SavedRecipesPresenterProtocol {
         }
     }
     
-    func deleteRecipe(with index: Int){
-        realmStorageManager.deleteRecipeFromRealm(with: savedRecipesId)
+    func deleteRecipe(with index: Int) {
+        realmStorageManager.deleteRecipeFromRealm(with: index)
     }
     
     func deleteAllBarButtonTapped() {

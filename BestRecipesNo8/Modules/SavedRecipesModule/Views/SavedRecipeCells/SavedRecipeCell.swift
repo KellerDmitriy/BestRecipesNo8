@@ -11,46 +11,49 @@ class SavedRecipeCell: UITableViewCell {
     
     static let cellID = String(describing: SavedRecipeCell.self)
     
-    var addButtonClosure: (() -> ())?
-    
     // MARK: - Views
-    lazy var addButton = CustomAddButton(isChecked: true)
     
     private lazy var recipeImageView: UIImageView = _recipeImageView
     private lazy var titleRecipe: UILabel = _titleRecipe
     
     private lazy var ratingView: UIView = _ratingView
     private lazy var ratingLabel: UILabel = _ratingLabel
-    private lazy var ratingImageView: UIImageView = _ratingImageView
     
     private lazy var timeCreationView: UIView = _timeCreationView
     private lazy var timeLabel: UILabel = _timeLabel
     
-    private lazy var bookmarkView: UIView = _bookmarkView
-    private lazy var bookmarkImageView: UIImageView = _bookmarkImageView
+    lazy var addButton = CustomAddButton(isChecked: true)
+    
+    var addButtonClosure: (() -> ())?
     
     // MARK: - Init
-    
-    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        addButtonSetup()
+        addSubviews()
+        applyConstraints()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: - Method for setup data to elements in every cell
-    func updateRecipeData(image: Data?, rating: String?, title: String?, time: Int?, addButtonAction: @escaping () -> ()) {
-        if let rating = rating {
-            ratingLabel.text = rating
-        } else {
-            ratingLabel.text = "N/A"
-        }
-        titleRecipe.text = "How to make \(title ?? "") at home"
-        if let time = time {
-            timeLabel.text = String(time)
-        } else {
-            timeLabel.text = "N/A"
-        }
-        if let image = image {
-            recipeImageView.image = UIImage(data: image)
-        } else {
-            recipeImageView.image = UIImage(systemName: "person")
-        }
-        addButtonClosure = addButtonAction
+    func configureSavedCell(
+        image: Data,
+        rating: String,
+        title: String,
+        time: Int,
+        addButtonClosure: @escaping () -> ()
+    )
+    {
+        self.recipeImageView.image = UIImage(data: image)
+        self.ratingLabel.text = rating
+        self.titleRecipe.text = "How to make: \"\(title)\" at home"
+        self.timeLabel.text = "Preparation time: \(String(time)) min"
+        
+        self.addButtonClosure = addButtonClosure
     }
     
     // MARK: - Subviews
@@ -58,12 +61,8 @@ class SavedRecipeCell: UITableViewCell {
         contentView.addSubview(recipeImageView)
         contentView.addSubview(titleRecipe)
         
-        ratingView.addSubview(ratingImageView)
         ratingView.addSubview(ratingLabel)
         contentView.addSubview(ratingView)
-        
-        bookmarkView.addSubview(bookmarkImageView)
-        contentView.addSubview(bookmarkView)
         
         timeCreationView.addSubview(timeLabel)
         contentView.addSubview(timeCreationView)
@@ -74,53 +73,40 @@ class SavedRecipeCell: UITableViewCell {
     private func applyConstraints() {
         
         recipeImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalTo(contentView.snp.top)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-16)
+            make.height.equalTo(200)
         }
         
         titleRecipe.snp.makeConstraints { make in
-            make.top.equalTo(recipeImageView.snp.bottom).offset(15)
-            make.leading.equalToSuperview().inset(10)
-            make.trailing.equalToSuperview().inset(10)
+            make.top.equalTo(recipeImageView.snp.bottom).offset(10)
+            make.leading.equalTo(contentView.snp.leading).offset(16)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-16)
+            make.trailing.equalTo(contentView.snp.trailing)
         }
-
-        ratingImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(14)
-            make.centerY.equalTo(ratingView)
-            make.leading.equalTo(ratingView).offset(8)
-        }
-
+        
         ratingLabel.snp.makeConstraints { make in
             make.centerY.equalTo(ratingView)
             make.trailing.equalTo(ratingView).offset(-8)
         }
-
+        
         ratingView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(8)
-            make.leading.equalToSuperview().offset(8)
+            make.top.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(24)
             make.width.equalTo(58)
             make.height.equalTo(27)
         }
         
         timeCreationView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-10)
-            make.trailing.equalToSuperview().offset(-10)
-            make.width.equalTo(41)
+            make.top.equalTo(recipeImageView.snp.bottom).offset(-32)
+            make.trailing.equalTo(recipeImageView.snp.trailing).offset(-10)
+            make.width.equalTo(150)
             make.height.equalTo(25)
         }
-
+        
         timeLabel.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
-        }
-        
-        bookmarkView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(8)
-            make.trailing.equalToSuperview().inset(8)
-            make.width.height.equalTo(32)
-        }
-
-        bookmarkImageView.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-            make.width.height.equalTo(24)
         }
         
         addButton.snp.makeConstraints { make in
@@ -136,7 +122,7 @@ class SavedRecipeCell: UITableViewCell {
 private extension SavedRecipeCell {
     
     var _recipeImageView: UIImageView {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height))
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10
@@ -162,15 +148,6 @@ private extension SavedRecipeCell {
         label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         label.textColor = .white
         return label
-    }
-    
-    var _ratingImageView: UIImageView {
-        let smallFont = UIFont.systemFont(ofSize: 12)
-        let configuration = UIImage.SymbolConfiguration(font: smallFont)
-        let image = UIImage(systemName: "star.fill", withConfiguration: configuration)
-        let imageView = UIImageView(image: image)
-        imageView.tintColor = .black
-        return imageView
     }
     
     var _titleRecipe: UILabel {
@@ -201,20 +178,6 @@ private extension SavedRecipeCell {
         label.font = UIFont.poppinsRegular(size: 12)
         label.textColor = .white
         return label
-    }
-    
-    var _bookmarkView: UIView {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
-        view.backgroundColor = .white
-        view.makeCircular()
-        return view
-    }
-    
-    var _bookmarkImageView: UIImageView {
-        let imageView = UIImageView()
-        imageView.image = UIImage.bookmarkSelect
-        imageView.contentMode = .scaleAspectFit
-        return imageView
     }
     
     private func addButtonSetup() {

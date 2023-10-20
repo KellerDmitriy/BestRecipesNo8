@@ -25,19 +25,10 @@ final class SavedRecipesViewController: UIViewController {
         addSubviews()
         applyConstraints()
         deleteAllBarButtonTapped()
-        animateTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        presenter.loadData()
-        tableView.reloadData()
-        animateTableView()
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+        openSavedRecipes()
     }
     
     // MARK: - Subviews
@@ -66,20 +57,38 @@ final class SavedRecipesViewController: UIViewController {
 // MARK: UICollectionViewDataSource
 
 extension SavedRecipesViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.savedRecipes?.count ?? 0
+        return presenter.savedRecipes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SavedRecipeCell.cellID, for: indexPath) as! SavedRecipeCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SavedRecipeCell.cellID, for: indexPath) as? SavedRecipeCell else { return UITableViewCell() }
         
-        let recipe = presenter.savedRecipes?[indexPath.row]
-        cell.updateRecipeData(image: recipe?.imageData, rating: recipe?.rating, title: recipe?.title, time: recipe?.time, addButtonAction: removeRecipeClosure(at: recipe?.id ?? 0))
+        let recipe = presenter.savedRecipes[indexPath.row]
+        cell.configureSavedCell(
+            image: recipe.imageData,
+            rating: recipe.rating,
+            title: recipe.title,
+            time: recipe.time,
+            addButtonClosure: removeRecipeClosure(at: recipe.id)
+        )
         return cell
     }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let recipe = presenter.savedRecipes[indexPath.row]
+//        presenter.router.routeToDetailScreen(recipe: recipe as! RecipeProtocol)
+//    }
 }
 
+//MARK: SavedRecipesViewProtocol
 extension SavedRecipesViewController: SavedRecipesViewProtocol {
+
     func deleteAllBarButtonTapped() {
         let deleteAllItems = UIBarButtonItem(
             title: "Remove All",
@@ -91,45 +100,50 @@ extension SavedRecipesViewController: SavedRecipesViewProtocol {
     }
     
     @objc func deleteAllItemsAction() {
-        presenter.deleteAllBarButtonTapped()
-        tableView.reloadData()
-    }
+           showAlertWithConfirmation(
+               title: "Danger!!!",
+               message: "Are you sure you want to delete all saved recipes?",
+               confirmationTitle: "Delete?",
+               completion: { [weak self] in
+                   self?.presenter.deleteAllBarButtonTapped()
+                   self?.animateTableView()
+               }
+           )
+       }
     
     func animateTableView() {
-        tableView.reloadData()
-        if ((presenter.savedRecipes?.isEmpty) == nil){
+            tableView.reloadData()
+
             let cells = tableView.visibleCells
-            let tableViewHeight = tableView.bounds.height
-            var delay: Double = 0
-            
-            for cell in cells {
+            let tableViewHeight = tableView.bounds.size.height
+
+            for (index, cell) in cells.enumerated() {
                 cell.transform = CGAffineTransform(translationX: 0, y: tableViewHeight)
-                
-                UIView.animate(withDuration: 1.5,
-                               delay: delay * 0.05,
-                               usingSpringWithDamping: 0.8,
-                               initialSpringVelocity: 0,
-                               options: .curveEaseInOut,
-                               animations: {
-                    cell.transform = CGAffineTransform.identity
-                },completion: nil)
-                delay += 1
-            }
+
+                UIView.animate(
+                    withDuration: 0.5,
+                    delay: 0.08 * Double(index),
+                    usingSpringWithDamping: 0.8,
+                    initialSpringVelocity: 0,
+                    options: .curveEaseOut,
+                    animations: {
+                        cell.transform = .identity
+                    },
+                    completion: nil
+            )
         }
     }
-    
+
     func openSavedRecipes() {
         presenter.loadData()
         DispatchQueue.main.async {
-            self.tableView.reloadData()
             self.animateTableView()
         }
     }
     
     func removeRecipeClosure(at index: Int) -> (() -> ()) {
-        return{
+        return {
            self.presenter.deleteRecipe(with: index)
-            self.tableView.reloadData()
             self.animateTableView()
         }
     }
@@ -151,9 +165,10 @@ private extension SavedRecipesViewController {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.showsVerticalScrollIndicator = false
+        tableView.separatorStyle = .singleLine
         tableView.register(SavedRecipeCell.self, forCellReuseIdentifier: SavedRecipeCell.cellID)
-        tableView.backgroundColor = .clear
-        tableView.rowHeight = 210
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }
 }

@@ -70,10 +70,11 @@ class RealmStorageManager {
     
     
     func deleteRecipeFromRealm(with id: Int) {
-        if let objectToDelete = realm.objects(RecipeRealmModel.self).filter("id == \(id)").first {
-            write {
-                realm.delete(objectToDelete)
+        write {
+            let objectToDelete = realm.objects(RecipeRealmModel.self).where {
+                $0.id == id
             }
+                realm.delete(objectToDelete)
         }
     }
     
