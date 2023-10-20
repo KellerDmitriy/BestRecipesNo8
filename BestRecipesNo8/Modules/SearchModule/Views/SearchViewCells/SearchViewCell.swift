@@ -40,7 +40,11 @@ final class SearchViewCell: UITableViewCell {
     }
     var addButtonClosure: (() -> ())?
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    override init(
+        style: UITableViewCell.CellStyle,
+        reuseIdentifier: String?
+    )
+    {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
         addButtonSetup()
@@ -52,14 +56,19 @@ final class SearchViewCell: UITableViewCell {
     
     
     // MARK: - Public methods
-    func configure(model: RecipeProtocol) {
-        guard let title = model.title, let image = model.image else { return }
+    func configure(model: RecipeProtocol, addButtonClosure: @escaping () -> ()) {
+        guard
+            let title = model.title,
+            let image = model.image
+        else { return }
         recipeNameLabel.text = title 
         let cache = ImageCache.default
         cache.diskStorage.config.expiration = .seconds(1)
         let processor = RoundCornerImageProcessor(cornerRadius: 55, backgroundColor: .clear)
         recipeImageView.kf.indicatorType = .activity
         recipeImageView.kf.setImage(with: URL(string: image))
+        isSaved = RealmStorageManager.shared.isItemSaved(withId: model.id)
+        self.addButtonClosure = addButtonClosure
     }
 }
 // MARK: - setupUI

@@ -19,17 +19,17 @@ protocol RootAssembly {
 protocol MainScreenAssembly {
     func createMainModule(router: MainRouterProtocol) -> MainViewController
     func createSeeAllModule(recipes: [RecipeProtocol], router: MainRouter, sortOrder: Endpoint.SortOrder) -> SeeAllViewController
-    func createRecipeDetailModule(recipe: RecipeProtocol) -> RecipeDetailViewController
+    func createDetailModule(recipe: RecipeProtocol) -> DetailViewController
 }
 
 protocol SavedRecipesAssembly {
     func createSavedRecipesModule(router: SavedRecipesRouterProtocol) -> SavedRecipesViewController
-    func createRecipeDetailModule(recipe: RecipeProtocol) -> RecipeDetailViewController
+    func createDetailModule(recipe: RecipeProtocol) -> DetailViewController
 }
 
 protocol SearchAssembly {
     func createSearchModule(router: SearchRouterProtocol) -> SearchViewController
-    func createRecipeDetailModule(recipe: RecipeProtocol) -> RecipeDetailViewController
+    func createDetailModule(recipe: RecipeProtocol) -> DetailViewController
 }
 
 protocol ProfileAssembly {

@@ -19,7 +19,7 @@ final class MainViewController: UIViewController {
     //MARK: - UI Elementes:
     private lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: searchVC)
-        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false 
         return searchController
     }()
     
@@ -44,13 +44,9 @@ final class MainViewController: UIViewController {
         setupUI()
         setupLayout()
         getRecipes()
-     //   searchVC = presenter.searchController.createSearchModule(router: presenter.router)
+     
         view.backgroundColor = .white
         navigationItem.title = "Get amazing recipes cooking"
-        let navigationBarAppearance = navigationController?.navigationBar.standardAppearance
-        var titleAttributes = navigationBarAppearance?.largeTitleTextAttributes
-        titleAttributes?[.font] = UIFont(name: "Poppins-Bold", size: 38)
-        titleAttributes?[.font] = UIColor.black
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -267,7 +263,7 @@ extension MainViewController: MainScreenViewControllerProtocol {
         presenter.networkManager.getRandomRecipes { result in
             switch result {
             case .success(let results):
-                if let recipes = results.recipes {
+                if let recipes = results.results {
                     self.presenter.randomRecipe = recipes
                     DispatchQueue.main.async {
                         self.recipesTableView.reloadData()

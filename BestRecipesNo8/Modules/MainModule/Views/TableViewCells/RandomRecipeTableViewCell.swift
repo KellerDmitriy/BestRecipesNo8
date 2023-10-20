@@ -9,7 +9,7 @@ import UIKit
 
 final class RandomRecipeTableViewCell: UITableViewCell {
     
-    var randomRecipe: [RecipeInfo] = []
+    var randomRecipe: [RecipeProtocol] = []
     
     // MARK: - UI Elements
     private lazy var recipesCollectionView: UICollectionView = {
@@ -46,7 +46,7 @@ final class RandomRecipeTableViewCell: UITableViewCell {
         contentView.addSubview(recipesCollectionView)
     }
     
-    func configureCell(recipes: [RecipeInfo]) {
+    func configureCell(recipes: [RecipeProtocol]) {
         self.randomRecipe = recipes
         recipesCollectionView.reloadData()
     }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol RecipeDetailPresenterProtocol: AnyObject {
+protocol DetailPresenterProtocol: AnyObject {
     var recipe: RecipeProtocol { get }
     var getTitleRecipe: String { get }
     var getRatingText: String { get }

@@ -7,13 +7,13 @@
 
 import Foundation
 
-final class RecipeDetailPresenter: RecipeDetailPresenterProtocol {
+final class DetailPresenter: DetailPresenterProtocol {
     
-    weak var view: RecipeDetailViewProtocol?
+    weak var view: DetailViewProtocol?
     
     let recipe: RecipeProtocol
 
-    init(view: RecipeDetailViewProtocol, recipe: RecipeProtocol) {
+    init(view: DetailViewProtocol, recipe: RecipeProtocol) {
         self.view = view
         self.recipe = recipe
     }

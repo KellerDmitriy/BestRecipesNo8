@@ -53,7 +53,7 @@ final class RecentRecipeCell: UICollectionViewCell {
         addSubview(titleLabel)
     }
     
-    func configureCell(at recipeInfo: RecipeInfo) {
+    func configureCell(at recipeInfo: RecipeProtocol) {
         let id = recipeInfo.id
         guard let title = recipeInfo.title,
               let image = recipeInfo.image else { return }
