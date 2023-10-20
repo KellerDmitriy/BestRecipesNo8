@@ -17,7 +17,7 @@ final class CustomAddButton: UIButton {
     
     convenience init(isChecked: Bool) {
         self.init(frame: .zero)
-        bookmarkImageView.image = isChecked ? .bookmark : .bookmarkSelect
+        bookmarkImageView.image = isChecked ? UIImage(named: "deleteRecipe") : UIImage(named: "savedRecipe")
     }
     
     override init(frame: CGRect) {

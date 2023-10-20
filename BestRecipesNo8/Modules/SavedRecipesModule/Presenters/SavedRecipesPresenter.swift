@@ -9,14 +9,13 @@ import Foundation
 import RealmSwift
 
 final class SavedRecipesPresenter: SavedRecipesPresenterProtocol {
-    
-    
+
     //MARK: - Properties
     weak var view: SavedRecipesViewProtocol?
     var realmStorageManager = RealmStorageManager.shared
     var savedRecipesId: Int = 0
-    var savedRecipes: RealmSwift.Results<RecipeRealmModel>?
-    private let router: SavedRecipesRouterProtocol
+    var savedRecipes: Results<RecipeRealmModel> = RealmStorageManager.shared.realm.objects(RecipeRealmModel.self)
+    var router: SavedRecipesRouterProtocol
     
     required init(view: SavedRecipesViewProtocol, router: SavedRecipesRouterProtocol, realmStorageManager: RealmStorageManager) {
         self.view = view

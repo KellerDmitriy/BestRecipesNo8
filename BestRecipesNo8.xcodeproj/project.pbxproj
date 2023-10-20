@@ -342,8 +342,8 @@
 		90733BC62AA31BCB00D65897 /* SavedRecipesModule */ = {
 			isa = PBXGroup;
 			children = (
-				90733BCB2AA31BF300D65897 /* Views */,
 				90733BCA2AA31BED00D65897 /* Presenters */,
+				90733BCB2AA31BF300D65897 /* Views */,
 			);
 			path = SavedRecipesModule;
 			sourceTree = "<group>";

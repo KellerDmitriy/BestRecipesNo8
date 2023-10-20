@@ -144,8 +144,8 @@ extension SearchViewController: UISearchResultsUpdating {
 
 //MARK: - Search Recipes
 extension SearchViewController: SearchViewProtocol {
-    func updateSearchResults(with models: [RecipeProtocol]) {
-        presenter.searchedRecipes = models
+    func updateSearchResults(with recipes: [RecipeProtocol]) {
+        presenter.searchedRecipes = recipes
         DispatchQueue.main.async {
             self.searchTableView.reloadData()
         }
