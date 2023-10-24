@@ -10,7 +10,6 @@ import UIKit
 class HomeViewController: UIViewController {
     
     var presenter: HomePresenterProtocol!
-    var popularCategoryDelegate: PopularCategoryDelegate!
     
     // MARK: - Views
     private lazy var scrollView: UIScrollView = _scrollView
@@ -30,7 +29,8 @@ class HomeViewController: UIViewController {
         getRecipes()
         addSubviews()
         applyConstraints()
-        //selectFirstCell()
+       // selectFirstCell()
+        registerCollectionViewsAndHeaders()
     }
     
     // MARK: - Method to set category "Breakfast" selected
@@ -199,6 +199,16 @@ class HomeViewController: UIViewController {
             make.height.equalTo(UIScreen.main.bounds.height - 350)
         }
     }
+    
+    func registerCollectionViewsAndHeaders() {
+        collectionView.register(TrendingCategoryCell.self, forCellWithReuseIdentifier: TrendingCategoryCell.cellID)
+        collectionView.register(PopularCategoryCell.self, forCellWithReuseIdentifier: PopularCategoryCell.cellID)
+        collectionView.register(PopularRecipesCell.self, forCellWithReuseIdentifier: PopularRecipesCell.cellID)
+        collectionView.register(RandomCategoryCell.self, forCellWithReuseIdentifier: RandomCategoryCell.cellID)
+        collectionView.register(TeamMembersCell.self, forCellWithReuseIdentifier: TeamMembersCell.cellID)
+        
+        collectionView.register(HeaderSupplementaryView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -210,8 +220,23 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
-    }
+        if section >= 0 && section < sections.count {
+                let currentSection = sections[section]
+                switch currentSection {
+                case .trendingNow:
+                    return presenter.trendingNowRecipes.count
+                case .popularCategories:
+                    return presenter.popularCategoryRecipes.count
+                case .randomRecipe:
+                    return presenter.randomRecipe.count
+                case .popularRecipe:
+                    return presenter.popularCategoryRecipes.count
+                case .teamMembers(_):
+                    return presenter.teamMembers.count
+                }
+            }
+            return 0
+        }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -232,9 +257,9 @@ extension HomeViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             
-            let currentCategory = presenter.popularCategoryRecipes[indexPath.row]
-            cell.configureCell(header: currentCategory.title, delegate: popularCategoryDelegate)
-            cell.isSelected ? cell.selectCell() : cell.deselectCell()
+            let currentCategory = presenter.popularCategoryRecipes[indexPath.item]
+            cell.configureCell(title: currentCategory.title ?? "")
+            cell.isSelected ? cell.selectCell(indexPath.item) : cell.deselectCell()
             
             return cell
         case .popularRecipe:
@@ -321,7 +346,7 @@ extension HomeViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         if let cell = collectionView.cellForItem(at: indexPath) as? PopularCategoryCell {
-            cell.selectCell()
+            cell.selectCell(indexPath.item)
             return true
         } else {
             //            let controller = RecipeBuilder.createRecipeModule()
@@ -344,7 +369,7 @@ extension HomeViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? PopularCategoryCell {
-            cell.selectCell()
+            cell.selectCell(indexPath.item)
             collectionView.reloadSections(IndexSet(integer: 2))
         }
     }
@@ -435,13 +460,7 @@ private extension HomeViewController {
         collectionView.backgroundColor = .white
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(TrendingCategoryCell.self, forCellWithReuseIdentifier: TrendingCategoryCell.cellID)
-        collectionView.register(PopularCategoryCell.self, forCellWithReuseIdentifier: PopularCategoryCell.cellID)
-        collectionView.register(PopularRecipesCell.self, forCellWithReuseIdentifier: PopularRecipesCell.cellID)
-        collectionView.register(RandomCategoryCell.self, forCellWithReuseIdentifier: RandomCategoryCell.cellID)
-        collectionView.register(TeamMembersCell.self, forCellWithReuseIdentifier: TeamMembersCell.cellID)
-        
-        collectionView.register(HeaderSupplementaryView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
+
         
         collectionView.collectionViewLayout = createLayout()
         return collectionView

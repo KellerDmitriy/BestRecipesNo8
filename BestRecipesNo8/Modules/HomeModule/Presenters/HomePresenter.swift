@@ -9,7 +9,7 @@ import Foundation
 
 class HomePresenter: HomePresenterProtocol {
     
-    
+
     weak var view: HomeViewProtocol?
     
     var assemblyBuilder = AssemblyBuilder()
@@ -18,6 +18,7 @@ class HomePresenter: HomePresenterProtocol {
     var router: HomeRouterProtocol
     var managerSections: ManagerSectionsProtocol?
     
+    var teamMembers: [Team] = Team.teamMembersData
     var trendingNowRecipes: [RecipeProtocol] = []
     var popularCategoryRecipes: [RecipeProtocol] = []
     var randomRecipe: [RecipeProtocol] = []
@@ -87,7 +88,7 @@ class HomePresenter: HomePresenterProtocol {
     }
 }
 
-extension HomePresenter: PopularCategoryDelegate {
+extension HomePresenter {
     func sectCell(recipe: RecipeProtocol) {
         router.routeToDetailScreen(recipe: recipe)
     }

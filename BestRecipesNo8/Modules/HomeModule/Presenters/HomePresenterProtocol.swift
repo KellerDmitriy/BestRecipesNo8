@@ -12,7 +12,7 @@ protocol HomePresenterProtocol {
     var trendingNowRecipes: [RecipeProtocol] { get set }
     var popularCategoryRecipes: [RecipeProtocol] { get set }
     var randomRecipe: [RecipeProtocol] { get set }
-    
+    var teamMembers: [Team] { get set }
     var managerSections: ManagerSectionsProtocol? { get }
     var networkManager: NetworkManager { get set }
     var realmStoredManager: RealmStorageManager { get set }
@@ -21,11 +21,17 @@ protocol HomePresenterProtocol {
    // var searchController: AssemblyBuilderProtocol { get set }
     var savedRecipes: [RecipeRealmModel] { get set }
     var savedRecipesId: [Int] { get set }
-    func isRecipeSaved(recipe: RecipeProtocol) -> Bool
     func updateRecipeInSavedRecipes(recipe: RecipeProtocol)
     
     func getCreateCompletion(with recipe: RecipeProtocol) -> (() -> ())
     func addButtonTapped(for recipe: RecipeProtocol)
     
     func seeAllButtonTapped(with sortOrder: Endpoint.SortOrder)
+    
+    func getRecipesWithMealType(mealType: String)
+    func updateSavedRecipes(recipe: RecipeProtocol)
+    func isRecipeSaved(recipe: RecipeProtocol) -> Bool
+    func sectCell(recipe: RecipeProtocol)
 }
+
+

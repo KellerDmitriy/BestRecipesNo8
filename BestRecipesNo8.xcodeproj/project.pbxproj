@@ -68,6 +68,7 @@
 		E1684FB02AE64FCA002AC9BD /* TeamMembersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1684FAF2AE64FCA002AC9BD /* TeamMembersCell.swift */; };
 		E1684FB22AE661A5002AC9BD /* HomeSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1684FB12AE661A5002AC9BD /* HomeSections.swift */; };
 		E1684FB72AE7AB26002AC9BD /* ManagerSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1684FB62AE7AB26002AC9BD /* ManagerSections.swift */; };
+		E1684FB92AE85674002AC9BD /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1684FB82AE85674002AC9BD /* Team.swift */; };
 		E18CADFE2AD29F1600F00950 /* DetailRecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18CADFD2AD29F1600F00950 /* DetailRecipeModel.swift */; };
 		E18CAE002AD3379200F00950 /* RealmMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18CADFF2AD3379200F00950 /* RealmMigration.swift */; };
 		E1A0265D2AA9ED5D0085289E /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A0265C2AA9ED5D0085289E /* SearchViewCell.swift */; };
@@ -162,6 +163,7 @@
 		E1684FAF2AE64FCA002AC9BD /* TeamMembersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamMembersCell.swift; sourceTree = "<group>"; };
 		E1684FB12AE661A5002AC9BD /* HomeSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSections.swift; sourceTree = "<group>"; };
 		E1684FB62AE7AB26002AC9BD /* ManagerSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerSections.swift; sourceTree = "<group>"; };
+		E1684FB82AE85674002AC9BD /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		E18CADFD2AD29F1600F00950 /* DetailRecipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecipeModel.swift; sourceTree = "<group>"; };
 		E18CADFF2AD3379200F00950 /* RealmMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmMigration.swift; sourceTree = "<group>"; };
 		E1A0265C2AA9ED5D0085289E /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
@@ -469,6 +471,7 @@
 		E1684F9A2AE64CA8002AC9BD /* HomeModule */ = {
 			isa = PBXGroup;
 			children = (
+				E1684FB62AE7AB26002AC9BD /* ManagerSections.swift */,
 				E1684FB32AE6624C002AC9BD /* Models */,
 				E1684FA22AE64D67002AC9BD /* Presenters */,
 				E1684F9D2AE64D3C002AC9BD /* Views */,
@@ -520,7 +523,7 @@
 			isa = PBXGroup;
 			children = (
 				E1684FB12AE661A5002AC9BD /* HomeSections.swift */,
-				E1684FB62AE7AB26002AC9BD /* ManagerSections.swift */,
+				E1684FB82AE85674002AC9BD /* Team.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -857,6 +860,7 @@
 				90D5FEAC2AA1FBFC002A74B0 /* RecipeCell.swift in Sources */,
 				28344DC42A9F72B4000D7554 /* UIImage + Extension.swift in Sources */,
 				E1684FA42AE64DF7002AC9BD /* HederSupplementaryView.swift in Sources */,
+				E1684FB92AE85674002AC9BD /* Team.swift in Sources */,
 				28183B8F2AADA2D5000E3EB9 /* CreateViewPresenter.swift in Sources */,
 				E1ED06A12AC5DEDB0046C466 /* RouterProtocol.swift in Sources */,
 				28344DBA2A9E7907000D7554 /* SeeAllPresenterProtocol.swift in Sources */,

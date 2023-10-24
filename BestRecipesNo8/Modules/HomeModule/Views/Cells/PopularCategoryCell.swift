@@ -1,81 +1,91 @@
 //
-//  PopularCategoryHeaderCell.swift
+//  PopularCell.swift
 //  BestRecipesNo8
 //
-//  Created by Aleksandr Garipov on 02.09.2023.
+//  Created by Мявкo on 6.09.23.
 //
-
-protocol PopularCategoryDelegate: AnyObject {
-    func getRecipesWithMealType(mealType: String)
-    func updateSavedRecipes(recipe: RecipeProtocol)
-    func isRecipeSaved(recipe: RecipeProtocol) -> Bool
-    func sectCell(recipe: RecipeProtocol)
-}
-
 
 import UIKit
 
-final class PopularCategoryCell: UICollectionViewCell {
+class PopularCategoryCell: UICollectionViewCell {
     
-    weak var delegate: PopularCategoryDelegate?
     static let cellID = String(describing: PopularCategoryCell.self)
-    //MARK: - UI Elements:
     
-    let headerLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(named: "Primary")
-        label.text = "Category"
-        label.font = UIFont(name: "Poppins-Regular", size: 10)
-        label.textAlignment = .center
-        label.minimumScaleFactor = 0.1
-        label.adjustsFontSizeToFitWidth = true
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    //MARK: - LifeCycle:
-    
+    // MARK: - Views
+    private lazy var categoryTitle: UILabel = _categoryTitle
+
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()
-        setupLayout()
+        setupCellAppearance()
+    
+        addSubviews()
+        applyConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Methods:
-    
-    private func setupUI() {
-        contentView.addSubview(headerLabel)
+    func setupCellAppearance() {
+        contentView.clipsToBounds = true
         contentView.layer.cornerRadius = 10
     }
     
-    func configureCell(header: String?, delegate: PopularCategoryDelegate) {
-        if let header = header {
-            headerLabel.text = header
-        }
-        self.delegate = delegate
+    func configureCell(title: String) {
+        categoryTitle.text = title
     }
     
-    func selectCell() {
-        delegate?.getRecipesWithMealType(mealType: headerLabel.text ?? "")
-        contentView.backgroundColor = UIColor(named: "Primary")
-        headerLabel.textColor = .white
+    //MARK: - Update data of popular recipes and change color of selected cell
+    
+//    func categoryIsTapped(categoryIndex: Int) {
+//        switch categoryIndex {
+//        case 0:
+//            MockData.shared.setPopularCategory(.salad)
+//        case 1:
+//            MockData.shared.setPopularCategory(.breakfast)
+//        case 2:
+//            MockData.shared.setPopularCategory(.appetizer)
+//        case 3:
+//            MockData.shared.setPopularCategory(.noodle)
+//        case 4:
+//            MockData.shared.setPopularCategory(.lunch)
+//        default:
+//            break
+//        }
+//    }
+    
+    func selectCell(_ index: Int) {
+        contentView.backgroundColor = .darkRedColor
+        categoryTitle.textColor = .white
+        //categoryIsTapped(categoryIndex: index)
     }
     
     func deselectCell() {
         contentView.backgroundColor = .clear
-        headerLabel.textColor = UIColor(named: "Primary")
+        categoryTitle.textColor = .primaryColor20
     }
     
-    private func setupLayout() {
-        NSLayoutConstraint.activate([
-            headerLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            headerLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 6),
-            headerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -6),
-            headerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
+    // MARK: - Subviews
+    private func addSubviews() {
+        contentView.addSubview(categoryTitle)
+    }
+    
+    // MARK: - Constraints
+    private func applyConstraints() {
+        categoryTitle.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+    }
+}
+
+// MARK: - Extension for setup elements
+private extension PopularCategoryCell {
+    
+    var _categoryTitle: UILabel {
+        let label = UILabel()
+        label.font = UIFont.poppinsSemiBold(size: 12)
+        label.textColor = .primaryColor
+        return label
     }
 }
