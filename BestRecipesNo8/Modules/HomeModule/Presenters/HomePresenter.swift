@@ -9,13 +9,14 @@ import Foundation
 
 class HomePresenter: HomePresenterProtocol {
     
+    
     weak var view: HomeViewProtocol?
     
     var assemblyBuilder = AssemblyBuilder()
     var networkManager = NetworkManager.shared
-    let managerSections: ManagerSectionsProtocol!
     var realmStoredManager = RealmStorageManager.shared
     var router: HomeRouterProtocol
+    var managerSections: ManagerSectionsProtocol?
     
     var trendingNowRecipes: [RecipeProtocol] = []
     var popularCategoryRecipes: [RecipeProtocol] = []

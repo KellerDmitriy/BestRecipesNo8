@@ -13,7 +13,7 @@ protocol HomePresenterProtocol {
     var popularCategoryRecipes: [RecipeProtocol] { get set }
     var randomRecipe: [RecipeProtocol] { get set }
     
-    var managerSections: ManagerSectionsProtocol! { get }
+    var managerSections: ManagerSectionsProtocol? { get }
     var networkManager: NetworkManager { get set }
     var realmStoredManager: RealmStorageManager { get set }
     var router: HomeRouterProtocol { get set }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class PopularRecipesCell: UICollectionViewCell {
     
@@ -36,10 +37,21 @@ class PopularRecipesCell: UICollectionViewCell {
     }
     
     // MARK: - Method for setup data to elements in every cell
-    func updateRecipeData(image: UIImage?, title: String, time: Double?) {
-        recipeImageView.image = image
+    func configureCell(at recipe: RecipeProtocol) {
+        let id = recipe.id
+        guard let title = recipe.title,
+              let image = recipe.image,
+              let time = recipe.readyInMinutes
+        else { return }
+        
+        let cache = ImageCache.default
+        cache.diskStorage.config.expiration = .seconds(1)
+        let processor = RoundCornerImageProcessor(cornerRadius: 12, backgroundColor: .clear)
+        recipeImageView.kf.indicatorType = .activity
+        recipeImageView.kf.setImage(with: URL(string: image), placeholder: nil, options: [.processor(processor),
+                                                                                          .cacheSerializer(FormatIndicatedCacheSerializer.png)])
         titleRecipe.text = "\(title)"
-        timeLabel.text = "\(Int(time ?? 0)) Mins"
+        timeLabel.text = "\(Int(time)) Mins"
     }
     
     func setupBookmark() {

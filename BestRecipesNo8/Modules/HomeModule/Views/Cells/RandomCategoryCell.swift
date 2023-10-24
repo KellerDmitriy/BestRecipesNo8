@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class RandomCategoryCell: UICollectionViewCell {
     
@@ -28,8 +29,17 @@ class RandomCategoryCell: UICollectionViewCell {
     }
     
     // MARK: - Method for setup data to elements in every cell
-    func updateRecipeData(image: UIImage?, title: String) {
-        recipeImageView.image = image
+    func configureCell(at recipeInfo: RecipeProtocol) {
+        let id = recipeInfo.id
+        guard
+              let title = recipeInfo.title,
+              let image = recipeInfo.image else { return }
+        let cache = ImageCache.default
+        cache.diskStorage.config.expiration = .seconds(1)
+        let processor = RoundCornerImageProcessor(cornerRadius: 12, backgroundColor: .clear)
+        recipeImageView.kf.indicatorType = .activity
+        recipeImageView.kf.setImage(with: URL(string: image), placeholder: nil, options: [.processor(processor),
+                                                                                          .cacheSerializer(FormatIndicatedCacheSerializer.png)])
         titleRecipe.text = "\(title)"
     }
     

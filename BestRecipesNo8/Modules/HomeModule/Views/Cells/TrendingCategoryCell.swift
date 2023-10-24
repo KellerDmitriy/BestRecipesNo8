@@ -37,7 +37,7 @@ class TrendingCategoryCell: UICollectionViewCell {
     }
     
     // MARK: - Method for setup data to elements in every cell
-    func updateRecipeData(at recipe: RecipeProtocol) {
+    func configureCell(at recipe: RecipeProtocol) {
         let id = recipe.id
         guard let title = recipe.title,
               let image = recipe.image,

@@ -28,7 +28,7 @@ class TeamMembersCell: UICollectionViewCell {
     }
     
     // MARK: - Method for setup data to elements in every cell
-    func updateCellData(image: UIImage?, title: String) {
+    func configureCell(image: UIImage?, title: String) {
         recipeImageView.image = image
         titleRecipe.text = "\(title)"
     }

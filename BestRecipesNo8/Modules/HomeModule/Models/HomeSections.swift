@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import UIKit
 
 enum HomeSections {
     case trendingNow
     case popularCategories
     case popularRecipe
-    case recentRecipe
-    case teamMembers
+    case randomRecipe
+    case teamMembers([Team])
     
     var title: String {
         switch self {
@@ -22,7 +23,7 @@ enum HomeSections {
             return "Popular category"
         case .popularRecipe:
             return ""
-        case .recentRecipe:
+        case .randomRecipe:
             return "Recent recipe"
         case .teamMembers:
             return "Team members"
@@ -30,13 +31,36 @@ enum HomeSections {
     }
 }
 
+struct Team {
+    let title: String
+    let image: UIImage?
+    init(title: String, image: UIImage?) {
+        self.title = title
+        self.image = image
+    }
+    
+    static let teamMembersData: [Team] = [
+        .init(title: "Kitty 1", image: UIImage(named: "member1")),
+        .init(title: "Kitty 2", image: UIImage(named: "member2")),
+        .init(title: "Kitty 3", image: UIImage(named: "member3")),
+        .init(title: "Kitty 4", image: UIImage(named: "member4")),
+        .init(title: "Kitty 5", image: UIImage(named: "member5"))
+    ]
+    
+}
+
 struct SectionsData {
     static let shared = SectionsData()
+
     private let trendingNow = HomeSections.trendingNow
     private let popularCategories = HomeSections.popularCategories
     private let popularRecipe = HomeSections.popularRecipe
-    private let recentRecipe = HomeSections.recentRecipe
-    private let teamMembers = HomeSections.teamMembers
+    private let recentRecipe = HomeSections.randomRecipe
+    
+
+    
+    private let teamMembers: HomeSections = .teamMembers(Team.teamMembersData)
+
     var sectionsArray: [HomeSections] {
         [trendingNow, popularCategories, popularRecipe, recentRecipe, teamMembers]
     }

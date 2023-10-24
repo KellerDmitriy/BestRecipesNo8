@@ -17,6 +17,7 @@ protocol RecipeProtocol {
     var instructionsLabel: String? { get }
 }
 
+
 struct RecipeResults: Codable {
     let results: [RecipeInfo]?
 }

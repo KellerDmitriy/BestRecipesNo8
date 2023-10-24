@@ -7,9 +7,9 @@
 
 protocol PopularCategoryDelegate: AnyObject {
     func getRecipesWithMealType(mealType: String)
-    func updateSavedRecipes(recipe: RecipeInfo)
-    func isRecipeSaved(recipe: RecipeInfo) -> Bool
-    func sectCell(recipe: RecipeInfo)
+    func updateSavedRecipes(recipe: RecipeProtocol)
+    func isRecipeSaved(recipe: RecipeProtocol) -> Bool
+    func sectCell(recipe: RecipeProtocol)
 }
 
 
@@ -18,7 +18,7 @@ import UIKit
 final class PopularCategoryCell: UICollectionViewCell {
     
     weak var delegate: PopularCategoryDelegate?
-    
+    static let cellID = String(describing: PopularCategoryCell.self)
     //MARK: - UI Elements:
     
     let headerLabel: UILabel = {
@@ -52,8 +52,10 @@ final class PopularCategoryCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 10
     }
     
-    func configureCell(header: String, delegate: PopularCategoryDelegate) {
-        headerLabel.text = header
+    func configureCell(header: String?, delegate: PopularCategoryDelegate) {
+        if let header = header {
+            headerLabel.text = header
+        }
         self.delegate = delegate
     }
     
