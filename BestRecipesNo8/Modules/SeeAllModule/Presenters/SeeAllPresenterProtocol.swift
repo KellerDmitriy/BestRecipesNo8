@@ -15,7 +15,7 @@ protocol SeeAllPresenterProtocol: AnyObject {
 
     var networkManager: NetworkManager { get set }
     var realmStoredManager: RealmStorageManager { get set }
-    var router: MainRouterProtocol { get set }
+    var router: HomeRouterProtocol { get set }
     
     func saveButtonTapped()
 }

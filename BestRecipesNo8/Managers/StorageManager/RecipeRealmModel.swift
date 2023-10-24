@@ -16,7 +16,7 @@ class RecipeRealmModel: Object {
     @Persisted var time: Int = 0
     @Persisted var ingredients = List<Ingredients>()
     @Persisted var instuctionsLabel: String = ""
-    @Persisted var timeSaving = Date()
+    @Persisted var savedTime = Date()
 }
 
 class Ingredients: Object {

@@ -7,7 +7,9 @@
 
 import Foundation
 
-final class SearchPresenter: SearchPresenterProtocol {
+final class SearchPresenter: SearchPresenterProtocol, SearchModuleProtocol {
+    
+    
     weak var view: SearchViewProtocol?
     var router: SearchRouterProtocol
     
@@ -31,7 +33,7 @@ final class SearchPresenter: SearchPresenterProtocol {
         }
         
         DispatchQueue.global().async {
-            self.networkManager.getSearchRecipes(for: searchText) { [weak self] result in
+            self.networkManager.getSearchRecipes(for: searchText) { [unowned self] result in
                 switch result {
                 case .success(let recipes):
                     var models: [RecipeProtocol] = []
@@ -39,7 +41,7 @@ final class SearchPresenter: SearchPresenterProtocol {
                     
                     recipes.results?.forEach { recipe in
                         dispatchGroup.enter()
-                        self?.networkManager.getRecipeInformation(for: recipe.id) { detailedResult in
+                        self.networkManager.getRecipeInformation(for: recipe.id) { detailedResult in
                             defer {
                                 dispatchGroup.leave()
                             }
@@ -51,7 +53,7 @@ final class SearchPresenter: SearchPresenterProtocol {
                                     let rating = data.rating,
                                     let readyInMinutes = data.readyInMinutes,
                                     let extendedIngredients = data.extendedIngredients,
-                                    let instuctionsLabel = data.instuctionsLabel
+                                    let instuctionsLabel = data.instructionsLabel
                                 else { return }
                                 
                                 let searchRecipe = SearchRecipe(
@@ -61,7 +63,7 @@ final class SearchPresenter: SearchPresenterProtocol {
                                     rating: rating,
                                     readyInMinutes: readyInMinutes,
                                     extendedIngredients: extendedIngredients,
-                                    instuctionsLabel: instuctionsLabel
+                                    instructionsLabel: instuctionsLabel
                                 )
                                 
                                 models.append(searchRecipe)
@@ -71,13 +73,17 @@ final class SearchPresenter: SearchPresenterProtocol {
                         }
                     }
                     dispatchGroup.notify(queue: .main) {
-                        self?.view?.updateSearchResults(with: models)
+                        self.view?.updateSearchResults(with: models)
                     }
                 case .failure(let error):
                     print(error)
                 }
             }
         }
+    }
+    
+    func updateSearchResults(with recipes: [RecipeProtocol]) {
+        view?.updateSearchResults(with: recipes)
     }
 }
 #warning("проверить метод для доп свойств по ингридиентам")

@@ -7,13 +7,14 @@
 
 import UIKit
 
-final class MainRouter: MainRouterProtocol {
+final class MainRouter: HomeRouterProtocol{
+
     //MARK: - Properties
     let navigationController: UINavigationController
-    private let assemblyBuilder: MainScreenAssembly
+    private let assemblyBuilder: HomeScreenAssembly
     
     //MARK: - init(_:)
-    init(navigationController: UINavigationController, assemblyBuilder: MainScreenAssembly) {
+    init(navigationController: UINavigationController, assemblyBuilder: HomeScreenAssembly) {
         self.navigationController = navigationController
         self.assemblyBuilder = assemblyBuilder
         navigationController.setupNavigationBar()
@@ -21,8 +22,13 @@ final class MainRouter: MainRouterProtocol {
     
     //MARK: - Public methods
     func setupInitial() {
-        let viewController = assemblyBuilder.createMainModule(router: self)
+        let viewController = assemblyBuilder.createHomeModule(router: self)
         navigationController.viewControllers = [viewController]
+    }
+    
+    func routeToSearchScreen(router: SearchRouterProtocol) {
+        let searchViewController = assemblyBuilder.createSearchModule(router: router)
+        navigationController.pushViewController(searchViewController, animated: true)
     }
     
     func routeToDetailScreen(recipe: RecipeProtocol) {

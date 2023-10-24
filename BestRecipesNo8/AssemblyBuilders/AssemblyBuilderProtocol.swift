@@ -9,15 +9,16 @@ import UIKit
 
 protocol RootAssembly {
     func createTabBar() -> CustomTabBarController
-    func createMainRouter() -> MainRouterProtocol
+    func createHomeRouter() -> HomeRouterProtocol
     func createSavedRecipesRouter() -> SavedRecipesRouterProtocol
     func createSearchRouter() -> SearchRouterProtocol
     func createCreateRouter() -> CreateRouterProtocol
     func createProfileRouter() -> ProfileRouterProtocol
 }
 
-protocol MainScreenAssembly {
-    func createMainModule(router: MainRouterProtocol) -> MainViewController
+protocol HomeScreenAssembly {
+    func createHomeModule(router: HomeRouterProtocol) -> HomeViewController
+    func createSearchModule(router: SearchRouterProtocol) -> SearchViewController
     func createSeeAllModule(recipes: [RecipeProtocol], router: MainRouter, sortOrder: Endpoint.SortOrder) -> SeeAllViewController
     func createDetailModule(recipe: RecipeProtocol) -> DetailViewController
 }
@@ -43,7 +44,7 @@ protocol CreateAssembly {
 
 typealias AssemblyBuilderProtocol =
 RootAssembly &
-MainScreenAssembly &
+HomeScreenAssembly &
 SavedRecipesAssembly &
 CreateAssembly &
 SearchAssembly &

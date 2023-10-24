@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let assemblyBuilder = AssemblyBuilder()
         let tabBar: CustomTabBarController = assemblyBuilder.createTabBar()
         
-        let mainRouter: MainRouterProtocol = assemblyBuilder.createMainRouter()
+        let mainRouter: HomeRouterProtocol = assemblyBuilder.createHomeRouter()
         let savedRecipesRouter: SavedRecipesRouterProtocol = assemblyBuilder.createSavedRecipesRouter()
         let createRecipeRouter: CreateRouterProtocol = assemblyBuilder.createCreateRouter()
         let searchRouter: SearchRouterProtocol = assemblyBuilder.createSearchRouter()

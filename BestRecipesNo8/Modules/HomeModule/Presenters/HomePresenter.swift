@@ -1,18 +1,19 @@
 //
-//  MainScreenPresenter.swift
+//  HomePresenter.swift
 //  BestRecipesNo8
 //
-//  Created by Aleksandr Garipov on 31.08.2023.
+//  Created by Келлер Дмитрий on 23.10.2023.
 //
 
 import Foundation
 
-final class MainPresenter: MainPresenterProtocol {
+class HomePresenter: HomePresenterProtocol {
     
-    weak var view: MainScreenViewControllerProtocol?
+    weak var view: HomeViewProtocol?
     
     var assemblyBuilder = AssemblyBuilder()
     var networkManager = NetworkManager.shared
+    let managerSections: ManagerSectionsProtocol!
     var realmStoredManager = RealmStorageManager.shared
     var router: HomeRouterProtocol
     
@@ -29,7 +30,7 @@ final class MainPresenter: MainPresenterProtocol {
 
     //MARK: LifeCycle
     
-    required init(view: MainScreenViewControllerProtocol, networkManager: NetworkManager, realmStoredManager: RealmStorageManager, router: HomeRouterProtocol) {
+    required init(view: HomeViewProtocol, networkManager: NetworkManager, realmStoredManager: RealmStorageManager, router: HomeRouterProtocol) {
         self.view = view
         self.networkManager = networkManager
         self.realmStoredManager = realmStoredManager
@@ -48,7 +49,7 @@ final class MainPresenter: MainPresenterProtocol {
     //MARK: Search Methods
     func initSearchModule() {
         searchRouter = assemblyBuilder.createSearchRouter()
-        let searchViewController = assemblyBuilder.createSearchModule(router: searchRouter!) 
+        let searchViewController = assemblyBuilder.createSearchModule(router: searchRouter!)
     }
  
     func setSearchModule(_ module: SearchModuleProtocol) {
@@ -85,7 +86,7 @@ final class MainPresenter: MainPresenterProtocol {
     }
 }
 
-extension MainPresenter: PopularCategoryDelegate {
+extension HomePresenter: PopularCategoryDelegate {
     func sectCell(recipe: RecipeProtocol) {
         router.routeToDetailScreen(recipe: recipe)
     }
@@ -126,7 +127,3 @@ extension MainPresenter: PopularCategoryDelegate {
         }
     }
 }
-    
-
-
-

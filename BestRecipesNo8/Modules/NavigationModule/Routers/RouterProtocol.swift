@@ -12,8 +12,9 @@ protocol BaseRouterProtocol {
     func routeToDetailScreen(recipe: RecipeProtocol)
 }
 
-protocol MainRouterProtocol: BaseRouterProtocol {
+protocol HomeRouterProtocol: BaseRouterProtocol {
     func routeToSeeAllScreen(recipes: [RecipeProtocol], sortOrder: Endpoint.SortOrder)
+    func routeToSearchScreen(router: SearchRouterProtocol) 
 }
 
 protocol SearchRouterProtocol: BaseRouterProtocol {}

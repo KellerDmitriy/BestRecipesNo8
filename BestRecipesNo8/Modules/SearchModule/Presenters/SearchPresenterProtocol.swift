@@ -17,3 +17,8 @@ protocol SearchPresenterProtocol: AnyObject {
     
     func searchRecipes(with searchText: String)
 }
+
+protocol SearchModuleProtocol: AnyObject {
+    func searchRecipes(with searchText: String)
+    func updateSearchResults(with recipes: [RecipeProtocol])
+}

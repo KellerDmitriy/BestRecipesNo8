@@ -54,6 +54,6 @@ final class DetailPresenter: DetailPresenterProtocol {
     }
     
     func getInstructions() -> String {
-        return recipe.instuctionsLabel ?? ""
+        return recipe.instructionsLabel ?? ""
     }
 }

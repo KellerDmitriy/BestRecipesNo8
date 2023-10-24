@@ -12,7 +12,7 @@ final class SeeAllPresenter: SeeAllPresenterProtocol {
     var view: SeeAllViewProtocol
     var networkManager: NetworkManager
     var realmStoredManager: RealmStorageManager
-    var router: MainRouterProtocol
+    var router: HomeRouterProtocol
     
     let sortOrder: Endpoint.SortOrder
 
@@ -23,7 +23,7 @@ final class SeeAllPresenter: SeeAllPresenterProtocol {
         view: SeeAllViewProtocol,
         networkManager: NetworkManager,
         realmStoredManager: RealmStorageManager,
-        router: MainRouterProtocol,
+        router: HomeRouterProtocol,
         recipes: [RecipeProtocol],
         sortOrder: Endpoint.SortOrder
     ) {

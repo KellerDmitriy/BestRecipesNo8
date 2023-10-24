@@ -1,18 +1,19 @@
 //
-//  MainPresenterProtocol.swift
+//  HomePresenterProtocol.swift
 //  BestRecipesNo8
 //
-//  Created by Келлер Дмитрий on 18.09.2023.
+//  Created by Келлер Дмитрий on 23.10.2023.
 //
 
 import Foundation
 
-protocol MainPresenterProtocol: AnyObject {
+protocol HomePresenterProtocol {
     var searchRouter: SearchRouterProtocol? { get set }
     var trendingNowRecipes: [RecipeProtocol] { get set }
     var popularCategoryRecipes: [RecipeProtocol] { get set }
     var randomRecipe: [RecipeProtocol] { get set }
     
+    var managerSections: ManagerSectionsProtocol! { get }
     var networkManager: NetworkManager { get set }
     var realmStoredManager: RealmStorageManager { get set }
     var router: HomeRouterProtocol { get set }
@@ -27,10 +28,4 @@ protocol MainPresenterProtocol: AnyObject {
     func addButtonTapped(for recipe: RecipeProtocol)
     
     func seeAllButtonTapped(with sortOrder: Endpoint.SortOrder)
-    
-    var searchModule: SearchModuleProtocol? { get set }
-    var searchedRecipes: [RecipeProtocol] { get set }
-    func setSearchModule(_ module: SearchModuleProtocol)
-    func performSearch(with searchText: String) 
-    func initSearchModule()
 }

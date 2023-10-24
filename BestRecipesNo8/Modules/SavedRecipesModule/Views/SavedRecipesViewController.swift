@@ -75,6 +75,7 @@ extension SavedRecipesViewController: UITableViewDataSource, UITableViewDelegate
             rating: recipe.rating,
             title: recipe.title,
             time: recipe.time,
+            savedTime: recipe.savedTime,
             addButtonClosure: removeRecipeClosure(at: recipe.id)
         )
         return cell

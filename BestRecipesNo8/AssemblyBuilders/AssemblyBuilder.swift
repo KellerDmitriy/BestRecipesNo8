@@ -15,7 +15,7 @@ class AssemblyBuilder: AssemblyBuilderProtocol {
     }
     
     //MARK: - Main module
-    func createMainRouter() -> MainRouterProtocol {
+    func createHomeRouter() -> HomeRouterProtocol {
         let navigationController = UINavigationController()
         navigationController.tabBarItem = .init(title: nil, image: .main, tag: 0)
         navigationController.tabBarItem.selectedImage = .mainSelect
@@ -27,11 +27,11 @@ class AssemblyBuilder: AssemblyBuilderProtocol {
         return router
     }
     
-    func createMainModule(router: MainRouterProtocol) -> MainViewController {
-        let viewController = MainViewController()
+    func createHomeModule(router: HomeRouterProtocol) -> HomeViewController {
+        let viewController = HomeViewController()
         let networkManager = NetworkManager.shared
         let realmStoredManager = RealmStorageManager.shared
-        let presenter = MainPresenter(
+        let presenter = HomePresenter(
             view: viewController,
             networkManager: networkManager,
             realmStoredManager: realmStoredManager,
@@ -39,7 +39,7 @@ class AssemblyBuilder: AssemblyBuilderProtocol {
         )
         presenter.view = viewController
         viewController.presenter = presenter
-        viewController.popularCategoryDelegate = presenter
+        //viewController.popularCategoryDelegate = presenter
         return viewController
     }
     

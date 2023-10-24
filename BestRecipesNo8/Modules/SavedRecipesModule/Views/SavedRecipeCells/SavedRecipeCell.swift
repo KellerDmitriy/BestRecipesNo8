@@ -22,6 +22,9 @@ class SavedRecipeCell: UITableViewCell {
     private lazy var timeCreationView: UIView = _timeCreationView
     private lazy var timeLabel: UILabel = _timeLabel
     
+    private lazy var savedTimeCreationView: UIView = _savedTimeCreationView
+    private lazy var savedTimeLabel: UILabel = _savedTimeLabel
+    
     lazy var addButton = CustomAddButton(isChecked: true)
     
     var addButtonClosure: (() -> ())?
@@ -34,24 +37,31 @@ class SavedRecipeCell: UITableViewCell {
         addSubviews()
         applyConstraints()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - Method for setup data to elements in every cell
     func configureSavedCell(
         image: Data,
         rating: String,
         title: String,
         time: Int,
+        savedTime: Date,
         addButtonClosure: @escaping () -> ()
     )
     {
+ 
         self.recipeImageView.image = UIImage(data: image)
         self.ratingLabel.text = rating
         self.titleRecipe.text = "How to make: \"\(title)\" at home"
-        self.timeLabel.text = "Preparation time: \(String(time)) min"
+        self.timeLabel.text = "Preparation time:\n\(String(time)) min"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMMM yyyy"
+        let formattedDate = dateFormatter.string(from: savedTime)
+        self.savedTimeLabel.text = "Saved date:\n\(formattedDate)"
         
         self.addButtonClosure = addButtonClosure
     }
@@ -66,6 +76,10 @@ class SavedRecipeCell: UITableViewCell {
         
         timeCreationView.addSubview(timeLabel)
         contentView.addSubview(timeCreationView)
+        
+        savedTimeCreationView.addSubview(savedTimeLabel)
+        contentView.addSubview(savedTimeCreationView)
+        
         contentView.addSubview(addButton)
     }
     
@@ -99,13 +113,24 @@ class SavedRecipeCell: UITableViewCell {
         }
         
         timeCreationView.snp.makeConstraints { make in
-            make.top.equalTo(recipeImageView.snp.bottom).offset(-32)
-            make.trailing.equalTo(recipeImageView.snp.trailing).offset(-10)
-            make.width.equalTo(150)
-            make.height.equalTo(25)
+            make.bottom.equalTo(recipeImageView.snp.bottom).offset(-8)
+            make.leading.equalTo(recipeImageView.snp.leading).offset(8)
+            make.width.equalTo(110)
+            make.height.equalTo(40)
         }
         
         timeLabel.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+        
+        savedTimeCreationView.snp.makeConstraints { make in
+            make.bottom.equalTo(recipeImageView.snp.bottom).offset(-8)
+            make.trailing.equalTo(recipeImageView.snp.trailing).offset(-8)
+            make.width.equalTo(110)
+            make.height.equalTo(40)
+        }
+        
+        savedTimeLabel.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
         }
         
@@ -158,6 +183,29 @@ private extension SavedRecipeCell {
         return label
     }
     
+    var _savedTimeCreationView: UIView {
+        let view = UIView()
+        view.layer.cornerRadius = 10
+        let blurEffect = UIBlurEffect(style: .dark)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.frame = view.frame
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurView.layer.cornerRadius = 10
+        blurView.clipsToBounds = true
+        blurView.alpha = 0.8
+        view.addSubview(blurView)
+        return view
+    }
+    
+    var _savedTimeLabel: UILabel {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        label.font = UIFont.poppinsRegular(size: 12)
+        label.textColor = .white
+        return label
+    }
+    
     var _timeCreationView: UIView {
         let view = UIView()
         view.layer.cornerRadius = 10
@@ -167,13 +215,14 @@ private extension SavedRecipeCell {
         blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         blurView.layer.cornerRadius = 10
         blurView.clipsToBounds = true
-        blurView.alpha = 0.4
+        blurView.alpha = 0.8
         view.addSubview(blurView)
         return view
     }
     
     var _timeLabel: UILabel {
         let label = UILabel()
+        label.textAlignment = .center
         label.numberOfLines = 2
         label.font = UIFont.poppinsRegular(size: 12)
         label.textColor = .white

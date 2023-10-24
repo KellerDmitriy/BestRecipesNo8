@@ -14,11 +14,15 @@ protocol RecipeProtocol {
     var rating: String? { get }
     var readyInMinutes: Int? { get }
     var extendedIngredients: [ExtendedIngredient]? { get }
-    var instuctionsLabel: String? { get }
+    var instructionsLabel: String? { get }
 }
 
 struct RecipeResults: Codable {
     let results: [RecipeInfo]?
+}
+
+struct SearchResult: Codable {
+    let results: [SearchRecipe]?
 }
 
 struct SearchRecipe: Codable, RecipeProtocol {
@@ -28,7 +32,7 @@ struct SearchRecipe: Codable, RecipeProtocol {
     var rating: String?
     let readyInMinutes: Int?
     var extendedIngredients: [ExtendedIngredient]?
-    var instuctionsLabel: String?
+    var instructionsLabel: String?
 }
 
 struct RecipeInfo: Codable, RecipeProtocol {
@@ -57,7 +61,7 @@ struct RecipeInfo: Codable, RecipeProtocol {
         }
     }
     
-    var instuctionsLabel: String? {
+    var instructionsLabel: String? {
         var result: String = ""
         guard let instructions = analyzedInstructions?.first else { return "" }
         instructions.steps?.forEach {
