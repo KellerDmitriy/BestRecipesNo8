@@ -43,3 +43,4 @@ struct SectionsData {
         [trendingNow, popularCategories, popularRecipe, recentRecipe, teamMembers]
     }
 }
+

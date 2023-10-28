@@ -49,23 +49,14 @@ final class SearchPresenter: SearchPresenterProtocol, SearchModuleProtocol {
                             case .success(let data):
                                 guard
                                     let title = data.title,
-                                    let image = data.image,
-                                    let rating = data.rating,
-                                    let readyInMinutes = data.readyInMinutes,
-                                    let extendedIngredients = data.extendedIngredients,
-                                    let instuctionsLabel = data.instructionsLabel
+                                    let image = data.image
                                 else { return }
                                 
                                 let searchRecipe = SearchRecipe(
                                     id: data.id,
                                     title: title,
-                                    image: image,
-                                    rating: rating,
-                                    readyInMinutes: readyInMinutes,
-                                    extendedIngredients: extendedIngredients,
-                                    instructionsLabel: instuctionsLabel
+                                    image: image
                                 )
-                                
                                 models.append(searchRecipe)
                             case .failure(let error):
                                 print(error)

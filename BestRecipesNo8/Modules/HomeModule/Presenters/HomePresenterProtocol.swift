@@ -9,11 +9,14 @@ import Foundation
 
 protocol HomePresenterProtocol {
     var searchRouter: SearchRouterProtocol? { get set }
+   
     var trendingNowRecipes: [RecipeProtocol] { get set }
+    var popularCategories: [String] { get } 
     var popularCategoryRecipes: [RecipeProtocol] { get set }
     var randomRecipe: [RecipeProtocol] { get set }
     var teamMembers: [Team] { get set }
-    var managerSections: ManagerSectionsProtocol? { get }
+    
+  
     var networkManager: NetworkManager { get set }
     var realmStoredManager: RealmStorageManager { get set }
     var router: HomeRouterProtocol { get set }

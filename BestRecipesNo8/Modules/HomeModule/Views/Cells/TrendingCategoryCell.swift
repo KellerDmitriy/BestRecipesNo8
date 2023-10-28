@@ -44,10 +44,10 @@ class TrendingCategoryCell: UICollectionViewCell {
               let rating = recipe.rating
         else { return }
         
+        recipeImageView.kf.indicatorType = .activity
         let cache = ImageCache.default
         cache.diskStorage.config.expiration = .seconds(1)
         let processor = RoundCornerImageProcessor(cornerRadius: 12, backgroundColor: .clear)
-        recipeImageView.kf.indicatorType = .activity
         recipeImageView.kf.setImage(with: URL(string: image), placeholder: nil, options: [.processor(processor),
                                                                                           .cacheSerializer(FormatIndicatedCacheSerializer.png)])
         titleRecipe.text = "How to make \(title) at home"
@@ -85,7 +85,10 @@ class TrendingCategoryCell: UICollectionViewCell {
         recipeImageView.snp.makeConstraints { make in
             make.width.equalTo(300)
             make.height.equalTo(200)
-            make.centerX.centerY.equalToSuperview()
+            make.top.equalTo(safeAreaLayoutGuide.snp.top).inset(8)
+           // make.bottom.equalTo(titleRecipe).offset(-8)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).inset(8)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).inset(8)
         }
         
         titleRecipe.snp.makeConstraints { make in

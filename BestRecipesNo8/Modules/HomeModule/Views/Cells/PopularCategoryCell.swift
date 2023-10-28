@@ -13,12 +13,13 @@ class PopularCategoryCell: UICollectionViewCell {
     
     // MARK: - Views
     private lazy var categoryTitle: UILabel = _categoryTitle
-
+    var didSelectCategoryHandler: ((String) -> Void)?
+    
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCellAppearance()
-    
+        
         addSubviews()
         applyConstraints()
     }
@@ -34,31 +35,17 @@ class PopularCategoryCell: UICollectionViewCell {
     
     func configureCell(title: String) {
         categoryTitle.text = title
+        
     }
     
     //MARK: - Update data of popular recipes and change color of selected cell
     
-//    func categoryIsTapped(categoryIndex: Int) {
-//        switch categoryIndex {
-//        case 0:
-//            MockData.shared.setPopularCategory(.salad)
-//        case 1:
-//            MockData.shared.setPopularCategory(.breakfast)
-//        case 2:
-//            MockData.shared.setPopularCategory(.appetizer)
-//        case 3:
-//            MockData.shared.setPopularCategory(.noodle)
-//        case 4:
-//            MockData.shared.setPopularCategory(.lunch)
-//        default:
-//            break
-//        }
-//    }
-    
     func selectCell(_ index: Int) {
         contentView.backgroundColor = .darkRedColor
         categoryTitle.textColor = .white
-        //categoryIsTapped(categoryIndex: index)
+        if let category = categoryTitle.text {
+            didSelectCategoryHandler?(category)
+        }
     }
     
     func deselectCell() {

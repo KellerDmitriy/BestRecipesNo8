@@ -80,6 +80,7 @@ struct NetworkManager {
             do {
                 let decodeData = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(decodeData))
+                //print(decodeData)
             } catch {
                 completion(.failure(.decodingError(error)))
             }
@@ -116,7 +117,7 @@ struct NetworkManager {
     
     /// Get random recipes.
     /// - Returns: 10 random recipes
-    func getRandomRecipes(completion: @escaping(Result<RecipeResults, NetworkError>) -> Void) {
+    func getRandomRecipes(completion: @escaping(Result<RandomRecipe, NetworkError>) -> Void) {
         guard let url = createURL(for: .getRandomRecipes, with: nil) else { return }
         makeTask(for: url, completion: completion)
         print(url)
@@ -175,11 +176,11 @@ extension NetworkManager {
     
     /// Get popular recipes
     /// - Returns: 10 popular recipes
-    func getTenPopularRecipes(sortedBy sortOrder: Endpoint.SortOrder, completion: @escaping(Result<[RecipeInfo], NetworkError>) -> Void) {
+    func getTenPopularRecipes(completion: @escaping(Result<[RecipeInfo], NetworkError>) -> Void) {
         guard let url = createURL(for: .getPopularRecipes) else { return }
         
-        makeTask(for: url) { recipeResult in
-            switch recipeResult {
+        makeTask(for: url) { searchResult in
+            switch searchResult {
             case .success(let data):
                 let ids = data.results?.compactMap { $0.id }
                 if let ids = ids {
@@ -199,8 +200,8 @@ extension NetworkManager {
         let mealTypeWithUnderscore = mealType.replacingOccurrences(of: " ", with: "_")
         guard let url = createURL(for: .getRecipesForMealType(type: mealTypeWithUnderscore)) else { return }
         
-        makeTask(for: url) { recipeResult in
-            switch recipeResult {
+        makeTask(for: url) { searchResult in
+            switch searchResult {
             case .success(let data):
                 let ids = data.results?.compactMap { $0.id }
                 if let ids = ids {

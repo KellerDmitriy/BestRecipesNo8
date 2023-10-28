@@ -86,6 +86,10 @@ class PopularRecipesCell: UICollectionViewCell {
             make.width.equalTo(150)
             make.height.equalTo(176)
             make.bottom.centerX.equalToSuperview()
+            make.top.equalTo(safeAreaLayoutGuide.snp.top).inset(8)
+           // make.bottom.equalTo(titleRecipe).offset(-8)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).inset(8)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).inset(8)
         }
         
         recipeImageView.snp.makeConstraints { make in

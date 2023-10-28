@@ -29,7 +29,7 @@ class HomeViewController: UIViewController {
         getRecipes()
         addSubviews()
         applyConstraints()
-       // selectFirstCell()
+        selectFirstCell()
         registerCollectionViewsAndHeaders()
     }
     
@@ -48,7 +48,6 @@ class HomeViewController: UIViewController {
             let section = self.sections[sectionIndex]
             
             switch section {
-                
             case .trendingNow:
                 return self.createTrendingSection()
             case .popularCategories:
@@ -56,7 +55,7 @@ class HomeViewController: UIViewController {
             case .popularRecipe:
                 return self.createPopularRecipeSection()
             case .randomRecipe:
-                return self.createRecentSection()
+                return self.createRandomSection()
             case .teamMembers:
                 return self.createTeamSection()
             }
@@ -81,15 +80,15 @@ class HomeViewController: UIViewController {
     // MARK: - Method to create item and group for sections
     
     private func createItemAndGroup(section: HomeSections) -> NSCollectionLayoutGroup {
-        let data = presenter.managerSections?.getDimensions(section: section)
+        let data = getDimensions(section: section)
         
         let item = NSCollectionLayoutItem(
-            layoutSize: .init(widthDimension: .fractionalWidth(data?.itemWidth ?? 1),
-                              heightDimension: .fractionalHeight(data?.itemHeight ?? 1)))
+            layoutSize: .init(widthDimension: .fractionalWidth(data.itemWidth),
+                              heightDimension: .absolute(data.itemHeight)))
         
         let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: .init(widthDimension: .fractionalWidth(data?.groupWidth ?? 1),
-                              heightDimension: .fractionalHeight(data?.groupHeight ?? 1)),
+            layoutSize: .init(widthDimension: .fractionalWidth(data.groupWidth),
+                              heightDimension: .fractionalHeight(data.groupHeight)),
             subitems: [item])
         return group
     }
@@ -129,7 +128,7 @@ class HomeViewController: UIViewController {
         return section
     }
     
-    private func createRecentSection() -> NSCollectionLayoutSection {
+    private func createRandomSection() -> NSCollectionLayoutSection {
         let group = createItemAndGroup(section: sections[3])
         let section = createLayoutSection(group: group,
                                           behavior: .groupPaging,
@@ -154,7 +153,7 @@ class HomeViewController: UIViewController {
     // MARK: - Settings of header of each section
     
     private func supplementaryHeaderItem() -> NSCollectionLayoutBoundarySupplementaryItem {
-        .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(30)),
+        .init(layoutSize: .init(widthDimension: .fractionalWidth(0.9), heightDimension: .estimated(30)),
               elementKind: UICollectionView.elementKindSectionHeader,
               alignment: .top)
     }
@@ -220,23 +219,23 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section >= 0 && section < sections.count {
-                let currentSection = sections[section]
-                switch currentSection {
-                case .trendingNow:
-                    return presenter.trendingNowRecipes.count
-                case .popularCategories:
-                    return presenter.popularCategoryRecipes.count
-                case .randomRecipe:
-                    return presenter.randomRecipe.count
-                case .popularRecipe:
-                    return presenter.popularCategoryRecipes.count
-                case .teamMembers(_):
-                    return presenter.teamMembers.count
-                }
+        if section >= 0 && section <= sections.count {
+            let currentSection = sections[section]
+            switch currentSection {
+            case .trendingNow:
+                return presenter.trendingNowRecipes.count
+            case .popularCategories:
+                return presenter.popularCategories.count
+            case .randomRecipe:
+                return presenter.randomRecipe.count
+            case .popularRecipe:
+                return presenter.popularCategoryRecipes.count
+            case .teamMembers(_):
+                return presenter.teamMembers.count
             }
-            return 0
         }
+        return 0
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -257,9 +256,13 @@ extension HomeViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             
-            let currentCategory = presenter.popularCategoryRecipes[indexPath.item]
-            cell.configureCell(title: currentCategory.title ?? "")
+            let currentCategory = presenter.popularCategories[indexPath.item]
+            cell.configureCell(
+                title: currentCategory)
             cell.isSelected ? cell.selectCell(indexPath.item) : cell.deselectCell()
+            cell.didSelectCategoryHandler = { [weak self] category in
+                self?.getPopularRecipes(with: category)
+            }
             
             return cell
         case .popularRecipe:
@@ -296,48 +299,37 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                     withReuseIdentifier: "header",
+                                                                     for: indexPath) as! HeaderSupplementaryView
         
-        switch kind {
-        case UICollectionView.elementKindSectionHeader:
-            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                         withReuseIdentifier: "header",
-                                                                         for: indexPath) as? HeaderSupplementaryView
-            else {
-                return UICollectionReusableView()
-            }
-            
-            let sectionIndex = indexPath.section
-            header.configureHeader(category: sections[sectionIndex].title)
-            
-            if sectionIndex == 1 {
-                header.isButtonHidden = true
-            }
-            
-            header.delegate = self
-            header.tag = indexPath.section
-            
+        switch sections[indexPath.section] {
+        case .trendingNow:
+            header.configureHeader(category: "Trending now")
+            header.seeAllButton.addTarget(self, action: #selector(seeAllTrendingButtonTap), for: .touchUpInside)
+            return header
+        case .popularCategories:
+            header.configureHeader(category: "Popular category")
+            header.isButtonHidden = true
+            return header
+        case .randomRecipe:
+            header.configureHeader(category: "Random Recipe")
+            header.seeAllButton.addTarget(self, action: #selector(seeAllRandomButtonTap), for: .touchUpInside)
             return header
         default:
-            return UICollectionReusableView()
+            header.configureHeader(category: "Dream Teem")
+            return header
         }
     }
-}
-
-extension HomeViewController: HeaderSupplementaryViewDelegate {
-    func didTapButton(inSection section: Int) {
-        switch section {
-        case 0:
-            //            let controller = SeeAllBuilder.createSeeAllModule()
-            //            navigationController?.pushViewController(controller, animated: true)
-            print("see all tapped from Trending Now")
-        case 3:
-            //            let controller = SeeAllBuilder.createSeeAllModule()
-            //            navigationController?.pushViewController(controller, animated: true)
-            print("see all tapped from Recent recipe")
-        default:
-            break
-        }
+    
+    @objc func seeAllTrendingButtonTap() {
+        presenter.seeAllButtonTapped(with: .trendingNow)
     }
+    
+    @objc func seeAllRandomButtonTap() {
+        presenter.seeAllButtonTapped(with: .random)
+    }
+    
 }
 
 // MARK: - UICollectionViewDelegate
@@ -354,17 +346,17 @@ extension HomeViewController: UICollectionViewDelegate {
             return false
         }
         
-//        var id = 0
-//        switch indexPath.section {
-//        case 0:
-//            id = presenter.trendingNowRecipes[indexPath.item].id
-//        case 1:
-//            id = presenter.popularCategoryRecipes[indexPath.item].id
-//        case 2:
-//            id = presenter.randomRecipe[indexPath.item].id
-//        default:
-//            break
-//        }
+        //        var id = 0
+        //        switch indexPath.section {
+        //        case 0:
+        //            id = presenter.trendingNowRecipes[indexPath.item].id
+        //        case 1:
+        //            id = presenter.popularCategoryRecipes[indexPath.item].id
+        //        case 2:
+        //            id = presenter.randomRecipe[indexPath.item].id
+        //        default:
+        //            break
+        //        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -380,20 +372,33 @@ extension HomeViewController: UICollectionViewDelegate {
         }
     }
 }
+
 //MARK: HomeViewProtocol Methods
 extension HomeViewController: HomeViewProtocol {
+    func getDimensions(section: HomeSections) -> (itemWidth: CGFloat, itemHeight: CGFloat, groupWidth: CGFloat, groupHeight: CGFloat) {
+        
+        switch section {
+        case .trendingNow: return (1, 0.9, 0.8, 0.55)
+        case .popularCategories: return (0.9, 30, 0.21, 0.2)
+        case .popularRecipe: return (1, 0.9, 0.4, 0.4)
+        case .randomRecipe: return (1, 0.9, 0.33, 0.45)
+        case .teamMembers: return (1, 1, 0.4, 0.45)
+        }
+    }
+    
     func updatePopularCategory() {
         collectionView.reloadData()
     }
     
-    func getPopularRecipes() {
+    func getPopularRecipes(with category: String) {
+        presenter.getRecipesWithMealType(mealType: category)
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
     }
     
     func getRecipes() {
-        presenter.networkManager.getTenPopularRecipes(sortedBy: .trendingNow) { result in
+        presenter.networkManager.getTenPopularRecipes() { result in
             switch result {
             case .success(let results):
                 let recipes = results
@@ -410,7 +415,7 @@ extension HomeViewController: HomeViewProtocol {
         presenter.networkManager.getRandomRecipes { result in
             switch result {
             case .success(let results):
-                if let recipes = results.results {
+                if let recipes = results.recipes {
                     self.presenter.randomRecipe = recipes
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
@@ -460,7 +465,6 @@ private extension HomeViewController {
         collectionView.backgroundColor = .white
         collectionView.delegate = self
         collectionView.dataSource = self
-
         
         collectionView.collectionViewLayout = createLayout()
         return collectionView

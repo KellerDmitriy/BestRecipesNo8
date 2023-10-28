@@ -8,7 +8,6 @@
 import Foundation
 
 class HomePresenter: HomePresenterProtocol {
-    
 
     weak var view: HomeViewProtocol?
     
@@ -16,13 +15,15 @@ class HomePresenter: HomePresenterProtocol {
     var networkManager = NetworkManager.shared
     var realmStoredManager = RealmStorageManager.shared
     var router: HomeRouterProtocol
-    var managerSections: ManagerSectionsProtocol?
     
-    var teamMembers: [Team] = Team.teamMembersData
     var trendingNowRecipes: [RecipeProtocol] = []
+
     var popularCategoryRecipes: [RecipeProtocol] = []
     var randomRecipe: [RecipeProtocol] = []
-    
+    var teamMembers: [Team] = Team.teamMembersData
+    var popularCategories: [String] {
+        return Constants.mealTypes
+    }
     var savedRecipesId: [Int] = []
     var savedRecipes: [RecipeRealmModel] = []
     
@@ -100,7 +101,7 @@ extension HomePresenter {
                 self.popularCategoryRecipes =  recipes
                 guard let view = self.view else { return }
                 print("Популярная категория: \(self.popularCategoryRecipes)")
-                view.getPopularRecipes()
+                view.getPopularRecipes(with: "")
             case .failure(let error):
                 print(error.localizedDescription)
             }
